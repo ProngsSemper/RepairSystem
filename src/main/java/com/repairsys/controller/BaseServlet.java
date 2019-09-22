@@ -1,7 +1,7 @@
 package com.repairsys.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.repairsys.vo.Result;
+import com.repairsys.bean.vo.Result;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

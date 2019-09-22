@@ -1,4 +1,4 @@
-package com.repairsys.vo;
+package com.repairsys.bean.vo;
 
 /**
  * @author 林洋锐
