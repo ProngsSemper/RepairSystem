@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class Print {
     @Test
-    public void print()
+    public void printSome()
     {
         System.out.println("hello");
     }
