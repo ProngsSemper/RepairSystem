@@ -13,7 +13,7 @@
     <!-- 此处需要配置   -->
     <named-config name="mysql">
         <property name="driverClass">com.mysql.jdbc.Driver</property>
-        <property name="jdbcUrl">jdbc:mysql://localhost:3306/javaWeb3?characterEncoding=utf8</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/repair</property>
         <property name="user">root</property>
         <property name="password">huxi913836</property>
         <property name="initialPoolSize">10</property>

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * @author 林洋锐
+ * @author 林洋锐，Prongs
  * @date 2019/9/21 -20:08
  * <p>
  * 常用的方法,查询单条，查询多条

@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /**
- * @author 林洋锐
+ * @author 林洋锐，Prongs
  * @date 2019/9/21
  * 主要对请求体进行预处理
  * 对于前台发送来的 json数据，我们用过滤器统一解析为 JsonObject对象，Servlet里面只需要得到这个对象即可用

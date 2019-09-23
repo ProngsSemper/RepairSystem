@@ -1,7 +1,7 @@
 package com.repairsys.bean.vo;
 
 /**
- * @author 林洋锐
+ * @author 林洋锐，Prongs
  * @date 2019/9/21
  * <p>
  * 数据库得到的结果集合
