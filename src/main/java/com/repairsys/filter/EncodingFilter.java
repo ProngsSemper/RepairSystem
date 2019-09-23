@@ -8,9 +8,8 @@ import java.io.IOException;
 /**
  * @author 林洋锐
  * @date 2019/9/21
- *
+ * <p>
  * 设置编码 统一为 UTF-8
- *
  */
 @WebFilter(filterName = "EncodingFilter")
 public class EncodingFilter implements Filter {
@@ -25,8 +24,6 @@ public class EncodingFilter implements Filter {
         //设置响应编码 为 utf-8 ,声明为json格式
         ((HttpServletResponse) resp).setContentType("application/json;charset=UTF-8");
         ((HttpServletResponse) resp).setCharacterEncoding("UTF-8");
-
-
 
         chain.doFilter(req, resp);
     }

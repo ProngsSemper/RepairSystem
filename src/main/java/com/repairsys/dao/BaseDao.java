@@ -11,9 +11,8 @@ import java.util.List;
 /**
  * @author 林洋锐
  * @date 2019/9/21 -20:08
- *
+ * <p>
  * 常用的方法,查询单条，查询多条
- *
  */
 public abstract class BaseDao<T> {
 
@@ -21,10 +20,8 @@ public abstract class BaseDao<T> {
     private BeanHandler<T> beanHandler;
     private BeanListHandler<T> beanListHandler;
 
-    protected BaseDao(Class<T> clazz)
-    {
-        if(clazz==null)
-        {
+    protected BaseDao(Class<T> clazz) {
+        if (clazz == null) {
             throw new IllegalArgumentException("传入参数为空");
         }
 
@@ -37,14 +34,12 @@ public abstract class BaseDao<T> {
         beanListHandler = new BeanListHandler<>(clazz);
     }
 
-    protected T selectOne(Connection con,String sql,Object... args)
-    {
+    protected T selectOne(Connection con, String sql, Object... args) {
         T res = null;
 
-        try{
-            res = queryRunner.query(con,sql,this.beanHandler,args);
-        }catch (Exception e)
-        {
+        try {
+            res = queryRunner.query(con, sql, this.beanHandler, args);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -52,12 +47,11 @@ public abstract class BaseDao<T> {
 
     }
 
-    protected List<T> selectList(Connection con,String sql,Object... args)
-    {
+    protected List<T> selectList(Connection con, String sql, Object... args) {
         List<T> res = null;
 
         try {
-            res = queryRunner.query(con,sql,beanListHandler,args);
+            res = queryRunner.query(con, sql, beanListHandler, args);
         } catch (SQLException e) {
             e.printStackTrace();
         }

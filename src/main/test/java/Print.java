@@ -5,13 +5,11 @@ import org.junit.Test;
  * @date 2019/9/22
  * 这个是junit包，试错
  * 这是打印测试，
- *
  */
 
 public class Print {
     @Test
-    public void printSome()
-    {
+    public void printSome() {
         System.out.println("hello");
     }
 }
