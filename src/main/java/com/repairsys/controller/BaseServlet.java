@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author 林洋锐，Prongs
+ * @author 林洋锐
  * @date 2019/9/21
  * <p>
  * 该类封装了发送方法，不配置路径

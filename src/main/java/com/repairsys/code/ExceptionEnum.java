@@ -1,7 +1,7 @@
 package com.repairsys.code;
 
 /**
- * @author 林洋锐，Prongs
+ * @author 林洋锐
  * @date 2019/9/21
  * <p>
  * 自定义异常
