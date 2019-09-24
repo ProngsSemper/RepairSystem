@@ -1,7 +1,9 @@
 package com.repairsys.bean.vo;
 
+import com.repairsys.code.ResultEnum;
+
 /**
- * @author 林洋锐
+ * @author lyr
  * @date 2019/9/21
  * <p>
  * 数据库得到的结果集合
@@ -44,5 +46,21 @@ public class Result<T> {
 
     public String getDesc() {
         return desc;
+    }
+
+    public Result<T> setResult(ResultEnum info)
+    {
+        this.code = info.getCode();
+        this.desc = info.getDesc();
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "code=" + code +
+                ", data=" + data +
+                ", desc='" + desc + '\'' +
+                '}';
     }
 }

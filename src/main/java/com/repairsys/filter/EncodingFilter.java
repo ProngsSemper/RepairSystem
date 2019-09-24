@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author 林洋锐
+ * @author lyr
  * @date 2019/9/21
  * <p>
  * 设置编码 统一为 UTF-8

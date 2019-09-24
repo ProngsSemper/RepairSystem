@@ -8,7 +8,7 @@ import java.beans.PropertyVetoException;
 import java.sql.*;
 
 /**
- * @author 林洋锐
+ * @author lyr
  * <p>
  * DAO层访问数据库需要用此得到连接
  */

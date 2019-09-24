@@ -1,0 +1,59 @@
+package com.repairsys.bean.entity;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+
+/**
+ * @Author lyr
+ * @create 2019/9/24 12:11
+ */
+public class Form implements Serializable {
+    private String stuId;
+    private byte queryCode;
+    private int formId;
+    private String formMsg;
+    private Date formDate;
+
+    public Form(){}
+
+    public String getStuId() {
+        return stuId;
+    }
+
+    public void setStuId(String stuId) {
+        this.stuId = stuId;
+    }
+
+    public byte getQueryCode() {
+        return queryCode;
+    }
+
+    public void setQueryCode(byte queryCode) {
+        this.queryCode = queryCode;
+    }
+
+    public int getFormId() {
+        return formId;
+    }
+
+    public void setFormId(int formId) {
+        this.formId = formId;
+    }
+
+    public String getFormMsg() {
+        return formMsg;
+    }
+
+    public void setFormMsg(String formMsg) {
+        this.formMsg = formMsg;
+    }
+
+    public Date getFormDate() {
+        return formDate;
+    }
+
+    public void setFormDate(Date formDate) {
+        this.formDate = formDate;
+    }
+}

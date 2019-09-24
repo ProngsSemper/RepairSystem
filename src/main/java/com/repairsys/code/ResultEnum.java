@@ -1,7 +1,7 @@
 package com.repairsys.code;
 
 /**
- * @author 林洋锐
+ * @author lyr
  * @date 2019/9/21
  * <p>
  * 定义结果状态，反馈给前端的信息
@@ -12,7 +12,7 @@ public enum ResultEnum {
     /**
      * 登录失败
      */
-    LOGIN_FAIL(401, "登录失败"),
+    LOGIN_FAIL(401, "用户名或密码错误"),
 
     /**
      * 登录成功
@@ -68,6 +68,8 @@ public enum ResultEnum {
     public String getDesc() {
         return desc;
     }
+
+
 
 }
 

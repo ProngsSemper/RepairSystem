@@ -3,7 +3,7 @@ package com.repairsys.util.exception;
 import com.repairsys.code.ExceptionEnum;
 
 /**
- * @author 林洋锐
+ * @author lyr
  * @date 2019/9/22
  * <p>
  * 自定义异常，配合 枚举类 ExceptionEnum的信息使用

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
- * @author 林洋锐
+ * @author lyr
  * @date 2019/9/21 -20:08
  * <p>
  * 常用的方法,查询单条，查询多条
@@ -34,28 +34,105 @@ public abstract class BaseDao<T> {
         beanListHandler = new BeanListHandler<>(clazz);
     }
 
+    /**
+     * 查询一条数据，封装为T 类型返回
+     * @param con
+     * @param sql
+     * @param args
+     * @return
+     */
     protected T selectOne(Connection con, String sql, Object... args) {
         T res = null;
 
+
         try {
             res = queryRunner.query(con, sql, this.beanHandler, args);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
         return res;
 
     }
 
-    protected List<T> selectList(Connection con, String sql, Object... args) {
+    /**
+     * 查询一堆数据，封装为T类型的集合并返回
+     * @param con
+     * @param sql
+     * @param args
+     * @return
+     */
+    protected List<T> selectList(Connection con, String sql, Object... args)  {
         List<T> res = null;
+
 
         try {
             res = queryRunner.query(con, sql, beanListHandler, args);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return res;
+    }
+
+    /**
+     * 添加一条为T类型的数据，并回馈结果
+     * @param con
+     * @param sql
+     * @param args
+     * @return
+     */
+    protected boolean addOne(Connection con,String sql,Object... args)
+    {
+        boolean res = false;
+
+        try {
+            queryRunner.insert(con,sql,beanHandler,args);
+            res = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+
+    }
+
+    /**
+     * 删除一条为 T类型的数据，并回馈结果
+     * @param con
+     * @param sql
+     * @return
+     */
+    protected boolean deleteOne(Connection con,String sql)
+    {
+        boolean res = false;
+        try {
+            queryRunner.update(con,sql);
+            res = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
+    /**
+     * 修改数据库的一条数据
+     * @param con
+     * @param sql
+     * @param args
+     * @return
+     */
+    protected boolean updateOne(Connection con,String sql,Object... args)
+    {
+        boolean res = false;
+        try {
+            queryRunner.update(con,sql,args);
+            res = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
+
     }
 
 }
