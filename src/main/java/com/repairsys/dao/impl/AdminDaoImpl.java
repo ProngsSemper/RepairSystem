@@ -9,20 +9,18 @@ import java.sql.Connection;
 import java.util.List;
 
 /**
- * @Author lyr
+ * @Author lyr, Prongs
  * @create 2019/9/24 16:54
  */
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
 
-    //TODO:数据库的sql语句要在这里写
-    //TODO: MD5加密工具包也在这里写
-
     private static final AdminDaoImpl ADMIN_DAO;
+
     static {
         ADMIN_DAO = new AdminDaoImpl();
     }
-    public static AdminDaoImpl getInstance()
-    {
+
+    public static AdminDaoImpl getInstance() {
         return ADMIN_DAO;
     }
 
@@ -50,7 +48,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
     public List<Admin> getAdminInfoList() {
         String sql = "Select * from administrators";
         Connection conn = JdbcUtil.getConnection();
-        List<Admin> list = super.selectList(conn,sql);
+        List<Admin> list = super.selectList(conn, sql);
         return list;
     }
 
@@ -64,8 +62,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
     @Override
     public Admin login(String id, String password) {
         Connection conn = JdbcUtil.getConnection();
-        //TODO 还要写 sql语句,同学记得写
-        Admin admin = super.selectOne(conn,"",id,password);
+        String sql = "select * from administrators where adminId=? and adminPassword=?";
+        Admin admin = super.selectOne(conn, sql, id, password);
 
         return admin;
 
@@ -82,13 +80,9 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
 
         Connection conn = JdbcUtil.getConnection();
         String sql = "insert into administrators values(?,?,?)";
-        boolean b = super.addOne(conn,sql,args);
-
+        boolean b = super.addOne(conn, sql, args);
 
         return b;
     }
-
-
-
 
 }
