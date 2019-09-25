@@ -1,5 +1,6 @@
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.dao.impl.AdminDaoImpl;
+import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
@@ -50,5 +51,10 @@ public class Print {
         String md5Pwd = Md5Util.getMd5(pwd);
         Admin admin = AdminDaoImpl.getInstance().login("123", md5Pwd);
         System.out.println(admin.toString());
+    }
+
+    @Test
+    public void sendMailTest() throws Exception {
+        MailUtil.sendMail("798237844@qq.com");
     }
 }
