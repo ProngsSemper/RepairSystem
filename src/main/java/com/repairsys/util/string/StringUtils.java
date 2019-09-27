@@ -1,5 +1,7 @@
 package com.repairsys.util.string;
 
+import com.repairsys.util.md5.Md5Util;
+
 /**
  * @Author lyr
  * @create 2019/9/24 19:13
@@ -41,6 +43,17 @@ public class StringUtils {
         }
 
         return true;
+    }
+
+    /**
+     * 对原始字符串进行加密，返回新的md5加密后的字符串
+     * @param password 传入原始字符串
+     * @return
+     */
+    public static final String getStringMd5(String password)
+    {
+
+        return Md5Util.getMd5(password);
     }
 
 

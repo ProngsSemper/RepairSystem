@@ -4,6 +4,7 @@ import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,7 @@ public class Print {
 
     @Test
     public void md5() {
-        String pwd = "PASSWORD";
+        String pwd = "PASSWORDddd";
         String newPwd = Md5Util.getMd5(pwd);
         System.out.println(newPwd);
 
@@ -56,5 +57,30 @@ public class Print {
     @Test
     public void sendMailTest() throws Exception {
         MailUtil.sendMail("798237844@qq.com");
+    }
+
+    @Test
+    public void register2()
+    {
+        boolean b = AdminDaoImpl.getInstance().registerPlus("123", "123", "123");
+        System.out.println(b);
+    }
+    /**
+     * 管理员加密登录
+     *
+     * */
+    @Test
+    public void login2()
+    {
+        Admin a = AdminDaoImpl.getInstance().login("123","123");
+        System.out.println(a!=null);
+        System.out.println(a.getAdminName());
+        System.out.println(a.getAdminPassword());
+    }
+
+    @Test
+    public void printDate()
+    {
+        System.out.println(new Date(new java.util.Date().getTime()));
     }
 }

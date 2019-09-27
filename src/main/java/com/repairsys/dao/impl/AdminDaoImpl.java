@@ -4,6 +4,7 @@ import com.repairsys.bean.entity.Admin;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.string.StringUtils;
 
 import java.sql.Connection;
 import java.util.List;
@@ -15,6 +16,11 @@ import java.util.List;
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
 
     private static final AdminDaoImpl ADMIN_DAO;
+
+    private static final String LOGIN_FOR_ADMIN = "select * from administrators where `adminId`=? and `adminPassword` =?";
+    private static final String QUERY_ALL_ADMIN = "Select * from administrators";
+    private static final String REGISTER = "insert into administrators (`adminId`, `adminName`, `adminPassword`, `adminMail`) values(?,?,?,?)";
+    private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -31,25 +37,26 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
     /**
      * 根据 id 获取管理员信息
      *
-     * @param id
-     * @return
+     * @param id  通过管理员的 id进行查询
+     * @return res 返回 bean管理员对象
      */
     @Override
     public Admin getById(String id) {
-        return null;
+
+        Connection conn = JdbcUtil.getConnection();
+        return super.selectOne(conn, QUERY_ONE);
     }
 
     /**
      * 获取管理员集合
      *
-     * @return
+     * @return  返回一个bean集合，里面是admin(管理员)的bean对象集合，如果有异常返回 null,需要对返回值进行判断是否为 null
      */
     @Override
     public List<Admin> getAdminInfoList() {
-        String sql = "Select * from administrators";
+
         Connection conn = JdbcUtil.getConnection();
-        List<Admin> list = super.selectList(conn, sql);
-        return list;
+        return super.selectList(conn, QUERY_ALL_ADMIN);
     }
 
     /**
@@ -57,30 +64,59 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
      *
      * @param id       管理员账号
      * @param password 管理员密码
-     * @return
+     * @return 返回一个bean管理员对象，如果有异常返回null
      */
     @Override
     public Admin login(String id, String password) {
         Connection conn = JdbcUtil.getConnection();
-        String sql = "select * from administrators where adminId=? and adminPassword=?";
-        Admin admin = super.selectOne(conn, sql, id, password);
+        String pwd = StringUtils.getStringMd5(password);
 
-        return admin;
+        return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
 
     }
 
     /**
      * 申请注册管理员账户
-     *
-     * @param args
-     * @return
+     * @param uId 管理员账号
+     * @param uName 管理员姓名
+     * @param uPassword 管理员密码
+     * @return 返回一个布尔值，如果没有异常返回true，否则返回 false
      */
+    public boolean registerPlus(String uId,String uName,String uPassword) {
+        String pwd = StringUtils.getStringMd5(uPassword);
+        return this.register(uId,uName,pwd,"");
+    }
+
+    /**
+     * 申请注册管理员账户
+     * @param uId 用户的 id
+     * @param uName 用户名字
+     * @param uPassword 用户密码
+     * @param email 用户的邮箱地址
+     * @return 返回一个布尔值，如果没有异常返回true，否则返回 false
+     */
+    public boolean registerPlus(String uId,String uName,String uPassword,String email)
+    {
+        String pwd = StringUtils.getStringMd5(uPassword);
+        return this.register(uId,uName,pwd,email);
+    }
+
+    /**
+     * 申请注册管理员账户
+     *
+     * @param args  用户传入的要插入的数据库的字段的参数
+     * @return  返回一个布尔值，如果没有异常返回true，否则返回 false
+     * @deprecated 该方法没有进行对特殊字段进行加密处理,请不要直接使用，推荐使用 registerPlus方法，为管理员账户专门设计的
+     * @see com.repairsys.dao.impl.AdminDaoImpl#registerPlus(String, String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
+     * @see com.repairsys.dao.impl.AdminDaoImpl#registerPlus(String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
+     */
+    @Deprecated
     @Override
     public boolean register(Object... args) {
 
         Connection conn = JdbcUtil.getConnection();
-        String sql = "insert into administrators values(?,?,?)";
-        boolean b = super.addOne(conn, sql, args);
+
+        boolean b = super.addOne(conn, REGISTER, args);
 
         return b;
     }

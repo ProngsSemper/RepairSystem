@@ -37,7 +37,7 @@ public interface AdminDao {
 
     /**
      * 申请注册管理员账户
-     * @param
+     * @param args 传入的数据库表的 列属性
      * @return
      */
     boolean register(Object... args);

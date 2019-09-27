@@ -1,8 +1,10 @@
 package com.repairsys.dao;
 
+import com.repairsys.util.db.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -133,6 +135,17 @@ public abstract class BaseDao<T> {
         }
         return res;
 
+    }
+
+    protected Long getCount(Connection con,String sql,Object arg)
+    {
+        try {
+            Long count = queryRunner.query(JdbcUtil.getConnection(),sql,new ScalarHandler<Long>(),arg);
+            return count;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 
 }

@@ -14,6 +14,8 @@ public class Form implements Serializable {
     private int formId;
     private String formMsg;
     private Date formDate;
+    private String formMail;
+    private String photoId;
 
     public Form(){}
 
@@ -55,5 +57,21 @@ public class Form implements Serializable {
 
     public void setFormDate(Date formDate) {
         this.formDate = formDate;
+    }
+
+    public String getFormMail() {
+        return formMail;
+    }
+
+    public void setFormMail(String formMail) {
+        this.formMail = formMail;
+    }
+
+    public String getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId;
     }
 }

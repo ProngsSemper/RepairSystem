@@ -11,6 +11,7 @@ public class Admin implements Serializable {
     private String adminId;
     private String adminName;
     private String adminPassword;
+    private String adminMail;
 
     public Admin() {
     }
@@ -37,6 +38,14 @@ public class Admin implements Serializable {
 
     public void setAdminPassword(String adminPassword) {
         this.adminPassword = adminPassword;
+    }
+
+    public String getAdminMail() {
+        return adminMail;
+    }
+
+    public void setAdminMail(String adminMail) {
+        this.adminMail = adminMail;
     }
 
     @Override

@@ -11,7 +11,7 @@ public interface StudentDao {
     /**
      * 根据学生学号进行查询
      * @param stuId 学生学号
-     * @return
+     * @return 返回一个bean对象 (Student 类)
      */
     Student queryById(String stuId);
 
@@ -20,24 +20,39 @@ public interface StudentDao {
      *
      * @param stuId 学生学号
      * @param password 学生账号
-     * @return
+     * @return 返回一个bean对象 (Student 类)
      */
     Student login(String stuId,String password );
 
     /**
      * 学生是否存在
-     * @param stuId 
-     * @param password
-     * @return
+     * @param stuId 学生的 id账号
+     *
+     * @return 学生是否存在
      */
-    boolean exists(String stuId,String password);
+    boolean exists(String stuId);
 
     /**
      * 学生注册
      * @param person
-     * @return
+     * @return 学生注册账号是否成功
      */
     boolean register(Student person);
+
+
+
+    /**
+     * 工人注册时，写入数据库的一条记录
+     * @param stuId 工人的登录账号
+     * @param stuName 工人的名字
+     * @param stuTel 工人的电话号码
+     * @param stuPassword 工人的账号密码
+     * @param stuMail 工人的电子邮箱号码
+     * @return 注册成功返回true，若出现异常注册失败返回false
+     */
+    boolean register(String stuId,String stuName,String stuTel,String stuPassword,String stuMail);
+
+
 
 
 

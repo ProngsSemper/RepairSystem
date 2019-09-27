@@ -9,7 +9,11 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Md5Util {
 
-    //将字节数组转为十六进制
+    /**
+     * 得到加密后的字符串
+     * @param bytes 将字节数组转为16进制得到字符串
+     * @return
+     */
     private static String bytesToHex(byte[] bytes) {
         StringBuffer hex = new StringBuffer();
         int num;
@@ -30,7 +34,7 @@ public class Md5Util {
      * MD5加密
      *
      * @param message 用户的原始密码
-     * @return MD5加密后的密码
+     * @return MD5加密后的密码，加密后的字符串
      */
     public static String getMd5(String message) {
         String md5 = "";

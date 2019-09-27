@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
  * @create 2019/9/24 18:08
  */
 public class AdminServiceImpl implements AdminService {
+    //TODO: serciece 层目前先不写，dao还没完成
 
 
     private AdminDao adminDao = DaoFactory.getAdminDao();
