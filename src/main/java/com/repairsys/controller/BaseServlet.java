@@ -18,7 +18,7 @@ import java.io.PrintWriter;
  * 该类封装了发送方法，不配置路径
  * 具体业务由其子类类实现
  */
-@WebServlet(name = "BaseServlet")
+@WebServlet("/BaseServlet")
 public abstract class BaseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
