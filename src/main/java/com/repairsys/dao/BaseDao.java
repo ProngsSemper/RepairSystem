@@ -21,6 +21,7 @@ public abstract class BaseDao<T> {
     private QueryRunner queryRunner;
     private BeanHandler<T> beanHandler;
     private BeanListHandler<T> beanListHandler;
+    private ScalarHandler<Long> numberHandler;
 
     protected BaseDao(Class<T> clazz) {
         if (clazz == null) {
@@ -34,6 +35,8 @@ public abstract class BaseDao<T> {
 
         /*  把结果集转为一个 Bean 的 List, 并返回.。Bean的类型在创建 BeanListHanlder对象时以 Class对象的方式传入，可以适应列的别名来映射 JavaBean 的属性 */
         beanListHandler = new BeanListHandler<>(clazz);
+        /* 查询数据库记录条数的一个工具 */
+        numberHandler = new ScalarHandler<Long>();
     }
 
     /**
@@ -137,15 +140,16 @@ public abstract class BaseDao<T> {
 
     }
 
-    protected Long getCount(Connection con,String sql,Object arg)
+    protected int getCount(Connection con,String sql,Object... arg)
     {
         try {
-            Long count = queryRunner.query(JdbcUtil.getConnection(),sql,new ScalarHandler<Long>(),arg);
-            return count;
+            long count = queryRunner.query(JdbcUtil.getConnection(),sql,numberHandler,arg);
+            return (int)count;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0L;
+        return 0;
     }
+
 
 }
