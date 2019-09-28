@@ -77,7 +77,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
 
 
         Connection conn = JdbcUtil.getConnection();
-        return !super.addOne(conn, APPLY_FORM, args);
+        return super.addOne(conn, APPLY_FORM, args);
 
 
     }
@@ -96,7 +96,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     @Override
     public Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId) {
         //INSERT INTO FORM (stuId,queryCode,formMsg,formDate,formMail,photoId)";
-        return !super.addOne(JdbcUtil.getConnection(), APPLY_FORM_DEFAULT, stuId, code, formMsg, formDate, formMail, photoId);
+        return super.addOne(JdbcUtil.getConnection(), APPLY_FORM_DEFAULT, stuId, code, formMsg, formDate, formMail, photoId);
     }
 
     /**
