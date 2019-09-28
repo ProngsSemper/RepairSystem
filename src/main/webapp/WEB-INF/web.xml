@@ -14,10 +14,7 @@
         <filter-name>RequestBodyFilter</filter-name>
         <filter-class>com.repairsys.filter.RequestBodyFilter</filter-class>
     </filter>
-    <filter>
-        <filter-name>LoginFilter</filter-name>
-        <filter-class>com.repairsys.filter.LoginFilter</filter-class>
-    </filter>
+
 
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
@@ -27,10 +24,11 @@
         <filter-name>RequestBodyFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>LoginFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 
 
 </web-app>

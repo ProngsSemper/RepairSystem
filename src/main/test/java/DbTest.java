@@ -14,7 +14,7 @@ public class DbTest {
     @Test
     public void addForm()
     {
-        FormDaoImpl.getInstance().apply("123","宿舍水管坏了，过来修，北苑17栋，B513",new Date(new java.util.Date().getTime()));
+        FormDaoImpl.getInstance().apply("123d","宿舍水管坏d了，过来修，北苑17栋，B513",new Date(new java.util.Date().getTime()));
     }
 
     @Test

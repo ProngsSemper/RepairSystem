@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Student;
 import com.repairsys.dao.impl.AdminDaoImpl;
@@ -64,7 +65,7 @@ public class Print {
     @Test
     public void register2()
     {
-        boolean b = AdminDaoImpl.getInstance().registerPlus("123", "123", "123");
+        boolean b = AdminDaoImpl.getInstance().registerPlus("12d3", "123", "123");
         System.out.println(b);
     }
     /**
@@ -94,4 +95,13 @@ public class Print {
     {
         System.out.println(new Date(new java.util.Date().getTime()));
     }
+
+    @Test
+    public void printJson()
+    {
+        JSONObject jsonObject = JSONObject.parseObject("{'stuId':'123','stuPassword':'1'}");
+        System.out.println(jsonObject.getString("stuId"));
+        System.out.println(jsonObject);
+    }
+
 }

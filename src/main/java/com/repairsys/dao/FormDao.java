@@ -14,7 +14,7 @@ public interface FormDao {
     /**
      * 根据维修单号来查询维修单的信息
      * @param formId 维修单号
-     * @return
+     * @return 返回一条javabean对象
      */
     Form queryByFormId(String formId);
 
@@ -29,7 +29,7 @@ public interface FormDao {
     /**
      * 查询指定状态的表单，比如查询未进行维修处理的表单 和 已经维修完成的表单
      * @param status 表单状态 如 0 表示待维修  1表示维修后7天内  2表示已经维修完成
-     * @return
+     * @return @return 返回一条javabean 集合
      */
     List<Form> queryFormListByStatus(byte status);
 
@@ -58,7 +58,7 @@ public interface FormDao {
      * @param stuId 学生账号
      * @param formMsg 学生表单报修详细情况
      * @param formDate 学生表单提交日期
-     * @return
+     * @return 返回用户提交是否成功
      */
     Boolean apply(String stuId,String formMsg, Date formDate);
 
@@ -71,7 +71,7 @@ public interface FormDao {
 
     /**
      * 管理员可能要删除维修完成后，时间过久了的表单记录
-     * @param formId
+     * @param formId 用户申请的表单 id
      * @return 如果删除失败，或者出现异常，返回false，否则返回true
      */
     Boolean delete(int formId);

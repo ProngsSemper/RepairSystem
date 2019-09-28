@@ -11,14 +11,14 @@ import com.repairsys.service.impl.StudentServiceImpl;
  */
 public class ServiceFactory {
     private static final AdminService ADMIN_SERVICE;
-    private static final StudentService STUDENT_SERVICE;
+    private static final StudentServiceImpl STUDENT_SERVICE;
 
     static {
         ADMIN_SERVICE = new AdminServiceImpl();
         STUDENT_SERVICE = new StudentServiceImpl();
     }
 
-    public static StudentService getStudentService(){
+    public static StudentServiceImpl getStudentService(){
         return ServiceFactory.STUDENT_SERVICE;
     }
 }

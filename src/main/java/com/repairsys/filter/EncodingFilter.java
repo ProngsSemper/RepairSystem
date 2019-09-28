@@ -26,6 +26,7 @@ public class EncodingFilter implements Filter {
         ((HttpServletResponse) resp).setCharacterEncoding("UTF-8");
 
         chain.doFilter(req, resp);
+        return;
     }
 
     @Override

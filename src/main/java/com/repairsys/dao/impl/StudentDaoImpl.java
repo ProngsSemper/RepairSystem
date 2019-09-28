@@ -5,16 +5,18 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.StudentDao;
 import com.repairsys.util.db.JdbcUtil;
 
+import java.sql.Connection;
+
 /**
  * @Author lyr
  * @create 2019/9/27 11:25
  */
 public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
-    private static final StudentDaoImpl STUDENT_DAO = new StudentDaoImpl();
+    private static final StudentDao STUDENT_DAO = new StudentDaoImpl();
 
     private static final String STUDENT_REGISTER = "insert into students (stuId,stuName,stuTel,stuPassword,stuMail)values(?,?,?,?,?)";
     private static final String STUDENT_LOGIN = "select * from students where stuId = ? and stuPassword = ?";
-    public static StudentDaoImpl getInstance()
+    public static StudentDao getInstance()
     {
         return STUDENT_DAO;
     }
@@ -43,7 +45,10 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
      */
     @Override
     public Student login(String stuId, String password) {
-        return super.selectOne(JdbcUtil.getConnection(),STUDENT_LOGIN,stuId,password);
+        Connection conn = JdbcUtil.getConnection();
+        Student s =  super.selectOne(conn,STUDENT_LOGIN,stuId,password);
+
+        return s;
     }
 
     /**
@@ -84,7 +89,7 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
      */
     @Override
     public boolean register(String stuId, String stuName, String stuTel, String stuPassword, String stuMail) {
-        return super.addOne(JdbcUtil.getConnection(),STUDENT_REGISTER,stuId,  stuName,  stuTel, stuPassword, stuMail);
+        return !super.addOne(JdbcUtil.getConnection(), STUDENT_REGISTER, stuId, stuName, stuTel, stuPassword, stuMail);
     }
 
 

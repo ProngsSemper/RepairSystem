@@ -10,6 +10,7 @@ import com.repairsys.dao.DaoFactory;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
 
+
 import javax.servlet.http.HttpSession;
 
 /**
@@ -33,6 +34,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Result<Boolean> login(String adminId, String password, HttpSession session) {
+
         Result<Boolean> result = new Result<>();
         if(!StringUtils.login(adminId,password))
         {

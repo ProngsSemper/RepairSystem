@@ -1,6 +1,8 @@
 package com.repairsys.filter;
 
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -16,6 +18,8 @@ import java.io.IOException;
  */
 @WebFilter(filterName = "RequestBodyFilter")
 public class RequestBodyFilter implements Filter {
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public void destroy() {
     }
@@ -35,11 +39,22 @@ public class RequestBodyFilter implements Filter {
 
         //判断 json的内容不为空
         if (jsonBuilder.length() > 0) {
+            logger.debug(jsonBuilder.toString());
             //使用 阿里提供的 api
             //将 json数据读取为一行，转为JsonObject对象
+
+
+
             JSONObject json = JSONObject.parseObject(jsonBuilder.toString());
+
+            logger.debug("json转化成功");
+
+
+
             request.setAttribute("requestBody", json);
+
         }
+
 
         chain.doFilter(req, resp);
     }

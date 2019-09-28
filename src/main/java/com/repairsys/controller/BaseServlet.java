@@ -18,8 +18,14 @@ import java.io.PrintWriter;
  * 该类封装了发送方法，不配置路径
  * 具体业务由其子类类实现
  */
-@WebServlet("/BaseServlet")
+
 public abstract class BaseServlet extends HttpServlet {
+   /**
+    * @author lyr
+    * @date 2019/9/27
+    * BaseServlet 里面的方法都不要配置路径，只是给之类使用而已
+    *
+    * */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Result res = (Result) request.getAttribute("result");

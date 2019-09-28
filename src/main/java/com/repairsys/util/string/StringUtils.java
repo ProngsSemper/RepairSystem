@@ -19,7 +19,7 @@ public class StringUtils {
      */
     public static final boolean login(String uid,String password)
     {
-        if(uid==null||uid.length()<=1)
+        if(uid==null||uid.length()<1)
         {
             return false;
         }
@@ -27,7 +27,7 @@ public class StringUtils {
         *
         * 注意：现实中并没用长度为1的账号和长度为1的密码，就是不是空串，长度为1也不能过
         * */
-        if(password==null||password.length()<=1)
+        if(password==null||password.length()<1)
         {
             return false;
         }
