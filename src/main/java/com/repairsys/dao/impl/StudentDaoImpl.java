@@ -89,7 +89,7 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
      */
     @Override
     public boolean register(String stuId, String stuName, String stuTel, String stuPassword, String stuMail) {
-        return !super.addOne(JdbcUtil.getConnection(), STUDENT_REGISTER, stuId, stuName, stuTel, stuPassword, stuMail);
+        return super.addOne(JdbcUtil.getConnection(), STUDENT_REGISTER, stuId, stuName, stuTel, stuPassword, stuMail);
     }
 
 

@@ -46,8 +46,9 @@ public class StudentServiceImpl implements StudentService {
 
 
 
+
         session.setAttribute("student", student);
-        // System.out.println("登录成功");
+
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
     }
 

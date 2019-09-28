@@ -47,7 +47,7 @@ public class RequestBodyFilter implements Filter {
 
             JSONObject json = JSONObject.parseObject(jsonBuilder.toString());
 
-            logger.debug("json转化成功");
+            logger.info("json转化成功{}",jsonBuilder.toString());
 
 
 
