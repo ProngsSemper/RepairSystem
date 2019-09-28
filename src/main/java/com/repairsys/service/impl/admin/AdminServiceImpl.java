@@ -1,4 +1,4 @@
-package com.repairsys.service.impl;
+package com.repairsys.service.impl.admin;
 
 
 

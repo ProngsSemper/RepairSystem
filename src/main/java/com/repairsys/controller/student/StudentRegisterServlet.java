@@ -1,5 +1,10 @@
 package com.repairsys.controller.student;
 
+import com.repairsys.service.ServiceFactory;
+import com.repairsys.service.impl.student.StudentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +18,10 @@ import java.io.IOException;
  */
 @WebServlet("/student/register")
 public class StudentRegisterServlet extends HttpServlet {
-    //TODO: 还没写哦
+    private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
+    private static final Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

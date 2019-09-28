@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.StudentService;
-import com.repairsys.service.impl.StudentServiceImpl;
+import com.repairsys.service.impl.student.StudentServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

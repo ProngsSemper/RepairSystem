@@ -1,7 +1,7 @@
 package com.repairsys.service;
 
-import com.repairsys.service.impl.AdminServiceImpl;
-import com.repairsys.service.impl.StudentServiceImpl;
+import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.service.impl.student.StudentServiceImpl;
 
 /**
  * @author lyr, Prongs
