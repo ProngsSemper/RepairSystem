@@ -24,7 +24,7 @@ import java.io.IOException;
 public class StudentLoginServlet extends BaseServlet {
 
     private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
