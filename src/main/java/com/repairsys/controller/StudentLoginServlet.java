@@ -5,6 +5,8 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
 import com.repairsys.service.impl.StudentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class StudentLoginServlet extends BaseServlet {
 
     private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,7 +34,9 @@ public class StudentLoginServlet extends BaseServlet {
         Result result = studentService.login(requestBody.getString("stuId"),
                 requestBody.getString("stuPassword"),
                 session);
-        System.out.println(result.getCode());
+
+        logger.info("登录成功{}",result);
+
 
         request.setAttribute("result", result);
         super.doPost(request, response);

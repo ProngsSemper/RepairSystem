@@ -17,8 +17,8 @@ import java.sql.*;
 public class JdbcUtil {
 
     private static DataSource ds;
-    public static PreparedStatement pstmt = null;
-    private static Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
+
+    private static final Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
 
     static {
         ds = new ComboPooledDataSource("mysql");

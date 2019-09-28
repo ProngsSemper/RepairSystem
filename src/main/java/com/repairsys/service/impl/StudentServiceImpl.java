@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  */
 public class StudentServiceImpl implements StudentService {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private StudentDaoImpl studentDao = (StudentDaoImpl) DaoFactory.getStudentDao();
 
     @Override

@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 @WebFilter(filterName = "RequestBodyFilter")
 public class RequestBodyFilter implements Filter {
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
 
     @Override
     public void destroy() {
