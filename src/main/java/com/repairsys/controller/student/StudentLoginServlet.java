@@ -1,7 +1,8 @@
-package com.repairsys.controller;
+package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
 import com.repairsys.service.impl.StudentServiceImpl;
@@ -18,7 +19,7 @@ import java.io.IOException;
 /**
  * @author Prongs
  */
-@WebServlet("/student")
+@WebServlet("/student/login")
 public class StudentLoginServlet extends BaseServlet {
 
     private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
@@ -35,7 +36,7 @@ public class StudentLoginServlet extends BaseServlet {
                 requestBody.getString("stuPassword"),
                 session);
 
-        logger.info("登录成功{}",result);
+        logger.debug("登录成功{}",result);
 
 
         request.setAttribute("result", result);

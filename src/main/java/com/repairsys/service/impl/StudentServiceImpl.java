@@ -36,12 +36,14 @@ public class StudentServiceImpl implements StudentService {
         }
         //该方法在内部已经catch住了异常，出异常时 student可能为空
         Student student = studentDao.login(stuId, password);
-        logger.info("登录成功");
+
 
         if (student == null) {
 
             return result.setResult(ResultEnum.LOGIN_FAIL);
         }
+
+
 
 
 

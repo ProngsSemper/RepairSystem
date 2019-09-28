@@ -26,7 +26,7 @@
 
                 $.ajax({
                     type: "post",
-                    url: "student",
+                    url: "student/login",
                     data: JSON.stringify({'stuId':123,'stuPassword':1}),
                     dataType: "json",
                     success: function (ans) {

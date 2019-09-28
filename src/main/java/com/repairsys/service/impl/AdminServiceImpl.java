@@ -9,6 +9,8 @@ import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import javax.servlet.http.HttpSession;
@@ -18,13 +20,13 @@ import javax.servlet.http.HttpSession;
  * @create 2019/9/24 18:08
  */
 public class AdminServiceImpl implements AdminService {
-    //TODO: serciece 层目前先不写，dao还没完成
+    //TODO: 目前只是写了 login
 
-
+    private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     private AdminDao adminDao = DaoFactory.getAdminDao();
 
 
-    //TODO Logger要加，迟一点
+
     /**
      * 管理员登录
      *
