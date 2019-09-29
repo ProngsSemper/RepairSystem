@@ -100,7 +100,7 @@ public interface StudentService {
      * 学生查询正在申请的维修表单
      * @param stuId 学生账号
      * @param session 用户传入的session
-     * @return 返回学习提交的所有表单的信息
+     * @return 返回学生提交的所有表单的信息
      */
     Result<List<Form>> getFormList(String stuId, HttpSession session);
 
