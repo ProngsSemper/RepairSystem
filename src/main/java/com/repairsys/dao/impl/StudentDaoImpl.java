@@ -21,7 +21,7 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
     private static final String STUDENT_REGISTER = "insert into students (stuId,stuName,stuTel,stuPassword,stuMail)values(?,?,?,?,?)";
     private static final String STUDENT_LOGIN = "select * from students where stuId = ? and stuPassword = ?";
 
-    private static final String SET_PASSWORD = "update  students SET `stuPassword`= ? where stuId=? AND stuPassword= ?";
+    private static final String SET_PASSWORD = "update  students SET `stuPassword`= ? where stuId=?";
     private static final String RESET_PASSWORD = "update  students SET `stuPassword`='?' where stuId=? AND stuPassword=?";
 
 

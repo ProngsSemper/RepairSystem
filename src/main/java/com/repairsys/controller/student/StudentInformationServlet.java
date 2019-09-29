@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,8 +20,8 @@ import java.io.IOException;
  * @create 2019/9/29 14:08
  */
 @WebServlet("student/information")
-public class StudentAlterServlet extends BaseServlet {
-    private static Logger logger = LoggerFactory.getLogger(StudentAlterServlet.class);
+public class StudentInformationServlet extends BaseServlet {
+    private static Logger logger = LoggerFactory.getLogger(StudentInformationServlet.class);
     private StudentService studentService = ServiceFactory.getStudentService();
     //TODO: 需要session判断用户是否注册，如果没有注册，要用户重定向到首页
 
@@ -42,9 +41,14 @@ public class StudentAlterServlet extends BaseServlet {
 
                 requestBody.getString("stuId")
                 ,requestBody.getString("stuPassword")
+                ,column
+                ,columnValue,
+                session);
 
-                ,column,columnValue,session);
+
         logger.debug("返回修改信息{}",result);
+        request.setAttribute("result",result);
+        super.doPost(request,response);
 
 
 
@@ -56,6 +60,19 @@ public class StudentAlterServlet extends BaseServlet {
     * */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        String column = requestBody.getString("column");
+        String columnValue = requestBody.getString("columnValue");
+        Result result = studentService.login(
+
+                requestBody.getString("stuId")
+                ,requestBody.getString("stuPassword")
+
+                ,session);
+        logger.debug("返回修改信息{}",result);
+        request.setAttribute("result",result);
+        super.doPost(request,response);
 
     }
 
@@ -67,7 +84,19 @@ public class StudentAlterServlet extends BaseServlet {
      * */
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+
+        Result result = studentService.resetPassword(
+                requestBody.getString("stuId")
+                ,requestBody.getString("stuPassword")
+                ,requestBody.getString("newPassword")
+                ,session);
+
+
+        logger.debug("返回修改信息{}",result);
+        request.setAttribute("result",result);
+        super.doPost(request,response);
     }
 }
