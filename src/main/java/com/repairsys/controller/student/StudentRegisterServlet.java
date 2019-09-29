@@ -2,6 +2,7 @@ package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
 import org.slf4j.Logger;
@@ -20,7 +21,7 @@ import java.io.IOException;
  * @create 2019/9/28 17:37
  */
 @WebServlet("/student/register")
-public class StudentRegisterServlet extends HttpServlet {
+public class StudentRegisterServlet extends BaseServlet {
     private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
     private static final Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
 
@@ -30,8 +31,11 @@ public class StudentRegisterServlet extends HttpServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = studentService.login(requestBody.getString("stuId"),
+        Result result = studentService.register(requestBody.getString("stuId"),
+                requestBody.getString("stuName"),
+                requestBody.getString("stuTel"),
                 requestBody.getString("stuPassword"),
+                requestBody.getString("stuMail"),
                 session);
 
         logger.debug("注册信息 {}",result);

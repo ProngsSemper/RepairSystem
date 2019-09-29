@@ -18,7 +18,7 @@ public class JdbcUtil {
 
     private static DataSource ds;
 
-    private static final Logger logger = LoggerFactory.getLogger(JdbcUtil.class);
+
 
     static {
         ds = new ComboPooledDataSource("mysql");
@@ -37,7 +37,7 @@ public class JdbcUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        logger.debug("连接成功");
+
 
 
 
