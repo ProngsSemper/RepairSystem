@@ -1,8 +1,8 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Student;
-import com.repairsys.dao.impl.AdminDaoImpl;
-import com.repairsys.dao.impl.StudentDaoImpl;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.student.StudentDaoImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;

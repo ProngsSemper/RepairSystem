@@ -1,19 +1,19 @@
 package com.repairsys.dao;
 
-import com.repairsys.bean.entity.Form;
-import com.repairsys.dao.impl.AdminDaoImpl;
-import com.repairsys.dao.impl.FormDaoImpl;
-import com.repairsys.dao.impl.StudentDaoImpl;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.student.StudentDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 
 /**
- * @Author lyr
+ * @Author lyr, Prongs
  * @create 2019/9/24 17:48
  */
 public class DaoFactory {
     /**
      * 负责处理管理员的dao实现类
      */
-    private static AdminDaoImpl ADMIN_DAO = AdminDaoImpl.getInstance();
+    private static AdminDao ADMIN_DAO = AdminDaoImpl.getInstance();
 
     /**
      * 负责处理维修表单的dao实现类
@@ -28,7 +28,7 @@ public class DaoFactory {
     /**
      * 负责处理工人信息的实现类
      */
-    private static WorkerDao WORKER_DAO;
+    private static WorkerDao WORKER_DAO = WorkerDaoImpl.getInstance();
 
     public static AdminDao getAdminDao() {
 
@@ -37,12 +37,15 @@ public class DaoFactory {
 
     public static StudentDao getStudentDao() {
 
-
         return STUDENT_DAO;
     }
-    public static FormDao getFormDao()
-    {
+
+    public static FormDao getFormDao() {
         return formDaoDao;
+    }
+
+    public static WorkerDao getWorkerDao() {
+        return WORKER_DAO;
     }
 
 }

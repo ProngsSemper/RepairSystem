@@ -1,7 +1,6 @@
-import com.repairsys.bean.entity.Student;
-import com.repairsys.dao.impl.FormDaoImpl;
-import com.repairsys.dao.impl.StudentDaoImpl;
-import com.repairsys.dao.impl.WorkerDaoImpl;
+import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.student.StudentDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import org.junit.Test;
 
 import java.sql.Date;

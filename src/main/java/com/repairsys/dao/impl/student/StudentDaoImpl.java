@@ -1,4 +1,4 @@
-package com.repairsys.dao.impl;
+package com.repairsys.dao.impl.student;
 
 import com.repairsys.bean.entity.Student;
 import com.repairsys.dao.BaseDao;
