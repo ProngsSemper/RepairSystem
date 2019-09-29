@@ -14,11 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+//TODO: restful风格不能有动词，后期改回来
+
 
 /**
  * @author Prongs
  * @date 2019/9/28
+ *
+ * <p>第一次尝试restful，这个接口写了动词，不标准，后期维护时改回来</p>
  */
+
 @WebServlet("/student/login")
 public class StudentLoginServlet extends BaseServlet {
 

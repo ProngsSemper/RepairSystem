@@ -4,6 +4,9 @@ import com.repairsys.bean.entity.Student;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.StudentDao;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.exception.impl.UserHandlerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 
@@ -12,13 +15,14 @@ import java.sql.Connection;
  * @create 2019/9/27 11:25
  */
 public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
+    private final static Logger logger = LoggerFactory.getLogger(StudentDaoImpl.class);
     private static final StudentDao STUDENT_DAO = new StudentDaoImpl();
 
     private static final String STUDENT_REGISTER = "insert into students (stuId,stuName,stuTel,stuPassword,stuMail)values(?,?,?,?,?)";
     private static final String STUDENT_LOGIN = "select * from students where stuId = ? and stuPassword = ?";
 
     private static final String SET_PASSWORD = "update  students SET `stuPassword`= ? where stuId=? AND stuPassword= ?";
-    private static final String RESET_PASSWORD = "update  students SET `stuPassword`='?' where stuId='decade' AND stuPassword=?";
+    private static final String RESET_PASSWORD = "update  students SET `stuPassword`='?' where stuId=? AND stuPassword=?";
 
 
     public static StudentDao getInstance()
@@ -118,7 +122,14 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
      * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
      */
     @Override
-    public boolean resetPassword(String stuId, String password, String newPassword) {
+    public boolean resetPassword(String stuId, String password, String newPassword) throws UserHandlerException  {
+        Student s = login(stuId,password);
+        if(s==null)
+        {
+            logger.debug("用户提交的验证密码不正确");
+            throw new UserHandlerException();
+
+        }
         return super.updateOne(JdbcUtil.getConnection(),RESET_PASSWORD,newPassword,stuId,password);
     }
 

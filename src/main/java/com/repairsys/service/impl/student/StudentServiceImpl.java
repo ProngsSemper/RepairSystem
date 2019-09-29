@@ -10,6 +10,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.service.StudentService;
+import com.repairsys.util.exception.impl.UserHandlerException;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,13 +107,30 @@ public class StudentServiceImpl implements StudentService {
      * @return 返回一个result对象 ，controller层将其转为json
      */
     @Override
-    public Result<Boolean> resetPassword(String stuId, String password,HttpSession session) {
+    public Result<Boolean> resetPassword(String stuId, String password,String newPassword,HttpSession session) {
+        Result<Boolean> result = new Result<>();
+        boolean b = false;
+        try{
+            b = studentDao.resetPassword(stuId,password,newPassword);
+        }catch (UserHandlerException e)
+        {
+            result.setResult(ResultEnum.LOGIN_FAIL);
+            logger.info(e.getMsg());
+        }
+
+        if(b)
+        {
+            result.setResult(ResultEnum.COMMITED_SUCCESSFULLY);
+        }else{
+            if(result.getCode()==0)
+            {
+                result.setResult(ResultEnum.USER_DO_RESET_FAIL);
+            }
+        }
+
+        return result;
 
 
-
-
-
-        return null;
     }
 
     /**
@@ -122,7 +140,7 @@ public class StudentServiceImpl implements StudentService {
      * @return 返回一个result对象 ，controller层将其转为json
      */
     @Override
-    public Result<Boolean> resetPassword(String stuId,HttpSession session) {
+    public Result<Boolean> resetPassword(String stuId,String newPassword,HttpSession session) {
         return null;
     }
 

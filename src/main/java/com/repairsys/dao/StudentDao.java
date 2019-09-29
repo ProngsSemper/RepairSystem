@@ -1,6 +1,7 @@
 package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Student;
+import com.repairsys.util.exception.impl.UserHandlerException;
 
 /**
  * @Author lyr
@@ -68,8 +69,10 @@ public interface StudentDao {
      * @param password  学生旧密码
      * @param newPassword  学生旧密码
      * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
+     *
+     * @exception UserHandlerException 用户提交的原密码不正确，手动抛出用户操作异常
      */
-    boolean resetPassword(String stuId, String password,String newPassword);
+    boolean resetPassword(String stuId, String password,String newPassword) throws UserHandlerException;
 
 
 

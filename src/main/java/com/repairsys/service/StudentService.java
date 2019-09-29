@@ -50,17 +50,19 @@ public interface StudentService {
      * @param stuId 学生账号（学号）
      * @param password 学生密码
      * @param session 用户传入的session
+     * @param newPassword 用户的新密码
      * @return 返回一个result对象 ，controller层将其转为json
      */
-    Result<Boolean> resetPassword(String stuId,String password, HttpSession session);
+    Result<Boolean> resetPassword(String stuId,String password,String newPassword, HttpSession session);
 
     /**
      * 学生在忘记密码的情况下修改密码
      * @param stuId 学生账号
      * @param session 用户传入的session
+     * @param newPassword 用户的新密码
      * @return 返回一个result对象 ，controller层将其转为json
      */
-    Result<Boolean> resetPassword(String stuId, HttpSession session);
+    Result<Boolean> resetPassword(String stuId,String newPassword, HttpSession session);
 
 
     /**

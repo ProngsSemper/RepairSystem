@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+//TODO: restful风格不能有动词，后期维护时改回来
 /**
  * @Author lyr
  * @create 2019/9/28 17:37
