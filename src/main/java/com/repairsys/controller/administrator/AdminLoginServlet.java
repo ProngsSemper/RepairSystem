@@ -1,10 +1,10 @@
-package com.repairsys.controller.student;
+package com.repairsys.controller.administrator;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.service.impl.admin.AdminServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,35 +14,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-//TODO: restful风格不能有动词，后期维护时改回来
-/**
- * @Author lyr
- * @create 2019/9/28 17:37
- */
-@WebServlet("/student/register")
-public class StudentRegisterServlet extends BaseServlet {
-    private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
-    private static final Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
 
+/**
+ * @author Prongs
+ * @date 2019/9/29
+ */
+@WebServlet("/admin/login")
+public class AdminLoginServlet extends BaseServlet {
+    private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
+    private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = studentService.register(requestBody.getString("stuId"),
-                requestBody.getString("stuName"),
-                requestBody.getString("stuTel"),
-                requestBody.getString("stuPassword"),
-                requestBody.getString("stuMail"),
+        Result result = adminService.login(requestBody.getString("adminId"),
+                requestBody.getString("adminPassword"),
                 session);
-
-        logger.debug("注册信息 {}",result);
-
-
+        logger.debug("登录成功{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
