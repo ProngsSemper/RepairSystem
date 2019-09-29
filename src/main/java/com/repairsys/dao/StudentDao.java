@@ -53,6 +53,25 @@ public interface StudentDao {
     boolean register(String stuId,String stuName,String stuTel,String stuPassword,String stuMail);
 
 
+    /**
+     * 修改学生密码
+     * @param stuId 学习账号
+     * @param newPassword 学生密码
+     * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
+     */
+    boolean resetPassword(String stuId,String newPassword);
+
+
+    /**
+     * 学生在不记得密码的情况下修改密码
+     * @param stuId  stuId 学习账号
+     * @param password  学生旧密码
+     * @param newPassword  学生旧密码
+     * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
+     */
+    boolean resetPassword(String stuId, String password,String newPassword);
+
+
 
 
 

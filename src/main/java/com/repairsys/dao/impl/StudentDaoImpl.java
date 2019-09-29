@@ -16,6 +16,11 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
 
     private static final String STUDENT_REGISTER = "insert into students (stuId,stuName,stuTel,stuPassword,stuMail)values(?,?,?,?,?)";
     private static final String STUDENT_LOGIN = "select * from students where stuId = ? and stuPassword = ?";
+
+    private static final String SET_PASSWORD = "update  students SET `stuPassword`= ? where stuId=? AND stuPassword= ?";
+    private static final String RESET_PASSWORD = "update  students SET `stuPassword`='?' where stuId='decade' AND stuPassword=?";
+
+
     public static StudentDao getInstance()
     {
         return STUDENT_DAO;
@@ -92,9 +97,30 @@ public class StudentDaoImpl extends BaseDao<Student> implements StudentDao {
         return super.addOne(JdbcUtil.getConnection(), STUDENT_REGISTER, stuId, stuName, stuTel, stuPassword, stuMail);
     }
 
+    /**
+     * 修改学生密码
+     *
+     * @param stuId       学习账号
+     * @param newPassword 学生密码
+     * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
+     */
+    @Override
+    public boolean resetPassword(String stuId, String newPassword) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_PASSWORD,newPassword,stuId);
+    }
 
-
-
+    /**
+     * 学生在不记得密码的情况下修改密码
+     *
+     * @param stuId       stuId 学习账号
+     * @param password    学生旧密码
+     * @param newPassword 学生旧密码
+     * @return 修改数据库的密码是否成功，成功返回true，出现异常返回 false
+     */
+    @Override
+    public boolean resetPassword(String stuId, String password, String newPassword) {
+        return super.updateOne(JdbcUtil.getConnection(),RESET_PASSWORD,newPassword,stuId,password);
+    }
 
 
 }

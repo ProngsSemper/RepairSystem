@@ -106,7 +106,12 @@ public class StudentServiceImpl implements StudentService {
      * @return 返回一个result对象 ，controller层将其转为json
      */
     @Override
-    public Result<Boolean> setPassword(String stuId, String password,HttpSession session) {
+    public Result<Boolean> resetPassword(String stuId, String password,HttpSession session) {
+
+
+
+
+
         return null;
     }
 
@@ -117,7 +122,7 @@ public class StudentServiceImpl implements StudentService {
      * @return 返回一个result对象 ，controller层将其转为json
      */
     @Override
-    public Result<Boolean> setPassword(String stuId,HttpSession session) {
+    public Result<Boolean> resetPassword(String stuId,HttpSession session) {
         return null;
     }
 

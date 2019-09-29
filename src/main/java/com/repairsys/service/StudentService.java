@@ -52,7 +52,7 @@ public interface StudentService {
      * @param session 用户传入的session
      * @return 返回一个result对象 ，controller层将其转为json
      */
-    Result<Boolean> setPassword(String stuId,String password, HttpSession session);
+    Result<Boolean> resetPassword(String stuId,String password, HttpSession session);
 
     /**
      * 学生在忘记密码的情况下修改密码
@@ -60,7 +60,7 @@ public interface StudentService {
      * @param session 用户传入的session
      * @return 返回一个result对象 ，controller层将其转为json
      */
-    Result<Boolean> setPassword(String stuId, HttpSession session);
+    Result<Boolean> resetPassword(String stuId, HttpSession session);
 
 
     /**
