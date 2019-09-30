@@ -35,7 +35,7 @@ public class Print {
     public void register() {
         String pwd = "123";
         String md5Pwd = Md5Util.getMd5(pwd);
-        boolean b = AdminDaoImpl.getInstance().register("123", "123", md5Pwd);
+        boolean b = AdminDaoImpl.getInstance().registerPlus("123","dd",pwd);
         System.out.println(b);
     }
 
@@ -49,9 +49,7 @@ public class Print {
 
     @Test
     public void login() {
-        String pwd = "123";
-        String md5Pwd = Md5Util.getMd5(pwd);
-        Admin admin = AdminDaoImpl.getInstance().login("123", md5Pwd);
+        Admin admin = AdminDaoImpl.getInstance().login("123", "123");
         System.out.println(admin.toString());
     }
 

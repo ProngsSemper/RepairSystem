@@ -70,9 +70,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
     public Admin login(String id, String password) {
         Connection conn = JdbcUtil.getConnection();
         String pwd = StringUtils.getStringMd5(password);
-
+        System.out.println(pwd);
         return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
-
     }
 
     /**
