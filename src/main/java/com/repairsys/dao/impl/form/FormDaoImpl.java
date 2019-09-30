@@ -142,7 +142,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
      */
     @Override
     public Boolean apply(Form form) {
-        return this.apply(form.getStuId(),form.getQueryCode(),form.getFormMsg(),form.getFormDate(),form.getFormMail(),form.getPhotoId());
+        return this.apply(form.getStuId(),form.getQueryCode(),form.getFormMsg(),form.getFormDate(),form.getStuMail(),form.getPhotoId());
     }
 
 
