@@ -1,16 +1,19 @@
 package com.repairsys.service.impl.admin;
 
 import com.repairsys.bean.entity.Admin;
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.FormDao;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author lyr, Prongs
@@ -45,6 +48,15 @@ public class AdminServiceImpl implements AdminService {
         session.setAttribute("admin", admin);
 
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
+    }
+
+    public Result searchByFormId(String formId)
+    {
+        FormDao formDao = DaoFactory.getFormDao();
+        List<Form> list = formDao.queryByFormId(formId);
+        Result<List<Form>> result = new Result();
+        result.setData(list);
+        return result;
     }
 
     public AdminServiceImpl() {
