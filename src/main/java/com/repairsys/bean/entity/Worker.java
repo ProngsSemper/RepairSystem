@@ -1,7 +1,5 @@
 package com.repairsys.bean.entity;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
-
 import java.io.Serializable;
 /**
  * @Author lyr
