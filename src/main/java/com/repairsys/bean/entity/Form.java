@@ -19,6 +19,32 @@ public class Form implements Serializable {
     private int adminKey;
     private int wKey;
 
+    public int getAdminKey() {
+        return adminKey;
+    }
+
+    public void setAdminKey(int adminKey) {
+        this.adminKey = adminKey;
+    }
+
+    public int getwKey() {
+        return wKey;
+    }
+
+    public void setwKey(int wKey) {
+        this.wKey = wKey;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    private Date endDate;
+
     public Form(){}
 
     public String getStuId() {
