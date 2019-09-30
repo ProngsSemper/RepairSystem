@@ -25,9 +25,9 @@ public class Postman {
         // System.out.println(finalUrl);
 
         HttpGet getHandler = new HttpGet(finalUrl);
-        //´´½¨Ò»¸öÓÃÓÚ×¥°üµÄ¿Í»§¶Ë
+        //åˆ›å»ºä¸€ä¸ªç”¨äºæŠ“åŒ…çš„å®¢æˆ·ç«¯
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        //Ìá½»²¢ÇÒ»ñÈ¡urlµÄÏìÓ¦
+        //æäº¤å¹¶ä¸”è·å–urlçš„å“åº”
         CloseableHttpResponse response = httpClient.execute(getHandler);
         // System.out.println(response);
 
