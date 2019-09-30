@@ -48,7 +48,7 @@ public class StringUtils {
     /**
      * 对原始字符串进行加密，返回新的md5加密后的字符串
      * @param password 传入原始字符串
-     * @return
+     * @return 返回加密过后的字符串
      */
     public static final String getStringMd5(String password)
     {

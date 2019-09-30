@@ -43,6 +43,16 @@ public enum ResultEnum {
      * */
     USER_DO_FAIL(407,"操作失败"),
 
+
+    /**
+     * @author lyr
+     *
+     * @date 2019/9/29
+     * 用法：用户修改密码或者修改信息，但是原来的密码填错了，抛出异常，需要回馈给页面
+     *
+     */
+    USER_DO_RESET_FAIL(408,"用户修改信息失败"),
+
     /**
      * 无访问权限
      */
@@ -66,11 +76,11 @@ public enum ResultEnum {
     ;
 
     /**
-     * 状态码
+     * 状态码   code
      */
     private Integer code;
     /**
-     * 状态描述
+     * 状态描述 description
      */
     private String desc;
 

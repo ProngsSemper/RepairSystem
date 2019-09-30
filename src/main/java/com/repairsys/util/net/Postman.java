@@ -22,14 +22,14 @@ public class Postman {
 
     public static JSONObject doGet(String xh,String pwd) throws IOException {
         String finalUrl = LOGIN_REQUEST+"xh="+xh+"&pwd="+pwd;
-        // System.out.println(finalUrl);
+
 
         HttpGet getHandler = new HttpGet(finalUrl);
         //创建一个用于抓包的客户端
         CloseableHttpClient httpClient = HttpClients.createDefault();
         //提交并且获取url的响应
         CloseableHttpResponse response = httpClient.execute(getHandler);
-        // System.out.println(response);
+
 
         return getJsonObject(response);
     }
