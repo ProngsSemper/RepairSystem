@@ -14,7 +14,7 @@ import java.io.IOException;
  * @Author lyr
  * @create 2019/9/29 14:08
  */
-@WebServlet("student/information")
+@WebServlet("/student/information")
 public class StudentLoginServlet extends BaseServlet {
     private static Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
 

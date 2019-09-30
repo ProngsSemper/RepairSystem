@@ -22,9 +22,9 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     /** 根据学生的 id号查询 */
     private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like %?";
     /** 申请维修 */
-    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,formMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
+    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
     /** 申请维修 */
-    private static final String APPLY_FORM_DEFAULT = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,formMail,photoId)values(?,?,?,?,?,?)";
+    private static final String APPLY_FORM_DEFAULT = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId)values(?,?,?,?,?,?)";
 
    /** 查询超过了30天前的记录  */
     private static final String QUERY_MORE_THAN_DAY30 = "select * from form where queryCode>=2 and date_sub(CURDATE(),interval 30 day)  >= CURDATE()";
@@ -113,7 +113,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
      */
     @Override
     public Boolean apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId) {
-        //INSERT INTO FORM (stuId,queryCode,formMsg,formDate,formMail,photoId)";
+        //INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId)";
         return super.addOne(JdbcUtil.getConnection(), APPLY_FORM_DEFAULT, stuId, code, formMsg, formDate, stuMail, photoId);
     }
 
