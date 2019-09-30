@@ -27,7 +27,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     private static final String APPLY_FORM_DEFAULT = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId)values(?,?,?,?,?,?)";
 
    /** 查询超过了30天前的记录  */
-    private static final String QUERY_MORE_THAN_DAY30 = "select * from form where queryCode>=2 and date_sub(CURDATE(),interval 30 day)  >= CURDATE()";
+    private static final String QUERY_MORE_THAN_DAY30 = "select * from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 37 day)";
 
     /** 将超过7天的废弃数据迁移到old 表*/
     private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform select * from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
