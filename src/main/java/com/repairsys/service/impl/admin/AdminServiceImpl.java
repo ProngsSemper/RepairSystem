@@ -50,13 +50,12 @@ public class AdminServiceImpl implements AdminService {
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
     }
 
-    public Result searchByFormId(String formId)
-    {
+    public Result searchByFormId(String formId) {
         FormDao formDao = DaoFactory.getFormDao();
         List<Form> list = formDao.queryByFormId(formId);
         Result<List<Form>> result = new Result();
         result.setData(list);
-        return result;
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
     public AdminServiceImpl() {
