@@ -1,10 +1,10 @@
-package com.repairsys.controller.student;
+package com.repairsys.controller.worker;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,42 +14,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-//TODO: restful风格不能有动词，后期改回来
-
 
 /**
  * @author Prongs
- * @date 2019/9/28
- *
- * <p>第一次尝试restful，这个接口写了动词，不标准，后期维护时改回来</p>
+ * @date 2019/9/29 16:07
  */
-
-@WebServlet("/student/login")
-public class StudentLoginServlet extends BaseServlet {
-
-    private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
-    private static final Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
+@WebServlet("/worker/login")
+public class WorkerLoginServlet extends BaseServlet {
+    private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+    private static final Logger logger = LoggerFactory.getLogger(WorkerLoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        Result result = studentService.login(requestBody.getString("stuId"),
-                requestBody.getString("stuPassword"),
+
+        Result result = workerService.login(requestBody.getString("wId"),
+                requestBody.getString("wPassword"),
                 session);
-
-        logger.debug("登录成功{}",result);
-
-
+        logger.debug("登录成功{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+
     }
 }

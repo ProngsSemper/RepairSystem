@@ -1,4 +1,4 @@
-package com.repairsys.dao.impl;
+package com.repairsys.dao.impl.worker;
 
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
@@ -13,11 +13,10 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
 
-
-    public static WorkerDaoImpl getInstance()
-    {
+    public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
     }
+
     private WorkerDaoImpl() {
         super(Worker.class);
     }
@@ -31,7 +30,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public Worker login(String wId, String wPassword) {
-        return super.selectOne(JdbcUtil.getConnection(),WORKER_LOGIN,wId,wPassword);
+        return super.selectOne(JdbcUtil.getConnection(), WORKER_LOGIN, wId, wPassword);
     }
 
     /**
@@ -75,13 +74,12 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      * @param wName     工人的名字
      * @param wTel      工人的电话号码
      * @param wPassword 工人的账号密码
-     * @param wMail      工人的电子邮箱号码
+     * @param wMail     工人的电子邮箱号码
      * @return 注册成功返回true，若出现异常注册失败返回false
      */
     @Override
     public boolean register(String wId, String wName, String wTel, String wPassword, String wMail) {
         return super.addOne(JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
     }
-
 
 }

@@ -1,4 +1,4 @@
-package com.repairsys.dao.impl;
+package com.repairsys.dao.impl.admin;
 
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.dao.AdminDao;
@@ -82,7 +82,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
      * @param uPassword 管理员密码
      * @return 返回一个布尔值，如果没有异常返回true，否则返回 false
      */
-    public boolean registerPlus(String uId,String uName,String uPassword) {
+    @Override
+    public boolean registerPlus(String uId, String uName, String uPassword) {
         String pwd = StringUtils.getStringMd5(uPassword);
         return this.register(uId,uName,pwd,"");
     }
@@ -95,7 +96,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
      * @param email 用户的邮箱地址
      * @return 返回一个布尔值，如果没有异常返回true，否则返回 false
      */
-    public boolean registerPlus(String uId,String uName,String uPassword,String email)
+    @Override
+    public boolean registerPlus(String uId, String uName, String uPassword, String email)
     {
         String pwd = StringUtils.getStringMd5(uPassword);
         return this.register(uId,uName,pwd,email);
@@ -107,8 +109,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
      * @param args  用户传入的要插入的数据库的字段的参数
      * @return  返回一个布尔值，如果没有异常返回true，否则返回 false
      * @deprecated 该方法没有进行对特殊字段进行加密处理,请不要直接使用，推荐使用 registerPlus方法，为管理员账户专门设计的
-     * @see com.repairsys.dao.impl.AdminDaoImpl#registerPlus(String, String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
-     * @see com.repairsys.dao.impl.AdminDaoImpl#registerPlus(String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
+     * @see AdminDaoImpl#registerPlus(String, String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
+     * @see AdminDaoImpl#registerPlus(String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
      */
     @Deprecated
     @Override

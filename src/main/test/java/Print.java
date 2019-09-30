@@ -1,8 +1,6 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
-import com.repairsys.bean.entity.Student;
-import com.repairsys.dao.impl.AdminDaoImpl;
-import com.repairsys.dao.impl.StudentDaoImpl;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -81,14 +79,6 @@ public class Print {
         System.out.println(a.getAdminPassword());
     }
 
-    @Test
-    public void login3()
-    {
-        Student a = StudentDaoImpl.getInstance().login("123","1");
-        System.out.println(a!=null);
-        System.out.println(a.getStuName());
-        System.out.println(a.getStuPassword());
-    }
 
     @Test
     public void printDate()

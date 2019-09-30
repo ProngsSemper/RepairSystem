@@ -1,7 +1,5 @@
-import com.repairsys.bean.entity.Student;
-import com.repairsys.dao.impl.FormDaoImpl;
-import com.repairsys.dao.impl.StudentDaoImpl;
-import com.repairsys.dao.impl.WorkerDaoImpl;
+import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -22,14 +20,5 @@ public class DbTest {
     {
         WorkerDaoImpl.getInstance().register("123","1230","13654758962","123","123@qq.com");
     }
-    @Test
-    public void loginStudent()
-    {
-        // StudentDaoImpl.getInstance().register("123","123","12","1","12");
-        Object b = StudentDaoImpl.getInstance().login("123","123");
-        System.out.println(b==null);
-        boolean t =false;
-        t= StudentDaoImpl.getInstance().exists("123");
-        System.out.println(t);
-    }
+
 }
