@@ -71,7 +71,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     /**
      * 查询指定状态的表单，比如查询未进行维修处理的表单 和 已经维修完成的表单
      *
-     * @param status 表单状态 如 0 表示待维修  1表示维修后7天内  2表示已经维修完成
+     * @param status 表单状态 如 0 表示待维修  1联系中  2表示7天内
      * @return 返回表单bean 集合(List)
      */
     @Override
@@ -131,8 +131,6 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
         return this.apply(stuId,0,formMsg,formDate,"","");
     }
 
-
-    //TODO:暂时还未完成，需要具体讨论
 
     /**
      * 维修成功后表单在数据库超过7天，管理员可能会手动删除记录，或者迁移记录，用来给管理员迁移记录到新的表的功能
