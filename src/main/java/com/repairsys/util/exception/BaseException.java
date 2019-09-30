@@ -12,11 +12,11 @@ public class BaseException extends RuntimeException {
     /**
      * 异常状态码
      */
-    private Integer code;
+    protected Integer code;
     /**
      * 异常信息
      */
-    private String msg;
+    protected String msg;
 
     /**
      * Constructs a new runtime exception with {@code null} as its
