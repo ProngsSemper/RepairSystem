@@ -16,7 +16,7 @@ public interface FormDao {
      * @param formId 维修单号
      * @return 返回一条javabean对象
      */
-    Form queryByFormId(String formId);
+    List<Form> queryByFormId(String formId);
 
     /**
      * 根据学生学号来查询维修单的信息
@@ -38,7 +38,9 @@ public interface FormDao {
      * 用户提交维修申请，需要将表单读写入数据库
      * @param args 表单的信息
      * @return  如果查询出现异常，插入数据失败，返回false，如果插入数据成功，返回true
+     * @deprecated
      */
+    @Deprecated
     Boolean apply(Object... args);
 
     /**
@@ -71,10 +73,26 @@ public interface FormDao {
 
     /**
      * 管理员可能要删除维修完成后，时间过久了的表单记录
-     * @param formId 用户申请的表单 id
+     * @param tableName 删除指定表的数据
+     * @param date 删除在该日期前的数据
      * @return 如果删除失败，或者出现异常，返回false，否则返回true
      */
-    Boolean delete(int formId);
+
+    Boolean deleteBefore( String tableName,java.sql.Date date);
+
+    /**
+     * 将超过 7天的数据迁移到 oldform 表中
+     * @return 返回操作是否成功
+     */
+    Boolean moveTo();
+
+    /**
+     * 将超过 7天的数据迁移到 oldform 表中
+     * 更加语义化的函数，建议直接用这个
+     * @return
+     */
+    Boolean updateTable();
+
 
 
 
