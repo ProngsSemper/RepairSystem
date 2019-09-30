@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +21,7 @@ import java.io.IOException;
 @WebServlet("student/information")
 public class StudentInformationServlet extends BaseServlet {
     private static Logger logger = LoggerFactory.getLogger(StudentInformationServlet.class);
-    private StudentService studentService = ServiceFactory.getStudentService();
+    // private StudentService studentService = ServiceFactory.getStudentService();
     //TODO: 需要session判断用户是否注册，如果没有注册，要用户重定向到首页
 
 
@@ -37,18 +36,18 @@ public class StudentInformationServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String column = requestBody.getString("column");
         String columnValue = requestBody.getString("columnValue");
-        Result result = studentService.modifyInformation(
-
-                requestBody.getString("stuId")
-                ,requestBody.getString("stuPassword")
-                ,column
-                ,columnValue,
-                session);
-
-
-        logger.debug("返回修改信息{}",result);
-        request.setAttribute("result",result);
-        super.doPost(request,response);
+        // // Result result = studentService.modifyInformation(
+        //
+        //         requestBody.getString("stuId")
+        //         ,requestBody.getString("stuPassword")
+        //         ,column
+        //         ,columnValue,
+        //         session);
+        //
+        //
+        // logger.debug("返回修改信息{}",result);
+        // request.setAttribute("result",result);
+        // super.doPost(request,response);
 
 
 
@@ -64,15 +63,15 @@ public class StudentInformationServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String column = requestBody.getString("column");
         String columnValue = requestBody.getString("columnValue");
-        Result result = studentService.login(
-
-                requestBody.getString("stuId")
-                ,requestBody.getString("stuPassword")
-
-                ,session);
-        logger.debug("返回修改信息{}",result);
-        request.setAttribute("result",result);
-        super.doPost(request,response);
+        // Result result = studentService.login(
+        //
+        //         requestBody.getString("stuId")
+        //         ,requestBody.getString("stuPassword")
+        //
+        //         ,session);
+        // logger.debug("返回修改信息{}",result);
+        // request.setAttribute("result",result);
+        // super.doPost(request,response);
 
     }
 
@@ -88,15 +87,15 @@ public class StudentInformationServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = studentService.resetPassword(
-                requestBody.getString("stuId")
-                ,requestBody.getString("stuPassword")
-                ,requestBody.getString("newPassword")
-                ,session);
-
-
-        logger.debug("返回修改信息{}",result);
-        request.setAttribute("result",result);
-        super.doPost(request,response);
+        // Result result = studentService.resetPassword(
+        //         requestBody.getString("stuId")
+        //         ,requestBody.getString("stuPassword")
+        //         ,requestBody.getString("newPassword")
+        //         ,session);
+        //
+        //
+        // logger.debug("返回修改信息{}",result);
+        // request.setAttribute("result",result);
+        // super.doPost(request,response);
     }
 }
