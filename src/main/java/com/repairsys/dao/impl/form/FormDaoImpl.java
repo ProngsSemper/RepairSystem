@@ -30,9 +30,9 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     private static final String QUERY_MORE_THAN_DAY30 = "select * from form where queryCode>=2 and date_sub(CURDATE(),interval 30 day)  >= CURDATE()";
 
     /** 将超过7天的废弃数据迁移到old 表*/
-    private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform select * from form where queryCode>=2  and date_sub(CURDATE(),interval 7 day)  >= CURDATE()";
+    private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform select * from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
     /** 删除超过7天的垃圾数据  */
-    private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and date_sub(CURDATE(),interval 7 day)  >= CURDATE() ";
+    private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and endDate<= date_sub(CURDATE(),interval 7 day)";
 
 
     private static final FormDaoImpl FORM_DAO= new FormDaoImpl();
