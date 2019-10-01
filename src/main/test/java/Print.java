@@ -1,6 +1,8 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
+import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -75,6 +77,12 @@ public class Print {
         System.out.println(a!=null);
         System.out.println(a.getAdminName());
         System.out.println(a.getAdminPassword());
+    }
+
+    @Test
+    public void get (){
+        List<Form> form = FormDaoImpl.getInstance().queryByFormId("9999999");
+        System.out.println(form);
     }
 
 

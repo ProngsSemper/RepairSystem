@@ -1,16 +1,19 @@
 package com.repairsys.service.impl.admin;
 
 import com.repairsys.bean.entity.Admin;
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.FormDao;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author lyr, Prongs
@@ -45,6 +48,23 @@ public class AdminServiceImpl implements AdminService {
         session.setAttribute("admin", admin);
 
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
+    }
+
+    @Override
+    public Result getByFormId(String formId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        FormDao formDao = DaoFactory.getFormDao();
+        List<Form> list = formDao.queryByFormId(formId);
+        //找不到该表单
+        if (list.isEmpty()) {
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
     public AdminServiceImpl() {

@@ -30,28 +30,21 @@ public enum ResultEnum {
     PAGE_NOT_FOUND(404, "找不到此页面"),
 
     /**
-     *
-     *
      * @author lyr
      * @date 2019/9/29
      * <p>用户注册或者操作自己信息时，修改失败</p>
      * <p>广义化的操作失败</p>
-     *
+     * <p>
      * 用处于：学生重复注册提交账号信息，数据库报异常
-     *
-     *
-     * */
-    USER_DO_FAIL(407,"操作失败"),
-
+     */
+    USER_DO_FAIL(407, "操作失败"),
 
     /**
      * @author lyr
-     *
      * @date 2019/9/29
      * 用法：用户修改密码或者修改信息，但是原来的密码填错了，抛出异常，需要回馈给页面
-     *
      */
-    USER_DO_RESET_FAIL(408,"用户修改信息失败"),
+    USER_DO_RESET_FAIL(408, "用户修改信息失败"),
 
     /**
      * 无访问权限
@@ -67,11 +60,31 @@ public enum ResultEnum {
      * @date 2019/9/29
      * 插入信息成功
      * <p>广义化的写入数据成功</p>
-     *
+     * <p>
      * 用处：学生注册提交成功
-     *
      */
     COMMITED_SUCCESSFULLY(202, "写入信息成功"),
+
+    /**
+     * @author Prongs
+     * @date 2019/9/30
+     * 查询报修表成功
+     */
+    QUERY_SUCCESSFULLY(200, "查询成功"),
+
+    /**
+     * @author Prongs
+     * @date 2019/9/30
+     * 没有查询到相关表单
+     */
+    QUERY_FAILED(401, "没有查询到相关表单"),
+
+    /**
+     * @author Prongs
+     * @date 2019/9/30
+     * 没有输入查询条件
+     */
+    QUERY_EMPTY(400,"请输入查询条件"),
 
     ;
 
@@ -102,8 +115,6 @@ public enum ResultEnum {
     public String getDesc() {
         return desc;
     }
-
-
 
 }
 
