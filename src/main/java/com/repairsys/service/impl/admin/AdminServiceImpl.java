@@ -6,7 +6,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
-import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.form.FormDao;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
