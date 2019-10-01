@@ -1,4 +1,4 @@
-package com.repairsys.dao.impl.form;
+package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Form;
 
