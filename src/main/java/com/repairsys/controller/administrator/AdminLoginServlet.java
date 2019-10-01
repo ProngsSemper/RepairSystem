@@ -32,7 +32,7 @@ public class AdminLoginServlet extends BaseServlet {
         Result result = adminService.login(requestBody.getString("adminId"),
                 requestBody.getString("adminPassword"),
                 session);
-        logger.debug("登录成功{}", result);
+        logger.debug("登录信息{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }

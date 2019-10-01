@@ -5,6 +5,8 @@ import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.string.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.util.List;
@@ -14,6 +16,7 @@ import java.util.List;
  * @create 2019/9/24 16:54
  */
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
+    private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
 
     private static final AdminDaoImpl ADMIN_DAO;
 
@@ -70,7 +73,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
     public Admin login(String id, String password) {
         Connection conn = JdbcUtil.getConnection();
         String pwd = StringUtils.getStringMd5(password);
-        System.out.println(pwd);
+        logger.info(id+pwd);
         return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
     }
 

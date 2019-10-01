@@ -94,6 +94,40 @@ public interface FormDao {
     Boolean updateTable();
 
 
+    /**
+     * 对应的管理员处理的信息
+     * @return
+     */
+    Boolean setAdminKey();
+
+
+    /**
+     * 设置对应的工人
+     * @return
+     */
+    Boolean setwKey();
+
+
+    /**
+     * 设置照片的信息
+     * @return
+     */
+    Boolean setPhotoId();
+
+    /**
+     * 工作完成，工人抹除任务
+     * @return
+     */
+    Boolean setEndDate();
+
+    /**
+     * @return
+     */
+    Boolean setQueryCode();
+
+
+
+
 
 
 
