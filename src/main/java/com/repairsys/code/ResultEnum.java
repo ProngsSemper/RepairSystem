@@ -72,6 +72,20 @@ public enum ResultEnum {
      */
     QUERY_SUCCESSFULLY(200, "查询成功"),
 
+    /**
+     * @author Prongs
+     * @date 2019/9/30
+     * 没有查询到相关表单
+     */
+    QUERY_FAILED(401, "没有查询到相关表单"),
+
+    /**
+     * @author Prongs
+     * @date 2019/9/30
+     * 没有输入查询条件
+     */
+    QUERY_EMPTY(400,"请输入查询条件"),
+
     ;
 
     /**

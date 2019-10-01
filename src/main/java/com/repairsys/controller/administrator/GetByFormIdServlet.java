@@ -18,8 +18,8 @@ import java.io.IOException;
  * @author Prongs
  * @date 2019/9/30 20:28
  */
-@WebServlet("/admin/search/formId")
-public class SearchByFormIdServlet extends BaseServlet {
+@WebServlet("/admin/formId")
+public class GetByFormIdServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
 
@@ -27,7 +27,7 @@ public class SearchByFormIdServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.searchByFormId(requestBody.getString("formId"));
+        Result result = adminService.getByFormId(requestBody.getString("formId"));
         logger.debug("查询成功{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);

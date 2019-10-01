@@ -77,4 +77,19 @@ public class Form implements Serializable {
     public void setPhotoId(String photoId) {
         this.photoId = photoId;
     }
+
+    @Override
+    public String toString() {
+        return "Form{" +
+                "stuId='" + stuId + '\'' +
+                ", queryCode=" + queryCode +
+                ", formId=" + formId +
+                ", formMsg='" + formMsg + '\'' +
+                ", formDate=" + formDate +
+                ", stuMail='" + stuMail + '\'' +
+                ", photoId='" + photoId + '\'' +
+                ", adminKey=" + adminKey +
+                ", wKey=" + wKey +
+                '}';
+    }
 }

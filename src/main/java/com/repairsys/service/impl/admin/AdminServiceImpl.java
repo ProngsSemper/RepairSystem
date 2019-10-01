@@ -50,10 +50,19 @@ public class AdminServiceImpl implements AdminService {
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
     }
 
-    public Result searchByFormId(String formId) {
+    @Override
+    public Result getByFormId(String formId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
         FormDao formDao = DaoFactory.getFormDao();
         List<Form> list = formDao.queryByFormId(formId);
-        Result<List<Form>> result = new Result();
+        //找不到该表单
+        if (list.isEmpty()) {
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
         result.setData(list);
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }

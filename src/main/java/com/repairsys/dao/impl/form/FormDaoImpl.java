@@ -18,7 +18,7 @@ import java.util.List;
 public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     private static final Logger logger = LoggerFactory.getLogger(FormDaoImpl.class);
     /** 查询表单的 id号 */
-    private static final String QUERY_BY_FORMID = "select * from form where `formId` like %?";
+    private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
     /** 根据学生的 id号查询 */
     private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like %?";
     /** 申请维修 */
