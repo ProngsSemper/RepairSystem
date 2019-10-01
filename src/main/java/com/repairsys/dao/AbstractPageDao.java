@@ -45,10 +45,11 @@ public abstract class AbstractPageDao<T> extends BaseDao<T> {
     }
 
     /**
+     * 分页查询的功能
      * @param targetPage 目标页面
      * @param size 记录条数
      * @return 一个bean集合
      */
-    public List<T> getPageList(int targetPage,int size){return null;}
+    public abstract List<T> getPageList(int targetPage, int size);
 
 }

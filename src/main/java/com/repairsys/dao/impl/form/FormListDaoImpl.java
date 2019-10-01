@@ -63,6 +63,11 @@ public final class FormListDaoImpl extends FormDaoImpl{
     }
 
 
+    /**
+     * @param targetPage 目标页面
+     * @param size       记录条数
+     * @return   返回对应的bean集合
+     */
     @Override
     public List<Form> getPageList(int targetPage, int size) {
         return super.getPageList(BASE_PAGE_LIST,targetPage,size);
