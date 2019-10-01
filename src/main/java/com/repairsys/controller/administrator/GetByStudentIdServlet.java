@@ -12,27 +12,23 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/9/29
+ * @date 2019/10/1 16:35
  */
-@WebServlet("/admin/login")
-public class AdminLoginServlet extends BaseServlet {
+@WebServlet("/admin/stuId")
+public class GetByStudentIdServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.login(requestBody.getString("id"),
-                requestBody.getString("password"),
-                session);
-        logger.debug("登录成功{}", result);
+        Result result = adminService.getByStudentId(requestBody.getString("stuId"));
+        logger.debug("查询成功{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }
