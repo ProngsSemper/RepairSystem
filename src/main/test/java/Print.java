@@ -8,6 +8,7 @@ import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -57,7 +58,11 @@ public class Print {
 
     @Test
     public void sendMailTest() throws Exception {
-        MailUtil.sendMail("798237844@qq.com");
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS" );
+        java.util.Date d= new java.util.Date();
+        String str = sdf.format(d);
+        System.out.println("当前时间通过 yyyy-MM-dd HH:mm:ss SSS 格式化后的输出: "+str);
+//        MailUtil.sendMail("798237844@qq.com");
     }
 
     @Test
