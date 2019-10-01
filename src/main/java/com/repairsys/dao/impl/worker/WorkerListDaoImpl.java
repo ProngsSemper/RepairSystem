@@ -18,6 +18,10 @@ public class WorkerListDaoImpl extends AbstractPageDao {
         super(clazz);
     }
     private static final WorkerListDaoImpl dao = new WorkerListDaoImpl(Worker.class);
+    public WorkerListDaoImpl getInstance()
+    {
+        return dao;
+    }
 
     /**
      * 分页查询的功能
