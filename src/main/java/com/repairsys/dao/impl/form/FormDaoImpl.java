@@ -293,4 +293,17 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.updateOne(JdbcUtil.getConnection(),UPDATE_INFORMATION,endDate,queryCode,adminKey,wKey,formId);
     }
 
+    /**
+     * 分页查询的功能
+     *
+     * @param targetPage 目标页面
+     * @param size       记录条数
+     * @return 一个bean集合
+     * @deprecated
+     */
+    @Override
+    public List<Form> getPageList(int targetPage, int size) {
+        return null;
+
+    }
 }
