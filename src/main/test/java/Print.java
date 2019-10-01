@@ -81,7 +81,7 @@ public class Print {
 
     @Test
     public void get (){
-        List<Form> form = FormDaoImpl.getInstance().queryByFormId("9999999");
+        List<Form> form = FormDaoImpl.getInstance().queryByStudentId("181");
         System.out.println(form);
     }
 

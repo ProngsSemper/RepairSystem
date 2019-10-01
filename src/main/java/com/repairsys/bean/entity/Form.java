@@ -3,9 +3,8 @@ package com.repairsys.bean.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-
 /**
- * @Author lyr
+ * @Author lyr, Prongs
  * @create 2019/9/24 12:11
  */
 public class Form implements Serializable {
@@ -19,33 +18,8 @@ public class Form implements Serializable {
     private int adminKey;
     private int wKey;
 
-    public int getAdminKey() {
-        return adminKey;
+    public Form() {
     }
-
-    public void setAdminKey(int adminKey) {
-        this.adminKey = adminKey;
-    }
-
-    public int getwKey() {
-        return wKey;
-    }
-
-    public void setwKey(int wKey) {
-        this.wKey = wKey;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    private Date endDate;
-
-    public Form(){}
 
     public String getStuId() {
         return stuId;
@@ -83,7 +57,6 @@ public class Form implements Serializable {
         return formDate;
     }
 
-
     public void setFormDate(Date formDate) {
         this.formDate = formDate;
     }
@@ -102,6 +75,22 @@ public class Form implements Serializable {
 
     public void setPhotoId(String photoId) {
         this.photoId = photoId;
+    }
+
+    public int getAdminKey() {
+        return adminKey;
+    }
+
+    public void setAdminKey(int adminKey) {
+        this.adminKey = adminKey;
+    }
+
+    public int getwKey() {
+        return wKey;
+    }
+
+    public void setwKey(int wKey) {
+        this.wKey = wKey;
     }
 
     @Override

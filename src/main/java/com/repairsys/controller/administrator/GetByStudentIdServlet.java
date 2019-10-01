@@ -16,10 +16,10 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/9/30 20:28
+ * @date 2019/10/1 16:35
  */
-@WebServlet("/admin/formId")
-public class GetByFormIdServlet extends BaseServlet {
+@WebServlet("/admin/stuId")
+public class GetByStudentIdServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
 
@@ -27,7 +27,7 @@ public class GetByFormIdServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.getByFormId(requestBody.getString("formId"));
+        Result result = adminService.getByStudentId(requestBody.getString("stuId"));
         logger.debug("查询成功{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
