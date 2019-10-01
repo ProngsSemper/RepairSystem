@@ -8,9 +8,12 @@
 <h2>Hello World!</h2>
 
 
-<form >
+<form id="login-form" >
 
-    <input type="button" id="ddd" value="暴躁老哥的按钮">
+    <input type="button" id="ddd" value="暴躁老哥的按钮"><br>
+    <input type="text" id="id"><br>
+    <input type="text" id="password"><br>
+
 </form>
 </body>
 
@@ -22,16 +25,32 @@
     $(document).ready(function () {
         $('#ddd').click(
             function () {
-                alert("即将发送");
+
+                const uId = $('#id').val();
+                const uPassword = $('#password').val();
+
+                if (!uId) {
+                    alert("请输入账号！");
+                    return;
+                }
+                if (!uPassword) {
+                    alert("请输入密码！");
+                    return;
+                }
+
 
                 $.ajax({
                     type: "post",
-                    url: "student/login",
-                    data: JSON.stringify({'stuId':123,'stuPassword':1}),
+                    url: "admin/login",
+
                     dataType: "json",
+                    data: JSON.stringify({'id':uId,'password':uPassword}),
                     success: function (ans) {
-                        alert("接收到消息");
-                        alert(ans)
+                        if(ans.code==200)
+                        {
+                            alert("登录成功");
+                            window.setTimeout("window.location.href='welcome.jsp'", 1000);
+                        }
                     }
                 });
 
