@@ -29,8 +29,8 @@ public class AdminLoginServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.login(requestBody.getString("adminId"),
-                requestBody.getString("adminPassword"),
+        Result result = adminService.login(requestBody.getString("id"),
+                requestBody.getString("password"),
                 session);
         logger.debug("登录成功{}", result);
         request.setAttribute("result", result);
