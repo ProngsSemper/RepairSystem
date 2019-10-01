@@ -42,8 +42,10 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
 
     /** 设置照片的url表信息的id */
     private static final String SET_PHOTO_KEY = "update form set photoId = ? where formId = ?";
-
+    /** 更新工作完成时间 */
     private static final String SET_FINISH_DAY  = "update form set endDate = ? where formId = ?";
+    /** 管理员分配维修任务时的更新操作 */
+    private static final String UPDATE_INFORMATION = "update form set endDate = ? , queryCode = ? ,adminKey = ?  ,wKey=? where formId = ?";
 
 
     private static final FormDaoImpl FORM_DAO= new FormDaoImpl();
@@ -271,5 +273,19 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
         return super.updateOne(JdbcUtil.getConnection(),SET_FINISHED_WORK,code,formId);
     }
 
-
+    /**
+     * 管理员查看了学生的申请，并为其分配维修工人和安排时间
+     *
+     * @param formId    设置对应的表单的主键 id号码
+     * @param endDate   维修结束时间
+     * @param queryCode 维修查询状态码
+     * @param adminKey  管理员的key主键
+     * @param wKey      工人的key主键
+     * @return 如果操作无异常，返回true
+     * @date 2019/10/1
+     */
+    @Override
+    public Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey) {
+        return super.updateOne(JdbcUtil.getConnection(),UPDATE_INFORMATION,endDate,queryCode,adminKey,wKey,formId);
+    }
 }

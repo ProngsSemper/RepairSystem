@@ -89,7 +89,7 @@ public interface FormDao {
     /**
      * 将超过 7天的数据迁移到 oldform 表中
      * 更加语义化的函数，建议直接用这个
-     * @return
+     * @return 操作无异常，返回true
      */
     Boolean updateTable();
 
@@ -135,6 +135,19 @@ public interface FormDao {
      * @return 若操作无异常，返回true
      */
     Boolean setQueryCode(int code,String formId);
+
+    /**
+     * 管理员查看了学生的申请，并为其分配维修工人和安排时间
+     *
+     * @date 2019/10/1
+     * @param formId 设置对应的表单的主键 id号码
+     * @param endDate 维修结束时间
+     * @param queryCode 维修查询状态码
+     * @param adminKey 管理员的key主键
+     * @param wKey    工人的key主键
+     * @return 如果操作无异常，返回true
+     */
+    Boolean updateForm(String formId,Date endDate,int queryCode,int adminKey,int wKey);
 
 
 
