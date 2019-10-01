@@ -43,4 +43,14 @@ public class Worker implements Serializable {
     public void setwPassword(String wPassword) {
         this.wPassword = wPassword;
     }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                "wId='" + wId + '\'' +
+                ", wName='" + wName + '\'' +
+                ", wTel='" + wTel + '\'' +
+                ", wPassword='" + wPassword + '\'' +
+                '}'+"\r\n";
+    }
 }

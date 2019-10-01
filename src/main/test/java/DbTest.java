@@ -1,4 +1,5 @@
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
@@ -51,6 +52,8 @@ public class DbTest {
     @Test
     public void workerPage()
     {
+        List<Worker> a = WorkerListDaoImpl.getInstance().getPageList(0,4);
+        System.out.println(a);
 
     }
 

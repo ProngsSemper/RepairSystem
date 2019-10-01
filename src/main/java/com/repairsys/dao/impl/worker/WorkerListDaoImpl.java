@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class WorkerListDaoImpl extends AbstractPageDao {
 
-    private static final String GET_WORKER_LIST = "select * from worker limit ?,?";
+    private static final String GET_WORKER_LIST = "select * from workers limit ?,?";
 
     protected WorkerListDaoImpl(Class clazz) {
         super(clazz);
     }
     private static final WorkerListDaoImpl dao = new WorkerListDaoImpl(Worker.class);
-    public WorkerListDaoImpl getInstance()
+    public static WorkerListDaoImpl getInstance()
     {
         return dao;
     }
