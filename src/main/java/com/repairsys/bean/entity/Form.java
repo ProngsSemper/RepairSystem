@@ -105,6 +105,6 @@ public class Form implements Serializable {
                 ", photoId='" + photoId + '\'' +
                 ", adminKey=" + adminKey +
                 ", wKey=" + wKey +
-                '}';
+                '}'+"\r\n";
     }
 }

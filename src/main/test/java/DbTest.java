@@ -1,8 +1,10 @@
+import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * @Author lyr
@@ -21,4 +23,11 @@ public class DbTest {
         WorkerDaoImpl.getInstance().register("123","1230","13654758962","123","123@qq.com");
     }
 
+
+    @Test
+    public void search()
+    {
+        List<Form> a =  FormDaoImpl.getInstance().queryByStudentId("1815");
+
+    }
 }

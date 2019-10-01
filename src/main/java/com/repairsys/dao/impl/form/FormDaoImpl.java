@@ -20,7 +20,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     /** 查询表单的 id号 */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
     /** 根据学生的 id号查询 */
-    private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like %?";
+    private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like '%";
     /** 申请维修 */
     private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
     /** 申请维修 */
@@ -78,7 +78,8 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     public List<Form> queryByStudentId(String stuId) {
 
         Connection conn = JdbcUtil.getConnection();
-        return super.selectList(conn,QUERY_BY_STUDENTID,stuId);
+        String finalSql = QUERY_BY_STUDENTID +stuId+"%'";
+        return super.selectList(conn,finalSql);
     }
 
     /**
