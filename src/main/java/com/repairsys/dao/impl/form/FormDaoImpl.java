@@ -1,6 +1,7 @@
 package com.repairsys.dao.impl.form;
 
 import com.repairsys.bean.entity.Form;
+import com.repairsys.dao.AbstractPageDao;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.FormDao;
 import com.repairsys.util.db.JdbcUtil;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Author lyr
  * @create 2019/9/26 23:23
  */
-public class FormDaoImpl extends BaseDao<Form> implements FormDao {
+public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final Logger logger = LoggerFactory.getLogger(FormDaoImpl.class);
     /** 查询表单的 id号 */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
@@ -182,9 +183,6 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
         logger.info(patchDelete);
 
         boolean b = super.deleteOne(JdbcUtil.getConnection(),patchDelete);
-
-
-
         return b;
     }
 
@@ -294,4 +292,5 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     public Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey) {
         return super.updateOne(JdbcUtil.getConnection(),UPDATE_INFORMATION,endDate,queryCode,adminKey,wKey,formId);
     }
+
 }

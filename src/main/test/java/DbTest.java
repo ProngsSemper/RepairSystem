@@ -1,5 +1,6 @@
 import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import org.junit.Test;
 
@@ -29,5 +30,18 @@ public class DbTest {
     {
         List<Form> a =  FormDaoImpl.getInstance().queryByStudentId("1815");
 
+    }
+    @Test
+    public void test()
+    {
+        List a = FormListDaoImpl.getInstance().getListById("181543430",0,"3","4");
+        System.out.println(a);
+    }
+
+    @Test
+    public void pageTest()
+    {
+        List a = FormListDaoImpl.getInstance().getPageList(1,4);
+        System.out.println(a);
     }
 }

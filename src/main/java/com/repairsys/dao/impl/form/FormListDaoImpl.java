@@ -11,8 +11,13 @@ import java.util.List;
  * @create 2019/9/30 18:50
  */
 public final class FormListDaoImpl extends FormDaoImpl{
-    private static final String BASE_QUERY_BY_ID = "select * from form where queryCode = ? and stuId like %?";
+    /** 根据学生的id号码 和 需要查询的表单状态进行查询 */
+    private static final String BASE_QUERY_BY_ID = "select * from form where queryCode = ? and stuId = ?";
     private static final String BASE_QUERY = "select * from form where queryCode = ? ";
+    private static final String BASE_PAGE_LIST = "select * from form  where queryCode =0 limit ?,?";
+
+
+
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
     private FormListDaoImpl()
     {
@@ -26,14 +31,17 @@ public final class FormListDaoImpl extends FormDaoImpl{
     {
         if(formId.length==0)
         {
+
             return super.selectList(JdbcUtil.getConnection(),BASE_QUERY_BY_ID,queryCode,stuId);
         }
-        StringBuffer sb = new StringBuffer(BASE_QUERY);
+        StringBuffer sb = new StringBuffer(BASE_QUERY_BY_ID+" and formId = "+formId[0]);
 
-        for(int i=0;i<formId.length;++i)
+        for(int i=1;i<formId.length;++i)
         {
-            sb.append(" and formId like%"+formId[i]);
+            sb.append(" OR formId = "+formId[i]);
         }
+
+        System.out.println(sb.toString());
 
 
         return super.selectList(JdbcUtil.getConnection(),sb.toString(),queryCode,stuId);
@@ -55,5 +63,28 @@ public final class FormListDaoImpl extends FormDaoImpl{
     }
 
 
+    @Override
+    public List<Form> getPageList(int targetPage, int size) {
+        return super.getPageList(BASE_PAGE_LIST,targetPage,size);
+    }
 
+    /**
+     * 获得分页查询的结果
+     *
+     * @param sql  需要执行的sql语句
+     * @param args 需要传入的参数
+     * @return 返回一个 bean集合
+     * @deprecated
+     */
+    @Deprecated
+    @Override
+    public List<Form> getPageList(String sql, Object... args) {
+        return super.getPageList(sql, args);
+    }
+
+    @Deprecated
+    @Override
+    public List<Form> getPageList(String sql, int targetPage, int size) {
+        return super.getPageList(sql, targetPage, size);
+    }
 }
