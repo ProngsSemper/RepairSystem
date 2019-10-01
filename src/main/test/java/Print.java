@@ -9,10 +9,11 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
- * @author lyr,Prongs
+ * @author lyr, Prongs
  * @date 2019/9/22
  * 这个是junit包，试错
  */
@@ -38,7 +39,7 @@ public class Print {
     public void register() {
         String pwd = "123";
         String md5Pwd = Md5Util.getMd5(pwd);
-        boolean b = AdminDaoImpl.getInstance().registerPlus("123","dd",pwd);
+        boolean b = AdminDaoImpl.getInstance().registerPlus("123", "dd", pwd);
         System.out.println(b);
     }
 
@@ -58,48 +59,47 @@ public class Print {
 
     @Test
     public void sendMailTest() throws Exception {
-        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS" );
-        java.util.Date d= new java.util.Date();
-        String str = sdf.format(d);
-        System.out.println("当前时间通过 yyyy-MM-dd HH:mm:ss SSS 格式化后的输出: "+str);
-//        MailUtil.sendMail("798237844@qq.com");
+        Calendar calendar = Calendar.getInstance();
+        // 时
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.DAY_OF_MONTH, 2);
+        java.util.Date time = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
+        String format = df.format(time);
+        System.out.println(format);
+        MailUtil.sendMail("798237844@qq.com",format);
     }
 
     @Test
-    public void register2()
-    {
+    public void register2() {
         boolean b = AdminDaoImpl.getInstance().registerPlus("12d3", "123", "123");
         System.out.println(b);
     }
+
     /**
      * 管理员加密登录
-     *
-     * */
+     */
     @Test
-    public void login2()
-    {
-        Admin a = AdminDaoImpl.getInstance().login("123","123");
-        System.out.println(a!=null);
+    public void login2() {
+        Admin a = AdminDaoImpl.getInstance().login("123", "123");
+        System.out.println(a != null);
         System.out.println(a.getAdminName());
         System.out.println(a.getAdminPassword());
     }
 
     @Test
-    public void get (){
+    public void get() {
         List<Form> form = FormDaoImpl.getInstance().queryByStudentId("181");
         System.out.println(form);
     }
 
-
     @Test
-    public void printDate()
-    {
+    public void printDate() {
         System.out.println(new Date(new java.util.Date().getTime()));
     }
 
     @Test
-    public void printJson()
-    {
+    public void printJson() {
         JSONObject jsonObject = JSONObject.parseObject("{'stuId':'123','stuPassword':'1'}");
         System.out.println(jsonObject.getString("stuId"));
         System.out.println(jsonObject);
