@@ -200,6 +200,29 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
         return this.moveTo();
     }
 
+    @Override
+    public Boolean setAdminKey() {
+        return null;
+    }
 
+    @Override
+    public Boolean setwKey() {
+        return null;
+    }
+
+    @Override
+    public Boolean setPhotoId() {
+        return null;
+    }
+
+    @Override
+    public Boolean setEndDate() {
+        return null;
+    }
+
+    @Override
+    public Boolean setQueryCode() {
+        return null;
+    }
 
 }
