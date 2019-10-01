@@ -20,7 +20,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     /** 查询表单的 id号 */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
     /** 根据学生的 id号查询 */
-    private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like ";
+    private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like %?";
     /** 申请维修 */
     private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
     /** 申请维修 */
@@ -33,6 +33,19 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform select * from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
     /** 删除超过7天的垃圾数据  */
     private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and endDate<= date_sub(CURDATE(),interval 7 day)";
+    /** 设置管理员的id */
+    private static final String SET_ADMIN_KEY = "update form set adminKey = ? where formId = ?";
+    /** 设置工人的id */
+    private static final String SET_WORKER_KEY = "update form set wKey = ? where formId = ?";
+    private static final String SET_FINISHED_WORK = "update form set queryCode = ? where formId = ?";
+
+
+    /** 设置照片的url表信息的id */
+    private static final String SET_PHOTO_KEY = "update form set photoId = ? where formId = ?";
+    /** 更新工作完成时间 */
+    private static final String SET_FINISH_DAY  = "update form set endDate = ? where formId = ?";
+    /** 管理员分配维修任务时的更新操作 */
+    private static final String UPDATE_INFORMATION = "update form set endDate = ? , queryCode = ? ,adminKey = ?  ,wKey=? where formId = ?";
 
 
     private static final FormDaoImpl FORM_DAO= new FormDaoImpl();
@@ -65,9 +78,7 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     public List<Form> queryByStudentId(String stuId) {
 
         Connection conn = JdbcUtil.getConnection();
-        String finalSql = QUERY_BY_STUDENTID+"'%"+stuId+"%'";
-        System.out.println(finalSql);
-        return super.selectList(conn,finalSql);
+        return super.selectList(conn,QUERY_BY_STUDENTID,stuId);
     }
 
     /**
@@ -182,10 +193,12 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
     @Override
     public Boolean moveTo()
     {
-        super.updateOne(JdbcUtil.getConnection(),QUERY_MORE_THAN_DAY7);
+        boolean b = super.updateOne(JdbcUtil.getConnection(),QUERY_MORE_THAN_DAY7);
+        if(!b)
+        {
+            return false;
+        }
         return super.deleteOne(JdbcUtil.getConnection(),DELETE_FORM_DAY_OVER7);
-
-
     }
 
     /**
@@ -200,29 +213,79 @@ public class FormDaoImpl extends BaseDao<Form> implements FormDao {
         return this.moveTo();
     }
 
+    /**
+     * 对应的管理员处理的信息
+     *
+     * @param adminKey 设置管理员记录，哪个管理员来处理对应的申请
+     * @param formId   对应的表单的主键id号码
+     * @return 若操作无异常，返回true
+     */
     @Override
-    public Boolean setAdminKey() {
-        return null;
+    public Boolean setAdminKey(String adminKey, String formId) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_ADMIN_KEY,adminKey,formId);
     }
 
+    /**
+     * 设置对应的工人，由管理员手动分配
+     *
+     * @param workerKey 设置对于的工人的 信息主键
+     * @param formId    设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
+     */
     @Override
-    public Boolean setwKey() {
-        return null;
+    public Boolean setwKey(String workerKey, String formId) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_WORKER_KEY,workerKey,formId);
     }
 
+    /**
+     * 设置照片的信息，学生上传照片，照片的 url地址保存在一个 photo表里面，记录photo 表信息的主键
+     *
+     * @param id     设置学生上传照片在服务器的地址
+     * @param formId 设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
+     */
     @Override
-    public Boolean setPhotoId() {
-        return null;
+    public Boolean setPhotoId(String id, String formId) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_PHOTO_KEY,id,formId);
     }
 
+    /**
+     * 工作完成，工人抹除任务
+     *
+     * @param date   维修完成的日期
+     * @param formId 设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
+     */
     @Override
-    public Boolean setEndDate() {
-        return null;
+    public Boolean setEndDate(Date date, String formId) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_FINISH_DAY,date,formId);
     }
 
+    /**
+     * 设置任务完成状态，学生申请： 0，管理员审核 ：1 ，工人维修完成 2
+     *
+     * @param code   维修单的状态码，完成进度
+     * @param formId 设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
+     */
     @Override
-    public Boolean setQueryCode() {
-        return null;
+    public Boolean setQueryCode(int code, String formId) {
+        return super.updateOne(JdbcUtil.getConnection(),SET_FINISHED_WORK,code,formId);
     }
 
+    /**
+     * 管理员查看了学生的申请，并为其分配维修工人和安排时间
+     *
+     * @param formId    设置对应的表单的主键 id号码
+     * @param endDate   维修结束时间
+     * @param queryCode 维修查询状态码
+     * @param adminKey  管理员的key主键
+     * @param wKey      工人的key主键
+     * @return 如果操作无异常，返回true
+     * @date 2019/10/1
+     */
+    @Override
+    public Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey) {
+        return super.updateOne(JdbcUtil.getConnection(),UPDATE_INFORMATION,endDate,queryCode,adminKey,wKey,formId);
+    }
 }

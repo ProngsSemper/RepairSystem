@@ -89,41 +89,65 @@ public interface FormDao {
     /**
      * 将超过 7天的数据迁移到 oldform 表中
      * 更加语义化的函数，建议直接用这个
-     * @return
+     * @return 操作无异常，返回true
      */
     Boolean updateTable();
 
 
     /**
      * 对应的管理员处理的信息
-     * @return
+     * @param adminKey 设置管理员记录，哪个管理员来处理对应的申请
+     * @param formId 对应的表单的主键id号码
+     * @return 若操作无异常，返回true
      */
-    Boolean setAdminKey();
+    Boolean setAdminKey(String adminKey,String formId);
 
 
     /**
-     * 设置对应的工人
-     * @return
+     * 设置对应的工人，由管理员手动分配
+     * @param workerKey 设置对于的工人的 信息主键
+     * @param formId 设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
      */
-    Boolean setwKey();
+    Boolean setwKey(String workerKey,String formId);
 
 
     /**
-     * 设置照片的信息
-     * @return
+     * 设置照片的信息，学生上传照片，照片的 url地址保存在一个 photo表里面，记录photo 表信息的主键
+     * @param formId   设置对应的表单的主键 id号码
+     * @param id 设置学生上传照片在服务器的地址
+     * @return 若操作无异常，返回true
      */
-    Boolean setPhotoId();
+    Boolean setPhotoId(String id,String formId);
 
     /**
      * 工作完成，工人抹除任务
-     * @return
+     * @param formId 设置对应的表单的主键 id号码
+     * @param date 维修完成的日期
+     * @return 若操作无异常，返回true
      */
-    Boolean setEndDate();
+    Boolean setEndDate(Date date,String formId);
 
     /**
-     * @return
+     * 设置任务完成状态，学生申请： 0，管理员审核 ：1 ，工人维修完成 2
+     * @param code 维修单的状态码，完成进度
+     * @param formId 设置对应的表单的主键 id号码
+     * @return 若操作无异常，返回true
      */
-    Boolean setQueryCode();
+    Boolean setQueryCode(int code,String formId);
+
+    /**
+     * 管理员查看了学生的申请，并为其分配维修工人和安排时间
+     *
+     * @date 2019/10/1
+     * @param formId 设置对应的表单的主键 id号码
+     * @param endDate 维修结束时间
+     * @param queryCode 维修查询状态码
+     * @param adminKey 管理员的key主键
+     * @param wKey    工人的key主键
+     * @return 如果操作无异常，返回true
+     */
+    Boolean updateForm(String formId,Date endDate,int queryCode,int adminKey,int wKey);
 
 
 
