@@ -1,5 +1,6 @@
 package com.repairsys.dao.impl.worker;
 
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.AbstractPageDao;
 import com.repairsys.util.easy.EasyTool;
 
@@ -16,6 +17,7 @@ public class WorkerListDaoImpl extends AbstractPageDao {
     protected WorkerListDaoImpl(Class clazz) {
         super(clazz);
     }
+    private static final WorkerListDaoImpl dao = new WorkerListDaoImpl(Worker.class);
 
     /**
      * 分页查询的功能

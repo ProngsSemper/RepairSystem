@@ -2,6 +2,7 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import org.junit.Test;
 
 import java.sql.Date;
@@ -45,6 +46,12 @@ public class DbTest {
 
 
         System.out.println(a);
+    }
+
+    @Test
+    public void workerPage()
+    {
+
     }
 
 }
