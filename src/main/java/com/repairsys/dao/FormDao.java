@@ -158,4 +158,18 @@ public interface FormDao {
      */
     Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey);
 
+    /**
+     * 获取form表的总数
+     * @return 返回form表总数
+     */
+    int getTotalCount();
+
+    /**
+     * 分页显示
+     * @param targetPage 当前页
+     * @param size 每页显示数量
+     * @return form表中的数据
+     */
+    List getPageList(int targetPage, int size);
+
 }

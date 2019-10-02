@@ -3,6 +3,8 @@ import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.service.FormService;
+import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -67,7 +69,7 @@ public class Print {
         SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
         String format = df.format(time);
         System.out.println(format);
-        MailUtil.sendMail("798237844@qq.com",format);
+        MailUtil.sendMail("798237844@qq.com", format);
     }
 
     @Test
@@ -103,6 +105,13 @@ public class Print {
         JSONObject jsonObject = JSONObject.parseObject("{'stuId':'123','stuPassword':'1'}");
         System.out.println(jsonObject.getString("stuId"));
         System.out.println(jsonObject);
+    }
+
+    @Test
+    public void totalCount() {
+        FormService formService = new FormServiceImpl();
+        int i = formService.getTotalCount();
+        System.out.println(i);
     }
 
 }
