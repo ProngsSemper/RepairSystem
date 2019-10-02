@@ -23,15 +23,23 @@ public enum ExceptionEnum {
     /**
      * 文件上传异常
      */
-    FILE_UPLOAD_ERROR(0, "图片上传失败");
+    FILE_UPLOAD_ERROR(0, "图片上传失败"),
+
+    /**
+     * 访问学校的服务器出现了，学校的服务器奔溃了，无法处理请求
+     * @date 2019/10/2
+     *
+     * */
+    SERVER_CRASH(999,"学校教务系统崩溃");
+
+
+
+
+
     {
         this.code = -1;
         this.desc = "未知的异常";
     }
-
-
-
-
     ExceptionEnum(int i, String s) {
         this.code = i;
         this.desc = s;

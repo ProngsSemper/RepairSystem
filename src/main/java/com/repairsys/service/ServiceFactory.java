@@ -2,6 +2,7 @@ package com.repairsys.service;
 
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.service.impl.form.FormServiceImpl;
+import com.repairsys.service.impl.student.StudentServiceImpl;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
 
 /**
@@ -14,11 +15,13 @@ public class ServiceFactory {
     private static final AdminServiceImpl ADMIN_SERVICE;
     private static final WorkerServiceImpl WORKER_SERVICE;
     private static final FormServiceImpl FORM_SERVICE;
+    private static final StudentServiceImpl STUDENT_SERVICE;
 
     static {
         ADMIN_SERVICE = new AdminServiceImpl();
         WORKER_SERVICE = new WorkerServiceImpl();
         FORM_SERVICE = new FormServiceImpl();
+        STUDENT_SERVICE = new StudentServiceImpl();
     }
 
     public static AdminServiceImpl getAdminService() {
@@ -32,4 +35,5 @@ public class ServiceFactory {
     public static FormServiceImpl getFormService() {
         return ServiceFactory.FORM_SERVICE;
     }
+    public static StudentServiceImpl getStudentService() {return STUDENT_SERVICE;}
 }

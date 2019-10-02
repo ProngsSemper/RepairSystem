@@ -14,8 +14,13 @@ import java.io.IOException;
 public class NetTest {
     @Test
     public void loginCall() throws IOException {
-        JSONObject jsonObject = Postman.doGet("181549422","password");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = Postman.doGet("181549422","password");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(jsonObject);
-        System.out.println(jsonObject.getString("flag"));
+
     }
 }

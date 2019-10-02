@@ -9,9 +9,10 @@ import com.repairsys.util.db.JdbcUtil;
  * @create 2019/9/27 10:52
  */
 public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.WorkerDao {
-    public static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
+    private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
+
 
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
@@ -50,6 +51,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      * @param person 工人注册时，需要填写的信息
      * @return
      */
+    @Deprecated
     @Override
     public boolean register(Worker person) {
         return false;
@@ -62,6 +64,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      * @return 工人注册是否成功
      * @deprecated 在不确定该函数使用的 sql语句情况下，不要直接使用
      */
+    @Deprecated
     @Override
     public boolean register(Object... args) {
         return false;

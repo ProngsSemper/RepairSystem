@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * <p>
  * DAO层访问数据库需要用此得到连接
  */
-public class JdbcUtil {
+public final class JdbcUtil {
 
     private static DataSource ds;
 

@@ -34,6 +34,9 @@ public class AdminLoginServlet extends BaseServlet {
                 session);
         logger.debug("登录信息{}", result);
         request.setAttribute("result", result);
+
+
+
         super.doPost(request, response);
     }
 

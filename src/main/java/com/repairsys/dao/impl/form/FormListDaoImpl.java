@@ -15,7 +15,7 @@ public final class FormListDaoImpl extends FormDaoImpl {
      */
     private static final String BASE_QUERY_BY_ID = "select * from form where queryCode = ? and stuId = ?";
     private static final String BASE_QUERY = "select * from form where queryCode = ? ";
-    private static final String BASE_PAGE_LIST = "select * from form  where queryCode =0 limit ?,?";
+    private static final String BASE_PAGE_LIST = "select * from form  where queryCode <=0 limit ?,?";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 

@@ -41,7 +41,7 @@
 
                 $.ajax({
                     type: "post",
-                    url: "admin/login",
+                    url: "student/login",
 
                     dataType: "json",
                     data: JSON.stringify({'id':uId,'password':uPassword}),

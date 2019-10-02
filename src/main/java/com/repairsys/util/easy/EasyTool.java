@@ -9,7 +9,7 @@ public final class EasyTool {
     //分页查询公式  limit (page-1)*size,size
 
     /**
-     *  形如 select * from table limit ?,?; 的sql语句，给写dao的程序员用的
+     *  形如 select * from table limit ?,?; 的sql语句，给写dao的程序员方便计算用的
      *
      * @param nextPage 前端点击下一页，的目标页面
      * @param size 一页要的总的记录数

@@ -29,8 +29,8 @@ public class WorkerLoginServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = workerService.login(requestBody.getString("wId"),
-                requestBody.getString("wPassword"),
+        Result result = workerService.login(requestBody.getString("id"),
+                requestBody.getString("password"),
                 session);
         logger.debug("登录成功{}", result);
         request.setAttribute("result", result);
