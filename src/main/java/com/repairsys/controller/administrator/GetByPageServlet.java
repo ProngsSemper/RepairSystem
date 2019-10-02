@@ -1,7 +1,7 @@
 package com.repairsys.controller.administrator;
 
 import com.alibaba.fastjson.JSONObject;
-import com.repairsys.bean.vo.Result;
+import com.repairsys.bean.vo.Page;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.form.FormServiceImpl;
@@ -21,23 +21,32 @@ import java.io.IOException;
 @WebServlet("/admin/form/page")
 public class GetByPageServlet extends BaseServlet {
     private final FormServiceImpl formService = ServiceFactory.getFormService();
-    private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetByPageServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        int count = formService.getTotalCount();
+        int totalCount = formService.getTotalCount();
         int size = 5;
         int page = requestBody.getInteger("targetPage");
         int totalPage = 1;
-        if (count > size) {
-            totalPage = count % size;
+        if (totalCount > size) {
+            boolean b = totalCount % size != 0;
+            totalPage = totalCount / size;
+            if (b) {
+                ++totalPage;
+            }
+
         }
-        for (; page <= totalPage; ++page) {
-            Result result = formService.getPageList(page, size);
-            logger.debug("查询成功{}", result);
-            request.setAttribute("result", result);
-        }
+        Page result = (Page) formService.getPageList(page, size);
+        result.setSize(size);
+        result.setTotalPage(totalPage);
+        result.setTotalCount(totalCount);
+        result.setTargetPage(page);
+
+        logger.debug("查询成功{}", result);
+        request.setAttribute("result", result);
+
         super.doPost(request, response);
     }
 

@@ -21,7 +21,7 @@ import java.io.IOException;
 @WebServlet("/admin/mail")
 public class SendMailServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
-    private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(SendMailServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

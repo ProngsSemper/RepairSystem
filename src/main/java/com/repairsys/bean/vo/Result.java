@@ -15,16 +15,16 @@ public class Result<T> {
     /**
      * 返回状态码
      */
-    private int code;
+    protected int code;
     /**
      * 返回数据
      */
-    private T data;
+    protected T data;
 
     /**
      * 返回的描述信息
      */
-    private String desc;
+    protected String desc;
 
     public Result() {
         super();
