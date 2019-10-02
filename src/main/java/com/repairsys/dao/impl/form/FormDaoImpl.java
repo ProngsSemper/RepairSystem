@@ -17,48 +17,71 @@ import java.util.List;
  */
 public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final Logger logger = LoggerFactory.getLogger(FormDaoImpl.class);
-    /** 查询表单的 id号 */
+    /**
+     * 查询表单的 id号
+     */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
-    /** 根据学生的 id号查询 */
+    /**
+     * 根据学生的 id号查询
+     */
     private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like '%";
-    /** 申请维修 */
+    /**
+     * 申请维修
+     */
     private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
-    /** 申请维修 */
+    /**
+     * 申请维修
+     */
     private static final String APPLY_FORM_DEFAULT = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId)values(?,?,?,?,?,?)";
 
-   /** 查询超过了30天前的记录  */
+    /**
+     * 查询超过了30天前的记录
+     */
     private static final String QUERY_MORE_THAN_DAY30 = "select * from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 37 day)";
 
-    /** 将超过7天的废弃数据迁移到old 表*/
+    /**
+     * 将超过7天的废弃数据迁移到old 表
+     */
     private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform " +
             "select queryCode,formMsg,formDate,stuId,stuMail,adminKey,wKey,photoId,endDate from form " +
             "where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
 
-
-
-    /** 删除超过7天的垃圾数据  */
+    /**
+     * 删除超过7天的垃圾数据
+     */
     private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and endDate<= date_sub(CURDATE(),interval 7 day)";
-    /** 设置管理员的id */
+    /**
+     * 设置管理员的id
+     */
     private static final String SET_ADMIN_KEY = "update form set adminKey = ? where formId = ?";
-    /** 设置工人的id */
+    /**
+     * 设置工人的id
+     */
     private static final String SET_WORKER_KEY = "update form set wKey = ? where formId = ?";
     private static final String SET_FINISHED_WORK = "update form set queryCode = ? where formId = ?";
 
-
-    /** 设置照片的url表信息的id */
+    /**
+     * 设置照片的url表信息的id
+     */
     private static final String SET_PHOTO_KEY = "update form set photoId = ? where formId = ?";
-    /** 更新工作完成时间 */
-    private static final String SET_FINISH_DAY  = "update form set endDate = ? where formId = ?";
-    /** 管理员分配维修任务时的更新操作 */
+    /**
+     * 更新工作完成时间
+     */
+    private static final String SET_FINISH_DAY = "update form set endDate = ? where formId = ?";
+    /**
+     * 管理员分配维修任务时的更新操作
+     */
     private static final String UPDATE_INFORMATION = "update form set endDate = ? , queryCode = ? ,adminKey = ?  ,wKey=? where formId = ?";
 
-
-    private static final FormDaoImpl FORM_DAO= new FormDaoImpl();
+    private static final FormDaoImpl FORM_DAO = new FormDaoImpl();
 
     protected FormDaoImpl() {
         super(Form.class);
     }
-    public static FormDaoImpl getInstance(){return FORM_DAO;}
+
+    public static FormDaoImpl getInstance() {
+        return FORM_DAO;
+    }
 
     /**
      * 根据维修单号来查询维修单的信息
@@ -70,7 +93,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     public List<Form> queryByFormId(String formId) {
         Connection conn = JdbcUtil.getConnection();
 
-        return super.selectList(conn,QUERY_BY_FORMID,formId);
+        return super.selectList(conn, QUERY_BY_FORMID, formId);
     }
 
     /**
@@ -83,8 +106,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     public List<Form> queryByStudentId(String stuId) {
 
         Connection conn = JdbcUtil.getConnection();
-        String finalSql = QUERY_BY_STUDENTID +stuId+"%'";
-        return super.selectList(conn,finalSql);
+        String finalSql = QUERY_BY_STUDENTID + stuId + "%'";
+        return super.selectList(conn, finalSql);
     }
 
     /**
@@ -95,10 +118,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryFormListByStatus(byte status) {
-        assert status>=0&&status<=3;
+        assert status >= 0 && status <= 3;
         String sql = "select * from form where queryCode = ?";
 
-        return super.selectList(JdbcUtil.getConnection(),sql,status);
+        return super.selectList(JdbcUtil.getConnection(), sql, status);
     }
 
     /**
@@ -112,10 +135,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(Object... args) {
 
-
         Connection conn = JdbcUtil.getConnection();
         return super.addOne(conn, APPLY_FORM, args);
-
 
     }
 
@@ -126,7 +147,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * @param code     表单状态: 例如 0表示 false，即没有维修， 1表示维修完成后7天内
      * @param formMsg  表单内容详情
      * @param formDate 表单日期
-     * @param stuMail 用户的邮箱账号
+     * @param stuMail  用户的邮箱账号
      * @param photoId  用户发送的照片在服务器的地址存储路径
      * @return 返回布尔值，如果提交成功返回true，如果运行出现异常，返回false
      */
@@ -147,9 +168,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(String stuId, String formMsg, Date formDate) {
 
-        return this.apply(stuId,0,formMsg,formDate,"","");
+        return this.apply(stuId, 0, formMsg, formDate, "", "");
     }
-
 
     /**
      * 维修成功后表单在数据库超过7天，管理员可能会手动删除记录，或者迁移记录，用来给管理员迁移记录到新的表的功能
@@ -159,49 +179,42 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean apply(Form form) {
-        return this.apply(form.getStuId(),form.getQueryCode(),form.getFormMsg(),form.getFormDate(),form.getStuMail(),form.getPhotoId());
+        return this.apply(form.getStuId(), form.getQueryCode(), form.getFormMsg(), form.getFormDate(), form.getStuMail(), form.getPhotoId());
     }
-
 
     //TODO:后端同学请注意，这个东西一定要读懂才去调用
 
     /**
      * 管理员可能要删除维修完成后，时间过久了的表单记录，根据表单的 id号进行删除
      * 删除oldform 表，将oldform 表中超过30天的数据 视为废弃数据，删除
+     *
      * @param tableName 删除某一个form表的数据
      * @return 如果删除失败，或者出现异常，返回false，否则返回true
      */
     @Override
     public Boolean deleteBefore(String tableName, Date date) {
-        if(tableName==null||tableName.length()<=1)
-        {
+        if (tableName == null || tableName.length() <= 1) {
             tableName = "oldform";
         }
 
-        String patchDelete = "delete from "+ tableName  +" where "+" queryCode >= 2 and  and date_sub(CURDATE(),interval 30 day)  >= CURDATE()" ;
+        String patchDelete = "delete from " + tableName + " where " + " queryCode >= 2 and  and date_sub(CURDATE(),interval 30 day)  >= CURDATE()";
         logger.info(patchDelete);
 
-        boolean b = super.deleteOne(JdbcUtil.getConnection(),patchDelete);
+        boolean b = super.deleteOne(JdbcUtil.getConnection(), patchDelete);
         return b;
     }
 
-
-
     /**
-     *
      * 垃圾清理
      * 将form中超过 7天的数据放入 oldform表
-     *
-     * */
+     */
     @Override
-    public Boolean moveTo()
-    {
-        boolean b = super.updateOne(JdbcUtil.getConnection(),QUERY_MORE_THAN_DAY7);
-        if(!b)
-        {
+    public Boolean moveTo() {
+        boolean b = super.updateOne(JdbcUtil.getConnection(), QUERY_MORE_THAN_DAY7);
+        if (!b) {
             return false;
         }
-        return super.deleteOne(JdbcUtil.getConnection(),DELETE_FORM_DAY_OVER7);
+        return super.deleteOne(JdbcUtil.getConnection(), DELETE_FORM_DAY_OVER7);
     }
 
     /**
@@ -225,7 +238,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setAdminKey(String adminKey, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(),SET_ADMIN_KEY,adminKey,formId);
+        return super.updateOne(JdbcUtil.getConnection(), SET_ADMIN_KEY, adminKey, formId);
     }
 
     /**
@@ -237,7 +250,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setwKey(String workerKey, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(),SET_WORKER_KEY,workerKey,formId);
+        return super.updateOne(JdbcUtil.getConnection(), SET_WORKER_KEY, workerKey, formId);
     }
 
     /**
@@ -249,7 +262,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setPhotoId(String id, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(),SET_PHOTO_KEY,id,formId);
+        return super.updateOne(JdbcUtil.getConnection(), SET_PHOTO_KEY, id, formId);
     }
 
     /**
@@ -261,7 +274,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setEndDate(Date date, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(),SET_FINISH_DAY,date,formId);
+        return super.updateOne(JdbcUtil.getConnection(), SET_FINISH_DAY, date, formId);
     }
 
     /**
@@ -273,7 +286,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setQueryCode(int code, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(),SET_FINISHED_WORK,code,formId);
+        return super.updateOne(JdbcUtil.getConnection(), SET_FINISHED_WORK, code, formId);
     }
 
     /**
@@ -289,7 +302,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey) {
-        return super.updateOne(JdbcUtil.getConnection(),UPDATE_INFORMATION,endDate,queryCode,adminKey,wKey,formId);
+        return super.updateOne(JdbcUtil.getConnection(), UPDATE_INFORMATION, endDate, queryCode, adminKey, wKey, formId);
     }
 
     /**
@@ -304,6 +317,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public List<Form> getPageList(int targetPage, int size) {
         return null;
+    }
 
+    @Override
+    public int getTotalCount() {
+        String sql = "select count(*) from form";
+        return super.getCount(JdbcUtil.getConnection(), sql);
     }
 }

@@ -38,11 +38,13 @@ public interface AdminService {
 
     /**
      * 管理员发送维修通知
+     *
      * @param stuMail 被通知的学生邮箱号
-     * @param day 师傅上门的时间是本月的几号
-     * @param hour 师傅上门时间是几点
+     * @param day     师傅上门的时间是本月的几号
+     * @param hour    师傅上门时间是几点
      * @return 返回对应状态码
      * @throws Exception 抛出异常
      */
     Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception;
+
 }

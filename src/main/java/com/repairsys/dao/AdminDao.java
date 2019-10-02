@@ -48,9 +48,10 @@ public interface AdminDao {
 
     /**
      * 管理员发送维修通知
+     *
      * @param stuMail 被通知学生的邮箱账号
-     * @param day 师傅上门时间是本月的几号
-     * @param hour 师傅上门时间是几点
+     * @param day     师傅上门时间是本月的几号
+     * @param hour    师傅上门时间是几点
      * @return 发送成功返回true
      * @throws Exception 抛出异常
      */

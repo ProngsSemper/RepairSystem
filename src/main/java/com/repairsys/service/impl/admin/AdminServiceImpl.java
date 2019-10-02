@@ -23,23 +23,25 @@ public class AdminServiceImpl implements AdminService {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     private AdminDao adminDao = DaoFactory.getAdminDao();
-
+    private FormDao formDao = DaoFactory.getFormDao();
 
     @Override
     public Result<Boolean> login(String adminId, String password, HttpSession session) {
 
         Result<Boolean> result = new Result<>();
         if (!StringUtils.login(adminId, password)) {
+            result.setData(false);
             return result.setResult(ResultEnum.USERNAME_PASSWORD_EMPTY);
         }
         //该方法在内部已经catch住了异常，出异常时 admin可能为空
         Admin admin = adminDao.login(adminId, password);
         if (admin == null) {
+            result.setData(false);
             return result.setResult(ResultEnum.LOGIN_FAIL);
         }
 
         session.setAttribute("admin", admin);
-
+        result.setData(true);
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
     }
 
@@ -50,7 +52,6 @@ public class AdminServiceImpl implements AdminService {
         if (!StringUtils.getByFormId(formId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
-        FormDao formDao = DaoFactory.getFormDao();
         List<Form> list = formDao.queryByFormId(formId);
         //找不到该表单
         if (list.isEmpty()) {
@@ -67,7 +68,6 @@ public class AdminServiceImpl implements AdminService {
         if (!StringUtils.getByStudentId(stuId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
-        FormDao formDao = DaoFactory.getFormDao();
         List<Form> list = formDao.queryByStudentId(stuId);
         //找不到该表单
         if (list.isEmpty()) {
@@ -81,8 +81,10 @@ public class AdminServiceImpl implements AdminService {
     public Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception {
         Result<Boolean> result = new Result<>();
         if (adminDao.sendMail(stuMail, day, hour)) {
+            result.setData(true);
             return result.setResult(ResultEnum.SEND_MAIL_SUCCESSFULLY);
         }
+        result.setData(false);
         return result.setResult(ResultEnum.SEND_MAIL_FAILED);
     }
 
