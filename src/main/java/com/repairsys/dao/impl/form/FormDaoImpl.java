@@ -73,6 +73,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     private static final String UPDATE_INFORMATION = "update form set endDate = ? , queryCode = ? ,adminKey = ?  ,wKey=? where formId = ?";
 
+    /** 查询对于的状态的表单 */
+    private static final String QUERY_FORM_CODE = "select * from form where queryCode = ?";
+
+
+
     private static final FormDaoImpl FORM_DAO = new FormDaoImpl();
 
     protected FormDaoImpl() {
@@ -307,7 +312,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     /**
      * 分页查询的功能
-     *
+     * 没有总的页数，方法已经废弃，不建议使用
      * @param targetPage 目标页面
      * @param size       记录条数
      * @return 一个bean集合
@@ -319,9 +324,26 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return null;
     }
 
+    /**
+     * 没有加对应的查询条件，不建议使用
+     * @return 返回总的记录数
+     */
+    @Deprecated
     @Override
     public int getTotalCount() {
-        String sql = "select count(*) from form";
+        String sql = "select count(*) from form where queryCode <=0";
         return super.getCount(JdbcUtil.getConnection(), sql);
+    }
+
+    /**
+     * 获取form表的对应条件的记录总数
+     *
+     * @param queryCode 你要查询哪一类表单？ 0：正在申请 1：已经分配维修工 2：修理完成  -1：特殊情况
+     * @return 返回对应的记录的条数
+     *
+     */
+    @Override
+    public int getTotalCount(int queryCode) {
+        return super.getCount(JdbcUtil.getConnection(),QUERY_FORM_CODE,queryCode);
     }
 }

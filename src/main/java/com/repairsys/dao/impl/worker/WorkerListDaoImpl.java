@@ -50,10 +50,10 @@ public class WorkerListDaoImpl extends AbstractPageDao {
     protected WorkerListDaoImpl(Class clazz) {
         super(clazz);
     }
-    private static final WorkerListDaoImpl dao = new WorkerListDaoImpl(Worker.class);
+    private static final WorkerListDaoImpl DAO = new WorkerListDaoImpl(Worker.class);
     public static WorkerListDaoImpl getInstance()
     {
-        return dao;
+        return DAO;
     }
 
     /**
@@ -88,6 +88,7 @@ public class WorkerListDaoImpl extends AbstractPageDao {
      *     }}
      *</pre>
      */
+
     @Deprecated
     public List<Worker> getWorkerByCondition(WorkerListDaoImpl.Column[] columns,String[]args)
     {

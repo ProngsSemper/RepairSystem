@@ -47,10 +47,10 @@ public interface WorkerDao {
      * @param wName 工人的名字
      * @param wTel 工人的电话号码
      * @param wPassword 工人的账号密码
-     * @param Mail 工人的电子邮箱号码
+     * @param mail 工人的电子邮箱号码
      * @return 注册成功返回true，若出现异常注册失败返回false
      */
-    boolean register(String wId,String wName,String wTel,String wPassword,String Mail);
+    boolean register(String wId,String wName,String wTel,String wPassword,String mail);
 
 
 

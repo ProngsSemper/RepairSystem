@@ -63,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Result getByStudentId(String stuId) {
-        Result<List<Form>> result = new Result();
+        Result<List<Form>> result = new Result<List<Form>>();
         //查找表单号为空
         if (!StringUtils.getByStudentId(stuId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);

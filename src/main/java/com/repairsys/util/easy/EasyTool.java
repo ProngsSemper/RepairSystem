@@ -1,5 +1,9 @@
 package com.repairsys.util.easy;
 
+import com.alibaba.fastjson.JSONObject;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author lyr
  * @create 2019/9/26 1:29
@@ -27,6 +31,20 @@ public final class EasyTool {
         return ans;
     }
 
+
+    /**
+     * 传入入会话的request对象，验证用户输入的验证码是否正确
+     * @param request 用户的请求
+     * @return 验证码是否填写正确
+     */
+    public static boolean compareToCode(HttpServletRequest request)
+    {
+        JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
+        String code = jsonObject.getString("code").toLowerCase();
+        String ans = (String)request.getSession().getAttribute("CHECKCODE_SERVER");
+        return ans.equals(code);
+
+    }
 
 
 

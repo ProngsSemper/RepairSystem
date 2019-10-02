@@ -61,9 +61,7 @@ public class DbTest {
         int count = formService.getTotalCount();
         int size = 1;
         int totalPage = 1;
-        if (count > size) {
-            totalPage = count % size;
-        }
+
         for (int page = 1; page <= totalPage; ++page) {
             Result p = formService.getPageList(page, size);
             System.out.println(p.getData());

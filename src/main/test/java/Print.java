@@ -118,7 +118,7 @@ public class Print {
     public void printll()
     {
 
-        System.out.println(10/6);
+        System.out.println(10%1);
     }
 
 }
