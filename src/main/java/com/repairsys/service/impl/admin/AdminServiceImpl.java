@@ -20,18 +20,11 @@ import java.util.List;
  * @create 2019/9/24 18:08
  */
 public class AdminServiceImpl implements AdminService {
-    //TODO: 目前只是写了 login
 
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     private AdminDao adminDao = DaoFactory.getAdminDao();
 
-    /**
-     * 管理员登录
-     *
-     * @param adminId  用户账号
-     * @param password 用户密码
-     * @return
-     */
+
     @Override
     public Result<Boolean> login(String adminId, String password, HttpSession session) {
 
@@ -82,6 +75,15 @@ public class AdminServiceImpl implements AdminService {
         }
         result.setData(list);
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception {
+        Result<Boolean> result = new Result<>();
+        if (adminDao.sendMail(stuMail, day, hour)) {
+            return result.setResult(ResultEnum.SEND_MAIL_SUCCESSFULLY);
+        }
+        return result.setResult(ResultEnum.SEND_MAIL_FAILED);
     }
 
     public AdminServiceImpl() {

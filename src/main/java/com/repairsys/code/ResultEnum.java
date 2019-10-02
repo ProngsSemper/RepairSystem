@@ -84,7 +84,16 @@ public enum ResultEnum {
      * @date 2019/9/30
      * 没有输入查询条件
      */
-    QUERY_EMPTY(400,"请输入查询条件"),
+    QUERY_EMPTY(400, "请输入查询条件"),
+
+    SEND_MAIL_SUCCESSFULLY(200, "邮件发送成功"),
+
+    /**
+     * 发件方身份没有得到认证
+     * @author Prongs
+     * @date 2019/10/02
+     */
+    SEND_MAIL_FAILED(553, "发送失败"),
 
     ;
 
