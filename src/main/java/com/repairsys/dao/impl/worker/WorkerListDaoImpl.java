@@ -75,6 +75,18 @@ public class WorkerListDaoImpl extends AbstractPageDao {
      * @param args 数据库的参数
      * @return 返回worker的bean集合
      * @deprecated
+     *
+     * <pre>{@code  public void printWorkerList()
+     *     {
+     *         WorkerListDaoImpl.Column[] arr = {
+     *             WorkerListDaoImpl.Column.wId,
+     *             WorkerListDaoImpl.Column.wKey
+     *
+     *         };
+     *         List a = WorkerListDaoImpl.getInstance().getWorkerByCondition(arr,new String[]{"123","0"});
+     *         System.out.println(a);
+     *     }}
+     *</pre>
      */
     @Deprecated
     public List<Worker> getWorkerByCondition(WorkerListDaoImpl.Column[] columns,String[]args)
@@ -88,10 +100,10 @@ public class WorkerListDaoImpl extends AbstractPageDao {
             return null;
         }
 
-        StringBuilder sb = new StringBuilder(BASE_QUERY+" where ");
+        StringBuilder sb = new StringBuilder(BASE_QUERY+" where 1=1 ");
         for(int i=0;i<columns.length;++i)
         {
-            sb.append(columns[i].name +" = "+args[i]);
+            sb.append(" and "+columns[i].name +" = "+args[i]);
         }
 
 

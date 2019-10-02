@@ -114,4 +114,11 @@ public class Print {
         System.out.println(i);
     }
 
+    @Test
+    public void printll()
+    {
+
+        System.out.println(10/6);
+    }
+
 }

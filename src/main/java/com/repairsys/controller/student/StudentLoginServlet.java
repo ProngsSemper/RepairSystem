@@ -19,14 +19,10 @@ public class StudentLoginServlet extends BaseServlet {
     private static Logger logger = LoggerFactory.getLogger(StudentLoginServlet.class);
 
 
-    /**
-     *
-     * 用户登录后，需要修改密码和修改个人信息
-     *
-     * */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("学生登录 ");
 
 
     }
@@ -36,9 +32,9 @@ public class StudentLoginServlet extends BaseServlet {
     *
     * */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)  {
 
-
+        doPost(request,response);
     }
 
 }
