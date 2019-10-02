@@ -1,6 +1,7 @@
 package com.repairsys.service.impl.form;
 
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.vo.Page;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
@@ -23,7 +24,7 @@ public class FormServiceImpl implements FormService {
 
     @Override
     public Result<List> getPageList(int targetPage, int size) {
-        Result<List> result = new Result();
+        Result<List> result = new Page<>();
         List<Form> list = formDao.getPageList(targetPage, size);
         result.setData(list);
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);

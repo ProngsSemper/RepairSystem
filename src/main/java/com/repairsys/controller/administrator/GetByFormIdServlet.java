@@ -21,7 +21,7 @@ import java.io.IOException;
 @WebServlet("/admin/formId")
 public class GetByFormIdServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
-    private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetByFormIdServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,6 +35,6 @@ public class GetByFormIdServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }
