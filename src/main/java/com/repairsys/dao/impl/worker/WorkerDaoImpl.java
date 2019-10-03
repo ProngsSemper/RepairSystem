@@ -100,4 +100,10 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.selectList(JdbcUtil.getConnection(),finalSql);
     }
 
+    @Deprecated
+    @Override
+    public List<Worker> getListByWorkerName(String workerName) {
+        return null;
+    }
+
 }
