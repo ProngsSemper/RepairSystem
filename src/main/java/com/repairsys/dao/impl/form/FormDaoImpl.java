@@ -25,6 +25,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * 根据学生的 id号查询
      */
     private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like '%";
+    private static final String QUERY_BY_STUDENTID_OLD = "select * from oldform where `stuId` like '%";
+
     /**
      * 申请维修
      */
@@ -107,6 +109,19 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
         Connection conn = JdbcUtil.getConnection();
         String finalSql = QUERY_BY_STUDENTID + stuId + "%'";
+        return super.selectList(conn, finalSql);
+    }
+
+    /**
+     * 根据学号来查询维修单的信息
+     *
+     * @param stuId 学生学号
+     * @return 返回表单bean对象
+     */
+    @Override
+    public List<Form> queryOldByStudentId(String stuId) {
+        Connection conn = JdbcUtil.getConnection();
+        String finalSql = QUERY_BY_STUDENTID_OLD + stuId + "%'";
         return super.selectList(conn, finalSql);
     }
 

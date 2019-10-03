@@ -69,6 +69,8 @@ public class AdminServiceImpl implements AdminService {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
         List<Form> list = formDao.queryByStudentId(stuId);
+        List<Form> oldList = formDao.queryOldByStudentId(stuId);
+        list.addAll(oldList);
         //找不到该表单
         if (list.isEmpty()) {
             return result.setResult(ResultEnum.QUERY_FAILED);

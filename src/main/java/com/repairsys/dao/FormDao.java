@@ -172,4 +172,6 @@ public interface FormDao {
      */
     List getPageList(int targetPage, int size);
 
+    List<Form> queryOldByStudentId(String stuId);
+
 }
