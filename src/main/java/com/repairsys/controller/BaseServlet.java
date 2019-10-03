@@ -1,6 +1,7 @@
 package com.repairsys.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.ServletException;
@@ -31,8 +32,10 @@ public abstract class BaseServlet extends HttpServlet {
         Result res = (Result) request.getAttribute("result");
         //response把请求的数据响应给前台
         PrintWriter sender = response.getWriter();
+
         if (res != null) {
-            sender.write(JSONObject.toJSONString(res));
+
+            sender.write(JSONObject.toJSONStringWithDateFormat(res,"yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
             sender.flush();
             sender.close();
         }
