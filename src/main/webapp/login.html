@@ -41,7 +41,7 @@
                     <div class="check">
                         <input type="text" placeholder="&nbsp;&nbsp;验证码" class="checkInput" name="checkCode">
                         <a href="javascript:void(0)"  class="linkImg">
-                            <img src="/checkCode" alt="图片加载失败" class="codeImg">
+                            <img src="/checkCode" alt="图片加载失败" class="codeImg" id="vcode" onclick="refreshCode()">
                         </a>
                     </div>         
                     <div class="radio">
@@ -79,10 +79,12 @@
 
                 if (!uId) {
                     alert("请输入账号！");
+                    refreshCode();
                     return;
                 }
                 if (!uPassword) {
                     alert("请输入密码！");
+                    refreshCode();
                     return;
                 }
 
@@ -97,7 +99,10 @@
                         if(ans.code==200)
                         {
                             alert("登录成功");
+                            refreshCode();
                             window.setTimeout("window.location.href='welcome.jsp'", 1000);
+                        }else {
+                            refreshCode();
                         }
                     }
                 });
@@ -106,4 +111,14 @@
             }
         )
     })
+</script>
+<script>
+    function refreshCode(){
+        //1.获取验证码图片对象
+        var vcode = document.getElementById("vcode");
+
+        //2.设置其src属性，加时间戳
+        vcode.src = "/checkCode?time="+new Date().getTime();
+    }
+
 </script>

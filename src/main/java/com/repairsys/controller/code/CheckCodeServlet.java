@@ -49,7 +49,7 @@ public class CheckCodeServlet extends HttpServlet {
         String checkCode = getCheckCode().toLowerCase();
         //将验证码放入HttpSession中
         request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
-        request.setAttribute("code",true);
+
 
         //设置画笔颜色为黄色
         g.setColor(Color.YELLOW);

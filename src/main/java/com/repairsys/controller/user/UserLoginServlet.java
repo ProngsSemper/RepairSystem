@@ -1,5 +1,7 @@
 package com.repairsys.controller.user;
 
+import com.repairsys.util.easy.EasyTool;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,7 @@ public class UserLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("你好对对对对对对多多多多多多多多多");
+        boolean b = EasyTool.compareToCode(request);
     }
 
     @Override
