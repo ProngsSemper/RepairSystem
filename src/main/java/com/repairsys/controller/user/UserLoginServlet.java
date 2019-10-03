@@ -18,7 +18,7 @@ import java.io.IOException;
  * @Author lyr
  * @create 2019/10/3 20:14
  */
-@WebServlet({"/user/login"})
+@WebServlet({"/user/login.html"})
 public class UserLoginServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(UserLoginServlet.class);
     private static final String STU = "1";
