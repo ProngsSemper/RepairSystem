@@ -99,6 +99,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.selectList(conn, QUERY_BY_FORMID, formId);
     }
 
+    /**
+     * 在旧表单中通过报修单id来查找历史报修单
+     * @param formId 报修单id
+     * @return oldfrom表中数据
+     */
     @Override
     public List<Form> queryOldByFormId(String formId) {
         Connection conn = JdbcUtil.getConnection();
@@ -121,10 +126,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     /**
-     * 根据学号来查询维修单的信息
-     *
-     * @param stuId 学生学号
-     * @return 返回表单bean对象
+     * 在已过期表单中通过学生id查找历史报修单（模糊查询）
+     * @param stuId 学生id
+     * @return oldfrom表中数据
      */
     @Override
     public List<Form> queryOldByStudentId(String stuId) {
@@ -342,6 +346,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return null;
     }
 
+    /**
+     * 获取form表的总数
+     * @return 返回form表总数
+     */
     @Override
     public int getTotalCount() {
         String sql = "select count(*) from form";
