@@ -18,11 +18,11 @@
 </body>
 
 
-
 <script>
 
 
     $(document).ready(function () {
+
         $('#ddd').click(
             function () {
 
@@ -41,7 +41,7 @@
 
                 $.ajax({
                     type: "post",
-                    url: "student/login",
+                    url: "student/login.html",
 
                     dataType: "json",
                     data: JSON.stringify({'id':uId,'password':uPassword}),

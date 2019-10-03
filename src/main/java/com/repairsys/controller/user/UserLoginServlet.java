@@ -11,7 +11,7 @@ import java.io.IOException;
  * @Author lyr
  * @create 2019/10/3 20:14
  */
-@WebServlet({"/user/login"})
+@WebServlet({"/user/login.html"})
 public class UserLoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
