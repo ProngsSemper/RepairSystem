@@ -41,7 +41,7 @@
                     <div class="check">
                         <input type="text" placeholder="&nbsp;&nbsp;验证码" class="checkInput" name="checkCode" id="myCode">
                         <a href="javascript:void(0)"  class="linkImg">
-                            <img src="/checkCode" alt="图片加载失败" class="codeImg" id="vcode" onclick="refreshCode()">
+                            <img src="/checkCode.png" alt="图片加载失败" class="codeImg" id="vcode" onclick="refreshCode()">
                         </a>
                     </div>         
                     <div class="radio">
@@ -124,7 +124,7 @@
         var vcode = document.getElementById("vcode");
 
         //2.设置其src属性，加时间戳
-        vcode.src = "/checkCode?time="+new Date().getTime();
+        vcode.src = "/checkCode.png?time="+new Date().getTime();
     }
 
 </script>
