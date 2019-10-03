@@ -3,14 +3,15 @@ package com.repairsys.util.easy;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+
 
 /**
  * @Author lyr
  * @create 2019/9/26 1:29
  */
 public final class EasyTool {
+
+
 
     //分页查询公式  limit (page-1)*size,size
 
@@ -49,13 +50,10 @@ public final class EasyTool {
     }
 
 
-    public static String getDate(String date)
+    @Deprecated
+    private static String getDate(String date)
     {
-
-
-        String ans = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(date)));
-
-        return ans;
+        return "";
     }
 
 

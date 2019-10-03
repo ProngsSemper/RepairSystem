@@ -122,6 +122,31 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     /**
+     * 分页查询
+     *
+     * @param wKey 员工的key，
+     * @param page 查询的页面
+     * @param size 查询的记录数
+     * @return bean表单集合
+     * @deprecated 未实现
+     */
+    @Override
+    public  List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
+        throw  new RuntimeException("没有实现此方法");
+    }
+
+    /**
+     * 返回工人维修表单的总数
+     *
+     * @param wkey 工人的账号
+     * @return 返回工人维修过的表单的记录数
+     */
+    @Override
+    public int getCountByWorkerKey(String wkey) {
+        throw  new RuntimeException("没有实现此方法");
+    }
+
+    /**
      * 根据学号来查询维修单的信息
      *
      * @param stuId 学生学号
@@ -353,7 +378,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Deprecated
     @Override
     public List<Form> getPageList(int targetPage, int size) {
-        return null;
+        throw new RuntimeException("方法已经过时");
     }
 
 

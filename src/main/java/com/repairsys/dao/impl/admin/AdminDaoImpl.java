@@ -1,9 +1,16 @@
 package com.repairsys.dao.impl.admin;
 
 import com.repairsys.bean.entity.Admin;
+import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.BaseDao;
+import com.repairsys.dao.PageDao;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
@@ -18,7 +25,7 @@ import java.util.List;
  * @Author lyr, Prongs
  * @create 2019/9/24 16:54
  */
-public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
+public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<Admin> {
     private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
 
     private static final AdminDaoImpl ADMIN_DAO;
@@ -118,7 +125,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
      * @see AdminDaoImpl#registerPlus(String, String, String)    如果您是该项目的程序员，请使用registerPlus方法，该方法使用了 md5加密处理，这是专门针对管理员密码加密注册用的
      * @deprecated 该方法没有进行对特殊字段进行加密处理, 请不要直接使用，推荐使用 registerPlus方法，为管理员账户专门设计的
      */
-    @Deprecated
+
     @Override
     public boolean register(Object... args) {
 
@@ -149,4 +156,103 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao {
         return MailUtil.sendMail(stuMail, format);
     }
 
+    /**
+     * 查询一个工人的所有表单记录
+     *
+     * @param workerName 查询的工人名字
+     * @param page       第几页
+     * @param size       查询几条记录
+     * @return
+     */
+    @Override
+    public List<Form> queryFormListByWorkerName(String workerName, int page, int size) {
+        Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyByName(workerName);
+
+        return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(),page,size);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
+    *
+    *
+    * 下面是对于分页查询接口代码的实现
+    *
+    * */
+    /** 查询管理员的记录 */
+    private static final String QUERY_ADMIN_LIST = "select * from administrators limit ?,?";
+    /** 查询管理员条数记录 */
+    private static final String QUERY_ADMIN_LIST_COUNT = "select count(*) from administrators";
+
+
+
+
+
+    /**
+     * 查询出对应的数据库表信息
+     *
+     * @param targetPage 查询目标页面
+     * @param size       查询的页面有多少条记录
+     * @return 返回一个 java bean集合
+     */
+    @Override
+    public List<Admin> selectPageList(int targetPage, int size) {
+        int[] ans = EasyTool.getLimitNumber(targetPage,size);
+        return super.selectList(JdbcUtil.getConnection(),QUERY_ADMIN_LIST,ans[0],ans[1]);
+    }
+
+    /**
+     * 返回一共有多少条数据再数据库记录着
+     *
+     * @return int
+     */
+    @Override
+    public int selectPageCount() {
+        return super.getCount(JdbcUtil.getConnection(),QUERY_ADMIN_LIST_COUNT);
+    }
+
+
+    /**
+     * 获得数据库满足某个条件的记录
+     *
+     * @return 返回的查询到的记录数
+     */
+
+    public int getCount() {
+        return this.selectPageCount();
+    }
+
+    /**
+     * 查询出对应的数据库表信息
+     *
+     * @param sql        查询的sql语句
+     * @param targetPage 目标页面
+     * @param size       分页记录
+     * @return 返回一个bean集合
+     */
+    @Override
+    public List<Admin> selectPageList(String sql, int targetPage, int size) {
+        return this.selectPageList(targetPage, size);
+    }
+
+    /**
+     * 返回一共有多少条数据再数据库记录着
+     *
+     * @param sql 要传入的sql语句
+     * @return int
+     */
+    @Override
+    public int selectPageCount(String sql) {
+        return this.getCount();
+    }
 }

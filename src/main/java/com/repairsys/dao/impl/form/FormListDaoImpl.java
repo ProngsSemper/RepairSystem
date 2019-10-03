@@ -1,7 +1,9 @@
 package com.repairsys.dao.impl.form;
 
 import com.repairsys.bean.entity.Form;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.easy.EasyTool;
 
 import java.util.List;
 
@@ -16,6 +18,9 @@ public final class FormListDaoImpl extends FormDaoImpl {
     private static final String BASE_QUERY_BY_ID = "select * from form where queryCode = ? and stuId = ?";
     private static final String BASE_QUERY = "select * from form where queryCode = ? ";
     private static final String BASE_PAGE_LIST = "select * from form  where queryCode <=0 limit ?,?";
+
+    /** 分页查询一个员工修理任务的表单信息 */
+    private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldfrom where wKey = ? limit ?,?";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -92,4 +97,34 @@ public final class FormListDaoImpl extends FormDaoImpl {
     public List<Form> getPageList(String sql, int targetPage, int size) {
         return super.getPageList(sql, targetPage, size);
     }
+
+
+    /**
+     * 分页查询出一个员工的所有维修记录
+     *
+     * @param wKey 员工的key，
+     * @param page 查询的页面
+     * @param size 查询的记录数
+     * @return bean表单集合
+     *
+     */
+    @Override
+    public List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
+        // WorkerDaoImpl.getInstance().
+        int[] ans = EasyTool.getLimitNumber(page,size);
+        return super.selectList(JdbcUtil.getConnection(),SEARCH_WKEY_FORM_LIST,wKey,wKey,ans[0],ans[1]);
+    }
+
+    /**
+     * 返回工人维修表单的总数
+     *
+     * @param wkey 工人的账号
+     * @return 返回工人维修过的表单的记录数
+     */
+    @Override
+    public int getCountByWorkerKey(String wkey) {
+        return super.getCountByWorkerKey(wkey);
+    }
+
+
 }

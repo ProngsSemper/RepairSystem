@@ -26,6 +26,12 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+        Boolean b = (Boolean) req.getAttribute("code");
+        if(b!=null)
+        {
+            //图片验证码等资源需要放行
+            doFilter(req, resp, chain);
+        }
         HttpServletRequest request = (HttpServletRequest) req;
         // 读取 request 的字符流
         BufferedReader br = request.getReader();
@@ -60,7 +66,7 @@ public class RequestBodyFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config)  {
 
     }
 
