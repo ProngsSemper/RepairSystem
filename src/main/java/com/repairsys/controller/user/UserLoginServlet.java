@@ -1,6 +1,11 @@
 package com.repairsys.controller.user;
 
+import com.alibaba.fastjson.JSONObject;
+import com.repairsys.bean.vo.Result;
+import com.repairsys.code.ResultEnum;
 import com.repairsys.util.easy.EasyTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +20,43 @@ import java.io.IOException;
  */
 @WebServlet({"/user/login"})
 public class UserLoginServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(UserLoginServlet.class);
+    private static final String STU = "1";
+    private static final String ADMIN = "2";
+
+
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("你好对对对对对对多多多多多多多多多");
+        logger.debug("接收到用户登录请求");
         boolean b = EasyTool.compareToCode(request);
+        if(!b)
+        {
+            logger.debug("验证码错误");
+            Result<Boolean> result = new Result<>();
+            result.setResult(ResultEnum.CODE_FALSE);
+            request.setAttribute("result",result);
+        }else {
+            logger.debug("验证码正确");
+            JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
+            String value = jsonObject.getString("radio");
+            logger.debug("{}",value);
+            if(STU.equals(value))
+            {
+                logger.debug("学生");
+                request.getRequestDispatcher("/student/login").forward(request,response);
+
+            }else if(ADMIN.equals(value))
+            {
+                logger.debug("管理员");
+                request.getRequestDispatcher("/admin/login").forward(request,response);
+            }else{
+                logger.debug("工人");
+                request.getRequestDispatcher("/worker/login").forward(request,response);
+            }
+
+
+        }
     }
 
     @Override
