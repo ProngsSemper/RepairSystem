@@ -56,9 +56,16 @@ public class AdminServiceImpl implements AdminService {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
         List<Form> list = formDao.queryByFormId(formId);
-        //找不到该表单
+        //在未过期表单中找不到时到过期表单中寻找
         if (list.isEmpty()) {
-            return result.setResult(ResultEnum.QUERY_FAILED);
+            list = formDao.queryOldByFormId(formId);
+            //在过期表单中也找不到
+            if (list.isEmpty()) {
+                return result.setResult(ResultEnum.QUERY_FAILED);
+            }
+            //在过期表单中找到了
+            result.setData(list);
+            return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         }
         result.setData(list);
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
@@ -72,6 +79,8 @@ public class AdminServiceImpl implements AdminService {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
         List<Form> list = formDao.queryByStudentId(stuId);
+        List<Form> oldList = formDao.queryOldByStudentId(stuId);
+        list.addAll(oldList);
         //找不到该表单
         if (list.isEmpty()) {
             return result.setResult(ResultEnum.QUERY_FAILED);

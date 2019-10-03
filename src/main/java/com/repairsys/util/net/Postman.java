@@ -17,22 +17,21 @@ import java.io.IOException;
  */
 public final class Postman {
 
-    private static final String LOGIN_REQUEST="http://jwxt.gduf.edu.cn/app.do?method=authUser&";
-    private static final int PASS=200;
-
+    private static final String LOGIN_REQUEST = "http://jwxt.gduf.edu.cn/app.do?method=authUser&";
+    private static final int PASS = 200;
 
     /**
      * 没有进行超时处理的方法,不安全的方法
+     *
      * @param xh
      * @param pwd
      * @return
-     * @throws IOException  超时没有得到响应会抛出异常
+     * @throws IOException 超时没有得到响应会抛出异常
      * @deprecated
      */
     @Deprecated
-    public static JSONObject doGet(String xh,String pwd) throws IOException {
-        String finalUrl = LOGIN_REQUEST+"xh="+xh+"&pwd="+pwd;
-
+    public static JSONObject doGet(String xh, String pwd) throws IOException {
+        String finalUrl = LOGIN_REQUEST + "xh=" + xh + "&pwd=" + pwd;
 
         HttpGet getHandler = new HttpGet(finalUrl);
         //创建一个用于抓包的客户端
@@ -40,35 +39,32 @@ public final class Postman {
         //提交并且获取url的响应
         CloseableHttpResponse response = httpClient.execute(getHandler);
 
-
         return getJsonObject(response);
     }
-    private static  JSONObject getJsonObject(CloseableHttpResponse response) throws IOException {
-        if((response.getStatusLine().getStatusCode()!=PASS))
-        {
+
+    private static JSONObject getJsonObject(CloseableHttpResponse response) throws IOException {
+        if ((response.getStatusLine().getStatusCode() != PASS)) {
             return null;
         }
         HttpEntity entity = response.getEntity();
-        String jsonContent = EntityUtils.toString(entity,"utf-8");
+        String jsonContent = EntityUtils.toString(entity, "utf-8");
         JSONObject jsonObject = null;
-        jsonObject= JSONObject.parseObject(jsonContent);
+        jsonObject = JSONObject.parseObject(jsonContent);
         return jsonObject;
 
     }
 
-
-
     /**
      * 由于 httpClient 是阻塞态的，进行了超时处理方法，安全的方法
-     * @param xh 学生账号
+     *
+     * @param xh  学生账号
      * @param pwd 学生密码
-     * @return   JSONObject
+     * @return JSONObject
      * @throws IOException
      */
 
-    public static JSONObject doPost(String xh,String pwd) throws IOException {
-        String finalUrl = LOGIN_REQUEST+"xh="+xh+"&pwd="+pwd;
-
+    public static JSONObject doPost(String xh, String pwd) throws IOException {
+        String finalUrl = LOGIN_REQUEST + "xh=" + xh + "&pwd=" + pwd;
 
         HttpGet getHandler = new HttpGet(finalUrl);
         //创建一个用于抓包的客户端
@@ -80,12 +76,8 @@ public final class Postman {
 
         getHandler.setConfig(requestConfig);
 
-
-
-
         //提交并且获取url的响应
         CloseableHttpResponse response = httpClient.execute(getHandler);
-
 
         return getJsonObject(response);
     }

@@ -54,7 +54,7 @@ public class WorkerLoginServlet extends BaseServlet {
                 }
             }
         }
-        logger.debug("登录成功{}", result);
+        logger.debug("登录信息{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }

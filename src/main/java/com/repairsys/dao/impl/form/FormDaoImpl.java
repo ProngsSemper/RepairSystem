@@ -21,10 +21,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * 查询表单的 id号
      */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
+    private static final String QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ?";
     /**
      * 根据学生的 id号查询
      */
     private static final String QUERY_BY_STUDENTID = "select * from form where `stuId` like '%";
+    private static final String QUERY_BY_STUDENTID_OLD = "select * from oldform where `stuId` like '%";
+
     /**
      * 申请维修
      */
@@ -102,6 +105,18 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     /**
+     * 在旧表单中通过报修单id来查找历史报修单
+     * @param formId 报修单id
+     * @return oldfrom表中数据
+     */
+    @Override
+    public List<Form> queryOldByFormId(String formId) {
+        Connection conn = JdbcUtil.getConnection();
+
+        return super.selectList(conn, QUERY_BY_FORMID_OLD, formId);
+    }
+
+    /**
      * 根据学号来查询维修单的信息
      *
      * @param stuId 学生学号
@@ -112,6 +127,18 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
         Connection conn = JdbcUtil.getConnection();
         String finalSql = QUERY_BY_STUDENTID + stuId + "%'";
+        return super.selectList(conn, finalSql);
+    }
+
+    /**
+     * 在已过期表单中通过学生id查找历史报修单（模糊查询）
+     * @param stuId 学生id
+     * @return oldfrom表中数据
+     */
+    @Override
+    public List<Form> queryOldByStudentId(String stuId) {
+        Connection conn = JdbcUtil.getConnection();
+        String finalSql = QUERY_BY_STUDENTID_OLD + stuId + "%'";
         return super.selectList(conn, finalSql);
     }
 

@@ -28,7 +28,12 @@ public class GetByStudentIdServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
         Result result = workerService.getByStudentId(requestBody.getString("stuId"));
-        logger.debug("查询成功{}", result);
+        int flag = 200;
+        if (result.getCode() == flag) {
+            logger.debug("查询成功{}", result);
+        } else {
+            logger.debug("查询失败{}", result);
+        }
         request.setAttribute("result", result);
         super.doPost(request, response);
     }
