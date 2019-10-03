@@ -35,7 +35,12 @@ public class SendMailServlet extends BaseServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.debug("发送成功{}", result);
+        int flag = 200;
+        if (result.getCode() == flag) {
+            logger.debug("发送成功{}", result);
+        } else {
+            logger.debug("发送失败{}", result);
+        }
         request.setAttribute("result", result);
         super.doPost(request, response);
     }

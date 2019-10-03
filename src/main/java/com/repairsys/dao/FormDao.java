@@ -174,4 +174,6 @@ public interface FormDao {
 
     List<Form> queryOldByStudentId(String stuId);
 
+    List<Form> queryOldByFormId(String formId);
+
 }

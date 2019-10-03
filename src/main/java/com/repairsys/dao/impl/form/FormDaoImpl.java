@@ -21,6 +21,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * 查询表单的 id号
      */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
+    private static final String QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ?";
     /**
      * 根据学生的 id号查询
      */
@@ -96,6 +97,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         Connection conn = JdbcUtil.getConnection();
 
         return super.selectList(conn, QUERY_BY_FORMID, formId);
+    }
+
+    @Override
+    public List<Form> queryOldByFormId(String formId) {
+        Connection conn = JdbcUtil.getConnection();
+
+        return super.selectList(conn, QUERY_BY_FORMID_OLD, formId);
     }
 
     /**

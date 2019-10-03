@@ -44,7 +44,12 @@ public class GetByPageServlet extends BaseServlet {
         result.setTotalCount(totalCount);
         result.setTargetPage(page);
 
-        logger.debug("查询成功{}", result);
+        int flag = 200;
+        if (result.getCode() == flag) {
+            logger.debug("查询成功{}", result);
+        } else {
+            logger.debug("查询失败{}", result);
+        }
         request.setAttribute("result", result);
 
         super.doPost(request, response);
