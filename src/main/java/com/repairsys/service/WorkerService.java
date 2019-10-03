@@ -18,4 +18,20 @@ public interface WorkerService {
      * @return
      */
     Result<Boolean> login(String wId, String password, HttpSession session);
+
+    /**
+     * 管理员根据报修单号查询报修单
+     *
+     * @param formId 报修单号
+     * @return 返回对应状态码
+     */
+    Result getByFormId(String formId);
+
+    /**
+     * 管理员根据学生学号查询报修单
+     *
+     * @param stuId 学生学号
+     * @return 返回对应状态码
+     */
+    Result getByStudentId(String stuId);
 }

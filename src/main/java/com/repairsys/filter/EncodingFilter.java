@@ -22,11 +22,10 @@ public class EncodingFilter implements Filter {
         // 设置请求的编码为 utf-8
         req.setCharacterEncoding("UTF-8");
         //设置响应编码 为 utf-8 ,声明为json格式
-        ((HttpServletResponse) resp).setContentType("application/json;charset=UTF-8");
-        ((HttpServletResponse) resp).setCharacterEncoding("UTF-8");
+        resp.setContentType("application/json;charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
 
         chain.doFilter(req, resp);
-        return;
     }
 
     @Override
