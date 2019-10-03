@@ -88,7 +88,6 @@ public class WorkerListDaoImpl extends AbstractPageDao {
      *     }}
      *</pre>
      */
-
     @Deprecated
     public List<Worker> getWorkerByCondition(WorkerListDaoImpl.Column[] columns,String[]args)
     {

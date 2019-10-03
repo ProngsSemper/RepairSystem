@@ -187,4 +187,18 @@ public interface FormDao {
 
     List<Form> getListByWorkerId(String workerKey);
 
+    /**
+     * 在已过期表单中通过学生id查找历史报修单（模糊查询）
+     * @param stuId 学生id
+     * @return oldfrom表中数据
+     */
+    List<Form> queryOldByStudentId(String stuId);
+
+    /**
+     * 在旧表单中通过报修单id来查找历史报修单
+     * @param formId 报修单id
+     * @return oldfrom表中数据
+     */
+    List<Form> queryOldByFormId(String formId);
+
 }
