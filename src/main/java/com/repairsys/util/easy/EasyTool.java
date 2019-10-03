@@ -3,6 +3,8 @@ package com.repairsys.util.easy;
 import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * @Author lyr
@@ -46,6 +48,15 @@ public final class EasyTool {
 
     }
 
+
+    public static String getDate(String date)
+    {
+
+
+        String ans = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(date)));
+
+        return ans;
+    }
 
 
 }

@@ -16,7 +16,7 @@ public class NetTest {
     public void loginCall() throws IOException {
         JSONObject jsonObject = null;
         try {
-            jsonObject = Postman.doGet("181549422","password");
+            jsonObject = Postman.doPost("181549422","password");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@ import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
+import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -69,7 +70,7 @@ public class Print {
         SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
         String format = df.format(time);
         System.out.println(format);
-        MailUtil.sendMail("798237844@qq.com", format);
+        MailUtil.sendMail("1957476540@qq.com", format);
     }
 
     @Test
@@ -117,8 +118,9 @@ public class Print {
     @Test
     public void printll()
     {
+        String a = "1569859200000";
 
-        System.out.println(10%1);
+        System.out.println(EasyTool.getDate(a));
     }
 
 }

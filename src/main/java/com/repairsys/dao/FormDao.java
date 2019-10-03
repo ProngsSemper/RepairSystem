@@ -182,7 +182,10 @@ public interface FormDao {
      * @param size 每页显示数量
      * @return form表中的数据
      */
-    List getPageList(int targetPage, int size);
+    List<Form> getPageList(int targetPage, int size);
+
+
+    List<Form> getListByWorkerId(String workerKey);
 
     /**
      * 在已过期表单中通过学生id查找历史报修单（模糊查询）

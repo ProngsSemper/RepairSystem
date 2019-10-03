@@ -1,5 +1,7 @@
 package com.repairsys.bean.entity;
 
+import com.repairsys.util.easy.EasyTool;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -17,6 +19,15 @@ public class Form implements Serializable {
     private String photoId;
     private int adminKey;
     private int wKey;
+    private Date endDate;
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 
     public Form() {
     }
@@ -100,11 +111,12 @@ public class Form implements Serializable {
                 ", queryCode=" + queryCode +
                 ", formId=" + formId +
                 ", formMsg='" + formMsg + '\'' +
-                ", formDate=" + formDate +
+                ", formDate=" + EasyTool.getDate(formDate.toString()) +
                 ", stuMail='" + stuMail + '\'' +
                 ", photoId='" + photoId + '\'' +
                 ", adminKey=" + adminKey +
                 ", wKey=" + wKey +
-                '}'+"\r\n";
+                ", endDate=" + EasyTool.getDate(endDate.toString()) +
+                '}';
     }
 }

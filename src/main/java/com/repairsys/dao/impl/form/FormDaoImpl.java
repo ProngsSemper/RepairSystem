@@ -79,6 +79,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /** 查询对于的状态的表单 */
     private static final String QUERY_FORM_CODE = "select * from form where queryCode = ?";
 
+    private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
+    private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
+
+
+
 
 
     private static final FormDaoImpl FORM_DAO = new FormDaoImpl();
@@ -349,6 +354,16 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public List<Form> getPageList(int targetPage, int size) {
         return null;
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public List<Form> getListByWorkerId(String workerKey) {
+        List<Form> list1 = super.selectList(JdbcUtil.getConnection(),QUERY_FORM_BY_WKEY,workerKey);
+        List<Form> list2 = super.selectList(JdbcUtil.getConnection(),QUERY_OLDFORM_BY_WKEY,workerKey);
+        list1.addAll(list2);
+        return list1;
     }
 
     /**
