@@ -2,6 +2,8 @@ package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Worker;
 
+import java.util.List;
+
 /**
  * @Author lyr
  * @create 2019/9/24 13:35
@@ -51,6 +53,14 @@ public interface WorkerDao {
      * @return 注册成功返回true，若出现异常注册失败返回false
      */
     boolean register(String wId,String wName,String wTel,String wPassword,String mail);
+
+
+    /**
+     * 估计工人的名字进行模糊查询
+     * @param name 工人的名字
+     * @return 返回可能要查找的工人信息
+     */
+    List<Worker> fuzzySearchWorkers(String name);
 
 
 

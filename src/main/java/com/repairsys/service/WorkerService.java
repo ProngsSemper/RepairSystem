@@ -34,4 +34,21 @@ public interface WorkerService {
      * @return 返回对应状态码
      */
     Result getByStudentId(String stuId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

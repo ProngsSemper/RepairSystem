@@ -13,6 +13,10 @@ import java.util.Random;
 
 /**
  * 验证码,设置在session中
+ *
+ * 已经写好了工具类，可以直接调用工具进行比较
+ * @see com.repairsys.util.easy.EasyTool#compareToCode(HttpServletRequest) ;
+ *
  * @Author lyr
  * @create 2019/10/2 19:21
  */
