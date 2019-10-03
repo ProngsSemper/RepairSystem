@@ -35,5 +35,8 @@ public class ServiceFactory {
     public static FormServiceImpl getFormService() {
         return ServiceFactory.FORM_SERVICE;
     }
-    public static StudentServiceImpl getStudentService() {return STUDENT_SERVICE;}
+
+    public static StudentServiceImpl getStudentService() {
+        return STUDENT_SERVICE;
+    }
 }

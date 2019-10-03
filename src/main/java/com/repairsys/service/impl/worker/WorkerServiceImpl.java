@@ -1,9 +1,11 @@
 package com.repairsys.service.impl.worker;
 
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.FormDao;
 import com.repairsys.dao.WorkerDao;
 import com.repairsys.service.WorkerService;
 import com.repairsys.util.string.StringUtils;
@@ -11,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author Prongs
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class WorkerServiceImpl implements WorkerService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerServiceImpl.class);
     private WorkerDao workerDao = DaoFactory.getWorkerDao();
+    private FormDao formDao = DaoFactory.getFormDao();
 
     @Override
     public Result<Boolean> login(String wId, String password, HttpSession session) {
@@ -36,6 +40,38 @@ public class WorkerServiceImpl implements WorkerService {
         session.setAttribute("worker", worker);
 
         return result.setResult(ResultEnum.LOGIN_SUCCESS);
+    }
+
+    @Override
+    public Result getByFormId(String formId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        List<Form> list = formDao.queryByFormId(formId);
+        //找不到该表单
+        if (list.isEmpty()) {
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result getByStudentId(String stuId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByStudentId(stuId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        List<Form> list = formDao.queryByStudentId(stuId);
+        //找不到该表单
+        if (list.isEmpty()) {
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
     public WorkerServiceImpl() {
