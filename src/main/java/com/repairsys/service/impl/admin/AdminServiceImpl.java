@@ -2,13 +2,16 @@ package com.repairsys.service.impl.admin;
 
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.AdminService;
 import com.repairsys.util.string.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,7 +73,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Result getByStudentId(String stuId) {
-        Result<List<Form>> result = new Result();
+        Result<List<Form>> result = new Result<List<Form>>();
         //查找表单号为空
         if (!StringUtils.getByStudentId(stuId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);
@@ -96,6 +99,34 @@ public class AdminServiceImpl implements AdminService {
         result.setData(false);
         return result.setResult(ResultEnum.SEND_MAIL_FAILED);
     }
+
+    /**
+     * 模糊查询出工人
+     * @date 2019/10/3
+     * @param name 工人的名字
+     * @return 通过工人的名字模糊查询出结果集，回馈给管理员页面
+     */
+    @Override
+    public Result<List<Worker>> findWorkers(String name) {
+        Result<List<Worker>> result = new Result<>();
+        List<Worker> list = WorkerDaoImpl.getInstance().fuzzySearchWorkers(name);
+        result.setData(list);
+
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public AdminServiceImpl() {
     }

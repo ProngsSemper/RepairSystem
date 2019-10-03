@@ -16,10 +16,10 @@ public class DeveloperDao extends BaseDao<Developer> {
     private DeveloperDao() {
         super(Developer.class);
     }
-    private static final DeveloperDao dao = new DeveloperDao();
+    private static final DeveloperDao DAO = new DeveloperDao();
     public static DeveloperDao getInstance()
     {
-        return dao;
+        return DAO;
     }
 
 

@@ -42,8 +42,23 @@ public interface AdminDao {
      */
     boolean register(Object... args);
 
+    /**
+     * 添加了 md5加密的功能
+     * @param uId  用户id
+     * @param uName   用户名字
+     * @param uPassword  用户密码
+     * @return  注册是否成功
+     */
     boolean registerPlus(String uId, String uName, String uPassword);
 
+    /**
+     * 用户注册
+     * @param uId 用户id
+     * @param uName  用户名字
+     * @param uPassword  用户密码
+     * @param email  用户的邮箱信息
+     * @return  用户的注册是否成功
+     */
     boolean registerPlus(String uId, String uName, String uPassword, String email);
 
     /**

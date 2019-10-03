@@ -61,9 +61,7 @@ public class DbTest {
         int count = formService.getTotalCount();
         int size = 1;
         int totalPage = 1;
-        if (count > size) {
-            totalPage = count % size;
-        }
+
         for (int page = 1; page <= totalPage; ++page) {
             Result p = formService.getPageList(page, size);
             System.out.println(p.getData());
@@ -88,6 +86,13 @@ public class DbTest {
         developer = DeveloperDao.getInstance().login("lyr","422525");
         System.out.println(developer);
 
+    }
+
+    @Test
+    public void searchWorkers()
+    {
+        List<Worker> list = WorkerDaoImpl.getInstance().fuzzySearchWorkers("刘");
+        System.out.println(list);
     }
 
 

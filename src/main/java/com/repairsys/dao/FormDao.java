@@ -161,8 +161,20 @@ public interface FormDao {
     /**
      * 获取form表的总数
      * @return 返回form表总数
+     * @deprecated
      */
+    @Deprecated
     int getTotalCount();
+
+
+    /**
+     * 获取form表的对应条件的记录总数
+     * @param queryCode 你要查询哪一类表单？ 0：正在申请 1：已经分配维修工 2：修理完成  -1：特殊情况
+     * @return 返回对应的记录的条数
+     */
+    int getTotalCount(int queryCode);
+
+
 
     /**
      * 分页显示

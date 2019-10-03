@@ -69,7 +69,7 @@ public final class FormListDaoImpl extends FormDaoImpl {
 
     @Override
     public int getTotalCount() {
-        String sql = "select count(*) from form";
+        String sql = "select count(*) from form where queryCode<=0";
         return super.getCount(JdbcUtil.getConnection(), sql);
     }
 

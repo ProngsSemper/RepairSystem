@@ -4,6 +4,8 @@ import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 
+import java.util.List;
+
 /**
  * @Author lyr
  * @create 2019/9/27 10:52
@@ -12,6 +14,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
+    private static final String SEARCH_WORKERS = "select * from workers where wName like '%";
 
 
     public static WorkerDaoImpl getInstance() {
@@ -83,6 +86,18 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
     public boolean register(String wId, String wName, String wTel, String wPassword, String wMail) {
         return super.addOne(JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
+    }
+
+    /**
+     * 估计工人的名字进行模糊查询
+     *
+     * @param name 工人的名字
+     * @return 返回可能要查找的工人信息
+     */
+    @Override
+    public List<Worker> fuzzySearchWorkers(String name) {
+        String finalSql = SEARCH_WORKERS+name+"%'";
+        return super.selectList(JdbcUtil.getConnection(),finalSql);
     }
 
 }
