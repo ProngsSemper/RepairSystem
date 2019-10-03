@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/login.css" type="text/css">
     <title>广东金融学院后勤保修平台</title>
     <script src="js/jquery-1.12.4.js"></script>
+<!--    <script src="js/screen/screen.js"></script>-->
     
     <style>
         .super-center{
@@ -65,26 +66,43 @@
 
 </body>
 </html>
-
+<!-- 发送ajax请求 -->
+<!-- lyr -->
 <script>
     $(document).ready(function () {
-        $("#login").click(function () {
-            if(!$('#id').val())
-            {
-                alert("请输入账号！");
-                return
-            }
-            if(!$('#password').val())
-            {
-                alert("请输入密码！");
+        $('#login').click(
+            function () {
 
-            }else{
+                const uId = $('#id').val();
+                const uPassword = $('#password').val();
+
+                if (!uId) {
+                    alert("请输入账号！");
+                    return;
+                }
+                if (!uPassword) {
+                    alert("请输入密码！");
+                    return;
+                }
+
+
                 $.ajax({
+                    type: "post",
+                    url: "admin/login",
 
-                })
+                    dataType: "json",
+                    data: JSON.stringify({'id':uId,'password':uPassword}),
+                    success: function (ans) {
+                        if(ans.code==200)
+                        {
+                            alert("登录成功");
+                            window.setTimeout("window.location.href='welcome.jsp'", 1000);
+                        }
+                    }
+                });
+
+
             }
-
-
-        })
+        )
     })
 </script>
