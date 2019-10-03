@@ -75,6 +75,7 @@
 
                 const uId = $('#id').val();
                 const uPassword = $('#password').val();
+                const radio = $("input[name='identity']:checked").val();
 
                 if (!uId) {
                     alert("请输入账号！");
@@ -88,10 +89,10 @@
 
                 $.ajax({
                     type: "post",
-                    url: "admin/login",
+                    url: "user/login",
 
                     dataType: "json",
-                    data: JSON.stringify({'id':uId,'password':uPassword}),
+                    data: JSON.stringify({'id':uId,'password':uPassword,'radio':radio}),
                     success: function (ans) {
                         if(ans.code==200)
                         {
