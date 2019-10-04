@@ -21,6 +21,7 @@ public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
     /** 默认需要放行的资源 */
     private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
+    private static final String[] UI = {"lay","ui"};
 
     @Override
     public void destroy() {
@@ -36,6 +37,14 @@ public class RequestBodyFilter implements Filter {
             {
                 logger.debug("放行静态资源 {}",t);
 
+                chain.doFilter(req,resp);
+                return;
+            }
+        }
+        for(String i:UI)
+        {
+            if(t.indexOf(i)>0)
+            {
                 chain.doFilter(req,resp);
                 return;
             }

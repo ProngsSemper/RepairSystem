@@ -20,10 +20,11 @@ import java.io.IOException;
  * @author Prongs
  * @date 2019/9/29
  */
-@WebServlet("/admin/login.html")
+@WebServlet("/admin/logi")
 public class AdminLoginServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

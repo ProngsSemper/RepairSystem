@@ -10,6 +10,11 @@ package com.repairsys.code;
 public enum ResultEnum {
 
     /**
+     * lay-ui 的状态码：分页查询成功
+     */
+    SHOW_TABLE(0,"分页查询状态码：查询超过"),
+
+    /**
      * 登录失败
      */
     LOGIN_FAIL(401, "用户名或密码错误"),

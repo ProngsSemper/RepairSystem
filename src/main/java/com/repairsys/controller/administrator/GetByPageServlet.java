@@ -27,8 +27,8 @@ public class GetByPageServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         int totalCount = formService.getTotalCount();
-        int size = 5;
-        int page = requestBody.getInteger("targetPage");
+        Integer size = Integer.valueOf(request.getParameter("limit"));
+        Integer page = Integer.valueOf(request.getParameter("page"));
         int totalPage = 1;
         if (totalCount > size) {
             boolean b = totalCount % size != 0;
@@ -47,6 +47,7 @@ public class GetByPageServlet extends BaseServlet {
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);
+            result.setCode(0);
         } else {
             logger.debug("查询失败{}", result);
         }
