@@ -3,6 +3,7 @@ package com.repairsys.dao.impl.worker;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.easy.EasyTool;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
     private static final String SEARCH_WORKERS = "select * from workers where wName like '%";
+    private static final String GET_WORKER = "select wKey from workers where wName = ?";
+    private static final String GET_WORKER_COUNT = "select count(*) from workers where wName = ?";
 
 
     public static WorkerDaoImpl getInstance() {
@@ -88,6 +91,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.addOne(JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
     }
 
+
     /**
      * 估计工人的名字进行模糊查询
      *
@@ -100,10 +104,29 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.selectList(JdbcUtil.getConnection(),finalSql);
     }
 
-    @Deprecated
+    public List<Worker> fuzzySearchWorkers(String name,int targetPage,int size)
+    {
+        String finalSql = SEARCH_WORKERS+name+"%'"+" limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(targetPage,size);
+        return super.selectList(JdbcUtil.getConnection(),finalSql,ans[0],ans[1]);
+    }
+    public int fuzzySearchWorkersCount(String name)
+    {
+        return super.getCount(JdbcUtil.getConnection(),GET_WORKER_COUNT);
+    }
+
+
+
+    /**
+     * 输入工人的名字查询工人维修的单号
+     *
+     * @param workerName 工人的名字
+     * @return 返回工人维修的单号
+     */
     @Override
-    public List<Worker> getListByWorkerName(String workerName) {
-        return null;
+
+    public Worker getWorkerKeyByName(String workerName) {
+        return super.selectOne(JdbcUtil.getConnection(),GET_WORKER,workerName);
     }
 
 }

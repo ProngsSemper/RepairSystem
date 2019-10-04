@@ -115,12 +115,6 @@ public class Print {
         System.out.println(i);
     }
 
-    @Test
-    public void printll()
-    {
-        String a = "1569859200000";
 
-        System.out.println(EasyTool.getDate(a));
-    }
 
 }

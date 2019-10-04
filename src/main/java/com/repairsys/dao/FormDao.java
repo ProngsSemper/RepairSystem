@@ -53,7 +53,7 @@ public interface FormDao {
      * @param formDate 表单日期
      * @param formMail 用户的邮箱账号
      * @param photoId  用户发送的照片在服务器的地址存储路径
-     * @return
+     * @return 布尔值
      */
     Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId);
 
@@ -185,6 +185,11 @@ public interface FormDao {
     List<Form> getPageList(int targetPage, int size);
 
 
+    /**
+     * 查询一个员工的所有维修记录
+     * @param workerKey 要查询表单给出的工人的 key
+     * @return 返回表单bean集合
+     */
     List<Form> getListByWorkerId(String workerKey);
 
     /**
@@ -200,5 +205,24 @@ public interface FormDao {
      * @return oldfrom表中数据
      */
     List<Form> queryOldByFormId(String formId);
+
+
+    /**
+     * 分页查询
+     * @param wKey 员工的key，
+     * @param page 查询的页面
+     * @param size  查询的记录数
+     * @return  bean表单集合
+     */
+    List<Form> queryAllFormIdByWorkerKey(String wKey,int page,int size);
+
+    /**
+     * 返回工人维修表单的总数
+     * @param wkey 工人的账号
+     * @return 返回工人维修过的表单的记录数
+     */
+    int getCountByWorkerKey(String wkey);
+
+
 
 }

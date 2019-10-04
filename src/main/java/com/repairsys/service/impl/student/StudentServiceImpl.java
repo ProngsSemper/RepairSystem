@@ -24,6 +24,7 @@ public class StudentServiceImpl
 
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";
+    private static final String flag = "flag";
 
     public Result<Boolean> login(String stuId,String stuPassword,HttpSession session)
     {
@@ -54,7 +55,7 @@ public class StudentServiceImpl
             {
                 result.setData(false);
                 result.setResult(ResultEnum.LOGIN_FAIL);
-            }else if(FLAG.equals(jsonObject.getString("flag")))
+            }else if(FLAG.equals(jsonObject.getString(flag)))
             {
                 result.setData(true);
                 result.setResult(ResultEnum.LOGIN_SUCCESS);

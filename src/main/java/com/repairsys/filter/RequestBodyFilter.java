@@ -19,6 +19,8 @@ import java.io.IOException;
 @WebFilter(filterName = "RequestBodyFilter")
 public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
+    /** 默认需要放行的资源 */
+    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
 
     @Override
     public void destroy() {
@@ -26,7 +28,25 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletRequest request = (HttpServletRequest)req;
+        String t = request.getRequestURI();
+        for(String i:ARRAY)
+        {
+            if(t.endsWith(i))
+            {
+                logger.debug("放行静态资源 {}",t);
+
+                chain.doFilter(req,resp);
+                return;
+            }
+        }
+
+
+
+
+        logger.debug("进行过滤处理2");
+
+        // HttpServletRequest request = (HttpServletRequest) req;
         // 读取 request 的字符流
         BufferedReader br = request.getReader();
         StringBuilder jsonBuilder = new StringBuilder();
@@ -57,10 +77,11 @@ public class RequestBodyFilter implements Filter {
 
 
         chain.doFilter(req, resp);
+
     }
 
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config)  {
 
     }
 

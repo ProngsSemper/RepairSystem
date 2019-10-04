@@ -111,12 +111,12 @@ public class Form implements Serializable {
                 ", queryCode=" + queryCode +
                 ", formId=" + formId +
                 ", formMsg='" + formMsg + '\'' +
-                ", formDate=" + EasyTool.getDate(formDate.toString()) +
+                ", formDate=" + formDate +
                 ", stuMail='" + stuMail + '\'' +
                 ", photoId='" + photoId + '\'' +
                 ", adminKey=" + adminKey +
                 ", wKey=" + wKey +
-                ", endDate=" + EasyTool.getDate(endDate.toString()) +
+                ", endDate=" + endDate +
                 '}';
     }
 }

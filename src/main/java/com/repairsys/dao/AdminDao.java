@@ -1,6 +1,7 @@
 package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Admin;
+import com.repairsys.bean.entity.Form;
 
 import java.util.List;
 
@@ -71,5 +72,15 @@ public interface AdminDao {
      * @throws Exception 抛出异常
      */
     boolean sendMail(String stuMail, int day, int hour) throws Exception;
+
+
+    /**
+     * 查询一个工人的所有表单记录
+     * @param workerName 查询的工人名字
+     * @param page 第几页
+     * @param size 查询几条记录
+     * @return
+     */
+    List<Form> queryFormListByWorkerName(String workerName,int page,int size);
 
 }

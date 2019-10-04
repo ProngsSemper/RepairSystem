@@ -1,0 +1,213 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    font-family: arial;
+}
+body{
+    margin: 0 auto;
+    /* width: 100%;
+    height: 100%; */
+    background-color: #f9f6f4;
+    /* background-image: url(../img/bgg.jpg); */
+    /* background-position: -100px -100px; */
+    background-size: 60%;
+
+}
+.nav{
+    position: relative;
+    height: 125px;
+    width: 1260px;
+    overflow: hidden;
+}
+/* .nav img{
+    float: left;
+} */
+.logo{
+    position: relative;
+    /* top: -20px; */
+    margin: 20px 0 0 20px;
+}
+.line{
+    /* float: left; */
+    position: relative;
+    /* top: -20px; */
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 20px;
+    width: 2px;
+    height: 65px;
+    background: #8e0b02;
+}
+.name{
+    position: relative;
+    top: -15px;
+    margin-top: 30px;
+    width: 200px;
+}
+.nav .right-top{
+    float: right;
+    transform: rotateY(180deg);
+}
+.nav::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.contant{
+    position: relative;
+    width: 1260px;
+    height: 450px;
+    overflow: hidden;
+}
+.footer{
+    width: 1260px;
+}
+.footer .right-bottom{
+    float: right;
+    margin: 0 10px 0 0;
+    width: 100px;
+    transform: rotate(90deg) rotateX(180deg);
+}
+.footer .left-bottom{
+    width: 100px;
+    transform: rotate(90deg);
+}
+.school{
+    width: 60%;
+    height: 450px;
+    overflow: hidden;
+}
+.schoolImg{
+    position: relative;
+    margin: 70px 0 0 80px;
+    width: 600px;
+    height: 285px;
+}
+.login{
+    /* margin: 100px; */
+    width: 40%;
+    height: 450px;
+    overflow: hidden;
+}
+.contant>div{
+    float: left;
+}
+.contant::after{
+
+    content: "";
+    clear: both;
+    display: block;
+}
+.contant>:first-child::after{
+
+    content: "";
+    clear: both;
+    display: block;
+}
+.contant>:last-child::after{
+
+    content: "";
+    clear: both;
+    display: block;
+}
+.loginBox{
+    position: relative;
+    margin:0 auto;
+    width: 400px;
+    height: 400px;
+    background: #fff;
+    box-shadow:4px 4px 8px 6px #888888
+}
+.loginBox .inputStyle{
+    line-height: 30px;
+    width: 300px;
+    height: 35px;
+    font-size: 18px;
+}
+.loginBox>form{
+    width: 400px;
+    height: 400px;
+    margin: 0 0 0 45px;
+}
+.stuId{
+    margin-top: 75px;
+}
+.stuPassword{
+    margin-top: 20px;
+}
+.chose{
+    width: 15px;;
+    margin: 0px 5px 0px 0px;
+}
+.remmber{
+    margin: 10px 0px 0 215px;
+    overflow: hidden;
+}
+.remmber::after{
+    clear: both;
+    content: "";
+    display: block;
+}
+.square{
+    width: 20px;
+}
+.tit-name{
+    font-size: 18px;
+    color: rgb(137, 137, 137);
+}
+.radio{
+    display: inline-block;
+    margin: 15px 40px 0 0;
+}
+.Submit{
+    border-radius: 5px;
+    margin: 20px 0 0 20px;
+    border: none;
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    background: #8e0b02;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.nav .left-top{
+    float: left;
+    width: 100px;
+    transform:  rotate(180deg);
+}
+.nav .right-top{
+    float: right;
+    width: 100px;
+    transform:  rotateX(180deg);
+}
+.tit{
+    display: block;
+    margin: 10px auto 0px;
+    width: 200px;
+}
+.tit-under{
+    position: relative;
+    top: -90px;
+    left: 173px;
+    width: 200px;
+}
+.checkInput{
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+}
+.codeImg{
+    margin-top: -2px;
+    height: 35px;
+    width: 90px;;
+    vertical-align: middle;
+}
+.linkImg{
+    display: inline-block;
+    width: 90px;
+    height: 35px;
+}

@@ -24,6 +24,8 @@ public enum ResultEnum {
      */
     USERNAME_PASSWORD_EMPTY(402, "用户名或密码不能为空"),
 
+    CODE_FALSE(403,"验证码错误"),
+
     /**
      * 找不到此页面
      */

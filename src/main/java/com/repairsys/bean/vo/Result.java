@@ -15,7 +15,7 @@ public class Result<T> {
     /**
      * 返回状态码
      */
-    protected int code;
+    protected int code = 404;
     /**
      * 返回数据
      */

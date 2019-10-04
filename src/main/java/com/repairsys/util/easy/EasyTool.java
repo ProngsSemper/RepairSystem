@@ -1,16 +1,20 @@
 package com.repairsys.util.easy;
 
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+
 
 /**
  * @Author lyr
  * @create 2019/9/26 1:29
  */
 public final class EasyTool {
+    private static final Logger logger = LoggerFactory.getLogger(EasyTool.class);
+
+
 
     //分页查询公式  limit (page-1)*size,size
 
@@ -41,21 +45,23 @@ public final class EasyTool {
      */
     public static boolean compareToCode(HttpServletRequest request)
     {
+        logger.debug("进入比较");
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
-        String code = jsonObject.getString("code").toLowerCase();
+        logger.debug("获得对象");
+        String code = jsonObject.getString("vcode").toLowerCase();
         String ans = (String)request.getSession().getAttribute("CHECKCODE_SERVER");
-        return ans.equals(code);
+        logger.debug("{}",ans);
+        boolean b= ans.equals(code);
+        logger.debug("{}",b);
+        return b;
 
     }
 
 
-    public static String getDate(String date)
+    @Deprecated
+    private static String getDate(String date)
     {
-
-
-        String ans = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(Long.valueOf(date)));
-
-        return ans;
+        return "";
     }
 
 

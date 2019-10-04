@@ -68,7 +68,7 @@ public interface WorkerDao {
      * @param workerName 工人的名字
      * @return 返回工人维修的单号
      */
-    List<Worker> getListByWorkerName(String workerName);
+    Worker getWorkerKeyByName(String workerName);
 
 
 

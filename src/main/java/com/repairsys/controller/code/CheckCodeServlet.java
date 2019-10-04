@@ -20,7 +20,7 @@ import java.util.Random;
  * @Author lyr
  * @create 2019/10/2 19:21
  */
-@WebServlet("/checkCode")
+@WebServlet("/checkCode.png")
 public class CheckCodeServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -49,6 +49,7 @@ public class CheckCodeServlet extends HttpServlet {
         String checkCode = getCheckCode().toLowerCase();
         //将验证码放入HttpSession中
         request.getSession().setAttribute("CHECKCODE_SERVER",checkCode);
+
 
         //设置画笔颜色为黄色
         g.setColor(Color.YELLOW);
