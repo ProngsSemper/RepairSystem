@@ -21,7 +21,7 @@ public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
     /** 默认需要放行的资源 */
     private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
-    private static final String[] UI = {"lay","ui"};
+    private static final String[] UI =  {"lay","ui","woff","limit",".html",".jsp"};
 
     @Override
     public void destroy() {
@@ -43,7 +43,7 @@ public class RequestBodyFilter implements Filter {
         }
         for(String i:UI)
         {
-            if(t.indexOf(i)>0)
+            if(t.lastIndexOf(i)>0)
             {
                 chain.doFilter(req,resp);
                 return;

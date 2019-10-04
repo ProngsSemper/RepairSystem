@@ -22,7 +22,7 @@ import java.io.IOException;
 public class EncodingFilter implements Filter {
     /** 默认需要放行的资源 */
     private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
-    private static final String[] UI = {"lay","ui","woff","limit"};
+    private static final String[] UI = {"lay","ui","woff","limit",".html",".jsp"};
     private static final Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
 
     @Override
@@ -45,7 +45,7 @@ public class EncodingFilter implements Filter {
         }
         for(String i:UI)
         {
-            if(t.indexOf(i)>0)
+            if(t.lastIndexOf(i)>0)
             {
                 chain.doFilter(req,resp);
                 return;

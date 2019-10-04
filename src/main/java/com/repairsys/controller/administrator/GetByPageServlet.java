@@ -41,13 +41,14 @@ public class GetByPageServlet extends BaseServlet {
         Page result = (Page) formService.getPageList(page, size);
         result.setSize(size);
         result.setTotalPage(totalPage);
-        result.setTotalCount(totalCount);
-        result.setTargetPage(page);
 
+        result.setTargetPage(page);
+        //TODO: 还有代码没写完，暂时脑补一下
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);
             result.setCode(0);
+            result.setTotalCount(totalCount);
         } else {
             logger.debug("查询失败{}", result);
         }
