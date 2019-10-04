@@ -20,7 +20,7 @@ import java.io.IOException;
 public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
     /** 默认需要放行的资源 */
-    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html"};
+    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
 
     @Override
     public void destroy() {

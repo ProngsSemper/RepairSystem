@@ -95,19 +95,19 @@ body{
     float: left;
 }
 .contant::after{
-    /*contain: "";*/
+
     content: "";
     clear: both;
     display: block;
 }
 .contant>:first-child::after{
-    /*contain: "";*/
+
     content: "";
     clear: both;
     display: block;
 }
 .contant>:last-child::after{
-    /*contain: "";*/
+
     content: "";
     clear: both;
     display: block;
@@ -146,7 +146,6 @@ body{
     overflow: hidden;
 }
 .remmber::after{
-    /*contain: "";*/
     clear: both;
     content: "";
     display: block;

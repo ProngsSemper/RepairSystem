@@ -21,7 +21,7 @@ import java.io.IOException;
 @WebFilter(filterName = "EncodingFilter")
 public class EncodingFilter implements Filter {
     /** 默认需要放行的资源 */
-    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html"};
+    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
     private static final Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
 
     @Override
