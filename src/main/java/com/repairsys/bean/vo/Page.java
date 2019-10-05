@@ -12,6 +12,7 @@ public class Page<T> extends Result<T> {
     private int totalCount = -1;
     private int targetPage = -1;
     private int size = -1;
+    // private int count = 0;
 
     public Page(int code, T data, String desc) {
         super(code, data, desc);
@@ -31,6 +32,7 @@ public class Page<T> extends Result<T> {
 
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
+        // this.count = totalCount;
     }
 
     public int getTargetPage() {
@@ -48,4 +50,10 @@ public class Page<T> extends Result<T> {
     public void setSize(int size) {
         this.size = size;
     }
+
+    // public int getCount() {
+    //     return count;
+    // }
+
+
 }

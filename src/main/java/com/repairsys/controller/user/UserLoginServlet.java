@@ -3,6 +3,7 @@ package com.repairsys.controller.user;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
+import com.repairsys.controller.BaseServlet;
 import com.repairsys.util.easy.EasyTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,7 @@ import java.io.IOException;
  * @create 2019/10/3 20:14
  */
 @WebServlet({"/user/login"})
-public class UserLoginServlet extends HttpServlet {
+public class UserLoginServlet extends BaseServlet {
     private static final Logger logger = LoggerFactory.getLogger(UserLoginServlet.class);
     private static final String STU = "1";
     private static final String ADMIN = "2";
@@ -36,6 +37,7 @@ public class UserLoginServlet extends HttpServlet {
             Result<Boolean> result = new Result<>();
             result.setResult(ResultEnum.CODE_FALSE);
             request.setAttribute("result",result);
+            super.doPost(request,response);
         }else {
             logger.debug("验证码正确");
             JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");

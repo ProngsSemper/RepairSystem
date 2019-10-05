@@ -51,7 +51,8 @@ public final class EasyTool {
         String code = jsonObject.getString("vcode").toLowerCase();
         String ans = (String)request.getSession().getAttribute("CHECKCODE_SERVER");
         logger.debug("{}",ans);
-        boolean b= ans.equals(code);
+        boolean b = false;
+                b = ans.equals(code);
         logger.debug("{}",b);
         return b;
 
