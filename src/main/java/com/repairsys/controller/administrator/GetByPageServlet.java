@@ -25,11 +25,14 @@ public class GetByPageServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+
         int totalCount = formService.getTotalCount();
         Integer size = Integer.valueOf(request.getParameter("limit"));
+
         Integer page = Integer.valueOf(request.getParameter("page"));
+
         int totalPage = 1;
+
         if (totalCount > size) {
             boolean b = totalCount % size != 0;
             totalPage = totalCount / size;
@@ -41,6 +44,7 @@ public class GetByPageServlet extends BaseServlet {
         Page result = (Page) formService.getPageList(page, size);
         result.setSize(size);
         result.setTotalPage(totalPage);
+        logger.debug("{}",page);
 
         result.setTargetPage(page);
         //TODO: 还有代码没写完，暂时脑补一下

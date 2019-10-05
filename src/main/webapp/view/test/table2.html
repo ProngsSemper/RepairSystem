@@ -56,6 +56,15 @@
             ]]
             ,page: true
             ,limits:[5,10,20,50]
+            ,parseData:function (res) {
+                return{
+                    "code":res.code,
+                    "msg": res.desc,
+                    "count": res.totalCount,
+                    "data": res.data
+                };
+
+            }
         });
 
         var $ = layui.$

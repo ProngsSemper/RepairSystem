@@ -110,11 +110,16 @@
                     dataType: "json",
                     data: JSON.stringify({'id':uId,'password':uPassword,'radio':radio,'vcode':vcode}),
                     success: function (ans) {
-                        if(ans.code==200)
+                        if(ans.code==403)
+                        {
+                            layer.msg('验证码错误', {icon: 5});
+                            refreshCode();
+                        }
+                        else if(ans.code==200)
                         {
                             layer.msg('登录成功', {icon: 1});
                             // alert("登录成功");
-                            refreshCode();
+                            // refreshCode();
                             window.setTimeout("window.location.href='../../welcome.jsp'", 1000);
                         }else {
                             layer.msg('登录失败', {icon: 5});
