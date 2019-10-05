@@ -38,27 +38,6 @@ public class StudentLoginServlet extends BaseServlet {
         );
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
-        String remember = requestBody.getString("remember");
-        String flag = "true";
-        int successCode = 200;
-        if (result.getCode() == successCode && flag.equals(remember)) {
-            Cookie rememberCookie = new Cookie("remember", remember);
-            //七天内记住密码
-            rememberCookie.setMaxAge(7 * 24 * 60 * 60);
-            Cookie idCookie = new Cookie("id", requestBody.getString("id"));
-            idCookie.setMaxAge(7 * 24 * 60 * 60);
-            Cookie passwordCookie = new Cookie("password", requestBody.getString("password"));
-            passwordCookie.setMaxAge(7 * 24 * 60 * 60);
-        } else {
-            //清空cookie
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
-            }
-        }
 
         logger.debug(" session 的id是： " + session.getId());
 
