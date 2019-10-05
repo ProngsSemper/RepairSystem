@@ -1,7 +1,7 @@
 package com.repairsys.dao.impl.form;
 
 import com.repairsys.bean.entity.Form;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
+import com.repairsys.dao.PageDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @Author lyr
  * @create 2019/9/30 18:50
  */
-public final class FormListDaoImpl extends FormDaoImpl {
+public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<Form>> {
     /**
      * 根据学生的id号码 和 需要查询的表单状态进行查询
      */
@@ -21,6 +21,11 @@ public final class FormListDaoImpl extends FormDaoImpl {
 
     /** 分页查询一个员工修理任务的表单信息 */
     private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldfrom where wKey = ? limit ?,?";
+
+    /** 分页查询学生 id的前半段 */
+    private static final String GET_FORM_BY_STUDENT_ID = "select * from form where stuId like '%";
+    private static final String GET_OLD_BY_STUDENTID_COUNT = "select count(*) from oldform where stuId like '%";
+    private static final String SELECT_OLD_LIST_BY_STUID = "select * from oldform where stuId like '%";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -125,6 +130,120 @@ public final class FormListDaoImpl extends FormDaoImpl {
     public int getCountByWorkerKey(String wkey) {
         return super.getCountByWorkerKey(wkey);
     }
+
+
+    /**
+     * 查询出对应的数据库表信息
+     *
+     * @param targetPage 查询目标页面
+     * @param size       查询的页面有多少条记录
+     * @return 返回一个 java bean集合
+     * @deprecated
+     */
+    @Override
+    public List<List<Form>> selectPageList(int targetPage, int size) {
+        return null;
+    }
+
+    /**
+     * 返回一共有多少条数据再数据库记录着
+     *
+     * @return int
+     * @deprecated
+     */
+    @Deprecated
+    @Override
+    public int selectPageCount() {
+        return 0;
+    }
+
+    /**
+     * 查询出对应的数据库表信息
+     *
+     * @param sql        查询的sql语句
+     * @param targetPage 目标页面
+     * @param size       分页记录
+     * @return 返回一个bean集合
+     */
+    @Override
+    public List<Form> selectPageList(String sql, int targetPage, int size) {
+        int [] ans = EasyTool.getLimitNumber(targetPage,size);
+
+        return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
+        // return null;
+    }
+
+    /**
+     * 返回一共有多少条数据再数据库记录着
+     *
+     * @param sql 要传入的sql语句
+     * @return int
+     */
+    @Override
+    public int selectPageCount(String sql) {
+        return super.getCount(JdbcUtil.getConnection(),sql);
+    }
+
+    public List<Form> getPageByStudentId(String stuId,int page,int limit)
+    {
+        String finalSql = GET_FORM_BY_STUDENT_ID+stuId+"%'"+" limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page,limit);
+        return super.selectList(JdbcUtil.getConnection(),finalSql,stuId,ans[0],ans[1]);
+    }
+
+    public int getPageCountByStudentId(String studentId)
+    {
+        String GET_STU_ID_COUNT = "select count(*) from form where stuId like '%"+studentId+"%'";
+        return super.getCount(JdbcUtil.getConnection(),GET_STU_ID_COUNT);
+
+    }
+
+    public List<Form> getOldPageListByStudentId(String studentId,int page,int limit)
+    {
+
+        String sql2 = SELECT_OLD_LIST_BY_STUID + studentId+"%' limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page,limit);
+        return super.selectList(JdbcUtil.getConnection(),sql2,ans[0],ans[1]);
+    }
+
+
+    public int getOldCountByStudentId(String student)
+    {
+        String sql  = GET_OLD_BY_STUDENTID_COUNT+student+"%'";
+        return super.getCount(JdbcUtil.getConnection(),GET_OLD_BY_STUDENTID_COUNT);
+    }
+
+    public List<Form> getAllListByStudentId(String studentId, int page, int limit)
+    {
+        String GET_ALL_BY_STUDENT_ID = "select * from form where stuId like '%"+studentId+"%'"
+                +" union select * from oldform where stuId like '%"+studentId+"%' limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page,limit);
+        return super.selectList(JdbcUtil.getConnection(),GET_ALL_BY_STUDENT_ID,ans[0],ans[1]);
+    }
+
+    public int getAllCountByStudentId(String studentId)
+    {
+        /*
+
+                        select s.num1,t.num2 from
+            (select count(*) num1 from student) s,
+            (select count(*) num2 from teacher) t;
+
+
+         */
+
+
+        // String countSql = "select count(*) from form where stuId like '%"+studentId+"%' union select count(*) from oldform where stuId like '%"+studentId+"%'";
+        String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = " where stuId like '%"+studentId+"%'";
+
+
+
+        return super.getCount(JdbcUtil.getConnection(),countSql.replaceAll("where",rex));
+
+    }
+
+
 
 
 }

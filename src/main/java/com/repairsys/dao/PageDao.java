@@ -1,5 +1,7 @@
 package com.repairsys.dao;
 
+import com.repairsys.bean.entity.Form;
+
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public interface PageDao<T> {
      * @param size 分页记录
      * @return 返回一个bean集合
      */
-    List<T> selectPageList(String sql,int targetPage,int size);
+    List<Form> selectPageList(String sql, int targetPage, int size);
 
 
     /**

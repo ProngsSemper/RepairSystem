@@ -8,7 +8,6 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.PageDao;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
@@ -241,8 +240,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<A
      * @return 返回一个bean集合
      */
     @Override
-    public List<Admin> selectPageList(String sql, int targetPage, int size) {
-        return this.selectPageList(targetPage, size);
+    public List<Form> selectPageList(String sql, int targetPage, int size) {
+        return null;
     }
 
     /**
