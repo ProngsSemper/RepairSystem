@@ -15,7 +15,7 @@
 </body>
 <script>
     window.onload=function () {
-        window.location.href='/view/user/login.html';
+        window.location.href='login.html';
     }
 </script>
 

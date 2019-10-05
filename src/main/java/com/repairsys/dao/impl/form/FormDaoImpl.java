@@ -369,7 +369,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     /**
      * 分页查询的功能
-     * 没有总的页数，方法已经废弃，不建议使用
+     *
      * @param targetPage 目标页面
      * @param size       记录条数
      * @return 一个bean集合
@@ -398,7 +398,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Deprecated
     @Override
     public int getTotalCount() {
-        String sql = "select count(*) from form where queryCode <=0";
+        String sql = "select count(*) from form";
         return super.getCount(JdbcUtil.getConnection(), sql);
     }
 
