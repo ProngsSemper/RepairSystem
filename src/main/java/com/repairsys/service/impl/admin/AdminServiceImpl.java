@@ -3,13 +3,17 @@ package com.repairsys.service.impl.admin;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
+import com.repairsys.bean.vo.Page;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.AdminService;
+import com.repairsys.service.ServiceFactory;
+import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.string.StringUtils;
 
 import org.slf4j.Logger;
@@ -116,12 +120,43 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    /**
+     * @param page      查询的页面
+     * @param limit     一页的记录
+     * @param studentId 学生的id号
+     * @return 返回分页查询的表单集合
+     * @deprecated 没什么用，因为两张表，这只查了一张
+     */
+    @Deprecated
+    @Override
+    public Result<List<Form>> getFormByStudentId(int page, int limit, String studentId) {
+
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        Page  res = new Page<List<Form>>();
+        List<Form> forms = formListDao.getPageByStudentId(studentId,page,limit);
+
+        res.setData(forms);
+
+        return res;
+    }
+
+    /**
+     * @param page 当前页面
+     * @param limit 设置限制条数
+     * @param studentId 学生 id
+     * @return 返回学生提交的所有申请状态
+     */
+    public Result<List<Form>> getAllFormByStudentId(int page,int limit,String studentId)
+    {
+
+        WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+        return workerService.getAllFormByStudentId(studentId,page,limit);
 
 
 
-
-
-
+    }
+    //TODO: 模糊查询表单的id
+    // public Result<List<Form>> getAllFormByFormId(int page,int limit)
 
 
 

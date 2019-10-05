@@ -1,4 +1,5 @@
 //林某人
+//后台服务需要ajax的提交，也就是说不能使用 submit的默认提交（需要了解异步提交的技术），这里使用button，并且绑定一个点击事件即可
 $(document).ready(function () {
     $('#login').click(
         function () {
@@ -45,7 +46,7 @@ $(document).ready(function () {
                     {
                         alert('登录成功');
                         // alert("登录成功");
-                        // refreshCode();
+                        // refreshCode(); 刷新验证码
                         window.setTimeout("window.location.href='/welcome.jsp'", 1000);
                     }else {
                         alert('登录失败');

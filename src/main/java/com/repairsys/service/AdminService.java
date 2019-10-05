@@ -1,5 +1,6 @@
 package com.repairsys.service;
 
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 
@@ -56,6 +57,15 @@ public interface AdminService {
      * @return 通过工人的名字模糊查询出结果集，回馈给管理员页面
      */
     Result<List<Worker>> findWorkers(String name);
+
+    /**
+     * @param page 查询的页面
+     * @param limit 一页的记录
+     * @param studentId 学生的id号
+     * @return 返回分页查询的表单集合
+     */
+    Result<List<Form>>  getFormByStudentId(int page,int limit,String studentId);
+
 
 
 }
