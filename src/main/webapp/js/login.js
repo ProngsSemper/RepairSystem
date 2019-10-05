@@ -3,6 +3,14 @@
 //     var data=JSON.parse(getVerCode());
 // }
 // document.write("<script language=javascript src='cookie.js'></script>");
+
+function refreshCode(){
+    //1.获取验证码图片对象
+    var vcode = document.getElementById("vcode");
+    //2.设置其src属性，加时间戳
+    vcode.src = "/checkCode.png?time="+new Date().getTime();
+}
+
 function bodyScale() {
     var devicewidth = document.documentElement.clientWidth;
     var scale = devicewidth / 1440;  
