@@ -60,6 +60,16 @@ submit.onclick=function(){
         }
         
     })
+    if(remmber.checked){
+        if(Name.name==="stuId"){
+            addcookie(Name.name,Name.value,7);
+            addcookie(Password.name,Password.value,7);
+        }
+        else{
+            addcookie(Name.name,Name.value,1825);
+            addcookie(Password.name,Password.value,1825);
+        }
+    }
 }
 function getVerCode() {
     var result = "";
@@ -76,15 +86,4 @@ function getVerCode() {
         }
     });
     return result;
-}
-remmber.onclick=function(){
-    if(Name.name==="stuId"){
-        addcookie(Name.name,Name.value,7);
-        addcookie(Password.name,Password.value,7);
-    }
-    else{
-        addcookie(Name.name,Name.value,1825);
-        addcookie(Password.name,Password.value,1825);
-    }
-    
 }
