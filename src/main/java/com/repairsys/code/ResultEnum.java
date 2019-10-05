@@ -12,7 +12,7 @@ public enum ResultEnum {
     /**
      * lay-ui 的状态码：分页查询成功
      */
-    SHOW_TABLE(0,"分页查询状态码：查询超过"),
+    SHOW_TABLE(0, "分页查询状态码：查询超过"),
 
     /**
      * 登录失败
@@ -29,22 +29,12 @@ public enum ResultEnum {
      */
     USERNAME_PASSWORD_EMPTY(402, "用户名或密码不能为空"),
 
-    CODE_FALSE(403,"验证码错误"),
+    CODE_FALSE(403, "验证码错误"),
 
     /**
      * 找不到此页面
      */
     PAGE_NOT_FOUND(404, "找不到此页面"),
-
-    /**
-     * @author lyr
-     * @date 2019/9/29
-     * <p>用户注册或者操作自己信息时，修改失败</p>
-     * <p>广义化的操作失败</p>
-     * <p>
-     * 用处于：学生重复注册提交账号信息，数据库报异常
-     */
-    USER_DO_FAIL(407, "操作失败"),
 
     /**
      * @author lyr
@@ -97,6 +87,7 @@ public enum ResultEnum {
 
     /**
      * 发件方身份没有得到认证
+     *
      * @author Prongs
      * @date 2019/10/02
      */
