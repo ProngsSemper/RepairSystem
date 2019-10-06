@@ -55,7 +55,7 @@ public class WorkerServiceImpl implements WorkerService {
         //在未过期表单中找不到时到过期表单中寻找
         if (list.isEmpty()) {
             list = formDao.queryOldByFormId(formId);
-            //在过期表单中也找不到
+            //在过期表单中也找不到吧
             if (list.isEmpty()) {
                 return result.setResult(ResultEnum.QUERY_FAILED);
             }
@@ -98,11 +98,11 @@ public class WorkerServiceImpl implements WorkerService {
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt/limit+(cnt%limit==0? 0:1));
-        res.setCode(200);
+        res.setResult(ResultEnum.LOGIN_SUCCESS);
 
         if(list.size()==0)
         {
-            res.setCode(401);
+            res.setResult(ResultEnum.LOGIN_FAIL);
         }
 
         res.setTargetPage(page);

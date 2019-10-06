@@ -10,7 +10,7 @@ package com.repairsys.code;
 public enum ResultEnum {
 
     /**
-     * lay-ui 的状态码：分页查询成功
+     * 分页查询成功
      */
     SHOW_TABLE(0, "分页查询状态码：查询超过"),
 
@@ -22,7 +22,7 @@ public enum ResultEnum {
     /**
      * 登录成功
      */
-    LOGIN_SUCCESS(200, "登录成功"),
+    LOGIN_SUCCESS(200, "登录成功/服务器成功返回数据"),
 
     /**
      * 用户名或密码不能为空
