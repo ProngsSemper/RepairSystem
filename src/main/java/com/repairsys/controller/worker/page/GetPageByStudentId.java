@@ -24,7 +24,7 @@ public class GetPageByStudentId extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody =  (JSONObject) request.getAttribute("requestBody");
-        // WorkerListDaoImpl workerListDao = (WorkerListDaoImpl) DaoFactory.getWorkerDao();
+
         WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
         Page p = (Page) workerService.getAllFormByStudentId(
             requestBody.getString("stuId"),

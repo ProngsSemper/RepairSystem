@@ -99,6 +99,12 @@ public class WorkerServiceImpl implements WorkerService {
 
         res.setTotalPage(cnt/limit+(cnt%limit==0? 0:1));
         res.setCode(200);
+
+        if(list.size()==0)
+        {
+            res.setCode(401);
+        }
+
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}，{}",list,cnt,res.getTotalPage());
