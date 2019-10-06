@@ -24,7 +24,7 @@ import java.util.List;
  * @Author lyr, Prongs
  * @create 2019/9/24 16:54
  */
-public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<Admin> {
+public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Admin> {
     private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
 
     private static final AdminDaoImpl ADMIN_DAO;
@@ -167,7 +167,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<A
     public List<Form> queryFormListByWorkerName(String workerName, int page, int size) {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyByName(workerName);
 
-        return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(),page,size);
+        return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), page, size);
     }
 
 
@@ -183,19 +183,19 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<A
 
 
     /*
-    *
-    *
-    * 下面是对于分页查询接口代码的实现
-    *
-    * */
-    /** 查询管理员的记录 */
+     *
+     *
+     * 下面是对于分页查询接口代码的实现
+     *
+     * */
+    /**
+     * 查询管理员的记录
+     */
     private static final String QUERY_ADMIN_LIST = "select * from administrators limit ?,?";
-    /** 查询管理员条数记录 */
+    /**
+     * 查询管理员条数记录
+     */
     private static final String QUERY_ADMIN_LIST_COUNT = "select count(*) from administrators";
-
-
-
-
 
     /**
      * 查询出对应的数据库表信息
@@ -206,8 +206,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<A
      */
     @Override
     public List<Admin> selectPageList(int targetPage, int size) {
-        int[] ans = EasyTool.getLimitNumber(targetPage,size);
-        return super.selectList(JdbcUtil.getConnection(),QUERY_ADMIN_LIST,ans[0],ans[1]);
+        int[] ans = EasyTool.getLimitNumber(targetPage, size);
+        return super.selectList(JdbcUtil.getConnection(), QUERY_ADMIN_LIST, ans[0], ans[1]);
     }
 
     /**
@@ -217,9 +217,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao , PageDao<A
      */
     @Override
     public int selectPageCount() {
-        return super.getCount(JdbcUtil.getConnection(),QUERY_ADMIN_LIST_COUNT);
+        return super.getCount(JdbcUtil.getConnection(), QUERY_ADMIN_LIST_COUNT);
     }
-
 
     /**
      * 获得数据库满足某个条件的记录

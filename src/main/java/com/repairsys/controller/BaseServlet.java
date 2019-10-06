@@ -5,7 +5,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,12 +20,11 @@ import java.io.PrintWriter;
  */
 
 public abstract class BaseServlet extends HttpServlet {
-   /**
-    * @author lyr
-    * @date 2019/9/27
-    * BaseServlet 里面的方法都不要配置路径，只是给之类使用而已
-    *
-    * */
+    /**
+     * @author lyr
+     * @date 2019/9/27
+     * BaseServlet 里面的方法都不要配置路径，只是给之类使用而已
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Result res = (Result) request.getAttribute("result");
@@ -35,7 +33,7 @@ public abstract class BaseServlet extends HttpServlet {
 
         if (res != null) {
 
-            sender.write(JSONObject.toJSONStringWithDateFormat(res,"yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
+            sender.write(JSONObject.toJSONStringWithDateFormat(res, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
             sender.flush();
             sender.close();
         }
@@ -47,13 +45,9 @@ public abstract class BaseServlet extends HttpServlet {
         doPost(request, response);
     }
 
-
-
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);
     }
-
-
 
 }

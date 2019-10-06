@@ -69,34 +69,26 @@ public class DbTest {
 
     }
 
-
     @Test
-    public void developer()
-    {
-        boolean b = DeveloperDao.getInstance().register("lyr","422525");
+    public void developer() {
+        boolean b = DeveloperDao.getInstance().register("lyr", "422525");
         System.out.println(b);
     }
 
     @Test
-    public void loginDeveloper()
-    {
-        Developer developer = DeveloperDao.getInstance().login("lyr","422525000");
+    public void loginDeveloper() {
+        Developer developer = DeveloperDao.getInstance().login("lyr", "422525000");
         System.out.println(developer);
 
-        developer = DeveloperDao.getInstance().login("lyr","422525");
+        developer = DeveloperDao.getInstance().login("lyr", "422525");
         System.out.println(developer);
 
     }
 
     @Test
-    public void searchWorkers()
-    {
+    public void searchWorkers() {
         List<Worker> list = WorkerDaoImpl.getInstance().fuzzySearchWorkers("刘");
         System.out.println(list);
     }
-
-
-
-
 
 }

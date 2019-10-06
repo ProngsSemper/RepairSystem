@@ -76,15 +76,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     private static final String UPDATE_INFORMATION = "update form set endDate = ? , queryCode = ? ,adminKey = ?  ,wKey=? where formId = ?";
 
-    /** 查询对于的状态的表单 */
+    /**
+     * 查询对于的状态的表单
+     */
     private static final String QUERY_FORM_CODE = "select * from form where queryCode = ?";
 
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
-
-
-
-
 
     private static final FormDaoImpl FORM_DAO = new FormDaoImpl();
 
@@ -111,6 +109,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     /**
      * 在旧表单中通过报修单id来查找历史报修单
+     *
      * @param formId 报修单id
      * @return oldfrom表中数据
      */
@@ -131,8 +130,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * @deprecated 未实现
      */
     @Override
-    public  List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
-        throw  new RuntimeException("没有实现此方法");
+    public List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
+        throw new RuntimeException("没有实现此方法");
     }
 
     /**
@@ -143,7 +142,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public int getCountByWorkerKey(String wkey) {
-        throw  new RuntimeException("没有实现此方法");
+        throw new RuntimeException("没有实现此方法");
     }
 
     /**
@@ -162,6 +161,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     /**
      * 在已过期表单中通过学生id查找历史报修单（模糊查询）
+     *
      * @param stuId 学生id
      * @return oldfrom表中数据
      */
@@ -381,18 +381,20 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         throw new RuntimeException("方法已经过时");
     }
 
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Form> getListByWorkerId(String workerKey) {
-        List<Form> list1 = super.selectList(JdbcUtil.getConnection(),QUERY_FORM_BY_WKEY,workerKey);
-        List<Form> list2 = super.selectList(JdbcUtil.getConnection(),QUERY_OLDFORM_BY_WKEY,workerKey);
+        List<Form> list1 = super.selectList(JdbcUtil.getConnection(), QUERY_FORM_BY_WKEY, workerKey);
+        List<Form> list2 = super.selectList(JdbcUtil.getConnection(), QUERY_OLDFORM_BY_WKEY, workerKey);
         list1.addAll(list2);
         return list1;
     }
 
     /**
      * 没有加对应的查询条件，不建议使用
+     *
      * @return 返回总的记录数
      */
     @Deprecated
@@ -407,10 +409,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      *
      * @param queryCode 你要查询哪一类表单？ 0：正在申请 1：已经分配维修工 2：修理完成  -1：特殊情况
      * @return 返回对应的记录的条数
-     *
      */
     @Override
     public int getTotalCount(int queryCode) {
-        return super.getCount(JdbcUtil.getConnection(),QUERY_FORM_CODE,queryCode);
+        return super.getCount(JdbcUtil.getConnection(), QUERY_FORM_CODE, queryCode);
     }
 }

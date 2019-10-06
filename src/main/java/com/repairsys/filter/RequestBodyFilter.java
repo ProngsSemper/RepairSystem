@@ -19,9 +19,11 @@ import java.io.IOException;
 @WebFilter(filterName = "RequestBodyFilter")
 public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
-    /** 默认需要放行的资源 */
-    private static final String[] ARRAY = {".png",".jpg",".css",".js",".gif","login.html",".ico"};
-    private static final String[] UI =  {"woff","limit",".html",".jsp"};
+    /**
+     * 默认需要放行的资源
+     */
+    private static final String[] ARRAY = {".png", ".jpg", ".css", ".js", ".gif", "login.html", ".ico"};
+    private static final String[] UI = {"woff", "limit", ".html", ".jsp"};
 
     @Override
     public void destroy() {
@@ -29,29 +31,22 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request = (HttpServletRequest)req;
+        HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        for(String i:ARRAY)
-        {
-            if(t.endsWith(i))
-            {
-                logger.debug("放行静态资源 {}",t);
+        for (String i : ARRAY) {
+            if (t.endsWith(i)) {
+                logger.debug("放行静态资源 {}", t);
 
-                chain.doFilter(req,resp);
+                chain.doFilter(req, resp);
                 return;
             }
         }
-        for(String i:UI)
-        {
-            if(t.lastIndexOf(i)>0)
-            {
-                chain.doFilter(req,resp);
+        for (String i : UI) {
+            if (t.lastIndexOf(i) > 0) {
+                chain.doFilter(req, resp);
                 return;
             }
         }
-
-
-
 
         logger.debug("进行过滤处理2");
 
@@ -72,25 +67,20 @@ public class RequestBodyFilter implements Filter {
             //使用 阿里提供的 api
             //将 json数据读取为一行，转为JsonObject对象
 
-
-
             JSONObject json = JSONObject.parseObject(jsonBuilder.toString());
 
-            logger.debug("json转化成功 {}",jsonBuilder.toString());
-
-
+            logger.debug("json转化成功 {}", jsonBuilder.toString());
 
             request.setAttribute("requestBody", json);
 
         }
-
 
         chain.doFilter(req, resp);
 
     }
 
     @Override
-    public void init(FilterConfig config)  {
+    public void init(FilterConfig config) {
 
     }
 

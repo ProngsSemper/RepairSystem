@@ -1,7 +1,5 @@
 package com.repairsys.bean.entity;
 
-import com.repairsys.util.easy.EasyTool;
-
 import java.io.Serializable;
 import java.sql.Date;
 

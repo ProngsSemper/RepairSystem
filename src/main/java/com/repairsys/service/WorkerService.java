@@ -37,6 +37,9 @@ public interface WorkerService {
 
     /**
      * 工人修改报修单状态
+     * <p>
+     * 定义queryCode ,0是开始状态，开始报修，1是联系状态，已经约好工人，2是修好7天内状态，
+     * 3是已经修好状态（迁移入oldform)，-1是缺少材料等情况 还需要再修。
      *
      * @param queryCode 报修单状态码
      * @param formId    报修单号

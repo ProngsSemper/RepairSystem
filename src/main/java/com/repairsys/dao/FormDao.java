@@ -160,33 +160,33 @@ public interface FormDao {
 
     /**
      * 获取form表的总数
+     *
      * @return 返回form表总数
      * @deprecated
      */
     @Deprecated
     int getTotalCount();
 
-
     /**
      * 获取form表的对应条件的记录总数
+     *
      * @param queryCode 你要查询哪一类表单？ 0：正在申请 1：已经分配维修工 2：修理完成  -1：特殊情况
      * @return 返回对应的记录的条数
      */
     int getTotalCount(int queryCode);
 
-
-
     /**
      * 分页显示
+     *
      * @param targetPage 当前页
-     * @param size 每页显示数量
+     * @param size       每页显示数量
      * @return form表中的数据
      */
     List<Form> getPageList(int targetPage, int size);
 
-
     /**
      * 查询一个员工的所有维修记录
+     *
      * @param workerKey 要查询表单给出的工人的 key
      * @return 返回表单bean集合
      */
@@ -194,6 +194,7 @@ public interface FormDao {
 
     /**
      * 在已过期表单中通过学生id查找历史报修单（模糊查询）
+     *
      * @param stuId 学生id
      * @return oldfrom表中数据
      */
@@ -201,28 +202,28 @@ public interface FormDao {
 
     /**
      * 在旧表单中通过报修单id来查找历史报修单
+     *
      * @param formId 报修单id
      * @return oldfrom表中数据
      */
     List<Form> queryOldByFormId(String formId);
 
-
     /**
      * 分页查询
+     *
      * @param wKey 员工的key，
      * @param page 查询的页面
-     * @param size  查询的记录数
-     * @return  bean表单集合
+     * @param size 查询的记录数
+     * @return bean表单集合
      */
-    List<Form> queryAllFormIdByWorkerKey(String wKey,int page,int size);
+    List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size);
 
     /**
      * 返回工人维修表单的总数
+     *
      * @param wkey 工人的账号
      * @return 返回工人维修过的表单的记录数
      */
     int getCountByWorkerKey(String wkey);
-
-
 
 }

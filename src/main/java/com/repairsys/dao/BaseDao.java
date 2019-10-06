@@ -18,7 +18,6 @@ import java.util.List;
  */
 public abstract class BaseDao<T> {
 
-
     private QueryRunner queryRunner;
     private BeanHandler<T> beanHandler;
     private BeanListHandler<T> beanListHandler;
@@ -42,14 +41,14 @@ public abstract class BaseDao<T> {
 
     /**
      * 查询一条数据，封装为T 类型返回
-     * @param con   数据库的连接对象
-     * @param sql   sql语句
-     * @param args  传入的条件
+     *
+     * @param con  数据库的连接对象
+     * @param sql  sql语句
+     * @param args 传入的条件
      * @return 返回对应的bean对象
      */
     protected T selectOne(Connection con, String sql, Object... args) {
         T res = null;
-
 
         try {
             res = queryRunner.query(con, sql, this.beanHandler, args);
@@ -58,21 +57,20 @@ public abstract class BaseDao<T> {
             e.printStackTrace();
         }
 
-
         return res;
 
     }
 
     /**
      * 查询一堆数据，封装为T类型的集合并返回
-     * @param con 数据库的连接
-     * @param sql sql语句
+     *
+     * @param con  数据库的连接
+     * @param sql  sql语句
      * @param args 传入的条件
      * @return 返回对应的javabean
      */
-    protected List<T> selectList(Connection con, String sql, Object... args)  {
+    protected List<T> selectList(Connection con, String sql, Object... args) {
         List<T> res = null;
-
 
         try {
             res = queryRunner.query(con, sql, beanListHandler, args);
@@ -85,17 +83,17 @@ public abstract class BaseDao<T> {
 
     /**
      * 添加一条为T类型的数据，并回馈结果
+     *
      * @param con  连接
      * @param sql  sql语句
      * @param args 传入的条件
      * @return 数据库操作是否成功
      */
-    protected boolean addOne(Connection con,String sql,Object... args)
-    {
+    protected boolean addOne(Connection con, String sql, Object... args) {
         boolean res = false;
 
         try {
-            queryRunner.insert(con,sql,beanHandler,args);
+            queryRunner.insert(con, sql, beanHandler, args);
             res = true;
 
         } catch (SQLException e) {
@@ -107,15 +105,15 @@ public abstract class BaseDao<T> {
 
     /**
      * 删除一条为 T类型的数据，并回馈结果
+     *
      * @param con 连接
      * @param sql sql语句
      * @return 是否操作成功
      */
-    protected boolean deleteOne(Connection con,String sql)
-    {
+    protected boolean deleteOne(Connection con, String sql) {
         boolean res = false;
         try {
-            queryRunner.update(con,sql);
+            queryRunner.update(con, sql);
             res = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -125,16 +123,16 @@ public abstract class BaseDao<T> {
 
     /**
      * 修改数据库的一条数据
-     * @param con 数据库的连接
-     * @param sql sql语句
+     *
+     * @param con  数据库的连接
+     * @param sql  sql语句
      * @param args 传入的参数条件
      * @return 是否操作成功
      */
-    protected boolean updateOne(Connection con,String sql,Object... args)
-    {
+    protected boolean updateOne(Connection con, String sql, Object... args) {
         boolean res = false;
         try {
-            queryRunner.update(con,sql,args);
+            queryRunner.update(con, sql, args);
             res = true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,21 +143,20 @@ public abstract class BaseDao<T> {
 
     /**
      * 获得数据库满足某个条件的记录
-     * @param con 数据库的连接
-     * @param sql sql语句
+     *
+     * @param con  数据库的连接
+     * @param sql  sql语句
      * @param args 传入的参数条件
      * @return 返回的查询到的记录数
      */
-    protected int getCount(Connection con,String sql,Object... args)
-    {
+    protected int getCount(Connection con, String sql, Object... args) {
         try {
-            long count = queryRunner.query(JdbcUtil.getConnection(),sql,numberHandler,args);
-            return (int)count;
+            long count = queryRunner.query(JdbcUtil.getConnection(), sql, numberHandler, args);
+            return (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return 0;
     }
-
 
 }

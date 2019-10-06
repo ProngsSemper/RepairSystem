@@ -50,22 +50,20 @@ public interface AdminService {
      */
     Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception;
 
-
     /**
      * 模糊查询出工人
+     *
      * @param name 工人的名字
      * @return 通过工人的名字模糊查询出结果集，回馈给管理员页面
      */
     Result<List<Worker>> findWorkers(String name);
 
     /**
-     * @param page 查询的页面
-     * @param limit 一页的记录
+     * @param page      查询的页面
+     * @param limit     一页的记录
      * @param studentId 学生的id号
      * @return 返回分页查询的表单集合
      */
-    Result<List<Form>>  getFormByStudentId(int page,int limit,String studentId);
-
-
+    Result<List<Form>> getFormByStudentId(int page, int limit, String studentId);
 
 }

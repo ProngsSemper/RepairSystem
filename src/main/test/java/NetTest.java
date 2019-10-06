@@ -1,7 +1,5 @@
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.repairsys.util.net.Postman;
-import net.sf.json.util.JSONBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +14,7 @@ public class NetTest {
     public void loginCall() throws IOException {
         JSONObject jsonObject = null;
         try {
-            jsonObject = Postman.doPost("181549422","password");
+            jsonObject = Postman.doPost("181549422", "password");
         } catch (IOException e) {
             e.printStackTrace();
         }
