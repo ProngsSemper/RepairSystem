@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <script src="../js/jquery-1.12.4.js"></script>
+    <script src="../layui/layui.all.js"></script>
+    <script src="../layui/layui.js"></script>
+
+
+    <link rel="stylesheet" href="../layui/css/layui.css">
+</head>
+<body>
+<table id="demo" lay-filter="test"></table>
+
+<!--<script src="../js/layui.all.js"></script>-->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="update">编辑</button>
+    </div>
+</script>
+
+<!-- 表格按钮  2 lyr  -->
+<script>
+    
+
+    
+    
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+
+//第一个实例
+        table.render({
+            elem: '#demo'
+            ,contentType: 'application/json'
+            ,toolbar:"#toolbarDemo"
+            ,height: 400
+            ,size:'sm'
+            ,url: '/admin/form/page' //数据接口
+            ,cellMinWidth:80
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'adminKey', title: 'ID', width:80, sort: true, fixed: 'left'}
+                ,{field: 'stuId', title: '学生学号', width: 80, sort: true}
+                // ,{field: 'formId', title: '城市', width:80}
+                ,{field: 'formMsg', title: '详细信息', width: 177}
+                ,{field: 'queryCode', title: '积分', width: 80, sort: true}
+                ,{field: 'wKey', title: '工人账号', width: 80}
+                ,{field: 'formDate', title: '申请时间', width:80, sort: true}
+                ,{field: 'endDate', title: '结束时间', width:80}
+                ,{fixed:'right',width:600,align:'center',toolbar: '#barDemo'}
+            ]]
+            ,parseData:function (res) {
+                return{
+                    "code":res.code,
+                    "msg": res.desc,
+                    "count": res.size,
+                    "data": res.data
+                };
+
+            }
+        });
+
+    });
+    table.on('tool(demo)', function(obj){
+        var data = obj.data;
+        if(obj.event === 'detail'){
+            layer.msg('ID：'+ data.id + ' 的查看操作');
+        } else if(obj.event === 'del'){
+            layer.confirm('真的删除行么', function(index){
+                obj.del();
+                layer.close(index);
+            });
+        } else if(obj.event === 'edit'){
+            layer.alert('编辑行：<br>'+ JSON.stringify(data))
+        }
+    });
+
+</script>
+
+<!--<script>-->
+<!--    table.on('tool(demo)', function(obj){-->
+<!--        var data = obj.data;-->
+<!--        if(obj.event === 'detail'){-->
+<!--            layer.msg('ID：'+ data.id + ' 的查看操作');-->
+<!--        } else if(obj.event === 'del'){-->
+<!--            layer.confirm('真的删除行么', function(index){-->
+<!--                obj.del();-->
+<!--                layer.close(index);-->
+<!--            });-->
+<!--        } else if(obj.event === 'edit'){-->
+<!--            layer.alert('编辑行：<br>'+ JSON.stringify(data))-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+
+
+
+
+
+</body>
+</html>
