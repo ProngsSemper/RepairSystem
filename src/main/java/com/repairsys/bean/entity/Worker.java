@@ -1,18 +1,21 @@
 package com.repairsys.bean.entity;
 
 import java.io.Serializable;
+
 /**
  * @Author lyr
  * @create 2019/9/24 12:11
  */
 public class Worker implements Serializable {
-   private String wId;
-   private String wName;
-   private String wTel;
-   private String wPassword;
-   private String wMail;
-   private String wKey;
-   public Worker(){}
+    private String wId;
+    private String wName;
+    private String wTel;
+    private String wPassword;
+    private String wMail;
+    private String wKey;
+
+    public Worker() {
+    }
 
     public String getwMail() {
         return wMail;
@@ -69,6 +72,6 @@ public class Worker implements Serializable {
                 ", wName='" + wName + '\'' +
                 ", wTel='" + wTel + '\'' +
                 ", wPassword='" + wPassword + '\'' +
-                '}'+"\r\n";
+                '}' + "\r\n";
     }
 }

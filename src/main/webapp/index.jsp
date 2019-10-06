@@ -2,8 +2,8 @@
 <html>
 <head>
     <style>
-        h2{
-            text-align:center;
+        h2 {
+            text-align: center;
         }
     </style>
     <title>广金报修</title>
@@ -14,11 +14,10 @@
 
 </body>
 <script>
-    window.onload=function () {
-        window.location.href='login.html';
+    window.onload = function () {
+        window.location.href = 'login.html';
     }
 </script>
-
 
 
 </html>

@@ -1,6 +1,5 @@
 package com.repairsys.controller.administrator;
 
-import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Page;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;

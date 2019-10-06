@@ -11,6 +11,7 @@ public class Md5Util {
 
     /**
      * 得到加密后的字符串
+     *
      * @param bytes 将字节数组转为16进制得到字符串
      * @return
      */

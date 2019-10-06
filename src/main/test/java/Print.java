@@ -5,7 +5,6 @@ import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
-import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -114,7 +113,5 @@ public class Print {
         int i = formService.getTotalCount();
         System.out.println(i);
     }
-
-
 
 }

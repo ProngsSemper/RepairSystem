@@ -19,10 +19,14 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String BASE_QUERY = "select * from form where queryCode = ? ";
     private static final String BASE_PAGE_LIST = "select * from form  where queryCode <=0 limit ?,?";
 
-    /** 分页查询一个员工修理任务的表单信息 */
+    /**
+     * 分页查询一个员工修理任务的表单信息
+     */
     private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldfrom where wKey = ? limit ?,?";
 
-    /** 分页查询学生 id的前半段 */
+    /**
+     * 分页查询学生 id的前半段
+     */
     private static final String GET_FORM_BY_STUDENT_ID = "select * from form where stuId like '%";
     private static final String GET_OLD_BY_STUDENTID_COUNT = "select count(*) from oldform where stuId like '%";
     private static final String SELECT_OLD_LIST_BY_STUID = "select * from oldform where stuId like '%";
@@ -103,7 +107,6 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.getPageList(sql, targetPage, size);
     }
 
-
     /**
      * 分页查询出一个员工的所有维修记录
      *
@@ -111,13 +114,12 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
      * @param page 查询的页面
      * @param size 查询的记录数
      * @return bean表单集合
-     *
      */
     @Override
     public List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
         // WorkerDaoImpl.getInstance().
-        int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),SEARCH_WKEY_FORM_LIST,wKey,wKey,ans[0],ans[1]);
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(JdbcUtil.getConnection(), SEARCH_WKEY_FORM_LIST, wKey, wKey, ans[0], ans[1]);
     }
 
     /**
@@ -130,7 +132,6 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public int getCountByWorkerKey(String wkey) {
         return super.getCountByWorkerKey(wkey);
     }
-
 
     /**
      * 查询出对应的数据库表信息
@@ -167,9 +168,9 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
      */
     @Override
     public List<Form> selectPageList(String sql, int targetPage, int size) {
-        int [] ans = EasyTool.getLimitNumber(targetPage,size);
+        int[] ans = EasyTool.getLimitNumber(targetPage, size);
 
-        return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
+        return super.selectList(JdbcUtil.getConnection(), sql, ans[0], ans[1]);
         // return null;
     }
 
@@ -181,48 +182,41 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
      */
     @Override
     public int selectPageCount(String sql) {
-        return super.getCount(JdbcUtil.getConnection(),sql);
+        return super.getCount(JdbcUtil.getConnection(), sql);
     }
 
-    public List<Form> getPageByStudentId(String stuId,int page,int limit)
-    {
-        String finalSql = GET_FORM_BY_STUDENT_ID+stuId+"%'"+" limit ?,?";
-        int[] ans = EasyTool.getLimitNumber(page,limit);
-        return super.selectList(JdbcUtil.getConnection(),finalSql,stuId,ans[0],ans[1]);
+    public List<Form> getPageByStudentId(String stuId, int page, int limit) {
+        String finalSql = GET_FORM_BY_STUDENT_ID + stuId + "%'" + " limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(JdbcUtil.getConnection(), finalSql, stuId, ans[0], ans[1]);
     }
 
-    public int getPageCountByStudentId(String studentId)
-    {
-        String GET_STU_ID_COUNT = "select count(*) from form where stuId like '%"+studentId+"%'";
-        return super.getCount(JdbcUtil.getConnection(),GET_STU_ID_COUNT);
+    public int getPageCountByStudentId(String studentId) {
+        String GET_STU_ID_COUNT = "select count(*) from form where stuId like '%" + studentId + "%'";
+        return super.getCount(JdbcUtil.getConnection(), GET_STU_ID_COUNT);
 
     }
 
-    public List<Form> getOldPageListByStudentId(String studentId,int page,int limit)
-    {
+    public List<Form> getOldPageListByStudentId(String studentId, int page, int limit) {
 
-        String sql2 = SELECT_OLD_LIST_BY_STUID + studentId+"%' limit ?,?";
-        int[] ans = EasyTool.getLimitNumber(page,limit);
-        return super.selectList(JdbcUtil.getConnection(),sql2,ans[0],ans[1]);
+        String sql2 = SELECT_OLD_LIST_BY_STUID + studentId + "%' limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(JdbcUtil.getConnection(), sql2, ans[0], ans[1]);
     }
 
-
-    public int getOldCountByStudentId(String student)
-    {
-        String sql  = GET_OLD_BY_STUDENTID_COUNT+student+"%'";
-        return super.getCount(JdbcUtil.getConnection(),GET_OLD_BY_STUDENTID_COUNT);
+    public int getOldCountByStudentId(String student) {
+        String sql = GET_OLD_BY_STUDENTID_COUNT + student + "%'";
+        return super.getCount(JdbcUtil.getConnection(), GET_OLD_BY_STUDENTID_COUNT);
     }
 
-    public List<Form> getAllListByStudentId(String studentId, int page, int limit)
-    {
-        String GET_ALL_BY_STUDENT_ID = "select * from form where stuId like '%"+studentId+"%'"
-                +" union select * from oldform where stuId like '%"+studentId+"%' limit ?,?";
-        int[] ans = EasyTool.getLimitNumber(page,limit);
-        return super.selectList(JdbcUtil.getConnection(),GET_ALL_BY_STUDENT_ID,ans[0],ans[1]);
+    public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
+        String GET_ALL_BY_STUDENT_ID = "select * from form where stuId like '%" + studentId + "%'"
+                + " union select * from oldform where stuId like '%" + studentId + "%' limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_ID, ans[0], ans[1]);
     }
 
-    public int getAllCountByStudentId(String studentId)
-    {
+    public int getAllCountByStudentId(String studentId) {
         /*
 
                         select s.num1,t.num2 from
@@ -232,18 +226,12 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
          */
 
-
         // String countSql = "select count(*) from form where stuId like '%"+studentId+"%' union select count(*) from oldform where stuId like '%"+studentId+"%'";
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
-        String rex = " where stuId like '%"+studentId+"%'";
+        String rex = " where stuId like '%" + studentId + "%'";
 
-
-
-        return super.getCount(JdbcUtil.getConnection(),countSql.replaceAll("where",rex));
+        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
 
     }
-
-
-
 
 }

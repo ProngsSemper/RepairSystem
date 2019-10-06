@@ -53,6 +53,14 @@ public enum ResultEnum {
      */
     SUBMITTED_SUCCESSFULLY(201, "报修单提交成功"),
     /**
+     * 修改报修单状态成功
+     */
+    UPDATE_QUERYCODE_SUCCESSFULLY(201, "修改报修单状态成功"),
+    /**
+     * 修改报修单状态失败
+     */
+    UPDATE_QUERYCODE_FAILED(400, "修改报修单状态失败"),
+    /**
      * @author lyr
      * @date 2019/9/29
      * 插入信息成功

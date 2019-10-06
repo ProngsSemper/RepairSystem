@@ -2,7 +2,6 @@ package com.repairsys.bean.entity;
 
 import java.io.Serializable;
 
-
 /**
  * @Author lyr
  * @create 2019/9/24 12:11

@@ -83,6 +83,15 @@ public class WorkerServiceImpl implements WorkerService {
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
+    @Override
+    public Result updateQueryCode(int queryCode, int formId) {
+        Result result = new Result();
+        if (workerDao.updateQueryCode(queryCode, formId)) {
+            return result.setResult(ResultEnum.UPDATE_QUERYCODE_SUCCESSFULLY);
+        }
+        return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+    }
+
     public Result getAllFormByStudentId(String stuId, int page, int limit) {
         if (page <= 0) {
             page = 1;

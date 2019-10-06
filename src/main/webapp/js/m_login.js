@@ -35,20 +35,17 @@ $(document).ready(function () {
                 url: "/user/login",
 
                 dataType: "json",
-                data: JSON.stringify({'id':uId,'password':uPassword,'radio':radio,'vcode':vcode}),
+                data: JSON.stringify({'id': uId, 'password': uPassword, 'radio': radio, 'vcode': vcode}),
                 success: function (ans) {
-                    if(ans.code==403)
-                    {
+                    if (ans.code == 403) {
                         alert('验证码错误');
                         refreshCode();
-                    }
-                    else if(ans.code==200)
-                    {
+                    } else if (ans.code == 200) {
                         alert('登录成功');
                         // alert("登录成功");
                         // refreshCode(); 刷新验证码
                         window.setTimeout("window.location.href='/welcome.jsp'", 1000);
-                    }else {
+                    } else {
                         alert('登录失败');
                         refreshCode();
                     }
@@ -60,11 +57,11 @@ $(document).ready(function () {
     )
 })
 
-function refreshCode(){
+function refreshCode() {
     //1.获取验证码图片对象
     var vcode = document.getElementById("vcode");
 
     //2.设置其src属性，加时间戳
-    vcode.src = "/checkCode.png?time="+new Date().getTime();
+    vcode.src = "/checkCode.png?time=" + new Date().getTime();
 }
 

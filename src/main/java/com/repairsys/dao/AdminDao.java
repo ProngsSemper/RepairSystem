@@ -45,20 +45,22 @@ public interface AdminDao {
 
     /**
      * 添加了 md5加密的功能
-     * @param uId  用户id
-     * @param uName   用户名字
-     * @param uPassword  用户密码
-     * @return  注册是否成功
+     *
+     * @param uId       用户id
+     * @param uName     用户名字
+     * @param uPassword 用户密码
+     * @return 注册是否成功
      */
     boolean registerPlus(String uId, String uName, String uPassword);
 
     /**
      * 用户注册
-     * @param uId 用户id
-     * @param uName  用户名字
-     * @param uPassword  用户密码
-     * @param email  用户的邮箱信息
-     * @return  用户的注册是否成功
+     *
+     * @param uId       用户id
+     * @param uName     用户名字
+     * @param uPassword 用户密码
+     * @param email     用户的邮箱信息
+     * @return 用户的注册是否成功
      */
     boolean registerPlus(String uId, String uName, String uPassword, String email);
 
@@ -73,14 +75,14 @@ public interface AdminDao {
      */
     boolean sendMail(String stuMail, int day, int hour) throws Exception;
 
-
     /**
      * 查询一个工人的所有表单记录
+     *
      * @param workerName 查询的工人名字
-     * @param page 第几页
-     * @param size 查询几条记录
+     * @param page       第几页
+     * @param size       查询几条记录
      * @return
      */
-    List<Form> queryFormListByWorkerName(String workerName,int page,int size);
+    List<Form> queryFormListByWorkerName(String workerName, int page, int size);
 
 }
