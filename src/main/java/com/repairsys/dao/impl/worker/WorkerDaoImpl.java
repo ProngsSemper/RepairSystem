@@ -18,7 +18,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String SEARCH_WORKERS = "select * from workers where wName like '%";
     private static final String GET_WORKER = "select wKey from workers where wName = ?";
     private static final String GET_WORKER_COUNT = "select count(*) from workers where wName = ?";
-
+    private static final String UPDATE_QUERYCODE = "update form set queryCode = ? where formId = ?";
 
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
@@ -43,12 +43,13 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     /**
      * 工人完成了修理任务
      *
-     * @param formId
+     * @param queryCode 表单状态码
+     * @param formId    表单id
      * @return 工人完成维修任务，维修单确认已经完成
      */
     @Override
-    public boolean completed(String formId) {
-        return false;
+    public boolean updateQueryCode(int queryCode, int formId) {
+        return super.updateOne(JdbcUtil.getConnection(), UPDATE_QUERYCODE, queryCode, formId);
     }
 
     /**
@@ -91,7 +92,6 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.addOne(JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
     }
 
-
     /**
      * 估计工人的名字进行模糊查询
      *
@@ -100,22 +100,19 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public List<Worker> fuzzySearchWorkers(String name) {
-        String finalSql = SEARCH_WORKERS+name+"%'";
-        return super.selectList(JdbcUtil.getConnection(),finalSql);
+        String finalSql = SEARCH_WORKERS + name + "%'";
+        return super.selectList(JdbcUtil.getConnection(), finalSql);
     }
 
-    public List<Worker> fuzzySearchWorkers(String name,int targetPage,int size)
-    {
-        String finalSql = SEARCH_WORKERS+name+"%'"+" limit ?,?";
-        int[] ans = EasyTool.getLimitNumber(targetPage,size);
-        return super.selectList(JdbcUtil.getConnection(),finalSql,ans[0],ans[1]);
-    }
-    public int fuzzySearchWorkersCount(String name)
-    {
-        return super.getCount(JdbcUtil.getConnection(),GET_WORKER_COUNT);
+    public List<Worker> fuzzySearchWorkers(String name, int targetPage, int size) {
+        String finalSql = SEARCH_WORKERS + name + "%'" + " limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(targetPage, size);
+        return super.selectList(JdbcUtil.getConnection(), finalSql, ans[0], ans[1]);
     }
 
-
+    public int fuzzySearchWorkersCount(String name) {
+        return super.getCount(JdbcUtil.getConnection(), GET_WORKER_COUNT);
+    }
 
     /**
      * 输入工人的名字查询工人维修的单号
@@ -126,7 +123,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
 
     public Worker getWorkerKeyByName(String workerName) {
-        return super.selectOne(JdbcUtil.getConnection(),GET_WORKER,workerName);
+        return super.selectOne(JdbcUtil.getConnection(), GET_WORKER, workerName);
     }
 
 }
