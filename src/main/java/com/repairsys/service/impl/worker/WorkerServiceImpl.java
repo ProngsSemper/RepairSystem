@@ -55,7 +55,7 @@ public class WorkerServiceImpl implements WorkerService {
         //在未过期表单中找不到时到过期表单中寻找
         if (list.isEmpty()) {
             list = formDao.queryOldByFormId(formId);
-            //在过期表单中也找不到吧
+            //在过期表单中也找不到
             if (list.isEmpty()) {
                 return result.setResult(ResultEnum.QUERY_FAILED);
             }
@@ -83,50 +83,34 @@ public class WorkerServiceImpl implements WorkerService {
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
-
-    public Result getAllFormByStudentId(String stuId,int page,int limit)
-    {
-        if(page<=0)
-        {
+    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+        if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.getAllListByStudentId(stuId,page,limit);
+        List list = formListDao.getAllListByStudentId(stuId, page, limit);
         Page res = new Page();
+        if (!StringUtils.getByStudentId(stuId)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
         res.setData(list);
         int cnt = formListDao.getAllCountByStudentId(stuId);
         res.setTotalCount(cnt);
 
-        res.setTotalPage(cnt/limit+(cnt%limit==0? 0:1));
-        res.setResult(ResultEnum.LOGIN_SUCCESS);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
 
-        if(list.size()==0)
-        {
-            res.setResult(ResultEnum.LOGIN_FAIL);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
         }
 
         res.setTargetPage(page);
         res.setSize(list.size());
-        logger.debug("{},{}，{}",list,cnt,res.getTotalPage());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
         logger.debug("---------------");
         return res;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public WorkerServiceImpl() {
     }

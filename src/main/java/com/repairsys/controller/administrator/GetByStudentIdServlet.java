@@ -16,12 +16,10 @@ import java.io.IOException;
 
 /**
  * @author Prongs  ,lyr
- *
+ * <p>
  * 这里使用的是分页查询，因此，前端需要传递给我的参数至少要有两个，limit,page
  * 其中 page 指定当前页 ，limit指定一页有几条数据
  * 如果想做优化的话，我们第一次查询出数据库的总记录数，发给前端，前端再带过来，这样就不用再查总数了，不过这就是后话了
- *
- *
  * @date 2019/10/1 16:35
  */
 @WebServlet("/admin/stuId")
@@ -33,14 +31,10 @@ public class GetByStudentIdServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        // Result result = adminService.getByStudentId(requestBody.getString("stuId"));
-        Result result =adminService.getAllFormByStudentId(requestBody.getInteger("page"),
+        Result result = adminService.getAllFormByStudentId(requestBody.getInteger("page"),
                 requestBody.getInteger("limit"),
                 requestBody.getString("stuId")
-                );
-
-        // Result result  = adminService.get
-
+        );
 
         int flag = 200;
         if (result.getCode() == flag) {
