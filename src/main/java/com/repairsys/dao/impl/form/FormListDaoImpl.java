@@ -22,7 +22,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     /**
      * 分页查询一个员工修理任务的表单信息
      */
-    private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldfrom where wKey = ? limit ?,?";
+    private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldform where wKey = ? limit ?,?";
 
     /**
      * 分页查询学生 id的前半段
@@ -217,16 +217,6 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public int getAllCountByStudentId(String studentId) {
-        /*
-
-                        select s.num1,t.num2 from
-            (select count(*) num1 from student) s,
-            (select count(*) num2 from teacher) t;
-
-
-         */
-
-        // String countSql = "select count(*) from form where stuId like '%"+studentId+"%' union select count(*) from oldform where stuId like '%"+studentId+"%'";
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = " where stuId like '%" + studentId + "%'";
 
