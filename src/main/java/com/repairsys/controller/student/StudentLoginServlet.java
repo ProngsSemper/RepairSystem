@@ -40,6 +40,12 @@ public class StudentLoginServlet extends BaseServlet {
 
         logger.debug(" session 的id是： " + session.getId());
 
+        if(result.getCode()==200)
+        {
+            response.addCookie(new Cookie("id",requestBody.getString("id")));
+        }
+
+
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {

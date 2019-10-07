@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @Author lyr
- * @create 2019/9/27 10:52
+ * @create 2019/9/27 10:53
  */
 public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.WorkerDao {
     private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
