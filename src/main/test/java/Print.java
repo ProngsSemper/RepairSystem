@@ -1,17 +1,16 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -61,15 +60,7 @@ public class Print {
 
     @Test
     public void sendMailTest() throws Exception {
-        Calendar calendar = Calendar.getInstance();
-        // 时
-        calendar.set(Calendar.HOUR_OF_DAY, 10);
-        calendar.set(Calendar.DAY_OF_MONTH, 2);
-        java.util.Date time = calendar.getTime();
-        SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
-        String format = df.format(time);
-        System.out.println(format);
-        MailUtil.sendMail("1957476540@qq.com", format);
+        MailUtil.sendFinishMail("798237844@qq.com");
     }
 
     @Test
@@ -97,7 +88,8 @@ public class Print {
 
     @Test
     public void printDate() {
-        System.out.println(new Date(new java.util.Date().getTime()));
+        java.util.Date d = new java.util.Date();
+        System.out.println(d);
     }
 
     @Test
@@ -112,6 +104,15 @@ public class Print {
         FormService formService = new FormServiceImpl();
         int i = formService.getTotalCount();
         System.out.println(i);
+    }
+
+    @Test
+    public void getWorkerTel() {
+        Worker worker = WorkerDaoImpl.getInstance().getWorkerTelByKey(1);
+        String flag = "13654758962";
+        if (worker.getwTel().equals(flag)) {
+            System.out.println(true);
+        }
     }
 
 }
