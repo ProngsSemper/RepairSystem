@@ -152,7 +152,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         java.util.Date time = calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
         String format = df.format(time);
-        return MailUtil.sendMail(stuMail, format);
+        return MailUtil.sendPrepareMail(stuMail, format);
     }
 
     /**

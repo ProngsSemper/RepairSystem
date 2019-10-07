@@ -77,4 +77,12 @@ public interface WorkerDao {
      */
     Worker getWorkerKeyByName(String workerName);
 
+    /**
+     * 主要用于工人修改报修单状态时给学生发送邮件，根据wKey获取工人电话
+     *
+     * @param wKey 工人Key
+     * @return 返回工人的电话
+     */
+    Worker getWorkerTelByKey(int wKey);
+
 }
