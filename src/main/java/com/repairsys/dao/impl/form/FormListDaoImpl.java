@@ -22,7 +22,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     /**
      * 分页查询一个员工修理任务的表单信息
      */
-    private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldfrom where wKey = ? limit ?,?";
+    private static final String SEARCH_WKEY_FORM_LIST = "select * from form where wKey = ? union select * from oldform where wKey = ? limit ?,?";
 
     /**
      * 分页查询学生 id的前半段
