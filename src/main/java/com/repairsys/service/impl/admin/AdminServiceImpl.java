@@ -16,11 +16,11 @@ import com.repairsys.service.AdminService;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.string.StringUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -163,7 +163,7 @@ public class AdminServiceImpl implements AdminService {
             page = 1;
         }
         AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
-        List list = adminDao.queryFormListByWorkerName(wName,page,limit);
+        List list = adminDao.queryFormListByWorkerName(wName, page, limit);
         Page res = new Page();
         if (!StringUtils.getByWorkerName(wName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
@@ -184,6 +184,14 @@ public class AdminServiceImpl implements AdminService {
         logger.debug("---------------");
         return res;
 
+    }
+
+    @Override
+    public Result releaseBoard(String board, Timestamp releaseDate) {
+        Result result = new Result();
+        adminDao.releaseBoard(board, releaseDate);
+        result.setResult(ResultEnum.RELEASE_SUCCESSFULLY);
+        return result;
     }
 
     public AdminServiceImpl() {

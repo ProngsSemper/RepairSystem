@@ -101,7 +101,13 @@ public enum ResultEnum {
      */
     SEND_MAIL_FAILED(553, "发送失败"),
 
-    ;
+    /**
+     * 公告发布成功
+     *
+     * @author Prongs
+     * @date 2019/10/08
+     */
+    RELEASE_SUCCESSFULLY(200, "公告发布成功");
 
     /**
      * 状态码   code

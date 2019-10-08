@@ -2,6 +2,7 @@ import com.repairsys.bean.entity.Developer;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
@@ -12,6 +13,7 @@ import com.repairsys.service.impl.form.FormServiceImpl;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,6 +24,11 @@ public class DbTest {
     @Test
     public void addForm() {
         FormDaoImpl.getInstance().apply("123d", "宿舍水管坏d了，过来修，北苑17栋，B513", new Date(new java.util.Date().getTime()));
+    }
+
+    @Test
+    public void addBoard() {
+        AdminDaoImpl.getInstance().releaseBoard("test", new Timestamp(new java.util.Date().getTime()));
     }
 
     @Test

@@ -16,8 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +35,8 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String QUERY_ALL_ADMIN = "Select * from administrators";
     private static final String REGISTER = "insert into administrators (`adminId`, `adminName`, `adminPassword`, `adminMail`) values(?,?,?,?)";
     private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
+    private static final String UPDATE_BOARD = "update board set queryCode = -1 where queryCode=1";
+    private static final String RELEASE_BOARD = "insert into board (queryCode,board,date)values(1,?,?)";
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -168,12 +170,18 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Form> queryFormListByWorkerName(String workerName, int page, int size) {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyByName(workerName);
-        if(worker==null)
-        {
+        if (worker == null) {
             List errorList = new LinkedList();
             return errorList;
         }
         return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), page, size);
+    }
+
+    @Override
+    public void releaseBoard(String board, Timestamp releaseDate) {
+        Connection connection = JdbcUtil.getConnection();
+        super.updateOne(connection, UPDATE_BOARD);
+        super.addOne(connection, RELEASE_BOARD, board, releaseDate);
     }
 
 
@@ -232,6 +240,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      * @return 返回的查询到的记录数
      */
 
+    @Override
     public int getCount() {
         return this.selectPageCount();
     }
@@ -260,6 +269,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         return this.getCount();
     }
 
+    @Override
     public int getAllCountByWorkerName(String wName) {
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = " where stuId like '%" + wName + "%'";

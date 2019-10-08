@@ -5,6 +5,7 @@ import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -87,5 +88,14 @@ public interface AdminService {
      * @return 返回相应状态码
      */
     Result getFormListByWorkerName(String wName, int page, int limit);
+
+    /**
+     * 管理员发布公告
+     *
+     * @param board       公告内容
+     * @param releaseDate 发布时间
+     * @return
+     */
+    Result releaseBoard(String board, Timestamp releaseDate);
 
 }
