@@ -59,11 +59,33 @@ public interface AdminService {
     Result<List<Worker>> findWorkers(String name);
 
     /**
+     * 根据学生id进行模糊查询 实现分页功能
+     *
      * @param page      查询的页面
      * @param limit     一页的记录
      * @param studentId 学生的id号
      * @return 返回分页查询的表单集合
      */
     Result<List<Form>> getFormByStudentId(int page, int limit, String studentId);
+
+    /**
+     * 根据学生id进行模糊查询 实现分页功能
+     *
+     * @param page      当前页面
+     * @param limit     设置限制条数
+     * @param studentId 学生 id
+     * @return 返回学生提交的所有申请状态
+     */
+    Result<List<Form>> getAllFormByStudentId(int page, int limit, String studentId);
+
+    /**
+     * 根据工人名字模糊查询表单
+     *
+     * @param wName 工人名字
+     * @param page  当前页
+     * @param limit 每页显示多少数据
+     * @return 返回相应状态码
+     */
+    Result getFormListByWorkerName(String wName, int page, int limit);
 
 }

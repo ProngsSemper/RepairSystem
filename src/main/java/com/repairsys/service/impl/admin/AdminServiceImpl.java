@@ -9,6 +9,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.AdminService;
@@ -76,6 +77,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Deprecated
     public Result getByStudentId(String stuId) {
         Result<List<Form>> result = new Result<List<Form>>();
         //查找表单号为空
@@ -106,9 +108,10 @@ public class AdminServiceImpl implements AdminService {
 
     /**
      * 模糊查询出工人
-     * @date 2019/10/3
+     *
      * @param name 工人的名字
      * @return 通过工人的名字模糊查询出结果集，回馈给管理员页面
+     * @date 2019/10/3
      */
     @Override
     public Result<List<Worker>> findWorkers(String name) {
@@ -132,8 +135,8 @@ public class AdminServiceImpl implements AdminService {
     public Result<List<Form>> getFormByStudentId(int page, int limit, String studentId) {
 
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        Page  res = new Page<List<Form>>();
-        List<Form> forms = formListDao.getPageByStudentId(studentId,page,limit);
+        Page res = new Page<List<Form>>();
+        List<Form> forms = formListDao.getPageByStudentId(studentId, page, limit);
 
         res.setData(forms);
 
@@ -141,27 +144,47 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     * @param page 当前页面
-     * @param limit 设置限制条数
+     * @param page      当前页面
+     * @param limit     设置限制条数
      * @param studentId 学生 id
      * @return 返回学生提交的所有申请状态
      */
-    public Result<List<Form>> getAllFormByStudentId(int page,int limit,String studentId)
-    {
+    @Override
+    public Result<List<Form>> getAllFormByStudentId(int page, int limit, String studentId) {
 
         WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-        return workerService.getAllFormByStudentId(studentId,page,limit);
-
-
+        return workerService.getAllFormByStudentId(studentId, page, limit);
 
     }
-    //TODO: 模糊查询表单的id
-    // public Result<List<Form>> getAllFormByFormId(int page,int limit)
 
+    @Override
+    public Result getFormListByWorkerName(String wName, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
+        List list = adminDao.queryFormListByWorkerName(wName,page,limit);
+        Page res = new Page();
+        if (!StringUtils.getByWorkerName(wName)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = adminDao.getAllCountByWorkerName(wName);
+        res.setTotalCount(cnt);
 
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
 
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
 
-
+    }
 
     public AdminServiceImpl() {
     }

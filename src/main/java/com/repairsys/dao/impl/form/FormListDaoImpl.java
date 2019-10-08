@@ -217,16 +217,6 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public int getAllCountByStudentId(String studentId) {
-        /*
-
-                        select s.num1,t.num2 from
-            (select count(*) num1 from student) s,
-            (select count(*) num2 from teacher) t;
-
-
-         */
-
-        // String countSql = "select count(*) from form where stuId like '%"+studentId+"%' union select count(*) from oldform where stuId like '%"+studentId+"%'";
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = " where stuId like '%" + studentId + "%'";
 

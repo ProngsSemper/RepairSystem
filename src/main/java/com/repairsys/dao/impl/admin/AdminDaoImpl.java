@@ -17,7 +17,9 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -166,7 +168,11 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Form> queryFormListByWorkerName(String workerName, int page, int size) {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyByName(workerName);
-
+        if(worker==null)
+        {
+            List errorList = new LinkedList();
+            return errorList;
+        }
         return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), page, size);
     }
 
@@ -252,5 +258,13 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public int selectPageCount(String sql) {
         return this.getCount();
+    }
+
+    public int getAllCountByWorkerName(String wName) {
+        String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = " where stuId like '%" + wName + "%'";
+
+        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
+
     }
 }
