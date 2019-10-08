@@ -1,5 +1,6 @@
 package com.repairsys.dao.impl.agenda;
 
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @Author lyr
@@ -40,13 +42,14 @@ public class WorkerScheule extends TableDaoImpl {
     public boolean updateTable() {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
         QueryRunner queryRunner = p.getQueryRunner();
+        List<Worker> arr = p.getAllWorkerList();
 
-        int cnt = p.getTotalCount();
+        int cnt = arr.size();
         Object[][] obj = new Object[cnt][];
         for(int i=1;i<=cnt;++i)
         {
             obj[i-1] = new Object[1];
-            obj[i-1][0] = i;
+            obj[i-1][0] = arr.get(i-1).getwKey();
         }
 
 
