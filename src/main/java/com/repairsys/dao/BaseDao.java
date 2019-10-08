@@ -23,6 +23,12 @@ public abstract class BaseDao<T> {
     private BeanListHandler<T> beanListHandler;
     private ScalarHandler<Long> numberHandler;
 
+
+    public QueryRunner getQueryRunner()
+    {
+        return queryRunner;
+    }
+
     protected BaseDao(Class<T> clazz) {
         if (clazz == null) {
             throw new IllegalArgumentException("传入参数为空");

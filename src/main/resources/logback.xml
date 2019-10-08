@@ -51,7 +51,7 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>GBK</charset>
+            <charset>utf-8</charset>
         </encoder>
     </appender>
     <!--默认输出级别-->
