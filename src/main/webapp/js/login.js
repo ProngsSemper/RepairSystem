@@ -152,20 +152,7 @@ $(document).ready(function () {
                     // var rel = JSON.parse(msg);
                     var rel = data;
                     if (rel.code === 200) {
-                        // alert($('#remember').val());
-                        // if ($('#remember').val()==1) {
-                        //     if (Name.name === "stuId") {
-                        //         addcookie(Name.name, Name.value, 7);
-                        //         addcookie(Password.name, Password.value, 7);
-                        //         console.log(1);
-                        //         alert(1);
-                        //     } else {
-                        //         addcookie(Name.name, Name.value, 1825);
-                        //         addcookie(Password.name, Password.value, 1825);
-                        //         console.log(2);
-                        //         alert(2)
-                        //     }
-                        // }
+
                         refreshCode();
                         // window.location.href = "www.baidu.com";
                         var identity = jqXHR.getResponseHeader('identity');
@@ -186,7 +173,20 @@ $(document).ready(function () {
                                 addcookie("workerPassword", my_password, 1825);
                                 window.setTimeout("window.location.href='/welcome.html'", 1000);
                             }
+                        }else {
+                            if(identity=='student')
+                            {
+                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                            }else if(identity=='admin')
+                            {
+                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                            }else if(identity=='worker')
+                            {
+                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                            }
                         }
+
+
 
 
                     } else {
