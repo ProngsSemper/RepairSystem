@@ -34,5 +34,5 @@ public interface StudentService {
      *
      * @return 返回一条最新的学校公告
      */
-    List getBoard();
+    Result getBoard();
 }
