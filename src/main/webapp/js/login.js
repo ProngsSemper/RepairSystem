@@ -107,23 +107,23 @@ $(document).ready(function () {
                             if (identity === 'student') {
                                 addcookie("stuId", my_id, 7);
                                 addcookie("stuPassword", my_password, 7);
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                                window.setTimeout("window.location.href='/firstPage.html'", 500);
                             } else if (identity === 'admin') {
                                 addcookie("adminId", my_id, 1825);
                                 addcookie("adminPassword", my_password, 1825);
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                                window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
                             } else if (identity === 'worker') {
                                 addcookie("workerId", my_id, 1825);
                                 addcookie("workerPassword", my_password, 1825);
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                                window.setTimeout("window.location.href='/welcome.html'", 500);
                             }
                         }else {
                             if(identity=='student')
                             {
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                                window.setTimeout("window.location.href='/firstPage.html'", 1000);
                             }else if(identity=='admin')
                             {
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
+                                window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
                             }else if(identity=='worker')
                             {
                                 window.setTimeout("window.location.href='/welcome.html'", 1000);

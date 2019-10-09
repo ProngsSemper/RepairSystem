@@ -1,0 +1,93 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    list-style: none;
+}
+body{
+    background: #f3edea;
+}
+.tit{
+    height: 80px;
+    width: 980px;
+    margin: 0 auto;
+}
+.logo{
+    position: relative;
+    /* top: -20px; */
+    margin: 20px 0 0 10px;
+    height: 60px;
+}
+.name{
+    position: relative;
+    top: -15px;
+    margin-top: 30px;
+    margin-left: 10px;
+    width: 200px;
+}
+.contant{
+    margin: 60px auto 150px;
+    overflow: hidden;
+}
+.insideBox{
+    margin: 0 auto;
+    width: 980px;
+}
+.category{
+    float: left;
+    margin: 0 50px;
+    border: 2px #ffffff solid;
+    width: 200px;
+    height: 250px;
+}
+.category .icon{
+    display: block;
+    margin: 5px auto;
+    width: 150px;
+    cursor: pointer;
+}
+.category .change{
+    margin: 7px auto;
+}
+.studentleave{
+    display: block;
+    margin: 30px auto 35px ;
+    width: 100px;
+}
+.category .inside-tit{
+    margin: 10px auto 0;
+    color: #000;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+.footer{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    margin: 0 auto 0;
+    background: #fff;
+}
+.footer .circle{
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    margin-left: -50px;
+    /* border: #888888 2px solid; */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.footer .circle img{
+    display: block;
+    margin:0px auto 0;
+    width: 100px;
+}
+.footer .titName{
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    margin-left: -40px;
+    font-weight: bold;
+    font-size: 30px;
+}
