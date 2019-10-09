@@ -55,7 +55,7 @@ $(document).ready(function () {
 
         }
     )
-})
+});
 
 function refreshCode() {
     //1.获取验证码图片对象

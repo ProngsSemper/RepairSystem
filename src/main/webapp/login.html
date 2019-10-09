@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="css/login.css" type="text/css">
     <title>广东金融学院后勤报修平台</title>
     <script src="js/jquery-1.12.4.js"></script>
-    <script src="js/cookie.js"></script>
     <script src="js/login.js"></script>
+    <script src="js/cookie.js"></script>
 </head>
 <body>
 <div class="nav">
@@ -26,17 +26,17 @@
     <div class="login">
         <div class="loginBox">
             <form action="" method="">
-                <input type="text" class="inputStyle stuId" name="stuId" placeholder="账号">
+                <input type="text" class="inputStyle stuId" name="stuId" placeholder="账号" id="id">
                 <i class="people"></i>
-                <input type="password" class="inputStyle stuPassword" name="stuPassword" placeholder="密码">
+                <input type="password" class="inputStyle stuPassword" name="stuPassword" placeholder="密码" id="password">
                 <i class="lock"></i>
                 <br>
                 <div class="remmber">
-                    <input type="checkbox" class="square" name="remember"><span class="tit-name">记住密码</span>
+                    <input type="checkbox" class="square" name="remember"  id="remember" value="1"><span class="tit-name">记住密码</span>
                 </div>
                 <div class="check">
                     <input type="text" placeholder="验证码" class="checkInput" name="checkCode" id="myCode">
-                    <a href="javascrip:;" class="linkImg">
+                    <a href="javascript:void(0);" class="linkImg">
                         <img src="/checkCode.png" alt="图片加载失败" class="codeImg" onclick="refreshCode()" id="vcode">
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="radio">
                     <input type="radio"  name="identity" class="chose" value="3"><span class="tit-name">工人</span>
                 </div>
-                <input type="submit" name="" value="登录" class="Submit">
+                <input type="button" name="" value="登录" class="Submit" id="login">
             </form>
         </div>
     </div>
