@@ -18,6 +18,9 @@ var Password = document.getElementsByClassName("stuPassword")[0];
 var checkCode = document.getElementsByClassName("checkInput")[0];
 var remmber = document.getElementsByClassName('square')[0];
 
+//添加 radio是为了区分用户
+//添加验证码是为了给后台判断验证码
+
 $(function () {
     $('.chose').eq(0).click(function () {
         $('input').eq(0).attr("name", "stuId");
@@ -37,17 +40,25 @@ $(function () {
     });
 })
 submit.onclick = function () {
+
+    //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
+    var radio = $("input[name='identity']:checked").val();
+    var vcode = $('#myCode').val();
+
     $.ajax({
         type: "POST",
-        url: "/student/login",
+        url: "/user/login",
         dataType: "json",
         data: JSON.stringify({
             "id": Name.value,
-            "password": Password.value
+            "password": Password.value,
+            'radio': radio,
+            'vcode': vcode
+
         }),
-        success: function (msg) {
+        success: function (data,status,jqXHR) {
             // var rel = JSON.parse(msg);
-            var rel = msg;
+            var rel = data;
             if (rel.code === 200) {
                 if (remmber.checked) {
                     if (Name.name === "stuId") {
@@ -58,9 +69,26 @@ submit.onclick = function () {
                         addcookie(Password.name, Password.value, 1825);
                     }
                 }
-                window.location.href = "www.baidu.com";
+                refreshCode();
+                // window.location.href = "www.baidu.com";
+                var identity = jqXHR.getResponseHeader('identity');
+                alert('登录成功');
+                if(identity==='student')
+                {
+                    window.setTimeout("window.location.href='/welcome.html'", 1000);
+                }else if(identity==='admin')
+                {
+                    window.setTimeout("window.location.href='/welcome.html'", 1000);
+                }else if(identity==='worker')
+                {
+                    window.setTimeout("window.location.href='/welcome.html'", 1000);
+                }else {}
+
+
+
             } else {
                 alert("用户名或密码错误");
+                refreshCode();
             }
         },
         error: function (xhr) {
@@ -88,3 +116,11 @@ function getVerCode() {
     return result;
 }
 
+//lyr引入的刷新验证码的function
+function refreshCode() {
+    //1.获取验证码图片对象
+    var vcode = document.getElementById("vcode");
+
+    //2.设置其src属性，加时间戳
+    vcode.src = "/checkCode.png?time=" + new Date().getTime();
+}

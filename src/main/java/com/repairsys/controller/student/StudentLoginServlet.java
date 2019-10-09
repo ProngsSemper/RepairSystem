@@ -44,6 +44,8 @@ public class StudentLoginServlet extends BaseServlet {
         if(result.getCode()==200)
         {
             response.addCookie(new Cookie("id",requestBody.getString("id")));
+            response.addCookie(new Cookie("identity","student"));
+            response.addHeader("identity","student");
         }
 
 

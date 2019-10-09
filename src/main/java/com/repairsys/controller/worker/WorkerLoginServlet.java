@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,6 +35,8 @@ public class WorkerLoginServlet extends BaseServlet {
                 session);
         logger.debug("工人登录信息{}", result);
         request.setAttribute("result", result);
+        response.addCookie(new Cookie("identity","worker"));
+        response.addHeader("identity","worker");
         super.doPost(request, response);
     }
 

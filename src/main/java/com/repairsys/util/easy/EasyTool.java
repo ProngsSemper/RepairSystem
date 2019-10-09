@@ -42,8 +42,11 @@ public final class EasyTool {
         logger.debug("进入比较");
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         logger.debug("获得对象");
+        System.out.println(jsonObject);
         String code = jsonObject.getString("vcode").toLowerCase();
+        System.out.println(code);
         String ans = (String) request.getSession().getAttribute("CHECKCODE_SERVER");
+        System.out.println(ans);
         logger.debug("{}", ans);
         boolean b = false;
         b = ans.equals(code);
