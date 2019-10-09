@@ -32,7 +32,7 @@ public class WorkerLoginServlet extends BaseServlet {
         Result result = workerService.login(requestBody.getString("id"),
                 requestBody.getString("password"),
                 session);
-        logger.debug("登录信息{}", result);
+        logger.debug("工人登录信息{}", result);
         request.setAttribute("result", result);
         super.doPost(request, response);
     }
