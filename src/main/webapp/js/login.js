@@ -159,7 +159,9 @@ $(document).ready(function () {
                         alert('登录成功');
                         var my_id = $('#id').val();
                         var my_password = $('#password').val();
-                        if ($('#remember').val() === 1) {
+                        var rem = $('#remember').val() == 1;
+                        if (rem) {
+                            alert("记住密码");
                             if (identity === 'student') {
                                 addcookie("stuId", my_id, 7);
                                 addcookie("stuPassword", my_password, 7);

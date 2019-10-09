@@ -17,6 +17,8 @@ import java.io.IOException;
 /**
  * @author Prongs
  * @date 2019/10/9 8:33
+ *
+ * 发布公告
  */
 @WebServlet("/admin/history/board")
 public class AdminHistoryBoardServlet extends BaseServlet {
