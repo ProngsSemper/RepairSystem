@@ -3,6 +3,7 @@ package com.repairsys.service;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -35,4 +36,19 @@ public interface StudentService {
      * @return 返回一条最新的学校公告
      */
     Result getBoard();
+
+
+    /**
+     * @param stuId 学生学号
+     * @param queryCode  查询码
+     * @param formMsg    表单详情
+     * @param formDate   申请日期
+     * @param stuMail    学生的 email
+     * @param photoId    学生上传的照片
+     * @param room 学生宿舍
+     * @return
+     */
+    Result applyForm(String stuId, int queryCode, String formMsg, Date formDate,String stuMail,String photoId,String room);
+
+//    apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
 }

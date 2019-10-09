@@ -6,17 +6,21 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ExceptionEnum;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.FormDao;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.Postman;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -82,6 +86,24 @@ public class StudentServiceImpl implements StudentService {
         result.setData(list);
         result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         return result;
+    }
+
+    /**
+     * @param stuId     学生学号
+     * @param queryCode 查询码
+     * @param formMsg   表单详情
+     * @param formDate  申请日期
+     * @param stuMail   学生的 email
+     * @param photoId   学生上传的照片
+     * @return
+     */
+    @Override
+    public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Date formDate, String stuMail, String photoId,String room) {
+        FormListDaoImpl t = (FormListDaoImpl)DaoFactory.getFormDao();
+        boolean b = t.apply(stuId,queryCode,formMsg,formDate,stuMail,photoId,room);
+        Result<Boolean> res =  new Result();
+        res.setData(b);
+        return res;
     }
 
 }

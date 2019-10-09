@@ -84,6 +84,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
 
+
+    String INSERT_FORM =
+            "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey,room)values(?,?,?,?,?,?,?,?,?)";
+
     private static final FormDaoImpl FORM_DAO = new FormDaoImpl();
 
     protected FormDaoImpl() {
@@ -413,5 +417,24 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public int getTotalCount(int queryCode) {
         return super.getCount(JdbcUtil.getConnection(), QUERY_FORM_CODE, queryCode);
+    }
+
+
+    /**
+     * 用户申请表单提交
+     *
+     * @param stuId    学生账号
+     * @param code     表单状态
+     * @param formMsg  表单内容详情
+     * @param formDate 表单日期
+     * @param formMail 用户的邮箱账号
+     * @param photoId  用户发送的照片在服务器的地址存储路径
+     * @param room     宿舍房间号，维修地址
+     * @return 布尔值
+     */
+    @Override
+    public Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId, String room) {
+
+        return super.updateOne(JdbcUtil.getConnection(),INSERT_FORM,stuId,code,formMsg,formDate,formMail,photoId,room);
     }
 }

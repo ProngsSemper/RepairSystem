@@ -39,65 +39,7 @@ $(function () {
         this.src += "?";
     });
 });
-// submit.onclick = function () {
-//
-//     //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
-//     var radio = $("input[name='identity']:checked").val();
-//     var vcode = $('#myCode').val();
-//
-//     $.ajax({
-//         type: "POST",
-//         url: "/user/login",
-//         dataType: "json",
-//         data: JSON.stringify({
-//             "id": Name.value,
-//             "password": Password.value,
-//             'radio': radio,
-//             'vcode': vcode
-//
-//         }),
-//         success: function (data,status,jqXHR) {
-//             // var rel = JSON.parse(msg);
-//             var rel = data;
-//             if (rel.code === 200) {
-//                 if (remmber.checked) {
-//                     if (Name.name === "stuId") {
-//                         addcookie(Name.name, Name.value, 7);
-//                         addcookie(Password.name, Password.value, 7);
-//                     } else {
-//                         addcookie(Name.name, Name.value, 1825);
-//                         addcookie(Password.name, Password.value, 1825);
-//                     }
-//                 }
-//                 refreshCode();
-//                 // window.location.href = "www.baidu.com";
-//                 var identity = jqXHR.getResponseHeader('identity');
-//                 alert('登录成功');
-//                 if(identity==='student')
-//                 {
-//                     window.setTimeout("window.location.href='/welcome.html'", 1000);
-//                 }else if(identity==='admin')
-//                 {
-//                     window.setTimeout("window.location.href='/welcome.html'", 1000);
-//                 }else if(identity==='worker')
-//                 {
-//                     window.setTimeout("window.location.href='/welcome.html'", 1000);
-//                 }else {}
-//
-//
-//
-//             } else {
-//                 alert("用户名或密码错误");
-//                 refreshCode();
-//             }
-//         },
-//         error: function (xhr) {
-//             alert(xhr.status + "error");
-//         }
-//
-//     })
-//
-// }
+
 
 function getVerCode() {
     var result = "";

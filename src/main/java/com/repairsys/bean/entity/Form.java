@@ -18,6 +18,7 @@ public class Form implements Serializable {
     private int adminKey;
     private int wKey;
     private Date endDate;
+    private String room;
 
     public Date getEndDate() {
         return endDate;
@@ -102,6 +103,17 @@ public class Form implements Serializable {
         this.wKey = wKey;
     }
 
+
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+
     @Override
     public String toString() {
         return "Form{" +
@@ -115,6 +127,7 @@ public class Form implements Serializable {
                 ", adminKey=" + adminKey +
                 ", wKey=" + wKey +
                 ", endDate=" + endDate +
+                ", room='" + room + '\'' +
                 '}';
     }
 }
