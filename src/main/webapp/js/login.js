@@ -101,7 +101,7 @@ $(document).ready(function () {
                         alert('登录成功');
                         var my_id = $('#id').val();
                         var my_password = $('#password').val();
-                        var rem = $('#remember').val() == 1;
+                        var rem = $('#remember2').is(':checked');
                         if (rem) {
                             alert("记住密码");
                             if (identity === 'student') {
