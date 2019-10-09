@@ -1,10 +1,8 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
-import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.mail.MailUtil;
@@ -104,15 +102,6 @@ public class Print {
         FormService formService = new FormServiceImpl();
         int i = formService.getTotalCount();
         System.out.println(i);
-    }
-
-    @Test
-    public void getWorkerTel() {
-        Worker worker = WorkerDaoImpl.getInstance().getWorkerTelByKey(1);
-        String flag = "13654758962";
-        if (worker.getwTel().equals(flag)) {
-            System.out.println(true);
-        }
     }
 
 }

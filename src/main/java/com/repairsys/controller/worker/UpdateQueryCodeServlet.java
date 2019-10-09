@@ -30,7 +30,7 @@ public class UpdateQueryCodeServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = requestBody.getString("stuMail");
-        int wKey = requestBody.getInteger("wKey");
+        String wKey = requestBody.getString("wKey");
         int queryCode = requestBody.getInteger("queryCode");
         int flag = 201;
         int finishCode = 2;
@@ -40,14 +40,14 @@ public class UpdateQueryCodeServlet extends BaseServlet {
         Result result = workerService.updateQueryCode(queryCode
                 , requestBody.getInteger("formId"));
         //确认为维修完成时 发送维修完成邮件
-        if (queryCode == finishCode) {
+        if (finishCode == queryCode) {
             try {
                 MailUtil.sendFinishMail(stuMail);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             //维修有问题时 发送error邮件
-        } else if (queryCode == errorCode) {
+        } else if (errorCode == queryCode) {
             try {
                 MailUtil.sendErrorMail(stuMail, wTel);
             } catch (Exception e) {

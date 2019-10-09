@@ -130,7 +130,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     }
 
     @Override
-    public Worker getWorkerTelByKey(int wKey){
+    public Worker getWorkerTelByKey(String wKey){
         return super.selectOne(JdbcUtil.getConnection(), GET_WORKER_TEL, wKey);
     }
 

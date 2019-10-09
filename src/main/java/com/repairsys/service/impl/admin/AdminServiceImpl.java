@@ -10,6 +10,7 @@ import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.AdminService;
@@ -192,6 +193,30 @@ public class AdminServiceImpl implements AdminService {
         adminDao.releaseBoard(board, releaseDate);
         result.setResult(ResultEnum.RELEASE_SUCCESSFULLY);
         return result;
+    }
+
+    @Override
+    public Result getHistoryBoard(int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
+        List list = boardDao.getHistoryBoard(page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = boardDao.getAllCountInBoard();
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
     }
 
     public AdminServiceImpl() {

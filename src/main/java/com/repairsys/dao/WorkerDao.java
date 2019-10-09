@@ -25,8 +25,8 @@ public interface WorkerDao {
      * 定义queryCode ,0是开始状态，开始报修，1是联系状态，已经约好工人，2是修好7天内状态，
      * 3是已经修好状态（迁移入oldform)，-1是缺少材料等情况 还需要再修。
      *
-     * @param formId    工人完成了维修任务，可以修改表单的信息， 修改表单的信息需要填写 formId,指定具体的记录
      * @param queryCode 表单状态码
+     * @param formId    工人完成了维修任务，可以修改表单的信息， 修改表单的信息需要填写 formId,指定具体的记录
      * @return 工人修改表单是否成功，如果有异常返回false，否则返回true
      */
     boolean updateQueryCode(int queryCode, int formId);
@@ -83,6 +83,6 @@ public interface WorkerDao {
      * @param wKey 工人Key
      * @return 返回工人的电话
      */
-    Worker getWorkerTelByKey(int wKey);
+    Worker getWorkerTelByKey(String wKey);
 
 }

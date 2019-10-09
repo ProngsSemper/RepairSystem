@@ -3,6 +3,7 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
@@ -95,6 +96,12 @@ public class DbTest {
     @Test
     public void searchWorkers() {
         List<Worker> list = WorkerDaoImpl.getInstance().fuzzySearchWorkers("刘");
+        System.out.println(list);
+    }
+
+    @Test
+    public void historyBoard() {
+        List list = BoardDaoImpl.getInstance().getHistoryBoard(1, 1);
         System.out.println(list);
     }
 

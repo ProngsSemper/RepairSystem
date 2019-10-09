@@ -39,7 +39,7 @@ $(function () {
 submit.onclick = function () {
     $.ajax({
         type: "POST",
-        url: "/worker/login",
+        url: "/student/login",
         dataType: "json",
         data: JSON.stringify({
             "id": Name.value,

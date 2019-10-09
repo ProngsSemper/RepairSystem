@@ -36,7 +36,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String REGISTER = "insert into administrators (`adminId`, `adminName`, `adminPassword`, `adminMail`) values(?,?,?,?)";
     private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
     private static final String UPDATE_BOARD = "update board set queryCode = -1 where queryCode=1";
-    private static final String RELEASE_BOARD = "insert into board (queryCode,board,date)values(1,?,?)";
+    private static final String RELEASE_BOARD = "insert into board (queryCode,boardMsg,date)values(1,?,?)";
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -277,4 +277,5 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
 
     }
+
 }
