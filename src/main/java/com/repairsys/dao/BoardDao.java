@@ -22,4 +22,11 @@ public interface BoardDao {
      * @return board表中所有数据条数
      */
     int getAllCountInBoard();
+
+    /**
+     * 查询最新的学校公告 即queryCode=1的公告
+     *
+     * @return 返回一条最新的学校公告
+     */
+    List getBoard();
 }

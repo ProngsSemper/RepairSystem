@@ -3,6 +3,7 @@ package com.repairsys.service;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author Prongs
@@ -27,4 +28,11 @@ public interface StudentService {
      * @return 返回数据库中board表的数据
      */
     Result getHistoryBoard(int page, int limit);
+
+    /**
+     * 查询最新的学校公告 即queryCode=1的公告
+     *
+     * @return 返回一条最新的学校公告
+     */
+    List getBoard();
 }

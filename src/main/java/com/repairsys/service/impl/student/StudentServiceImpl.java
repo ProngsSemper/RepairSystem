@@ -5,6 +5,8 @@ import com.repairsys.bean.entity.Developer;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ExceptionEnum;
 import com.repairsys.code.ResultEnum;
+import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author lyr, Prongs
@@ -69,6 +72,16 @@ public class StudentServiceImpl implements StudentService {
     public Result getHistoryBoard(int page, int limit) {
         AdminServiceImpl adminService = ServiceFactory.getAdminService();
         return adminService.getHistoryBoard(page, limit);
+    }
+
+    @Override
+    public Result getBoard(){
+        BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
+        List list = boardDao.getBoard();
+        Result result = new Result();
+        result.setData(list);
+        result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        return result;
     }
 
 }

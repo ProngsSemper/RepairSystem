@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class BoardDaoImpl extends BaseDao<Board> implements BoardDao {
     private static final String HISTORY_BOARD = "select boardMsg,date from board limit ?,?";
+    private static final String BOARD  = "select boardMsg,date from board where queryCode = 1";
 
     private static final BoardDaoImpl BOARD_DAO;
 
@@ -33,6 +34,11 @@ public class BoardDaoImpl extends BaseDao<Board> implements BoardDao {
     public List getHistoryBoard(int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(JdbcUtil.getConnection(), HISTORY_BOARD, ans[0], ans[1]);
+    }
+
+    @Override
+    public List getBoard(){
+        return super.selectList(JdbcUtil.getConnection(),BOARD);
     }
 
     @Override
