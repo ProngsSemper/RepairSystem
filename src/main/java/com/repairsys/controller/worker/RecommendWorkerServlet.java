@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 简单的推荐工人的接口，通过给 worker和 wTime 添加属性 score，排序时比较score的大小决定其顺序
+ *
  * @Author lyr
  * @create 2019/10/11 0:59
  */
