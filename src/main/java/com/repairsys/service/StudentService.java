@@ -3,8 +3,7 @@ package com.repairsys.service;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 /**
  * @author Prongs
@@ -48,7 +47,7 @@ public interface StudentService {
      * @param room 学生宿舍
      * @return
      */
-    Result applyForm(String stuId, int queryCode, String formMsg, Date formDate,String stuMail,String photoId,String room);
+    Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room);
 
 //    apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
 }
