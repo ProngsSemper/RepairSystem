@@ -1,10 +1,17 @@
 package com.repairsys.util.easy;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.bean.entity.WTime;
+import com.repairsys.bean.entity.Worker;
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @Author lyr
@@ -12,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public final class EasyTool {
     private static final Logger logger = LoggerFactory.getLogger(EasyTool.class);
+
 
     //分页查询公式  limit (page-1)*size,size
 
@@ -55,9 +63,41 @@ public final class EasyTool {
 
     }
 
-    @Deprecated
-    private static String getDate(String date) {
-        return "";
+    /**
+     * 估计bean中的属性，做一个简单的排序，用于实现简单的推荐算法
+     * @param workerList 工人或者工人表单的集合
+     * @param workerTimelist  工人或者工人时间表类
+     */
+    public static void resortListOfWorker(List<WTime>workerTimelist,List<Worker> workerList)
+    {
+        Collections.sort(workerTimelist);
+        Collections.sort(workerList);
+        Iterator<WTime> it = workerTimelist.iterator();
+        for(Worker w:workerList)
+        {
+            if(it.hasNext())
+            {
+                WTime table = it.next();
+                if(table.getwKey()==w.getwKey())
+                {
+                    w.setScore(table.getSum());
+                }
+            }else{
+                break;
+            }
+        }
+
+        /*
+        *
+        * 这里是使用了 lambda表达式，如果报错，请把程序改成 比较器形式，或者把jdk版本修改为 1.8或以上
+        *
+        * */
+        workerList.sort((Worker i, Worker j) -> {
+            return j.getScore() - i.getScore();
+        });
+
     }
+
+
 
 }

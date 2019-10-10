@@ -116,7 +116,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
      * @return bean表单集合
      */
     @Override
-    public List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
+    public List<Form> queryAllFormIdByWorkerKey(int wKey, int page, int size) {
         // WorkerDaoImpl.getInstance().
         int[] ans = EasyTool.getLimitNumber(page, size);
         return super.selectList(JdbcUtil.getConnection(), SEARCH_WKEY_FORM_LIST, wKey, wKey, ans[0], ans[1]);

@@ -134,7 +134,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * @deprecated 未实现
      */
     @Override
-    public List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size) {
+    public List<Form> queryAllFormIdByWorkerKey(int wKey, int page, int size) {
         throw new RuntimeException("没有实现此方法");
     }
 

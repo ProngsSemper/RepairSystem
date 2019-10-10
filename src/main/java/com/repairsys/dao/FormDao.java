@@ -216,7 +216,7 @@ public interface FormDao {
      * @param size 查询的记录数
      * @return bean表单集合
      */
-    List<Form> queryAllFormIdByWorkerKey(String wKey, int page, int size);
+    List<Form> queryAllFormIdByWorkerKey(int wKey, int page, int size);
 
     /**
      * 返回工人维修表单的总数
