@@ -206,7 +206,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
     public int getOldCountByStudentId(String student) {
         String sql = GET_OLD_BY_STUDENTID_COUNT + student + "%'";
-        return super.getCount(JdbcUtil.getConnection(), GET_OLD_BY_STUDENTID_COUNT);
+        return super.getCount(JdbcUtil.getConnection(), sql);
     }
 
     public List<Form> getAllListByStudentId(String studentId, int page, int limit) {

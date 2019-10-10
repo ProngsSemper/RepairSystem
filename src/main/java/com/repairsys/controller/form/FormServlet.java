@@ -30,7 +30,7 @@ public class FormServlet extends BaseServlet {
         // apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
         logger.debug("收到申请表单请求");
         logger.debug("学生登录 ");
-        HttpSession session = request.getSession();
+
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
         Result res = ServiceFactory.getStudentService().applyForm(

@@ -37,7 +37,10 @@ public class WTime implements Comparable<WTime>{
     }
 
     public int getwKey() {
-        getSum();
+        if(this.score<=0)
+        {
+            getSum();
+        }
         return wKey;
     }
 

@@ -66,13 +66,13 @@ public final class EasyTool {
     /**
      * 估计bean中的属性，做一个简单的排序，用于实现简单的推荐算法
      * @param workerList 工人或者工人表单的集合
-     * @param workerTimelist  工人或者工人时间表类
+     * @param workerTimeList  工人或者工人时间表类
      */
-    public static void resortListOfWorker(List<WTime>workerTimelist,List<Worker> workerList)
+    public static void resortListOfWorker(List<WTime>workerTimeList,List<Worker> workerList)
     {
-        Collections.sort(workerTimelist);
+        Collections.sort(workerTimeList);
         Collections.sort(workerList);
-        Iterator<WTime> it = workerTimelist.iterator();
+        Iterator<WTime> it = workerTimeList.iterator();
         for(Worker w:workerList)
         {
             if(it.hasNext())

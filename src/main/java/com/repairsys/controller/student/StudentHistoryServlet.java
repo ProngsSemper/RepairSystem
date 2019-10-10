@@ -24,7 +24,7 @@ public class StudentHistoryServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Cookie[] cookies = request.getCookies();
+
         String id = null;
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
