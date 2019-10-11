@@ -14,6 +14,7 @@ import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.java2d.opengl.WGLSurfaceData;
 
 import java.sql.Connection;
 import java.sql.Timestamp;
@@ -176,6 +177,11 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         }
         return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), page, size);
     }
+
+
+
+
+
 
     @Override
     public void releaseBoard(String board, Timestamp releaseDate) {

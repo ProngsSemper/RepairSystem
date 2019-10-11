@@ -4,6 +4,7 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.AbstractPageDao;
 import com.repairsys.dao.FormDao;
 import com.repairsys.util.db.JdbcUtil;
+import com.repairsys.util.easy.EasyTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -437,4 +438,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
         return super.updateOne(JdbcUtil.getConnection(),INSERT_FORM,stuId,code,formMsg,formDate,formMail,photoId,room);
     }
+
+
+
+
 }

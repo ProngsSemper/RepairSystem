@@ -30,6 +30,9 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String GET_FORM_BY_STUDENT_ID = "select * from form where stuId like '%";
     private static final String GET_OLD_BY_STUDENTID_COUNT = "select count(*) from oldform where stuId like '%";
     private static final String SELECT_OLD_LIST_BY_STUID = "select * from oldform where stuId like '%";
+    /** 工具工人的名字，模糊查询出他们的维修表单 */
+    private static final String FUZZY_SEARCH_WORKER_FORM_LIST =  "select * from form f where f.wKey in (select w.wkey from workers w where w.wName like '%";
+
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -222,6 +225,15 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
         return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
 
+    }
+
+
+    public List<Form> batchSearchFormByWorkerName(String workerName,int page,int size)
+    {
+        String sql = FUZZY_SEARCH_WORKER_FORM_LIST+ workerName+"%' ) limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page,size);
+
+        return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
     }
 
 }
