@@ -105,4 +105,10 @@ public class DbTest {
         System.out.println(list);
     }
 
+    @Test
+    public void workerForm(){
+        Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyById("4566");
+        List list = FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), 1, 5);
+        System.out.println(list);
+    }
 }
