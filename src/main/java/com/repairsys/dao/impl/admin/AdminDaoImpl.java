@@ -12,6 +12,7 @@ import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.string.StringUtils;
+import org.apache.commons.dbutils.QueryRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.java2d.opengl.WGLSurfaceData;
@@ -278,10 +279,10 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
 
     @Override
     public int getAllCountByWorkerName(String wName) {
-        String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
-        String rex = " where stuId like '%" + wName + "%'";
+        String cntSql ="select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
 
-        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
+
+        return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("rep", wName));
 
     }
 

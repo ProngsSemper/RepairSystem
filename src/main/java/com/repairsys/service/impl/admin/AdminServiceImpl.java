@@ -9,6 +9,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
@@ -162,14 +163,16 @@ public class AdminServiceImpl implements AdminService {
         if (page <= 0) {
             page = 1;
         }
-        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = dao.batchSearchFormByWorkerName(wName, page, limit);
+        FormListDaoImpl dao = (FormListDaoImpl)DaoFactory.getFormDao();
+        List list = dao.batchSearchAllFormByWorkerName(wName, page, limit);
+        logger.debug("查询成功1");
         Page res = new Page();
         if (!StringUtils.getByWorkerName(wName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
         int cnt = adminDao.getAllCountByWorkerName(wName);
+        logger.debug("查询成功2");
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -216,32 +219,6 @@ public class AdminServiceImpl implements AdminService {
         logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
         logger.debug("---------------");
         return res;
-    }
-
-    @Override
-    public Result getIncompleteForm(int adminKey, int page, int limit) {
-        if (page <= 0) {
-            page = 1;
-        }
-        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = dao.adminIncompleteForm(adminKey, page, limit);
-        Page res = new Page();
-        res.setData(list);
-//        int cnt = adminDao.getAllCountByWorkerName(wName);
-//        res.setTotalCount(cnt);
-//
-//        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
-        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
-        if (list.size() == 0) {
-            res.setResult(ResultEnum.QUERY_FAILED);
-        }
-
-        res.setTargetPage(page);
-        res.setSize(list.size());
-        logger.debug("{},{}", list, res.getTotalPage());
-        logger.debug("---------------");
-        return res;
-
     }
 
     public AdminServiceImpl() {

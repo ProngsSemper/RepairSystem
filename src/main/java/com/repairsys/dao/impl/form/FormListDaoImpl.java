@@ -32,9 +32,10 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String SELECT_OLD_LIST_BY_STUID = "select * from oldform where stuId like '%";
     /** 工具工人的名字，模糊查询出他们的维修表单 */
     private static final String FUZZY_SEARCH_WORKER_FORM_LIST =  "select * from form f where f.wKey in (select w.wkey from workers w where w.wName like '%";
+    /** 估计工人的名字，模糊查询出所有维修单记录 */
+    private static final String FUZZY_ALL_FORM = "select * from form f  where f.wKey in (select w.wkey from workers w where w.wName like '%rep%')" +
 
-    private static final String ADMIN_INCOMPLETE_FORM = "select * from form where adminKey = ? and queryCode = 0 limit ?,?";
-    private static final String WORKER_INCOMPLETE_FORM = "select * from form where wKey = ? and queryCode = 1 limit ?,?";
+            "union select * from oldform o where o.wKey in(select w.wkey from workers w where w.wName like '%rep%') limit ?,?";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -238,14 +239,11 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
     }
 
-    public List<Form> adminIncompleteForm(int adminKey, int page, int size){
-        int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),ADMIN_INCOMPLETE_FORM,adminKey,ans[0],ans[1]);
-    }
 
-    public List<Form> workerIncompleteForm(int wKey, int page, int size){
+    public List<Form> batchSearchAllFormByWorkerName(String workerName,int page,int size)
+    {
         int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),WORKER_INCOMPLETE_FORM,wKey,ans[0],ans[1]);
+        return super.selectList(JdbcUtil.getConnection(),FUZZY_ALL_FORM.replaceAll("rep",workerName),ans[0],ans[1]);
     }
 
 }
