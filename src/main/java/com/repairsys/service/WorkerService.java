@@ -50,14 +50,23 @@ public interface WorkerService {
      */
     Result updateQueryCode(int queryCode, int formId);
 
-
     /**
      * 实现推荐算法，推荐工人
-     * @param workerList  工人表单
+     *
+     * @param workerList     工人表单
      * @param workerTimeList 工人时间表
      * @return 返回排序后的集合
      */
-    Result getSortedWorkerList(List<Worker>workerList, List<WTime> workerTimeList);
+    Result getSortedWorkerList(List<Worker> workerList, List<WTime> workerTimeList);
 
+    /**
+     * 查询工人未完成报修单
+     *
+     * @param wKey  工人key
+     * @param page  当前页面
+     * @param limit 本页最多显示多少数据
+     * @return 返回相应状态码
+     */
+    Result getIncompleteForm(int wKey, int page, int limit);
 
 }

@@ -1,4 +1,4 @@
-package com.repairsys.controller.form;
+package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
@@ -21,8 +21,8 @@ import java.sql.Timestamp;
  * 学生提交报修表单
  */
 @WebServlet("/student/submission/form")
-public class FormServlet extends BaseServlet {
-    public static final Logger logger = LoggerFactory.getLogger(FormServlet.class);
+public class StudentSubmitServlet extends BaseServlet {
+    public static final Logger logger = LoggerFactory.getLogger(StudentSubmitServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

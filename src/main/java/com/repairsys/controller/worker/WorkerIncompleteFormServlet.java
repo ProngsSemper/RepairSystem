@@ -1,10 +1,10 @@
-package com.repairsys.controller.administrator;
+package com.repairsys.controller.worker;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,18 +16,18 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/11 15:31
+ * @date 2019/10/11 16:03
  */
-@WebServlet("/admin/incomplete/form")
-public class IncompleteFormServlet extends BaseServlet {
-    private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
-    private static final Logger logger = LoggerFactory.getLogger(IncompleteFormServlet.class);
+@WebServlet("/worker/incomplete/form")
+public class WorkerIncompleteFormServlet extends BaseServlet {
+    private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+    private static final Logger logger = LoggerFactory.getLogger(WorkerIncompleteFormServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.getIncompleteForm(requestBody.getInteger("adminKey"),
+        Result result = workerService.getIncompleteForm(requestBody.getInteger("wKey"),
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;

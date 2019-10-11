@@ -163,6 +163,32 @@ public class WorkerServiceImpl implements WorkerService {
 
     }
 
+    @Override
+    public Result getIncompleteForm(int wKey, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = dao.workerIncompleteForm(wKey, page, limit);
+        Page res = new Page();
+        res.setData(list);
+//        int cnt = adminDao.getAllCountByWorkerName(wName);
+//        res.setTotalCount(cnt);
+//
+//        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}", list, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
     public WorkerServiceImpl() {
     }
 

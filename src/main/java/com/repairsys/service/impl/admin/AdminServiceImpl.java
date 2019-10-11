@@ -224,7 +224,7 @@ public class AdminServiceImpl implements AdminService {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = dao.incompleteForm(adminKey, page, limit);
+        List list = dao.adminIncompleteForm(adminKey, page, limit);
         Page res = new Page();
         res.setData(list);
 //        int cnt = adminDao.getAllCountByWorkerName(wName);
