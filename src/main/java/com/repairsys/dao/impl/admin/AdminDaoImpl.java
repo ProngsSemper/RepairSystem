@@ -12,10 +12,8 @@ import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.string.StringUtils;
-import org.apache.commons.dbutils.QueryRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.java2d.opengl.WGLSurfaceData;
 
 import java.sql.Connection;
 import java.sql.Timestamp;

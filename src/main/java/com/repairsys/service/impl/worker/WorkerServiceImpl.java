@@ -12,7 +12,6 @@ import com.repairsys.dao.WorkerDao;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.WorkerService;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.string.StringUtils;
@@ -20,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.List;
 
 /**
