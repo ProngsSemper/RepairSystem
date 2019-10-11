@@ -3,7 +3,7 @@ package com.repairsys.bean.entity;
 import java.io.Serializable;
 
 /**
- * @Author lyr
+ * @Author lyr, Prongs
  * @create 2019/9/24 12:11
  */
 public class Admin implements Serializable {
@@ -11,6 +11,7 @@ public class Admin implements Serializable {
     private String adminName;
     private String adminPassword;
     private String adminMail;
+    private int adminKey;
 
     public Admin() {
     }
@@ -53,6 +54,8 @@ public class Admin implements Serializable {
                 "adminId='" + adminId + '\'' +
                 ", adminName='" + adminName + '\'' +
                 ", adminPassword='" + adminPassword + '\'' +
+                ", adminMail='" + adminMail + '\'' +
+                ", adminKey=" + adminKey +
                 '}';
     }
 }

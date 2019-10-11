@@ -168,6 +168,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      * @param size       查询几条记录
      * @return
      */
+    @Deprecated
     @Override
     public List<Form> queryFormListByWorkerName(String workerName, int page, int size) {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyByName(workerName);

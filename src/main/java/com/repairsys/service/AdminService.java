@@ -94,7 +94,7 @@ public interface AdminService {
      *
      * @param board       公告内容
      * @param releaseDate 发布时间
-     * @return
+     * @return 返回相应状态码
      */
     Result releaseBoard(String board, Timestamp releaseDate);
 
@@ -103,8 +103,17 @@ public interface AdminService {
      *
      * @param page  当前页
      * @param limit 每页最多显示多少条数据
-     * @return 返回数据库中board表的数据
+     * @return 返回相应状态码
      */
     Result getHistoryBoard(int page, int limit);
+
+    /**
+     * 查询管理员未处理表单
+     * @param adminKey 管理员key
+     * @param page 当前页
+     * @param limit 每页最多显示多少条数据
+     * @return 返回相应状态码
+     */
+    Result getIncompleteForm(int adminKey, int page, int limit);
 
 }

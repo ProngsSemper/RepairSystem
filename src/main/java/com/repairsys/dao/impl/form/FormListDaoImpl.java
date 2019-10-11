@@ -33,6 +33,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     /** 工具工人的名字，模糊查询出他们的维修表单 */
     private static final String FUZZY_SEARCH_WORKER_FORM_LIST =  "select * from form f where f.wKey in (select w.wkey from workers w where w.wName like '%";
 
+    private static final String ADMIN_INCOMPLETE_FORM = "select * from form where adminKey = ? and queryCode = 0 limit ?,?";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -234,6 +235,11 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         int[] ans = EasyTool.getLimitNumber(page,size);
 
         return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
+    }
+
+    public List<Form> incompleteForm(int adminKey,int page,int size){
+        int[] ans = EasyTool.getLimitNumber(page,size);
+        return super.selectList(JdbcUtil.getConnection(),ADMIN_INCOMPLETE_FORM,adminKey,ans[0],ans[1]);
     }
 
 }
