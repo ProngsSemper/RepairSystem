@@ -39,7 +39,10 @@ public class StudentSubmitServlet extends BaseServlet {
                 new Timestamp(System.currentTimeMillis()),
                 requestBody.getString("stuMail"),
                 requestBody.getString("photoId"),
-                requestBody.getString("room")
+                requestBody.getString("room"),
+                requestBody.getString("stuName"),
+                requestBody.getString("stuPhone"),
+                requestBody.getString("wType")
         );
         request.setAttribute("result", res);
         super.doPost(request, response);

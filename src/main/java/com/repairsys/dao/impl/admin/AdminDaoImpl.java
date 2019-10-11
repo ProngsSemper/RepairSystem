@@ -178,11 +178,6 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         return FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), page, size);
     }
 
-
-
-
-
-
     @Override
     public void releaseBoard(String board, Timestamp releaseDate) {
         Connection connection = JdbcUtil.getConnection();
@@ -277,10 +272,16 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
 
     @Override
     public int getAllCountByWorkerName(String wName) {
-        String cntSql ="select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
-
+        String cntSql = "select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
 
         return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("rep", wName));
+
+    }
+
+    @Override
+    public int getAllCountByAdminKey(int adminKey) {
+        String cntSql = "select (select count(*) as i from form f where f.adminKey in (select a.adminKey from administrators a where a.adminKey = ?))+( select count(*) as j from oldform o where o.adminKey in (select a.adminKey from administrators a where a.adminKey = ?)) as total";
+        return super.getCount(JdbcUtil.getConnection(), cntSql, adminKey, adminKey);
 
     }
 

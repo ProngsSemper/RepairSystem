@@ -24,19 +24,16 @@ public class StudentHistoryServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        String id = null;
+        String name;
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        id = requestBody.getString("id");
+        name = requestBody.getString("name");
 
         Result result = null;
-        if (id != null && id.length() >= 9) {
+        if (name != null && name.length() >= 9) {
             //尽量加多点约束，我们学校真实的学号长度>=9 的，
             AdminServiceImpl handler = ServiceFactory.getAdminService();
-            result = handler.getAllFormByStudentId(requestBody.getInteger("page"), requestBody.getInteger("limit")
-                    , id
-
+            result = handler.getAllFormByStudentName(name, requestBody.getInteger("page"), requestBody.getInteger("limit")
             );
             request.setAttribute("result", result);
 

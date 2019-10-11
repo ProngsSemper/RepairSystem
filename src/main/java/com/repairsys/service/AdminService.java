@@ -74,10 +74,10 @@ public interface AdminService {
      *
      * @param page      当前页面
      * @param limit     设置限制条数
-     * @param studentId 学生 id
+     * @param studentName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
-    Result<List<Form>> getAllFormByStudentId(int page, int limit, String studentId);
+    Result<List<Form>> getAllFormByStudentName(String studentName, int page, int limit);
 
     /**
      * 根据工人名字模糊查询表单

@@ -146,14 +146,14 @@ public class AdminServiceImpl implements AdminService {
     /**
      * @param page      当前页面
      * @param limit     设置限制条数
-     * @param studentId 学生 id
+     * @param studentName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
     @Override
-    public Result<List<Form>> getAllFormByStudentId(int page, int limit, String studentId) {
+    public Result<List<Form>> getAllFormByStudentName(String studentName, int page, int limit) {
 
         WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-        return workerService.getAllFormByStudentId(studentId, page, limit);
+        return workerService.getAllFormByStudentName(studentName, page, limit);
 
     }
 
@@ -162,7 +162,7 @@ public class AdminServiceImpl implements AdminService {
         if (page <= 0) {
             page = 1;
         }
-        FormListDaoImpl dao = (FormListDaoImpl)DaoFactory.getFormDao();
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
         List list = dao.batchSearchAllFormByWorkerName(wName, page, limit);
         logger.debug("查询成功1");
         Page res = new Page();
@@ -229,10 +229,10 @@ public class AdminServiceImpl implements AdminService {
         List list = dao.adminIncompleteForm(adminKey, page, limit);
         Page res = new Page();
         res.setData(list);
-//        int cnt = adminDao.getAllCountByWorkerName(wName);
-//        res.setTotalCount(cnt);
-//
-//        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        int cnt = adminDao.getAllCountByAdminKey(adminKey);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
         res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);
@@ -245,6 +245,7 @@ public class AdminServiceImpl implements AdminService {
         return res;
 
     }
+
 
     public AdminServiceImpl() {
     }

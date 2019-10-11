@@ -6,12 +6,13 @@ import java.io.Serializable;
  * @Author lyr
  * @create 2019/9/24 12:11
  */
-public class Worker implements Serializable,Comparable<Worker> {
+public class Worker implements Serializable, Comparable<Worker> {
     private String wId;
     private String wName;
     private String wTel;
     private String wPassword;
     private String wMail;
+    private String wType;
     private int wKey;
     private int score = -1;
 
@@ -74,6 +75,14 @@ public class Worker implements Serializable,Comparable<Worker> {
         this.wPassword = wPassword;
     }
 
+    public String getwType() {
+        return wType;
+    }
+
+    public void setwType(String wType) {
+        this.wType = wType;
+    }
+
     @Override
     public String toString() {
         return "Worker{" +
@@ -81,10 +90,12 @@ public class Worker implements Serializable,Comparable<Worker> {
                 ", wName='" + wName + '\'' +
                 ", wTel='" + wTel + '\'' +
                 ", wPassword='" + wPassword + '\'' +
-                '}' + "\r\n";
+                ", wMail='" + wMail + '\'' +
+                ", wType='" + wType + '\'' +
+                ", wKey=" + wKey +
+                ", score=" + score +
+                '}';
     }
-
-
 
     /**
      * Compares this object with the specified object for order.  Returns a
@@ -126,6 +137,6 @@ public class Worker implements Serializable,Comparable<Worker> {
      */
     @Override
     public int compareTo(Worker o) {
-        return o.wKey-this.wKey;
+        return o.wKey - this.wKey;
     }
 }

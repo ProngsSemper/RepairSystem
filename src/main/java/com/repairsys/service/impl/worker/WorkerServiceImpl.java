@@ -132,18 +132,18 @@ public class WorkerServiceImpl implements WorkerService {
 
 
 
-    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+    public Result getAllFormByStudentName(String stuName, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.getAllListByStudentId(stuId, page, limit);
+        List list = formListDao.getAllListByStudentName(stuName, page, limit);
         Page res = new Page();
-        if (!StringUtils.getByStudentId(stuId)) {
+        if (!StringUtils.getByStudentId(stuName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllCountByStudentId(stuId);
+        int cnt = formListDao.getAllCountByStudentName(stuName);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -170,10 +170,10 @@ public class WorkerServiceImpl implements WorkerService {
         List list = dao.workerIncompleteForm(wKey, page, limit);
         Page res = new Page();
         res.setData(list);
-//        int cnt = adminDao.getAllCountByWorkerName(wName);
-//        res.setTotalCount(cnt);
-//
-//        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        int cnt = workerDao.getAllCountBywKey(wKey);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
         res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);

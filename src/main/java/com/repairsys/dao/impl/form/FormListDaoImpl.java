@@ -30,15 +30,21 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String GET_FORM_BY_STUDENT_ID = "select * from form where stuId like '%";
     private static final String GET_OLD_BY_STUDENTID_COUNT = "select count(*) from oldform where stuId like '%";
     private static final String SELECT_OLD_LIST_BY_STUID = "select * from oldform where stuId like '%";
-    /** 工具工人的名字，模糊查询出他们的维修表单 */
-    private static final String FUZZY_SEARCH_WORKER_FORM_LIST =  "select * from form f where f.wKey in (select w.wkey from workers w where w.wName like '%";
-    /** 估计工人的名字，模糊查询出所有维修单记录 */
+    /**
+     * 工具工人的名字，模糊查询出他们的维修表单
+     */
+    private static final String FUZZY_SEARCH_WORKER_FORM_LIST = "select * from form f where f.wKey in (select w.wkey from workers w where w.wName like '%";
+    /**
+     * 估计工人的名字，模糊查询出所有维修单记录
+     */
     private static final String FUZZY_ALL_FORM = "select * from form f  where f.wKey in (select w.wkey from workers w where w.wName like '%rep%')" +
 
             "union select * from oldform o where o.wKey in(select w.wkey from workers w where w.wName like '%rep%') limit ?,?";
 
     private static final String ADMIN_INCOMPLETE_FORM = "select * from form where adminKey = ? and queryCode = 0 limit ?,?";
     private static final String WORKER_INCOMPLETE_FORM = "select * from form where wKey = ? and queryCode = 1 limit ?,?";
+    private static final String ADMIN_QUERY_TYPE = "SELECT * FROM `form` WHERE wType=? UNION SELECT * FROM `oldform` WHERE wType=?";
+
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
     private FormListDaoImpl() {
@@ -217,46 +223,46 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.getCount(JdbcUtil.getConnection(), sql);
     }
 
-    public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
-        String GET_ALL_BY_STUDENT_ID = "select * from form where stuId like '%" + studentId + "%'"
-                + " union select * from oldform where stuId like '%" + studentId + "%' limit ?,?";
+    public List<Form> getAllListByStudentName(String studentName, int page, int limit) {
+        String GET_ALL_BY_STUDENT_NAME = "select * from form where stuName like '%" + studentName + "%'"
+                + " union select * from oldform where stuName like '%" + studentName + "%' limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_ID, ans[0], ans[1]);
+        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_NAME, ans[0], ans[1]);
     }
 
-    public int getAllCountByStudentId(String studentId) {
+    public int getAllCountByStudentName(String studentName) {
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
-        String rex = " where stuId like '%" + studentId + "%'";
+        String rex = " where stuName like '%" + studentName + "%'";
 
         return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex));
 
     }
 
+    public List<Form> batchSearchFormByWorkerName(String workerName, int page, int size) {
+        String sql = FUZZY_SEARCH_WORKER_FORM_LIST + workerName + "%' ) limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, size);
 
-    public List<Form> batchSearchFormByWorkerName(String workerName,int page,int size)
-    {
-        String sql = FUZZY_SEARCH_WORKER_FORM_LIST+ workerName+"%' ) limit ?,?";
-        int[] ans = EasyTool.getLimitNumber(page,size);
-
-        return super.selectList(JdbcUtil.getConnection(),sql,ans[0],ans[1]);
+        return super.selectList(JdbcUtil.getConnection(), sql, ans[0], ans[1]);
     }
 
-
-    public List<Form> batchSearchAllFormByWorkerName(String workerName,int page,int size)
-    {
-        int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),FUZZY_ALL_FORM.replaceAll("rep",workerName),ans[0],ans[1]);
+    public List<Form> batchSearchAllFormByWorkerName(String workerName, int page, int size) {
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(JdbcUtil.getConnection(), FUZZY_ALL_FORM.replaceAll("rep", workerName), ans[0], ans[1]);
     }
 
-    public List<Form> adminIncompleteForm(int adminKey, int page, int size){
-        int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),ADMIN_INCOMPLETE_FORM,adminKey,ans[0],ans[1]);
+    public List<Form> adminIncompleteForm(int adminKey, int page, int size) {
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(JdbcUtil.getConnection(), ADMIN_INCOMPLETE_FORM, adminKey, ans[0], ans[1]);
     }
 
-    public List<Form> workerIncompleteForm(int wKey, int page, int size){
-        int[] ans = EasyTool.getLimitNumber(page,size);
-        return super.selectList(JdbcUtil.getConnection(),WORKER_INCOMPLETE_FORM,wKey,ans[0],ans[1]);
+    public List<Form> workerIncompleteForm(int wKey, int page, int size) {
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(JdbcUtil.getConnection(), WORKER_INCOMPLETE_FORM, wKey, ans[0], ans[1]);
     }
 
+    public List<Form> adminQueryWorkerType(String wType, int page, int size) {
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(JdbcUtil.getConnection(), ADMIN_QUERY_TYPE, wType, wType, ans[0], ans[1]);
+    }
 
 }

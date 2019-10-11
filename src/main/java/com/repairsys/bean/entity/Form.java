@@ -19,6 +19,9 @@ public class Form implements Serializable {
     private int wKey;
     private Date endDate;
     private String room;
+    private String stuName;
+    private String stuPhone;
+    private String wType;
 
     public Date getEndDate() {
         return endDate;
@@ -103,8 +106,6 @@ public class Form implements Serializable {
         this.wKey = wKey;
     }
 
-
-
     public String getRoom() {
         return room;
     }
@@ -113,6 +114,29 @@ public class Form implements Serializable {
         this.room = room;
     }
 
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getStuPhone() {
+        return stuPhone;
+    }
+
+    public void setStuPhone(String stuPhone) {
+        this.stuPhone = stuPhone;
+    }
+
+    public String getwType() {
+        return wType;
+    }
+
+    public void setwType(String wType) {
+        this.wType = wType;
+    }
 
     @Override
     public String toString() {
@@ -128,6 +152,9 @@ public class Form implements Serializable {
                 ", wKey=" + wKey +
                 ", endDate=" + endDate +
                 ", room='" + room + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", stuPhone='" + stuPhone + '\'' +
+                ", wType='" + wType + '\'' +
                 '}';
     }
 }

@@ -110,4 +110,6 @@ public interface AdminDao {
      */
     void releaseBoard(String board, Timestamp releaseDate);
 
+    int getAllCountByAdminKey(int adminKey);
+
 }

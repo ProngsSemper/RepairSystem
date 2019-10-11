@@ -85,8 +85,6 @@ public interface WorkerDao {
      */
     Worker getWorkerTelByKey(int wKey);
 
-
-
-
+    int getAllCountBywKey(int wKey);
 
 }
