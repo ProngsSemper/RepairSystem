@@ -52,6 +52,8 @@ public enum ResultEnum {
      * 报修单提交成功
      */
     SUBMITTED_SUCCESSFULLY(201, "报修单提交成功"),
+
+    SUBMITTED_FAILED(400,"报修单提交失败"),
     /**
      * 修改报修单状态成功
      */

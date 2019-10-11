@@ -77,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Result getBoard(){
+    public Result getBoard() {
         BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
         List list = boardDao.getBoard();
         Result result = new Result();
@@ -97,11 +97,16 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room) {
-        FormListDaoImpl t = (FormListDaoImpl)DaoFactory.getFormDao();
-        boolean b = t.apply(stuId,queryCode,formMsg,formDate,stuMail,photoId,room);
-        Result<Boolean> res =  new Result();
-        res.setData(b);
-        return res;
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        boolean data = formListDao.apply(stuId, queryCode, formMsg, formDate, stuMail, photoId, room);
+        Result<Boolean> result = new Result();
+        if (!data) {
+            result.setResult(ResultEnum.SUBMITTED_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.SUBMITTED_SUCCESSFULLY);
+        result.setData(data);
+        return result;
     }
 
 }

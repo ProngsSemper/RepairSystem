@@ -4,7 +4,6 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.AbstractPageDao;
 import com.repairsys.dao.FormDao;
 import com.repairsys.util.db.JdbcUtil;
-import com.repairsys.util.easy.EasyTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 申请维修
      */
-    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey)values(?,?,?,?,?,?,?,?)";
+    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId,room)values(?,?,?,?,?,?,?)";
     /**
      * 申请维修
      */
@@ -84,7 +83,6 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
-
 
     String INSERT_FORM =
             "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey,room)values(?,?,?,?,?,?,?,?,?)";
@@ -420,7 +418,6 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.getCount(JdbcUtil.getConnection(), QUERY_FORM_CODE, queryCode);
     }
 
-
     /**
      * 用户申请表单提交
      *
@@ -436,10 +433,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId, String room) {
 
-        return super.updateOne(JdbcUtil.getConnection(),INSERT_FORM,stuId,code,formMsg,formDate,formMail,photoId,room);
+        return super.updateOne(JdbcUtil.getConnection(), INSERT_FORM, stuId, code, formMsg, formDate, formMail, photoId, room);
     }
-
-
-
 
 }
