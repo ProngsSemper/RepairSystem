@@ -163,8 +163,8 @@ public class AdminServiceImpl implements AdminService {
         if (page <= 0) {
             page = 1;
         }
-        AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
-        List list = adminDao.queryFormListByWorkerName(wName, page, limit);
+        FormListDaoImpl dao = (FormListDaoImpl)DaoFactory.getFormDao();
+        List list = dao.batchSearchFormByWorkerName(wName, page, limit);
         Page res = new Page();
         if (!StringUtils.getByWorkerName(wName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);

@@ -30,7 +30,7 @@ public class UpdateQueryCodeServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = requestBody.getString("stuMail");
-        String wKey = requestBody.getString("wKey");
+        int wKey = requestBody.getInteger("wKey");
         int queryCode = requestBody.getInteger("queryCode");
         int flag = 201;
         int finishCode = 2;

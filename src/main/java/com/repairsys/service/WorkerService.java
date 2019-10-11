@@ -1,8 +1,11 @@
 package com.repairsys.service;
 
+import com.repairsys.bean.entity.WTime;
+import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author Prongs
@@ -46,5 +49,15 @@ public interface WorkerService {
      * @return 返回对应状态码
      */
     Result updateQueryCode(int queryCode, int formId);
+
+
+    /**
+     * 实现推荐算法，推荐工人
+     * @param workerList  工人表单
+     * @param workerTimeList 工人时间表
+     * @return 返回排序后的集合
+     */
+    Result getSortedWorkerList(List<Worker>workerList, List<WTime> workerTimeList);
+
 
 }

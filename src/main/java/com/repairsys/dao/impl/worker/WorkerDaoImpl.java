@@ -17,11 +17,12 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
     private static final String SEARCH_WORKERS = "select * from workers where wName like '%";
     private static final String GET_WORKER = "select wKey from workers where wName = ?";
+    private static final String GET_WORKER_BY_ID = "select wKey from workers where wId = ?";
     private static final String GET_WORKER_COUNT = "select count(*) from workers where wName = ?";
     private static final String GET_WORKER_TEL = "select wTel from workers where wKey = ?";
     private static final String UPDATE_QUERYCODE = "update form set queryCode = ? where formId = ?";
     private static final String GET_SUM = "select count(*) from workers";
-    private static final String GET_WORKER_LIST="select * from workers";
+    private static final String GET_WORKER_LIST = "select * from workers";
 
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
@@ -129,18 +130,21 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.selectOne(JdbcUtil.getConnection(), GET_WORKER, workerName);
     }
 
+    public Worker getWorkerKeyById(String workerId) {
+        return super.selectOne(JdbcUtil.getConnection(), GET_WORKER_BY_ID, workerId);
+    }
+
     @Override
-    public Worker getWorkerTelByKey(String wKey){
+    public Worker getWorkerTelByKey(int wKey) {
         return super.selectOne(JdbcUtil.getConnection(), GET_WORKER_TEL, wKey);
     }
 
-    public int getTotalCount()
-    {
-        return super.getCount(JdbcUtil.getConnection(),GET_SUM);
+    public int getTotalCount() {
+        return super.getCount(JdbcUtil.getConnection(), GET_SUM);
     }
-    public List<Worker> getAllWorkerList()
-    {
-        return super.selectList(JdbcUtil.getConnection(),GET_WORKER_LIST);
+
+    public List<Worker> getAllWorkerList() {
+        return super.selectList(JdbcUtil.getConnection(), GET_WORKER_LIST);
     }
 
 }

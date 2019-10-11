@@ -1,6 +1,7 @@
 package com.repairsys.service.impl.worker;
 
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Page;
 import com.repairsys.bean.vo.Result;
@@ -8,13 +9,18 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
 import com.repairsys.dao.WorkerDao;
+import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.WorkerService;
+import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -91,6 +97,42 @@ public class WorkerServiceImpl implements WorkerService {
         }
         return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
     }
+
+    /**
+     * 实现推荐算法，推荐工人
+     *
+     * @param workerList     工人表单
+     * @param workerTimeList 工人时间表
+     * @return 返回排序后的集合
+     */
+    @Override
+    public Result getSortedWorkerList(List<Worker> workerList, List<WTime> workerTimeList) {
+        EasyTool.resortListOfWorker(workerTimeList,workerList);
+        Result<List<Worker>> res = new Result<>();
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        res.setData(workerList);
+
+
+        return res;
+    }
+
+
+    public Result getSortedWorkerList()
+    {
+        WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
+        List<Worker> workerList = workerDao.getAllWorkerList();
+        List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList();
+        return this.getSortedWorkerList(workerList,timeList);
+    }
+
+
+
+
+
+
+
+
+
 
     public Result getAllFormByStudentId(String stuId, int page, int limit) {
         if (page <= 0) {

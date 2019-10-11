@@ -33,12 +33,19 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
     }
     private static final String GET_ALL_WTIME = "select * from wtime where `curTime` <> CURDATE()";
     private static final String RAW_SET = "update wtime set ";
+    private static final String GET_ALL_INFO = "select * from wtime";
+
+    public List<WTime> getAllWorkerTimeList()
+    {
+        return super.selectList(JdbcUtil.getConnection(),GET_ALL_INFO);
+    }
 
 
     /**
      * 获得工人的表单集合
      *
      * @return 获得工人表单集合
+     * @deprecated
      */
     @Override
     public List<WTime> getTableList() {
