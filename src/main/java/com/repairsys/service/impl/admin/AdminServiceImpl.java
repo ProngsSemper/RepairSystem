@@ -246,6 +246,31 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    public Result queryByWorkerTypeForm(String wType, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = dao.adminQueryWorkerType(wType, page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = adminDao.getAllCountByWorkerType(wType);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}", list, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
 
     public AdminServiceImpl() {
     }

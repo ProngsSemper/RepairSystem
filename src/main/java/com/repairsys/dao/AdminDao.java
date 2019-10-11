@@ -112,4 +112,6 @@ public interface AdminDao {
 
     int getAllCountByAdminKey(int adminKey);
 
+    int getAllCountByWorkerType(String wType);
+
 }
