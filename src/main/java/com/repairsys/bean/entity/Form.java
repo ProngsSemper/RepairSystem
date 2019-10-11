@@ -22,6 +22,7 @@ public class Form implements Serializable {
     private String stuName;
     private String stuPhone;
     private String wType;
+    private int appointment;
 
     public Date getEndDate() {
         return endDate;
@@ -138,6 +139,14 @@ public class Form implements Serializable {
         this.wType = wType;
     }
 
+    public int getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(int appointment) {
+        this.appointment = appointment;
+    }
+
     @Override
     public String toString() {
         return "Form{" +
@@ -155,6 +164,7 @@ public class Form implements Serializable {
                 ", stuName='" + stuName + '\'' +
                 ", stuPhone='" + stuPhone + '\'' +
                 ", wType='" + wType + '\'' +
+                ", appointment=" + appointment +
                 '}';
     }
 }

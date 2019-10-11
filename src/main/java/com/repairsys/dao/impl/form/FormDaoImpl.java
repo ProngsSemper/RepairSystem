@@ -31,7 +31,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 申请维修
      */
-    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId,room,stuName,stuPhone,wType)values(?,?,?,?,?,?,?,?,?,?)";
+    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId,room,stuName,stuPhone,wType,appointment)values(?,?,?,?,?,?,?,?,?,?,?)";
     /**
      * 申请维修
      */

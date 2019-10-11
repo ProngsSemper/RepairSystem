@@ -39,19 +39,20 @@ public interface StudentService {
     /**
      * 学生提交报修单
      *
-     * @param stuId     学生学号
-     * @param queryCode 查询码
-     * @param formMsg   表单详情
-     * @param formDate  申请日期
-     * @param stuMail   学生的 email
-     * @param photoId   学生上传的照片
-     * @param room      学生宿舍
-     * @param stuName   学生姓名
-     * @param stuPhone  学生手机
-     * @param wType 报修种类
+     * @param stuId       学生学号
+     * @param queryCode   查询码
+     * @param formMsg     表单详情
+     * @param formDate    申请日期
+     * @param stuMail     学生的 email
+     * @param photoId     学生上传的照片
+     * @param room        学生宿舍
+     * @param stuName     学生姓名
+     * @param stuPhone    学生手机
+     * @param wType       报修种类
+     * @param appointment 学生预约时间
      * @return
      */
-    Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone,String wType);
+    Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment);
 
 //    apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
 }

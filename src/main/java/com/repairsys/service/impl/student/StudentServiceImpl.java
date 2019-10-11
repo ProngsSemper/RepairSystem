@@ -101,9 +101,9 @@ public class StudentServiceImpl implements StudentService {
      * @return
      */
     @Override
-    public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName,String stuPhone,String wType) {
+    public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment) {
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        boolean data = formListDao.apply(stuId, queryCode, formMsg, formDate, stuMail, photoId, room, stuName,stuPhone,wType);
+        boolean data = formListDao.apply(stuId, queryCode, formMsg, formDate, stuMail, photoId, room, stuName, stuPhone, wType, appointment);
         Result<Boolean> result = new Result();
         if (!data) {
             result.setResult(ResultEnum.SUBMITTED_FAILED);

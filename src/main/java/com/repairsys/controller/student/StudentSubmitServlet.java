@@ -42,7 +42,8 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("room"),
                 requestBody.getString("stuName"),
                 requestBody.getString("stuPhone"),
-                requestBody.getString("wType")
+                requestBody.getString("wType"),
+                requestBody.getInteger("appointment")
         );
         request.setAttribute("result", res);
         super.doPost(request, response);
