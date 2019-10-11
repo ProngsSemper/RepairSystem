@@ -83,7 +83,7 @@ public interface WorkerDao {
      * @param wKey 工人Key
      * @return 返回工人的电话
      */
-    Worker getWorkerTelByKey(String wKey);
+    Worker getWorkerTelByKey(int wKey);
 
 
 
