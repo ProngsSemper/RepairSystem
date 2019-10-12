@@ -171,7 +171,7 @@ public class WorkerServiceImpl implements WorkerService {
         List list = dao.workerIncompleteForm(wId, page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = workerDao.getAllCountBywKey(wKey);
+        int cnt = workerDao.getAllIncompleteCountBywKey(wKey);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));

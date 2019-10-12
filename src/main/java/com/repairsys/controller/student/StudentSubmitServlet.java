@@ -26,19 +26,21 @@ public class StudentSubmitServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
         logger.debug("收到申请表单请求");
         logger.debug("学生登录 ");
 
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
+        String photoId = requestBody.getString("photoId");
+        if (photoId==null){
+            photoId = "";
+        }
         Result res = ServiceFactory.getStudentService().applyForm(
                 requestBody.getString("stuId"),
                 0,
                 requestBody.getString("formMsg"),
                 new Timestamp(System.currentTimeMillis()),
                 requestBody.getString("stuMail"),
-                requestBody.getString("photoId"),
+                photoId,
                 requestBody.getString("room"),
                 requestBody.getString("stuName"),
                 requestBody.getString("stuPhone"),

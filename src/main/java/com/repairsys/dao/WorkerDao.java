@@ -85,6 +85,12 @@ public interface WorkerDao {
      */
     Worker getWorkerTelByKey(int wKey);
 
-    int getAllCountBywKey(int wKey);
+    /**
+     * 根据工人key查询工人未处理报修单
+     *
+     * @param wKey 工人key
+     * @return 返回该工人未处理报修单总数
+     */
+    int getAllIncompleteCountBywKey(int wKey);
 
 }

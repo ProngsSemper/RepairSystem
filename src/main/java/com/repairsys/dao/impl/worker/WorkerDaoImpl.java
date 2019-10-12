@@ -148,9 +148,9 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     }
 
     @Override
-    public int getAllCountBywKey(int wKey) {
-        String cntSql = "select (select count(*) as i from form f where f.wKey in (select w.wKey from workers w where w.wKey = ?))+( select count(*) as j from oldform o where o.wKey in (select w.wKey from workers w where w.wKey = ?)) as total";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, wKey, wKey);
+    public int getAllIncompleteCountBywKey(int wKey) {
+        String cntSql = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
+        return super.getCount(JdbcUtil.getConnection(), cntSql, wKey);
 
     }
 

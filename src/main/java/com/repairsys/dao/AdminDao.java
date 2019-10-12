@@ -110,8 +110,20 @@ public interface AdminDao {
      */
     void releaseBoard(String board, Timestamp releaseDate);
 
-    int getAllCountByAdminKey(int adminKey);
+    /**
+     * 根据管理员key查管理员未处理的报修单
+     *
+     * @param adminKey 管理员key
+     * @return 返回未处理报修单总数
+     */
+    int getAllIncompleteCountByAdminKey(int adminKey);
 
+    /**
+     * 管理员根据工种类型查询报修单总数
+     *
+     * @param wType 工种类型
+     * @return 返回报修单总数
+     */
     int getAllCountByWorkerType(String wType);
 
 }

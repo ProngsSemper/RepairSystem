@@ -279,9 +279,9 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     }
 
     @Override
-    public int getAllCountByAdminKey(int adminKey) {
-        String cntSql = "select (select count(*) as i from form f where f.adminKey in (select a.adminKey from administrators a where a.adminKey = ?))+( select count(*) as j from oldform o where o.adminKey in (select a.adminKey from administrators a where a.adminKey = ?)) as total";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, adminKey, adminKey);
+    public int getAllIncompleteCountByAdminKey(int adminKey) {
+        String cntSql = "SELECT COUNT(*) FROM form WHERE adminKey = ? AND queryCode=0";
+        return super.getCount(JdbcUtil.getConnection(), cntSql, adminKey);
 
     }
 

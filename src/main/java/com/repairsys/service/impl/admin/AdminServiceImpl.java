@@ -259,7 +259,7 @@ public class AdminServiceImpl implements AdminService {
         List list = dao.adminIncompleteForm(adminId, page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = adminDao.getAllCountByAdminKey(adminKey);
+        int cnt = adminDao.getAllIncompleteCountByAdminKey(adminKey);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
