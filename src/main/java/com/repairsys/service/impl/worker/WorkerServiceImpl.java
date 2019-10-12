@@ -162,12 +162,13 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public Result getIncompleteForm(int wKey, int page, int limit) {
+    public Result getIncompleteForm(String wId, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = dao.workerIncompleteForm(wKey, page, limit);
+        int wKey = dao.getWorkerKeyById(wId);
+        List list = dao.workerIncompleteForm(wId, page, limit);
         Page res = new Page();
         res.setData(list);
         int cnt = workerDao.getAllCountBywKey(wKey);

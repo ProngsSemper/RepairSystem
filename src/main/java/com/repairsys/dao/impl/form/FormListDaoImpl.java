@@ -223,6 +223,13 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.getCount(JdbcUtil.getConnection(), sql);
     }
 
+    public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
+        String GET_ALL_BY_STUDENT_NAME = "select * from form where stuId =? " +
+                " union select * from oldform where stuId =? limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_NAME,studentId,studentId, ans[0], ans[1]);
+    }
+
     public List<Form> getAllListByStudentName(String studentName, int page, int limit) {
         String GET_ALL_BY_STUDENT_NAME = "select * from form where stuName like '%" + studentName + "%'"
                 + " union select * from oldform where stuName like '%" + studentName + "%' limit ?,?";
@@ -238,6 +245,14 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
     }
 
+    public int getAllCountByStudentId(String studentId) {
+        String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = " where stuId = ?";
+
+        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex),studentId);
+
+    }
+
     public List<Form> batchSearchFormByWorkerName(String workerName, int page, int size) {
         String sql = FUZZY_SEARCH_WORKER_FORM_LIST + workerName + "%' ) limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, size);
@@ -250,12 +265,24 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(JdbcUtil.getConnection(), FUZZY_ALL_FORM.replaceAll("rep", workerName), ans[0], ans[1]);
     }
 
-    public List<Form> adminIncompleteForm(int adminKey, int page, int size) {
+    public int getAdminKeyById(String adminId){
+        String sql = "select adminKey from administrators where adminId = ?";
+        return super.selectOne(JdbcUtil.getConnection(),sql,adminId).getAdminKey();
+    }
+
+    public int getWorkerKeyById(String wId){
+        String sql = "select wKey from workers where wId = ?";
+        return super.selectOne(JdbcUtil.getConnection(),sql,wId).getwKey();
+    }
+
+    public List<Form> adminIncompleteForm(String adminId, int page, int size) {
+        int adminKey = getAdminKeyById(adminId);
         int[] ans = EasyTool.getLimitNumber(page, size);
         return super.selectList(JdbcUtil.getConnection(), ADMIN_INCOMPLETE_FORM, adminKey, ans[0], ans[1]);
     }
 
-    public List<Form> workerIncompleteForm(int wKey, int page, int size) {
+    public List<Form> workerIncompleteForm(String wId, int page, int size) {
+        int wKey = getWorkerKeyById(wId);
         int[] ans = EasyTool.getLimitNumber(page, size);
         return super.selectList(JdbcUtil.getConnection(), WORKER_INCOMPLETE_FORM, wKey, ans[0], ans[1]);
     }

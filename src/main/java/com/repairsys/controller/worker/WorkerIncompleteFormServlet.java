@@ -27,7 +27,7 @@ public class WorkerIncompleteFormServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = workerService.getIncompleteForm(requestBody.getInteger("wKey"),
+        Result result = workerService.getIncompleteForm(requestBody.getString("wId"),
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;

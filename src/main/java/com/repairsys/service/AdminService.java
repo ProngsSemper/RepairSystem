@@ -109,11 +109,11 @@ public interface AdminService {
 
     /**
      * 查询管理员未处理表单
-     * @param adminKey 管理员key
+     * @param adminId 管理员Id
      * @param page 当前页
      * @param limit 每页最多显示多少条数据
      * @return 返回相应状态码
      */
-    Result getIncompleteForm(int adminKey, int page, int limit);
+    Result getIncompleteForm(String adminId, int page, int limit);
 
 }

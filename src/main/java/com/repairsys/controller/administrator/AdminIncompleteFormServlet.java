@@ -27,7 +27,7 @@ public class AdminIncompleteFormServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.getIncompleteForm(requestBody.getInteger("adminKey"),
+        Result result = adminService.getIncompleteForm(requestBody.getString("adminId"),
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;

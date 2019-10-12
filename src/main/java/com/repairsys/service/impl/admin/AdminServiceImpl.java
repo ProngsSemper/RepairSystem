@@ -157,6 +157,35 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.getAllListByStudentId(stuId, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuId)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getAllCountByStudentId(stuId);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
     @Override
     public Result getFormListByWorkerName(String wName, int page, int limit) {
         if (page <= 0) {
@@ -221,12 +250,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getIncompleteForm(int adminKey, int page, int limit) {
+    public Result getIncompleteForm(String adminId, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = dao.adminIncompleteForm(adminKey, page, limit);
+        int adminKey = dao.getAdminKeyById(adminId);
+        List list = dao.adminIncompleteForm(adminId, page, limit);
         Page res = new Page();
         res.setData(list);
         int cnt = adminDao.getAllCountByAdminKey(adminKey);

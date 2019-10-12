@@ -62,11 +62,11 @@ public interface WorkerService {
     /**
      * 查询工人未完成报修单
      *
-     * @param wKey  工人key
+     * @param wId  工人Id
      * @param page  当前页面
      * @param limit 本页最多显示多少数据
      * @return 返回相应状态码
      */
-    Result getIncompleteForm(int wKey, int page, int limit);
+    Result getIncompleteForm(String wId, int page, int limit);
 
 }
