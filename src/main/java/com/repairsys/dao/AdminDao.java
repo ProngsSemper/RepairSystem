@@ -126,4 +126,12 @@ public interface AdminDao {
      */
     int getAllCountByWorkerType(String wType);
 
+    /**
+     * 根据管理员key返回已处理报修单总数
+     *
+     * @param adminKey 管理员key
+     * @return 返回总数
+     */
+    int getAllCompleteCountByAdminKey(int adminKey);
+
 }
