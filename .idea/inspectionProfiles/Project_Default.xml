@@ -3,14 +3,15 @@
     <option name="myName" value="Project Default" />
     <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <Languages>
-        <language minSize="52" name="Java" />
+        <language minSize="147" name="Java" />
       </Languages>
     </inspection_tool>
     <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="1">
+          <list size="2">
             <item index="0" class="java.lang.String" itemvalue="action" />
+            <item index="1" class="java.lang.String" itemvalue="lay-filter" />
           </list>
         </value>
       </option>
@@ -45,7 +46,7 @@
       <option name="IGNORE_JAVADOC_PERIOD" value="true" />
       <option name="IGNORE_DUPLICATED_THROWS" value="false" />
       <option name="IGNORE_POINT_TO_ITSELF" value="false" />
-      <option name="myAdditionalJavadocTags" value="date,create,Author" />
+      <option name="myAdditionalJavadocTags" value="date,create,Author,author" />
     </inspection_tool>
   </profile>
 </component>

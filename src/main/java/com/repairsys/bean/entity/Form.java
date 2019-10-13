@@ -3,9 +3,8 @@ package com.repairsys.bean.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-
 /**
- * @Author lyr
+ * @Author lyr, Prongs
  * @create 2019/9/24 12:11
  */
 public class Form implements Serializable {
@@ -14,10 +13,27 @@ public class Form implements Serializable {
     private int formId;
     private String formMsg;
     private Date formDate;
-    private String formMail;
+    private String stuMail;
     private String photoId;
+    private int adminKey;
+    private int wKey;
+    private Date endDate;
+    private String room;
+    private String stuName;
+    private String stuPhone;
+    private String wType;
+    private int appointment;
 
-    public Form(){}
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Form() {
+    }
 
     public String getStuId() {
         return stuId;
@@ -59,12 +75,12 @@ public class Form implements Serializable {
         this.formDate = formDate;
     }
 
-    public String getFormMail() {
-        return formMail;
+    public String getStuMail() {
+        return stuMail;
     }
 
-    public void setFormMail(String formMail) {
-        this.formMail = formMail;
+    public void setStuMail(String stuMail) {
+        this.stuMail = stuMail;
     }
 
     public String getPhotoId() {
@@ -73,5 +89,82 @@ public class Form implements Serializable {
 
     public void setPhotoId(String photoId) {
         this.photoId = photoId;
+    }
+
+    public int getAdminKey() {
+        return adminKey;
+    }
+
+    public void setAdminKey(int adminKey) {
+        this.adminKey = adminKey;
+    }
+
+    public int getwKey() {
+        return wKey;
+    }
+
+    public void setwKey(int wKey) {
+        this.wKey = wKey;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
+
+    public String getStuPhone() {
+        return stuPhone;
+    }
+
+    public void setStuPhone(String stuPhone) {
+        this.stuPhone = stuPhone;
+    }
+
+    public String getwType() {
+        return wType;
+    }
+
+    public void setwType(String wType) {
+        this.wType = wType;
+    }
+
+    public int getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(int appointment) {
+        this.appointment = appointment;
+    }
+
+    @Override
+    public String toString() {
+        return "Form{" +
+                "stuId='" + stuId + '\'' +
+                ", queryCode=" + queryCode +
+                ", formId=" + formId +
+                ", formMsg='" + formMsg + '\'' +
+                ", formDate=" + formDate +
+                ", stuMail='" + stuMail + '\'' +
+                ", photoId='" + photoId + '\'' +
+                ", adminKey=" + adminKey +
+                ", wKey=" + wKey +
+                ", endDate=" + endDate +
+                ", room='" + room + '\'' +
+                ", stuName='" + stuName + '\'' +
+                ", stuPhone='" + stuPhone + '\'' +
+                ", wType='" + wType + '\'' +
+                ", appointment=" + appointment +
+                '}';
     }
 }

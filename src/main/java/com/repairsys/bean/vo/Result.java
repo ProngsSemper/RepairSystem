@@ -15,16 +15,16 @@ public class Result<T> {
     /**
      * 返回状态码
      */
-    private int code;
+    protected int code = 404;
     /**
      * 返回数据
      */
-    private T data;
+    protected T data;
 
     /**
      * 返回的描述信息
      */
-    private String desc;
+    protected String desc;
 
     public Result() {
         super();
@@ -36,23 +36,34 @@ public class Result<T> {
         this.desc = desc;
     }
 
+    public Result<T> setResult(ResultEnum info) {
+        this.code = info.getCode();
+        this.desc = info.getDesc();
+        return this;
+    }
+
     public int getCode() {
         return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public T getData() {
         return data;
     }
 
+    public void setData(T data) {
+        this.data = data;
+    }
+
     public String getDesc() {
         return desc;
     }
 
-    public Result<T> setResult(ResultEnum info)
-    {
-        this.code = info.getCode();
-        this.desc = info.getDesc();
-        return this;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     @Override

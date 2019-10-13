@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,11 +30,13 @@ public class WorkerLoginServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = workerService.login(requestBody.getString("wId"),
-                requestBody.getString("wPassword"),
+        Result result = workerService.login(requestBody.getString("id"),
+                requestBody.getString("password"),
                 session);
-        logger.debug("登录成功{}", result);
+        logger.debug("工人登录信息{}", result);
         request.setAttribute("result", result);
+        response.addCookie(new Cookie("identity","worker"));
+        response.addHeader("identity","worker");
         super.doPost(request, response);
     }
 

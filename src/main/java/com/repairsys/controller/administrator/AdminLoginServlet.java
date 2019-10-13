@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import java.io.IOException;
 /**
  * @author Prongs
  * @date 2019/9/29
+ *
+ * 登录
  */
 @WebServlet("/admin/login")
 public class AdminLoginServlet extends BaseServlet {
@@ -29,16 +32,18 @@ public class AdminLoginServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.login(requestBody.getString("adminId"),
-                requestBody.getString("adminPassword"),
+        Result result = adminService.login(requestBody.getString("id"),
+                requestBody.getString("password"),
                 session);
-        logger.debug("登录成功{}", result);
+        logger.debug("管理员登录信息{}", result);
         request.setAttribute("result", result);
+        response.addCookie(new Cookie("identity","admin"));
+        response.addHeader("identity","admin");
         super.doPost(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }

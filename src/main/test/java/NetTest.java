@@ -1,7 +1,5 @@
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.JsonObject;
 import com.repairsys.util.net.Postman;
-import net.sf.json.util.JSONBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,8 +12,13 @@ import java.io.IOException;
 public class NetTest {
     @Test
     public void loginCall() throws IOException {
-        JSONObject jsonObject = Postman.doGet("181543430","yrdddd");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = Postman.doPost("181549422", "password");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(jsonObject);
-        System.out.println(jsonObject.getString("flag"));
+
     }
 }
