@@ -1,5 +1,6 @@
 package com.repairsys.dao.impl.agenda;
 
+import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.DaoFactory;
@@ -11,13 +12,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author lyr
  * @create 2019/10/7 20:46
  */
-public class WorkerScheule extends TableDaoImpl {
+public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static Logger logger = LoggerFactory.getLogger(WorkerScheule.class);
 
     private static final String UPDATE_BEGIN= "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
@@ -112,5 +113,72 @@ public class WorkerScheule extends TableDaoImpl {
         this.cleanTable();
 
         return true;
+    }
+
+
+
+
+    /**
+     * 根据预约的时间推荐空闲且合适的工人
+     *
+     * @param hours 预约的时间
+     * @return 返回推荐的工人
+     */
+    @Override
+    public List<Worker> recommendByAppointment(int... hours) {
+        return null;
+    }
+
+    /**
+     * 根据预约的时间推荐空闲且合适的工人
+     *
+     * @param hour 预约的时间
+     * @return 返回推荐的工人
+     */
+    @Override
+    public List<Worker> recommendByAppointment(int hour,String  wType) {
+        boolean b = hour>=9&&hour<=11||hour>=14&&hour<=18;
+        if(!b)
+        {
+            return new LinkedList<>();
+        }
+        String tSql = "select wKey from wTime where t"+hour+" <1 and curTime = curdate()";
+
+        String recommendSql = "select * from workers w where wType = null || wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
+        System.out.println(recommendSql);
+        List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
+        List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
+
+        list.sort(Comparator.comparingInt(Worker::getwKey));
+        timeList.sort(Comparator.comparingInt(WTime::getwKey));
+        Iterator<Worker> itL = list.iterator();
+        Iterator<WTime> itR = timeList.iterator();
+
+        while (itL.hasNext()&&itR.hasNext())
+        {
+            WTime timeTable = itR.next();
+            Worker worker = itL.next();
+            while (worker.getwKey()!=timeTable.getwKey())
+            {
+                timeTable = itR.next();
+            }
+            worker.setScore(timeTable.getSum());
+
+
+        }
+        list.sort(Comparator.comparingInt(Worker::getScore).reversed());
+
+        return list;
+
+
+
+
+
+
+
+
+
+
+
     }
 }

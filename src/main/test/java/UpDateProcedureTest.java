@@ -4,6 +4,8 @@ import com.repairsys.dao.impl.agenda.TableDaoImpl;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,4 +48,37 @@ public class UpDateProcedureTest {
         boolean b= p.updateAll();
         System.out.println(b);
     }
+
+    @Test
+    public void updateAllInformationOfWorkerTimeTable()
+    {
+        WorkerScheule p = WorkerScheule.getInstance();
+        p.updateAll();
+    }
+
+    @Test
+    public void print11()
+    {
+        List list = WorkerScheule.getInstance().recommendByAppointment(10,"木");
+        System.out.println(list);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

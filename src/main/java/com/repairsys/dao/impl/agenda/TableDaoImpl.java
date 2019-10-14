@@ -39,6 +39,10 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
     {
         return super.selectList(JdbcUtil.getConnection(),GET_ALL_INFO);
     }
+    public List<WTime> getAllWorkerTimeList(String sql)
+    {
+        return super.selectList(JdbcUtil.getConnection(),sql);
+    }
 
 
     /**
@@ -116,5 +120,11 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
 
         return true;
     }
+
+
+
+
+
+
 
 }

@@ -153,5 +153,9 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.getCount(JdbcUtil.getConnection(), cntSql, wKey);
 
     }
+    public List<Worker> getList(String sql)
+    {
+        return super.selectList(JdbcUtil.getConnection(),sql);
+    }
 
 }
