@@ -250,16 +250,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getIncompleteForm(String adminId, int page, int limit) {
+    public Result getIncompleteForm(int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        int adminKey = dao.getAdminKeyById(adminId);
-        List list = dao.adminIncompleteForm(adminId, page, limit);
+        List list = dao.adminIncompleteForm(page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = adminDao.getAllIncompleteCountByAdminKey(adminKey);
+        int cnt = adminDao.getAllIncompleteCountByAdminKey();
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -277,16 +276,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getCompleteForm(String adminId, int page, int limit) {
+    public Result getCompleteForm(int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        int adminKey = dao.getAdminKeyById(adminId);
-        List list = dao.adminCompleteForm(adminId, page, limit);
+        List list = dao.adminCompleteForm(page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = adminDao.getAllCompleteCountByAdminKey(adminKey);
+        int cnt = adminDao.getAllCompleteCountByAdminKey();
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));

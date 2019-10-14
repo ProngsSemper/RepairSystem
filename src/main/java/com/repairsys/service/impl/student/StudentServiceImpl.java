@@ -98,12 +98,14 @@ public class StudentServiceImpl implements StudentService {
      * @param room      学生宿舍
      * @param stuName   学生姓名
      * @param stuPhone  学生手机
+     * @param appointment 预约点数
+     * @param appointDate 预约日期
      * @return
      */
     @Override
-    public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment) {
+    public Result<Boolean> applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment, String appointDate) {
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        boolean data = formListDao.apply(stuId, queryCode, formMsg, formDate, stuMail, photoId, room, stuName, stuPhone, wType, appointment);
+        boolean data = formListDao.apply(stuId, queryCode, formMsg, formDate, stuMail, photoId, room, stuName, stuPhone, wType, appointment,appointDate);
         Result<Boolean> result = new Result();
         if (!data) {
             result.setResult(ResultEnum.SUBMITTED_FAILED);

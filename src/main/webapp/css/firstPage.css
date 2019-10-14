@@ -12,6 +12,7 @@ body{
     position: relative;
     width: 1260px;
     height: 95px;
+    margin: 0 auto;
 }
 .head .logo{
     position: absolute;
@@ -30,11 +31,12 @@ body{
 }
 .nav{
     /* position: relative; */
-    float: left;
-    width: 100%;
+    /* float: left; */
+    width: 1260px;
     height: 50px;
     background: #8e0b02;
     text-align:center;
+    margin: 0 auto;
 }
 .nav ul{
     width: 100%;
@@ -62,18 +64,20 @@ body{
 }
 
 .contant{
-    margin-top: 80px;
-    width: 100%;
-    height: 500px;
+    margin: 40px auto;
+    width: 1260px;
+    height: auto;
     /* background: #000; */
+    overflow: auto;
 }
 .contant .notice{
     float: left;
+    position: relative;
     width: 350px;
-    height: 450px;;
+    height: 450px;
     background: #8e0b02;
     /* margin: 30px 0 0 20px; */
-    margin-left: 123px;;
+    margin-left: 54px;
     background-image: url(../img/yun.png);
     background-repeat: no-repeat;
     background-size: 60%;
@@ -123,12 +127,159 @@ body{
 .worker{
     position: absolute;
     height: 93px;
-    right: 130px;
+    right: 300px;
     bottom: 0;
 }
 .toolCase{
     position: absolute;
     height: 80px;
-    right: 0px;
+    right: 180px;
     bottom: 0;
+}
+.date{
+    float: left;
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    right: 25px;;
+    font-size: 18px;
+    color: #fff;
+}
+.imformation{
+    margin: 0 auto;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    height: 500px;
+    width: 900px;
+    background: #fff;
+}
+.hide{
+    display: none;;
+}
+.imformation .bg{
+    height: 20px;
+    background: #eee;
+}
+.top-tit{
+    width: 100%;
+    margin-top: 10px;;
+    height: 80px;
+    /* background: #000; */
+    
+}
+.repair-tit{
+    float: right;
+    margin: 0px 20px 0px 0;
+    width: 200px;
+    height: 80px;
+    /* background: #fff; */
+}
+.chinaName{
+    color: #f99b3f;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.englishName{
+    font-size: 18px;;
+    text-align: center;
+    line-height: 25px;;
+}
+.insideContant{
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #eee;
+    border-radius: 5px;
+    width: 800px;
+    height: 350px;  
+}
+.repairName{
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 40px;;
+    width: 150px;
+    height: 30px;
+    background: #f99b3f;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+}
+.form{
+    margin: 40px auto;
+    width: 500px;
+    height: 280px;
+    /* background: #000; */
+}
+.form .repair-information{
+    /* display: block; */
+    /* margin: 0 auto; */
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+    text-indent: 1em;
+}
+.form .spanStyle{
+    display: inline-block;
+    margin-right: 25px;
+    width: 100px;
+    text-align: right;
+}
+.formBlock{
+    position: relative;
+    margin-top: 15px;;
+}
+.formBlock>select{
+    margin: 0 8px 0 -2px;
+    height: 26px;
+}
+.formBlock>select>option{
+    margin: 0 8px 0 -2px;
+    height: 25px;
+}
+.dormitoryNumber{
+    width: 100px;
+    height: 24px;
+    text-indent: 1em;
+}
+.pos{
+    margin-top: 60px;;
+}
+.radios{
+    margin:0 10px 0 8px;
+}
+.form .appoint{
+    width: 150px;
+    height: 20px;;
+    font-size: 14px;
+}
+.textareaStyle{
+    font-size: 18px;;
+    vertical-align: top;
+}
+.handIn{
+    display: block;
+    margin: 0 auto;
+    border: none;
+    border-radius: 6px;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    background: #f99b3f;
+}
+.iconHandin{
+    position: absolute;
+    top: 8px;
+    left: 215px;
+    background-image: url(../img/dianji.png);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;;
+}
+.handin-tit{
+    display: inline-block;
+    margin-left: 15px;
 }

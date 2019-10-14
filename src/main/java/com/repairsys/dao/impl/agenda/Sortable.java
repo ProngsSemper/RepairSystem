@@ -18,13 +18,13 @@ public interface Sortable {
      * @param hours 预约的时间
      * @return 返回推荐的工人
      */
-    public List<Worker> recommendByAppointment(int...hours);
+    List<Worker> recommendByAppointment(int... hours);
     /**
      * 根据预约的时间推荐空闲且合适的工人
      * @param hour 预约的时间
      * @param wType 工人类型
      * @return 返回推荐的工人
      */
-    public List<Worker> recommendByAppointment(int hour,String  wType);
+    List<Worker> recommendByAppointment(int hour, String wType);
 
 }

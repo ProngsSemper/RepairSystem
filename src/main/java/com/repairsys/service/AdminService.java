@@ -110,21 +110,19 @@ public interface AdminService {
     /**
      * 查询管理员未处理表单
      *
-     * @param adminId 管理员Id
      * @param page    当前页
      * @param limit   每页最多显示多少条数据
      * @return 返回相应状态码
      */
-    Result getIncompleteForm(String adminId, int page, int limit);
+    Result getIncompleteForm(int page, int limit);
 
     /**
      * 查询管理员已处理报修单
      *
-     * @param adminId 管理员Id
      * @param page    当前页
      * @param limit   页面大小
      * @return 返回相应状态码
      */
-    Result getCompleteForm(String adminId, int page, int limit);
+    Result getCompleteForm(int page, int limit);
 
 }

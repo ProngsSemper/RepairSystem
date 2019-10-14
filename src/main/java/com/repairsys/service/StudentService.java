@@ -50,9 +50,10 @@ public interface StudentService {
      * @param stuPhone    学生手机
      * @param wType       报修种类
      * @param appointment 学生预约时间
+     * @param appointDate
      * @return
      */
-    Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment);
+    Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment, String appointDate);
 
 //    apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
 }

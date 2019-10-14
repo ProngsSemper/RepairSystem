@@ -39,7 +39,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @deprecated 调用 updateAll即可，不需要使用这个单方面的更新
      * @return 备份原来工人的数据
      */
-
     public boolean updateTable() {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
         QueryRunner queryRunner = p.getQueryRunner();
@@ -72,7 +71,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @deprecated 调用 updateAll即可，不需要使用这个单方面的更新
      * @return 删除垃圾数据
      */
-
     public boolean cleanTable()
     {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();

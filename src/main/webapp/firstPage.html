@@ -7,7 +7,6 @@
     <title>首页</title>
     <link rel="stylesheet" href="css/firstPage.css">
     <script src="js/jquery-1.12.4.js"></script>
-
 </head>
 <body>
     <div class="head">
@@ -19,7 +18,7 @@
     <div class="nav">
         <ul>
             <li class="index current">首页</li>
-            <li class="index">报修工单</li>
+            <li class="index">线上报修</li>
             <li class="index">进度查询</li>
             <li class="index">留言反馈</li>
         </ul>
@@ -27,12 +26,13 @@
     <div class="contant">
         <div class="notice">
             <h3 class="tit">公告</h3>
-            <p class="contant-tit" id="article">
-<!--                系统将在10.1-10.5进行维护，期间将不可进行网上报修，不便之处，请原谅！-->
+            <p class="contant-tit">
+                系统将在10.1-10.5进行维护，期间将不可进行网上报修，不便之处，请原谅！
             </p>
             <p class="contant-tit">
-<!--                为了更好的服务广大师生，学校于2019年10月推出了网上报修服务。请进入“报修订单”页面提交维修内容。有问题可以拨打相关服务电话进行咨询。-->
+                为了更好的服务广大师生，学校于2019年10月推出了网上报修服务。请进入“报修订单”页面提交维修内容。有问题可以拨打相关服务电话进行咨询。
             </p>
+            <span class="date">2019年10月11日</span>
         </div>
         <div class="onlinerepair">
             <div class="inside-box">
@@ -48,9 +48,96 @@
             </div>
         </div>
     </div>
-<!--    <article id="article"></article>-->
+    <div class="contant hide">
+        <div class="imformation">
+            <div class="bg"></div>
+            <div class="top-tit">
+                <div class="repair-tit">
+                    <p class="chinaName">在线表单</p>
+                    <p class="englishName">Online service</p>
+                </div>
+            </div>
+            <div class="insideContant">
+                <span class="repairName">Information</span>
+                <div class="form">
+                    <div class="formBlock">
+                        <span class="spanStyle">报修人：</span><input type="text" class="repair-information" name="stuName">
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">联系电话：</span><input type="text" class="repair-information" name="stuPhone">
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">学号：</span><input type="text" class="repair-information" name="stuId">
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">学生邮箱：</span><input type="text" class="repair-information" name="stuMail">
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">地址：</span>
+                        <select name="adress" id="adress">
+                            <option value="北苑">北苑</option>
+                            <option value="南苑">南苑</option>
+                        </select>
+                        <select name="building" id="buliding" >
+                            <option value="1栋">1栋</option>
+                            <option value="2栋">2栋</option>
+                            <option value="3栋">3栋</option>
+                            <option value="4栋">4栋</option>
+                            <option value="5栋">5栋</option>
+                            <option value="6栋">6栋</option>
+                            <option value="7栋">7栋</option>
+                            <option value="8栋">8栋</option>
+                            <option value="9栋">9栋</option>
+                            <option value="11栋">11栋</option>
+                            <option value="12栋">12栋</option>  
+                            <option value="13栋">13栋</option>  
+                            <option value="14栋">14栋</option>  
+                            <option value="15栋">15栋</option>  
+                            <option value="16栋">16栋</option>                            
+                            <option value="17栋">17栋</option>  
+                            <option value="18栋">18栋</option>  
+                            <option value="19栋">19栋</option>  
+                            <option value="20栋">20栋</option>  
+                            <option value="21栋">21栋</option>  
+                            <option value="22栋">22栋</option>  
+                            <option value="23栋">23栋</option>  
+                            <option value="24栋">24栋</option>  
+                            <option value="25栋">25栋</option>  
+                        </select>
+                        <input type="text" placeholder="宿舍号" name="dormitory" class="dormitoryNumber">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="imformation">
+            <div class="insideContant pos">
+                <span class="repairName">Detail</span>
+                <div class="form">
+                    <div class="formBlock">
+                        <span class="spanStyle">报修类型:</span>
+                        <input type="radio" name="wType" class="radios" value="水工"><span>水工</span>
+                        <input type="radio" name="wType" class="radios" value="木工"><span>木工</span>
+                        <input type="radio" name="wType" class="radios" value="电工"><span>电工</span>
+                        <input type="radio" name="wType" class="radios" value="其他"><span>其他</span>
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">预约时间:</span>
+                        <input type="text" placeholder="例：10月11日12点" class="repair-information appoint" name="appointment"> (请输入整点时刻)
+                    </div>
+                    <div class="formBlock">
+                        <span class="spanStyle">报修内容:</span>
+                        <textarea rows="7" cols="30" class="textareaStyle" placeholder="请输入具体报修内容" name="formMsg"></textarea>
+                    </div>
+                    <div class="formBlock">
+                        <i class="iconHandin"></i>
+                        <button class="handIn"><span class="handin-tit">提交</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="contant hide"></div>
+    <div class="contant hide"></div>
     <script src="js/firstPage.js"></script>
-    <script src="js/m_firstPage.js"></script>
-
 </body>
 </html>
