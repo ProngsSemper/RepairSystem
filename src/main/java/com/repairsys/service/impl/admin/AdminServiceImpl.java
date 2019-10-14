@@ -276,6 +276,33 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
+    public Result getCompleteForm(String adminId, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
+        int adminKey = dao.getAdminKeyById(adminId);
+        List list = dao.adminCompleteForm(adminId, page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = adminDao.getAllCompleteCountByAdminKey(adminKey);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}", list, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
     public Result queryByWorkerTypeForm(String wType, int page, int limit) {
         if (page <= 0) {
             page = 1;
