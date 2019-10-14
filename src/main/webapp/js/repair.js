@@ -16,6 +16,7 @@ data.innerText=str1+str;
 $(document).ready(function () {
     getMsg(1);
     // alert(1);
+
 })
 function getMsg(pageCount){
     $.ajax({
@@ -31,13 +32,20 @@ function getMsg(pageCount){
 
             // alert(msg.size);
             var page=$(".page");
-            $(".page").html("");
+            // $(".page").html("");
             $(".repairItem").html("");
             var data=msg.data;
 
-            for(var i=1;i<=msg.totalPage;i++){
-                page.append('<span class="page-number">'+i+'</span>');
+            var b = $('.page').children().length==0;
+
+            if(b)
+            {
+                page.append('<span class="page-number cur">'+1+'</span>');
+                for(var i=2;i<=msg.totalPage;i++){
+                    page.append('<span class="page-number">'+i+'</span>');
+                }
             }
+
             $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
             // alert(2);
             for(var i=0;i<msg.size;i++){
@@ -67,17 +75,18 @@ function getMsg(pageCount){
     })
 }
 
+
 $(document).ready(function () {
     //监听点击页码操作
     $("body").delegate(".page>span","click",function(){
         // alert(123);
         var number=$(this).html();
-        alert(number);
+        // alert(number);
         getMsg(number);
 
         $(this).addClass("cur");
         $(this).siblings().removeClass("cur");
-        alert("456");
+        // alert("456");
     });
 
 
