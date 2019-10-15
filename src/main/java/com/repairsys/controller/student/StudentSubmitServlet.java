@@ -49,6 +49,12 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("appointDate"),
                 "B"
         );
+        int flag = 201;
+        if (res.getCode() == flag) {
+            logger.debug("提交成功{}", res);
+        } else {
+            logger.debug("提交失败{}", res);
+        }
         request.setAttribute("result", res);
         super.doPost(request, response);
 

@@ -158,4 +158,18 @@ public class StudentServiceImpl implements StudentService {
         return res;
 
     }
+
+    @Override
+    public Result<Boolean> confirm(int formId) {
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        boolean data = formDao.studentConfirm(formId);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.CONFIRM_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.CONFIRM_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
 }

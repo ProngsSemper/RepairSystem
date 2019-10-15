@@ -71,6 +71,14 @@ public enum ResultEnum {
      */
     BOOST_FAILED(400, "修改优先级失败"),
     /**
+     * 确认成功
+     */
+    CONFIRM_SUCCESSFULLY(201, "确认成功"),
+    /**
+     * 确认失败
+     */
+    CONFIRM_FAILED(400, "确认失败"),
+    /**
      * @author lyr
      * @date 2019/9/29
      * 插入信息成功

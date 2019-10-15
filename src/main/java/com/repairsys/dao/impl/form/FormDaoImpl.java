@@ -4,11 +4,13 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.dao.AbstractPageDao;
 import com.repairsys.dao.FormDao;
 import com.repairsys.util.db.JdbcUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -85,6 +87,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
     private static final String BOOST_LEVEL="update form set level=\"A\" where formId = ?";
+    private static final String STUDENT_CONFIRM="INSERT INTO oldform SELECT * FROM `form` WHERE formId=?";
+    private static final String DELETE_STUDENT_CONFIRM="DELETE FROM form WHERE formId=?";
 
     String INSERT_FORM =
             "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey,room)values(?,?,?,?,?,?,?,?,?)";
@@ -443,4 +447,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.updateOne(connection,BOOST_LEVEL,formId);
     }
 
+    @Override
+    public Boolean studentConfirm(int formId){
+        super.updateOne(connection,SET_FINISH_DAY,new Timestamp(System.currentTimeMillis()));
+        super.updateOne(connection,STUDENT_CONFIRM,formId);
+        return super.updateOne(connection,DELETE_STUDENT_CONFIRM,formId);
+    }
 }

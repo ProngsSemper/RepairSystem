@@ -75,4 +75,13 @@ public interface StudentService {
      * @return 对应状态码
      */
     Result getUndoneForm(String stuId, int page, int limit);
+
+    /**
+     * 根据报修单id让学生确认报修完成
+     * 确认后数据迁移到oldform
+     *
+     * @param formId 报修单id
+     * @return 布尔值
+     */
+    Result<Boolean> confirm(int formId);
 }
