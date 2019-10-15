@@ -5,6 +5,7 @@ import com.repairsys.dao.PageDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -45,6 +46,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String ADMIN_FORM = "select * from form where queryCode != 0 limit ?,?";
     private static final String WORKER_INCOMPLETE_FORM = "select * from form where wKey = ? and queryCode = 1 limit ?,?";
     private static final String ADMIN_QUERY_TYPE = "SELECT * FROM `form` WHERE wType=? UNION SELECT * FROM `oldform` WHERE wType=? limit ?,?";
+    private static final String QUERY_LEVEL = "SELECT * FROM `form` WHERE LEVEL=\"A\"";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -228,7 +230,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         String GET_ALL_BY_STUDENT_NAME = "select * from form where stuId =? " +
                 " union select * from oldform where stuId =? limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_NAME,studentId,studentId, ans[0], ans[1]);
+        return super.selectList(JdbcUtil.getConnection(), GET_ALL_BY_STUDENT_NAME, studentId, studentId, ans[0], ans[1]);
     }
 
     public List<Form> getAllListByStudentName(String studentName, int page, int limit) {
@@ -250,7 +252,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = " where stuId = ?";
 
-        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex),studentId);
+        return super.getCount(JdbcUtil.getConnection(), countSql.replaceAll("where", rex), studentId);
 
     }
 
@@ -266,19 +268,25 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(JdbcUtil.getConnection(), FUZZY_ALL_FORM.replaceAll("rep", workerName), ans[0], ans[1]);
     }
 
-    public int getAdminKeyById(String adminId){
+    public int getAdminKeyById(String adminId) {
         String sql = "select adminKey from administrators where adminId = ?";
-        return super.selectOne(JdbcUtil.getConnection(),sql,adminId).getAdminKey();
+        return super.selectOne(JdbcUtil.getConnection(), sql, adminId).getAdminKey();
     }
 
-    public int getWorkerKeyById(String wId){
+    public int getWorkerKeyById(String wId) {
         String sql = "select wKey from workers where wId = ?";
-        return super.selectOne(JdbcUtil.getConnection(),sql,wId).getwKey();
+        return super.selectOne(JdbcUtil.getConnection(), sql, wId).getwKey();
     }
 
     public List<Form> adminIncompleteForm(int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(JdbcUtil.getConnection(), ADMIN_INCOMPLETE_FORM,  ans[0], ans[1]);
+        Connection connection = JdbcUtil.getConnection();
+        String sql = ADMIN_INCOMPLETE_FORM;
+        if (!(super.selectList(connection, QUERY_LEVEL).isEmpty())) {
+            String rex = "ORDER BY LEVEL limit";
+            sql = sql.replaceAll("limit", rex);
+        }
+        return super.selectList(connection, sql, ans[0], ans[1]);
     }
 
     public List<Form> adminCompleteForm(int page, int size) {
