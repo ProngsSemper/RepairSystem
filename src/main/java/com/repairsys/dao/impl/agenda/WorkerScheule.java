@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -40,6 +41,9 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private WorkerScheule() {
     }
 
+    private static final String SELECT_MIN_AND_MAX_DAY = "select min(`curtime`) from wtime union select max(`curtime`) from wtime";
+
+    //TODO:未完成
     /**
      * 清理表中的垃圾并更新
      *
@@ -47,8 +51,74 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      */
     @Override
     public boolean cleanAndUpdateTable() {
-        return false;
+        LinkedList<java.sql.Date> dayList = JdbcUtil.getDateList(SELECT_MIN_AND_MAX_DAY);
+        if(dayList.isEmpty()||dayList.get(0)==null||dayList.get(1)==dayList.get(0))
+        {
+            deleteTable();
+            //清理并构建员工工作表单
+            preCreateTable();
+        }else {
+            //这里就要判断 时间段了  [l,r] 和 m时间点的关系
+            // m==l时，不更新， l<m<r 时
+            java.sql.Date nowDay = new java.sql.Date(System.currentTimeMillis());
+            if(nowDay.toString().equals(dayList.get(0)))
+            {
+                return true;
+            }
+
+            int dt2 = nowDay.compareTo(dayList.get(1));
+            //如果当前时间比数据库里记录的最大时间都要大，说明数据库里面的时间过期了，删除，重新写记录
+            if(dt2>0)
+            {
+                deleteTable();
+                preCreateTable();
+                return true;
+            }else{
+
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.setTime(dayList.get(0));
+                int day1 = calendar.get(Calendar.DAY_OF_YEAR);
+                calendar.setTime(dayList.get(1));
+                int day2 = calendar.get(Calendar.DAY_OF_YEAR);
+                int d = day2-day1;
+                if(d<7)
+                {
+                    //因为是记录 7天内的数据，如果数据小于7，说明是测试阶段，或者人为改动数据库，识别出来，并且创建7天的表
+                    deleteTable();
+                    preCreateTable();
+                    return true;
+                }
+                //dt2小于0，说明在  [-无穷,m] 里面
+
+                int dt1 = nowDay.compareTo(dayList.get(0));
+                if(dt1>0)
+                {
+                    //由于之前清理表了，不可能小于0，而由于compareTo方法有比较毫秒，也不可能等于0
+                    algoMethod2();
+                    super.updateOne(connection,DELETE_BEFORE);
+                }
+            }
+        }
+        return true;
     }
+
+    private static final String DELETE_BEFORE = "delete from wtime where `curtime`<curdate()";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static WorkerScheule getInstance()
     {
@@ -235,30 +305,18 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         return list;
 
     }
-    /**
-     *
-     * 更改数据库的新方法
-     *
-     *
-     * @deprecated
-     * */
-    public boolean updateAll2()
-    {
-        int cnt = super.getCount(connection,"select count(*) from wTime where `curTime` = CURDATE()-1");
-        if(cnt<=0)
-        {
-            return false;
-        }
-
-        return false;
-
-    }
 
 
 
+    //TODO:还需要调用，请注意
     /** curday 从0 加到7，创建一个星期的记录 */
     private static final String UPDATE_OLD_PERSON_SERVEN_DAY="insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE()+?)";
 
+    /**
+     * @param day
+     * @return
+     * @deprecated 请不要直接用
+     */
     public boolean createTable2(Integer day)
     {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
@@ -279,7 +337,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         boolean b = true;
         try {
             queryRunner.batch(connection,UPDATE_OLD_PERSON_SERVEN_DAY,obj);
-            // queryRunner.batch
+
         } catch (SQLException e) {
             b = false;
             logger.error("严重错误，更新日程表失败");
@@ -294,7 +352,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      */
     public void preCreateTable()
     {
-        for(int i=1;i<=7;++i)
+        for(int i=0;i<=7;++i)
         {
             createTable2(i);
         }
