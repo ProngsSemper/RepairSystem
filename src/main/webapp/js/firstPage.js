@@ -19,9 +19,14 @@ var stuPhone=document.getElementsByClassName("repair-information")[1];
 var stuMail=document.getElementsByClassName("repair-information")[3];
 var formMsg=document.getElementsByClassName("textareaStyle")[0];
 var photoId="";
-
+var a=new Date();
+var day=a.getDate();
+var months=a.getMonth()+1;
+// var year=a.getFullYear();
 var radio=document.getElementsByClassName("radios");
-
+var month=document.getElementById("month");
+var days=document.getElementById("days");
+var times=document.getElementById("times");
 // var wTypr=$(".radios").val();
 var appointment=document.getElementsByClassName("appoint")[0];
 var domiNumber=document.getElementsByClassName("dormitoryNumber")[0];
@@ -35,6 +40,23 @@ $("body").delegate(".radios","click",function(){
         }
     }
 })
+$("#month").append('<option value='+months+'>'+months+'月'+'</option>');
+$("#days").append('<option value='+day+'>'+day+'日'+'</option>');
+$("#days").append('<option value='+(day+1)+'>'+(day+1)+'日'+'</option>');
+$("#days").append('<option value='+(day+2)+'>'+(day+2)+'日'+'</option>');
+$("#days").append('<option value='+(day+3)+'>'+(day+3)+'日'+'</option>');
+$("#days").append('<option value='+(day+4)+'>'+(day+4)+'日'+'</option>');
+$("#days").append('<option value='+(day+5)+'>'+(day+5)+'日'+'</option>');
+$("#days").append('<option value='+(day+6)+'>'+(day+6)+'日'+'</option>');
+
+// (function creatday(day){
+//     for(var i=day;i<=day+7;i++){
+//         $("#days").append('<option value='+day+'>'+day+'日'+'</option>');
+//     }
+// },day);
+// var creatday=(function(i){
+    
+// },i)
 var button=$(".handin-tit");
 $("body").delegate(".handin-tit","click",function(){
     $.ajax({
@@ -50,11 +72,12 @@ $("body").delegate(".handin-tit","click",function(){
             "photoId":"",
             "wType":wType,
             "room":adress.value+buliding.value+domiNumber.value,
-            "appointment":appointment.value
+            "appointment":parseInt(times.value),
+            "appointDate":month.value+'-'+days.value,
         }),
         success:function(msg){
-            if(msg.code==200){
-                alert("数据发送成功");
+            if(msg.code==201){
+                alert("报修单提交成功");
             }
         },
         error:function(xhr){
