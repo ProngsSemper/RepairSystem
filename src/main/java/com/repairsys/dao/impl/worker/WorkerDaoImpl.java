@@ -5,6 +5,7 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -12,6 +13,8 @@ import java.util.List;
  * @create 2019/9/27 10:53
  */
 public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.WorkerDao {
+    private final Connection connection = JdbcUtil.getConnection();
+    
     private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
@@ -41,7 +44,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public Worker login(String wId, String wPassword) {
-        return super.selectOne(JdbcUtil.getConnection(), WORKER_LOGIN, wId, wPassword);
+        return super.selectOne(connection, WORKER_LOGIN, wId, wPassword);
     }
 
     /**
@@ -53,7 +56,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public boolean updateQueryCode(int queryCode, int formId) {
-        return super.updateOne(JdbcUtil.getConnection(), UPDATE_QUERYCODE, queryCode, formId);
+        return super.updateOne(connection, UPDATE_QUERYCODE, queryCode, formId);
     }
 
     /**
@@ -93,7 +96,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public boolean register(String wId, String wName, String wTel, String wPassword, String wMail) {
-        return super.addOne(JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
+        return super.addOne(connection, WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
     }
 
     /**
@@ -105,17 +108,17 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
     public List<Worker> fuzzySearchWorkers(String name) {
         String finalSql = SEARCH_WORKERS + name + "%'";
-        return super.selectList(JdbcUtil.getConnection(), finalSql);
+        return super.selectList(connection, finalSql);
     }
 
     public List<Worker> fuzzySearchWorkers(String name, int targetPage, int size) {
         String finalSql = SEARCH_WORKERS + name + "%'" + " limit ?,?";
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
-        return super.selectList(JdbcUtil.getConnection(), finalSql, ans[0], ans[1]);
+        return super.selectList(connection, finalSql, ans[0], ans[1]);
     }
 
     public int fuzzySearchWorkersCount(String name) {
-        return super.getCount(JdbcUtil.getConnection(), GET_WORKER_COUNT);
+        return super.getCount(connection, GET_WORKER_COUNT);
     }
 
     /**
@@ -127,35 +130,35 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
 
     public Worker getWorkerKeyByName(String workerName) {
-        return super.selectOne(JdbcUtil.getConnection(), GET_WORKER, workerName);
+        return super.selectOne(connection, GET_WORKER, workerName);
     }
 
     public Worker getWorkerKeyById(String workerId) {
-        return super.selectOne(JdbcUtil.getConnection(), GET_WORKER_BY_ID, workerId);
+        return super.selectOne(connection, GET_WORKER_BY_ID, workerId);
     }
 
     @Override
     public Worker getWorkerTelByKey(int wKey) {
-        return super.selectOne(JdbcUtil.getConnection(), GET_WORKER_TEL, wKey);
+        return super.selectOne(connection, GET_WORKER_TEL, wKey);
     }
 
     public int getTotalCount() {
-        return super.getCount(JdbcUtil.getConnection(), GET_SUM);
+        return super.getCount(connection, GET_SUM);
     }
 
     public List<Worker> getAllWorkerList() {
-        return super.selectList(JdbcUtil.getConnection(), GET_WORKER_LIST);
+        return super.selectList(connection, GET_WORKER_LIST);
     }
 
     @Override
     public int getAllIncompleteCountBywKey(int wKey) {
         String cntSql = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, wKey);
+        return super.getCount(connection, cntSql, wKey);
 
     }
     public List<Worker> getList(String sql,Object...obj)
     {
-        return super.selectList(JdbcUtil.getConnection(),sql,obj);
+        return super.selectList(connection,sql,obj);
     }
 
 }
