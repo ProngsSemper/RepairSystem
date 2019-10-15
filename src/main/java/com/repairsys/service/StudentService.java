@@ -50,11 +50,19 @@ public interface StudentService {
      * @param stuPhone    学生手机
      * @param wType       报修种类
      * @param appointment 学生预约时间
-     * @param appointDate
-     * @param level
+     * @param appointDate 学生预约日期
+     * @param level       优先级
      * @return
      */
     Result applyForm(String stuId, int queryCode, String formMsg, Timestamp formDate, String stuMail, String photoId, String room, String stuName, String stuPhone, String wType, int appointment, String appointDate, String level);
 
 //    apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId)
+
+    /**
+     * 根据报修单id提升其优先级
+     *
+     * @param formId 报修单id
+     * @return 返回相应状态码
+     */
+    Result<Boolean> boostLevel(int formId);
 }

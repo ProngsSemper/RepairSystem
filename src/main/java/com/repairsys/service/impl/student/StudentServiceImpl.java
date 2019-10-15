@@ -6,8 +6,10 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ExceptionEnum;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.FormDao;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
+import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
@@ -113,6 +115,20 @@ public class StudentServiceImpl implements StudentService {
             return result;
         }
         result.setResult(ResultEnum.SUBMITTED_SUCCESSFULLY);
+        result.setData(data);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> boostLevel(int formId) {
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        boolean data = formDao.boostLevel(formId);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.BOOST_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.BOOST_SUCCESSFULLY);
         result.setData(data);
         return result;
     }
