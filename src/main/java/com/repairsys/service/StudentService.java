@@ -65,4 +65,14 @@ public interface StudentService {
      * @return 返回相应状态码
      */
     Result<Boolean> boostLevel(int formId);
+
+    /**
+     * 根据学生id查询学生未确认表单
+     *
+     * @param stuId 学生id
+     * @param page  当前页
+     * @param limit 页面大小
+     * @return 对应状态码
+     */
+    Result getUndoneForm(String stuId, int page, int limit);
 }
