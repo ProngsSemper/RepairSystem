@@ -13,13 +13,6 @@ $(document).ready(function () {
             if(data.code==200)
             {
 
-                // var str = data.data[0].boardMsg;
-                // alert(str);
-                // $("#article").html(str+"dddddddddddddd");
-                // // console.log(str);
-                // // alert(data.code);
-                // // alert(str);
-                // // alert(data.data.date);
                 var str = data.data[0].boardMsg;
                 if(str==null)
                 {

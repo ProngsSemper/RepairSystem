@@ -182,4 +182,43 @@ public class WTime implements Comparable<WTime>{
 
         return o.getwKey()-this.getwKey();
     }
+
+    public int getTimeAt(int point)
+    {
+        switch (point) {
+            case 0:{
+                return this.getT9();
+            }
+            case 1:{
+                return this.getT10();
+            }
+            case 2:{
+                return this.getT11();
+            }
+            case 3:{
+                return this.getT14();
+            }
+            case 4:{
+                return this.getT15();
+            }
+            case 5:{
+                return this.getT16();
+            }
+            case 6:{
+                return this.getT17();
+            }
+            case 7:{
+                return this.getT18();
+            }
+            default:
+            {
+                return 0;
+            }
+        }
+
+    }
+
+
+
+
 }

@@ -8,9 +8,13 @@ import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.swing.StringUIClientPropertyKey;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -24,6 +28,14 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static final String UPDATE_BEGIN= "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
     private static final String DELETE_AFTER = "delete from wTime where `curTime` <> CURDATE()";
     private static final String GET_COUNT_OLD = "select count(*) from wTime where `curTime` <> CURDATE()";
+
+
+
+    /**  查询对于时间的工人，是否空闲 */
+    private static final String QUERY_DATE_WORKER = "select * from wTime where wType = '其他'||wType =?";
+
+
+
     private static final WorkerScheule WORKER_SCHEULE_DAO = new WorkerScheule();
 
     private WorkerScheule() {
@@ -39,6 +51,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @deprecated 调用 updateAll即可，不需要使用这个单方面的更新
      * @return 备份原来工人的数据
      */
+    @Deprecated
     public boolean updateTable() {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
         QueryRunner queryRunner = p.getQueryRunner();
@@ -46,6 +59,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         int cnt = arr.size();
         Object[][] obj = new Object[cnt][];
+        //工人的 key
         for(int i=1;i<=cnt;++i)
         {
             obj[i-1] = new Object[1];
@@ -71,6 +85,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @deprecated 调用 updateAll即可，不需要使用这个单方面的更新
      * @return 删除垃圾数据
      */
+    @Deprecated
     public boolean cleanTable()
     {
         WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
@@ -91,7 +106,9 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * 管理员调用此方法，即可更新数据库表，不需要用别的什么方法了
      *
      * @return 返回更新的结果是否成功
+     * @deprecated 由于新的需求与原定的需求不一样，请不要调用此函数，此函数已经废弃
      */
+    @Deprecated
     @Override
     public boolean updateAll() {
 
@@ -167,16 +184,125 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         list.sort(Comparator.comparingInt(Worker::getScore).reversed());
 
         return list;
+    }
 
 
 
 
+    @Override
+    public List<Worker> recommendByAppintment(Date appointDate, int hour, String wType) {
+
+        boolean b = hour>=9&&hour<=11||hour>=14&&hour<=18;
+        if(!b)
+        {
+            return new LinkedList<>();
+        }
+        String tSql = "select wKey from wTime where t"+hour+" <1 and curTime = ?";
+
+        String recommendSql = "select * from workers w where wType = '其他' || wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
+        System.out.println(recommendSql);
+        List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql,appointDate);
+        List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
+
+        list.sort(Comparator.comparingInt(Worker::getwKey));
+        timeList.sort(Comparator.comparingInt(WTime::getwKey));
+        Iterator<Worker> itL = list.iterator();
+        Iterator<WTime> itR = timeList.iterator();
+
+        while (itL.hasNext()&&itR.hasNext())
+        {
+            WTime timeTable = itR.next();
+            Worker worker = itL.next();
+            while (worker.getwKey()!=timeTable.getwKey())
+            {
+                timeTable = itR.next();
+            }
+            worker.setScore(timeTable.getSum());
 
 
+        }
+        list.sort(Comparator.comparingInt(Worker::getScore).reversed());
 
-
-
-
+        return list;
 
     }
+    /**
+     *
+     * 更改数据库的新方法
+     *
+     *
+     * @deprecated
+     * */
+    public boolean updateAll2()
+    {
+        int cnt = super.getCount(JdbcUtil.getConnection(),"select count(*) from wTime where `curTime` = CURDATE()-1");
+        if(cnt<=0)
+        {
+            return false;
+        }
+
+        return false;
+
+    }
+
+
+
+    /** curday 从0 加到7，创建一个星期的记录 */
+    private static final String UPDATE_OLD_PERSON_SERVEN_DAY="insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE()+?)";
+
+    public boolean createTable2(Integer day)
+    {
+        WorkerDaoImpl p = (WorkerDaoImpl)DaoFactory.getWorkerDao();
+        QueryRunner queryRunner = p.getQueryRunner();
+        List<Worker> arr = p.getAllWorkerList();
+
+        int cnt = arr.size();
+        Object[][] obj = new Object[cnt][];
+        //工人的 key
+        for(int i=1;i<=cnt;++i)
+        {
+            obj[i-1] = new Object[2];
+            obj[i-1][0] = arr.get(i-1).getwKey();
+            obj[i-1][1] = day;
+        }
+
+
+        boolean b = true;
+        try {
+            queryRunner.batch(JdbcUtil.getConnection(),UPDATE_OLD_PERSON_SERVEN_DAY,obj);
+            // queryRunner.batch
+        } catch (SQLException e) {
+            b = false;
+            logger.error("严重错误，更新日程表失败");
+            e.printStackTrace();
+        }
+
+        return b;
+    }
+
+    /**
+     * 创建一个星期的工人表
+     */
+    public void preCreateTable()
+    {
+        for(int i=1;i<=7;++i)
+        {
+            createTable2(i);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

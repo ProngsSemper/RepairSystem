@@ -1,11 +1,17 @@
 import com.repairsys.bean.entity.WTime;
+import com.repairsys.bean.entity.Worker;
+import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.TableListDao;
 import com.repairsys.dao.impl.agenda.TableDaoImpl;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
+import com.repairsys.util.db.JdbcUtil;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.junit.Test;
 
+import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,6 +27,8 @@ public class UpDateProcedureTest {
         boolean b = dao.updateTable();
         System.out.println(b);
     }
+
+
 
     @Test
     public void loggerCleanBefore()
@@ -61,6 +69,35 @@ public class UpDateProcedureTest {
     {
         List list = WorkerScheule.getInstance().recommendByAppointment(10,"木");
         System.out.println(list);
+    }
+    /**
+     *
+     * @date 2019/10/15
+     * */
+
+    @Test
+    public void createWorkerTimeTable()
+    {
+        WorkerScheule p = WorkerScheule.getInstance();
+        for(int i=-1;i<=6;++i)
+        {
+            p.createTable2(i);
+        }
+    }
+
+    @Test
+    public void testAlgoMethod()
+    {
+        WorkerScheule p = WorkerScheule.getInstance();
+        p.algoMethod2();
+    }
+
+
+
+    @Test
+    public void testMoveTableInformation() throws SQLException {
+        List<java.sql.Date> res = JdbcUtil.getDateList("select min(`day`) FROM tes union select max(`day`) from tes");
+        System.out.println(res.isEmpty()||res.get(0)==null);
     }
 
 
