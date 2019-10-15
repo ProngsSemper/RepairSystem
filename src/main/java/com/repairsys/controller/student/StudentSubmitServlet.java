@@ -31,7 +31,7 @@ public class StudentSubmitServlet extends BaseServlet {
 
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String photoId = requestBody.getString("photoId");
-        if (photoId==null){
+        if (photoId == null) {
             photoId = "";
         }
         Result res = ServiceFactory.getStudentService().applyForm(
@@ -46,7 +46,8 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("stuPhone"),
                 requestBody.getString("wType"),
                 requestBody.getInteger("appointment"),
-                requestBody.getString("appointDate")
+                requestBody.getString("appointDate"),
+                "B"
         );
         request.setAttribute("result", res);
         super.doPost(request, response);

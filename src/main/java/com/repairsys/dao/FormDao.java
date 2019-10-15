@@ -226,7 +226,6 @@ public interface FormDao {
      */
     int getCountByWorkerKey(String wkey);
 
-
     /**
      * 用户申请表单提交
      *
@@ -236,9 +235,16 @@ public interface FormDao {
      * @param formDate 表单日期
      * @param formMail 用户的邮箱账号
      * @param photoId  用户发送的照片在服务器的地址存储路径
-     * @param room 宿舍房间号，维修地址
+     * @param room     宿舍房间号，维修地址
      * @return 布尔值
      */
-    Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId,String room);
+    Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId, String room);
 
+    /**
+     * 根据报修单id提高其优先级
+     *
+     * @param formId 报修单id
+     * @return 布尔值
+     */
+    Boolean boostLevel(int formId);
 }

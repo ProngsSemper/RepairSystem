@@ -4,43 +4,39 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.service.impl.student.StudentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author lyr
- * @create 2019/10/6 14:24
- * <p>
- * 这里有个小坑，如果用 postman的话，你需要加一个来伪造
+ * @author Prongs
+ * @date 2019/10/15 18:25
  */
-@WebServlet("/student/history/form")
-public class StudentHistoryServlet extends BaseServlet {
+@WebServlet("/student/undone/form")
+public class GetUndoneFormServlet extends BaseServlet {
+    private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
+    private static final Logger logger = LoggerFactory.getLogger(GetUndoneFormServlet.class);
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String id;
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        id = requestBody.getString("stuId");
-
-        Result result;
-        if (id != null && id.length() >= 9) {
-            //尽量加多点约束，我们学校真实的学号长度>=9 的，
-            AdminServiceImpl handler = ServiceFactory.getAdminService();
-            result = handler.getAllFormByStudentId(id, requestBody.getInteger("page"), requestBody.getInteger("limit")
-            );
-            request.setAttribute("result", result);
-
+        Result result = studentService.getUndoneForm(requestBody.getString("stuId"),
+                requestBody.getInteger("page"),
+                requestBody.getInteger("limit"));
+        int flag = 200;
+        if (result.getCode() == flag) {
+            logger.debug("查询成功{}", result);
+        } else {
+            logger.debug("查询失败{}", result);
         }
-        System.out.println("发送");
+        request.setAttribute("result", result);
         super.doPost(request, response);
-
     }
 
     @Override

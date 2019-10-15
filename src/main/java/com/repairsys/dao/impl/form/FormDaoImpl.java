@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final Logger logger = LoggerFactory.getLogger(FormDaoImpl.class);
+    private final Connection connection = JdbcUtil.getConnection();
     /**
      * 查询表单的 id号
      */
@@ -31,7 +32,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 申请维修
      */
-    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId,room,stuName,stuPhone,wType,appointment,appointDate)values(?,?,?,?,?,?,?,?,?,?,?,DATE_FORMAT('2019-'?,'%Y-%m-%d'))";
+    private static final String APPLY_FORM = "INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId,room,stuName,stuPhone,wType,appointment,appointDate,level)values(?,?,?,?,?,?,?,?,?,?,?,DATE_FORMAT('2019-'?,'%Y-%m-%d'),?)";
     /**
      * 申请维修
      */
@@ -83,6 +84,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
+    private static final String BOOST_LEVEL="update form set level=\"A\" where formId = ?";
 
     String INSERT_FORM =
             "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey,room)values(?,?,?,?,?,?,?,?,?)";
@@ -105,7 +107,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryByFormId(String formId) {
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
 
         return super.selectList(conn, QUERY_BY_FORMID, formId);
     }
@@ -118,7 +120,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryOldByFormId(String formId) {
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
 
         return super.selectList(conn, QUERY_BY_FORMID_OLD, formId);
     }
@@ -157,7 +159,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public List<Form> queryByStudentId(String stuId) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         String finalSql = QUERY_BY_STUDENTID + stuId + "%'";
         return super.selectList(conn, finalSql);
     }
@@ -170,7 +172,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryOldByStudentId(String stuId) {
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         String finalSql = QUERY_BY_STUDENTID_OLD + stuId + "%'";
         return super.selectList(conn, finalSql);
     }
@@ -186,7 +188,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         assert status >= 0 && status <= 3;
         String sql = "select * from form where queryCode = ?";
 
-        return super.selectList(JdbcUtil.getConnection(), sql, status);
+        return super.selectList(connection, sql, status);
     }
 
     /**
@@ -200,7 +202,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(Object... args) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         return super.addOne(conn, APPLY_FORM, args);
 
     }
@@ -219,7 +221,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(String stuId, int code, String formMsg, Date formDate, String stuMail, String photoId) {
         //INSERT INTO FORM (stuId,queryCode,formMsg,formDate,stuMail,photoId)";
-        return super.addOne(JdbcUtil.getConnection(), APPLY_FORM_DEFAULT, stuId, code, formMsg, formDate, stuMail, photoId);
+        return super.addOne(connection, APPLY_FORM_DEFAULT, stuId, code, formMsg, formDate, stuMail, photoId);
     }
 
     /**
@@ -265,7 +267,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         String patchDelete = "delete from " + tableName + " where " + " queryCode >= 2 and  and date_sub(CURDATE(),interval 30 day)  >= CURDATE()";
         logger.info(patchDelete);
 
-        boolean b = super.deleteOne(JdbcUtil.getConnection(), patchDelete);
+        boolean b = super.deleteOne(connection, patchDelete);
         return b;
     }
 
@@ -275,11 +277,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean moveTo() {
-        boolean b = super.updateOne(JdbcUtil.getConnection(), QUERY_MORE_THAN_DAY7);
+        boolean b = super.updateOne(connection, QUERY_MORE_THAN_DAY7);
         if (!b) {
             return false;
         }
-        return super.deleteOne(JdbcUtil.getConnection(), DELETE_FORM_DAY_OVER7);
+        return super.deleteOne(connection, DELETE_FORM_DAY_OVER7);
     }
 
     /**
@@ -303,7 +305,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setAdminKey(String adminKey, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(), SET_ADMIN_KEY, adminKey, formId);
+        return super.updateOne(connection, SET_ADMIN_KEY, adminKey, formId);
     }
 
     /**
@@ -315,7 +317,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setwKey(String workerKey, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(), SET_WORKER_KEY, workerKey, formId);
+        return super.updateOne(connection, SET_WORKER_KEY, workerKey, formId);
     }
 
     /**
@@ -327,7 +329,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setPhotoId(String id, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(), SET_PHOTO_KEY, id, formId);
+        return super.updateOne(connection, SET_PHOTO_KEY, id, formId);
     }
 
     /**
@@ -339,7 +341,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setEndDate(Date date, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(), SET_FINISH_DAY, date, formId);
+        return super.updateOne(connection, SET_FINISH_DAY, date, formId);
     }
 
     /**
@@ -351,7 +353,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean setQueryCode(int code, String formId) {
-        return super.updateOne(JdbcUtil.getConnection(), SET_FINISHED_WORK, code, formId);
+        return super.updateOne(connection, SET_FINISHED_WORK, code, formId);
     }
 
     /**
@@ -367,7 +369,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public Boolean updateForm(String formId, Date endDate, int queryCode, int adminKey, int wKey) {
-        return super.updateOne(JdbcUtil.getConnection(), UPDATE_INFORMATION, endDate, queryCode, adminKey, wKey, formId);
+        return super.updateOne(connection, UPDATE_INFORMATION, endDate, queryCode, adminKey, wKey, formId);
     }
 
     /**
@@ -389,8 +391,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> getListByWorkerId(String workerKey) {
-        List<Form> list1 = super.selectList(JdbcUtil.getConnection(), QUERY_FORM_BY_WKEY, workerKey);
-        List<Form> list2 = super.selectList(JdbcUtil.getConnection(), QUERY_OLDFORM_BY_WKEY, workerKey);
+        List<Form> list1 = super.selectList(connection, QUERY_FORM_BY_WKEY, workerKey);
+        List<Form> list2 = super.selectList(connection, QUERY_OLDFORM_BY_WKEY, workerKey);
         list1.addAll(list2);
         return list1;
     }
@@ -404,7 +406,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public int getTotalCount() {
         String sql = "select count(*) from form";
-        return super.getCount(JdbcUtil.getConnection(), sql);
+        return super.getCount(connection, sql);
     }
 
     /**
@@ -415,7 +417,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public int getTotalCount(int queryCode) {
-        return super.getCount(JdbcUtil.getConnection(), QUERY_FORM_CODE, queryCode);
+        return super.getCount(connection, QUERY_FORM_CODE, queryCode);
     }
 
     /**
@@ -433,7 +435,12 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId, String room) {
 
-        return super.updateOne(JdbcUtil.getConnection(), INSERT_FORM, stuId, code, formMsg, formDate, formMail, photoId, room);
+        return super.updateOne(connection, INSERT_FORM, stuId, code, formMsg, formDate, formMail, photoId, room);
+    }
+
+    @Override
+    public Boolean boostLevel(int formId) {
+        return super.updateOne(connection,BOOST_LEVEL,formId);
     }
 
 }

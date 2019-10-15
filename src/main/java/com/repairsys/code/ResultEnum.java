@@ -53,7 +53,7 @@ public enum ResultEnum {
      */
     SUBMITTED_SUCCESSFULLY(201, "报修单提交成功"),
 
-    SUBMITTED_FAILED(400,"报修单提交失败"),
+    SUBMITTED_FAILED(400, "报修单提交失败"),
     /**
      * 修改报修单状态成功
      */
@@ -62,6 +62,14 @@ public enum ResultEnum {
      * 修改报修单状态失败
      */
     UPDATE_QUERYCODE_FAILED(400, "修改报修单状态失败"),
+    /**
+     * 修改优先级成功
+     */
+    BOOST_SUCCESSFULLY(201, "修改优先级成功"),
+    /**
+     * 修改优先级失败
+     */
+    BOOST_FAILED(400, "修改优先级失败"),
     /**
      * @author lyr
      * @date 2019/9/29

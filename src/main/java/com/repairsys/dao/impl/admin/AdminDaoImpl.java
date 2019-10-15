@@ -28,6 +28,7 @@ import java.util.List;
  */
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Admin> {
     private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
+    private final Connection connection = JdbcUtil.getConnection();
 
     private static final AdminDaoImpl ADMIN_DAO;
 
@@ -59,7 +60,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public Admin getById(String id) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         return super.selectOne(conn, QUERY_ONE);
     }
 
@@ -71,7 +72,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> getAdminInfoList() {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         return super.selectList(conn, QUERY_ALL_ADMIN);
     }
 
@@ -84,7 +85,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public Admin login(String id, String password) {
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         String pwd = StringUtils.getStringMd5(password);
         logger.info(id + pwd);
         return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
@@ -132,7 +133,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public boolean register(Object... args) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
 
         boolean b = super.addOne(conn, REGISTER, args);
 
@@ -180,7 +181,6 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
 
     @Override
     public void releaseBoard(String board, Timestamp releaseDate) {
-        Connection connection = JdbcUtil.getConnection();
         super.updateOne(connection, UPDATE_BOARD);
         super.addOne(connection, RELEASE_BOARD, board, releaseDate);
     }
@@ -222,7 +222,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> selectPageList(int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
-        return super.selectList(JdbcUtil.getConnection(), QUERY_ADMIN_LIST, ans[0], ans[1]);
+        return super.selectList(connection, QUERY_ADMIN_LIST, ans[0], ans[1]);
     }
 
     /**
@@ -232,7 +232,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public int selectPageCount() {
-        return super.getCount(JdbcUtil.getConnection(), QUERY_ADMIN_LIST_COUNT);
+        return super.getCount(connection, QUERY_ADMIN_LIST_COUNT);
     }
 
     /**
@@ -274,28 +274,28 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     public int getAllCountByWorkerName(String wName) {
         String cntSql = "select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
 
-        return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("rep", wName));
+        return super.getCount(connection, cntSql.replaceAll("rep", wName));
 
     }
 
     @Override
     public int getAllIncompleteCountByAdminKey() {
         String cntSql = "SELECT COUNT(*) FROM form WHERE queryCode=0";
-        return super.getCount(JdbcUtil.getConnection(), cntSql);
+        return super.getCount(connection, cntSql);
 
     }
 
     @Override
     public int getAllCompleteCountByAdminKey() {
         String cntSql = "SELECT COUNT(*) FROM form WHERE queryCode !=0";
-        return super.getCount(JdbcUtil.getConnection(), cntSql);
+        return super.getCount(connection, cntSql);
 
     }
 
     @Override
     public int getAllCountByWorkerType(String wType) {
         String cntSql = "select (select count(*) as i from form f where f.wType in (select w.wType from workers w where w.wType = ?))+( select count(*) as j from oldform o where o.wType in (select w.wType from workers w where w.wType = ?)) as total";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, wType, wType);
+        return super.getCount(connection, cntSql, wType, wType);
 
     }
 
