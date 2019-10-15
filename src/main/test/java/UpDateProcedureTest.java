@@ -175,6 +175,28 @@ public class UpDateProcedureTest {
     }
 
 
+    @Test
+    public void playThread()
+    {
+        Thread p = new Thread(()->{
+
+            while (true)
+            {
+                System.out.println(1123);
+                try {
+                    Thread.sleep(7);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(1);
+            }
+        });
+        p.setDaemon(true);
+        p.start();
+
+    }
+
+
 
 
 

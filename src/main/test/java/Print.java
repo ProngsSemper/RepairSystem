@@ -9,6 +9,8 @@ import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +22,9 @@ import java.util.List;
 public class Print {
     @Test
     public void printSome() {
-        System.out.println("hello");
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.getTime());
+        System.out.println("更新数据库时间："+c.get(Calendar.YEAR)+"-"+(1+c.get(Calendar.MONTH))+"-"+c.get(Calendar.DATE)+" " +c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":" +c.get(Calendar.SECOND));
 
     }
 

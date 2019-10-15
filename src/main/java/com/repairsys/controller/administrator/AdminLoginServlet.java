@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.util.net.Postman;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +33,22 @@ public class AdminLoginServlet extends BaseServlet {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = adminService.login(requestBody.getString("id"),
+        Result<Boolean> result = adminService.login(requestBody.getString("id"),
                 requestBody.getString("password"),
                 session);
         logger.debug("管理员登录信息{}", result);
         request.setAttribute("result", result);
         response.addCookie(new Cookie("identity","admin"));
         response.addHeader("identity","admin");
+
+        //自动更新服务器,提醒服务器更新数据库
+        if(result.getData())
+        {
+            logger.info("尝试发送请求给 clockServer");
+            Postman.call(request);
+        }
+
+
         super.doPost(request, response);
     }
 
