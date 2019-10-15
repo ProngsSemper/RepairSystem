@@ -2,18 +2,17 @@ package com.repairsys.dao.impl.agenda;
 
 import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
-import com.repairsys.dao.BaseDao;
+
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
+
 import com.repairsys.util.db.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.swing.StringUIClientPropertyKey;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.*;
@@ -24,7 +23,7 @@ import java.util.*;
  */
 public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static Logger logger = LoggerFactory.getLogger(WorkerScheule.class);
-
+    private final Connection connection = JdbcUtil.getConnection();
     private static final String UPDATE_BEGIN= "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
     private static final String DELETE_AFTER = "delete from wTime where `curTime` <> CURDATE()";
     private static final String GET_COUNT_OLD = "select count(*) from wTime where `curTime` <> CURDATE()";
@@ -39,6 +38,16 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static final WorkerScheule WORKER_SCHEULE_DAO = new WorkerScheule();
 
     private WorkerScheule() {
+    }
+
+    /**
+     * 清理表中的垃圾并更新
+     *
+     * @return 返回是否成功
+     */
+    @Override
+    public boolean cleanAndUpdateTable() {
+        return false;
     }
 
     public static WorkerScheule getInstance()
@@ -69,7 +78,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         boolean b = true;
         try {
-            queryRunner.batch(JdbcUtil.getConnection(),UPDATE_BEGIN,obj);
+            queryRunner.batch(connection,UPDATE_BEGIN,obj);
             // queryRunner.batch
         } catch (SQLException e) {
             b = false;
@@ -92,7 +101,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         QueryRunner queryRunner = p.getQueryRunner();
         boolean b = true;
         try {
-            queryRunner.update(JdbcUtil.getConnection(),DELETE_AFTER);
+            queryRunner.update(connection,DELETE_AFTER);
         } catch (SQLException e) {
             b = false;
             logger.error("严重错误，删除无用信息失败");
@@ -112,7 +121,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     @Override
     public boolean updateAll() {
 
-        int cnt = super.getCount(JdbcUtil.getConnection(),GET_COUNT_OLD);
+        int cnt = super.getCount(connection,GET_COUNT_OLD);
         /*
         *
         * 这里是这样的，如果数据库表中发现了有不是当天时间的记录，那么就更新，返回true，更新成功，如果没发现不是当天的记录，说明更新过了，直接返回false
@@ -235,7 +244,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * */
     public boolean updateAll2()
     {
-        int cnt = super.getCount(JdbcUtil.getConnection(),"select count(*) from wTime where `curTime` = CURDATE()-1");
+        int cnt = super.getCount(connection,"select count(*) from wTime where `curTime` = CURDATE()-1");
         if(cnt<=0)
         {
             return false;
@@ -269,7 +278,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         boolean b = true;
         try {
-            queryRunner.batch(JdbcUtil.getConnection(),UPDATE_OLD_PERSON_SERVEN_DAY,obj);
+            queryRunner.batch(connection,UPDATE_OLD_PERSON_SERVEN_DAY,obj);
             // queryRunner.batch
         } catch (SQLException e) {
             b = false;
