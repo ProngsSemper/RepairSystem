@@ -95,7 +95,7 @@ public final class Postman {
     {
 
         String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
-        logger.error("内部发送请求"+basePath);
+        logger.debug("内部发送请求"+basePath);
 
         HttpGet getHandler = new HttpGet(basePath + "/server/clock");
 
