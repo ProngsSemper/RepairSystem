@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,8 @@ public class GetUndoneFormServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        Result result = studentService.getUndoneForm(requestBody.getString("stuId"),
+        String stuId = CookieUtil.getCookie("stuId", request);
+        Result result = studentService.getUndoneForm(stuId,
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;

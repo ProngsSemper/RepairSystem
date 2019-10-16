@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +27,8 @@ public class WorkerIncompleteFormServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        Result result = workerService.getIncompleteForm(requestBody.getString("wId"),
+        String workerId = CookieUtil.getCookie("workerId",request);
+        Result result = workerService.getIncompleteForm(workerId,
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;
