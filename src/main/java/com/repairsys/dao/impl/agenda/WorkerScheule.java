@@ -28,6 +28,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static final String UPDATE_BEGIN= "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
     private static final String DELETE_AFTER = "delete from wTime where `curTime` <> CURDATE()";
     private static final String GET_COUNT_OLD = "select count(*) from wTime where `curTime` <> CURDATE()";
+    private static List<Worker> workerList = null;
 
 
 
@@ -61,7 +62,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             //这里就要判断 时间段了  [l,r] 和 m时间点的关系
             // m==l时，不更新， l<m<r 时
             java.sql.Date nowDay = new java.sql.Date(System.currentTimeMillis());
-            if(nowDay.toString().equals(dayList.get(0)))
+            if(nowDay.toString().equals(dayList.get(0).toString()))
             {
                 return true;
             }
@@ -95,6 +96,9 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
                 int dt1 = nowDay.compareTo(dayList.get(0));
                 if(dt1>0)
                 {
+
+
+                    createTable2(7);
                     //由于之前清理表了，不可能小于0，而由于compareTo方法有比较毫秒，也不可能等于0
                     algoMethod2();
                     super.updateOne(connection,DELETE_BEFORE);
@@ -276,7 +280,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         {
             return new LinkedList<>();
         }
-        String tSql = "select wKey from wTime where t"+hour+" <1 and curTime = ?";
+        String tSql = "select wKey from wTime where t"+hour+" =0 and curTime = ?";
 
         String recommendSql = "select * from workers w where wType = '其他' || wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
         System.out.println(recommendSql);
@@ -323,6 +327,36 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         QueryRunner queryRunner = p.getQueryRunner();
         List<Worker> arr = p.getAllWorkerList();
 
+        if(WorkerScheule.workerList==null)
+        {
+            WorkerScheule.workerList=arr;
+        }else {
+            LinkedList<Integer> diffSet = new LinkedList<>();
+            arr.stream().forEach(
+                    (Worker w)->
+                    {
+                        if(!WorkerScheule.workerList.contains(w))
+                        {
+                            diffSet.add(w.getwKey());
+                        }
+                    }
+            );
+            if(!diffSet.isEmpty())
+            {
+                //TODO: 还没完成
+                for(int i:diffSet)
+                {
+                    for(int j=0;j<=6;++j)
+                    {
+                        updateAndInsert(i,j);
+                    }
+                }
+                WorkerScheule.workerList = arr;
+            }
+
+        }
+
+
         int cnt = arr.size();
         Object[][] obj = new Object[cnt][];
         //工人的 key
@@ -360,14 +394,11 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     }
 
 
-
-
-
-
-
-
-
-
+    private static final String INSERT_NEW_WORKER_TABLE = "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE()+?)";
+    private void updateAndInsert(int key,int day)
+    {
+        super.updateOne(connection,INSERT_NEW_WORKER_TABLE,key,day);
+    }
 
 
 

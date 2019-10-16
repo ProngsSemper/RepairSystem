@@ -1,6 +1,7 @@
 package com.repairsys.bean.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @Author lyr
@@ -138,5 +139,24 @@ public class Worker implements Serializable, Comparable<Worker> {
     @Override
     public int compareTo(Worker o) {
         return o.wKey - this.wKey;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Worker worker = (Worker) o;
+        return worker.getwKey()==((Worker) o).getwKey();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(wKey);
     }
 }

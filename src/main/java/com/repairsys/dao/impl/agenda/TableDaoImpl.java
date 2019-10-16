@@ -152,6 +152,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
      */
     public void algoMethod2()
     {
+
         //把昨天的数据库记录查出来
         List<WTime> arr = super.selectList(connection, GET_YESTERDAY_RECORD_WORKERS);
         //把今天的数据库记录查出来
