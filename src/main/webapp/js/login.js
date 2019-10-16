@@ -101,36 +101,35 @@ $(document).ready(function () {
                         alert('登录成功');
                         var my_id = $('#id').val();
                         var my_password = $('#password').val();
+                        if (identity === 'student') {
+                            addcookie("stuId", my_id, 7);
+                        } else if (identity === 'admin') {
+                            addcookie("adminId", my_id, 1825);
+                        } else if (identity === 'worker') {
+                            addcookie("workerId", my_id, 1825);
+                        }
                         var rem = $('#remember2').is(':checked');
                         if (rem) {
                             alert("记住密码");
                             if (identity === 'student') {
-                                addcookie("stuId", my_id, 7);
                                 addcookie("stuPassword", my_password, 7);
                                 window.setTimeout("window.location.href='/firstPage.html'", 500);
                             } else if (identity === 'admin') {
-                                addcookie("adminId", my_id, 1825);
                                 addcookie("adminPassword", my_password, 1825);
                                 window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
                             } else if (identity === 'worker') {
-                                addcookie("workerId", my_id, 1825);
                                 addcookie("workerPassword", my_password, 1825);
                                 window.setTimeout("window.location.href='/welcome.html'", 500);
                             }
-                        }else {
-                            if(identity=='student')
-                            {
+                        } else {
+                            if (identity == 'student') {
                                 window.setTimeout("window.location.href='/firstPage.html'", 1000);
-                            }else if(identity=='admin')
-                            {
+                            } else if (identity == 'admin') {
                                 window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
-                            }else if(identity=='worker')
-                            {
+                            } else if (identity == 'worker') {
                                 window.setTimeout("window.location.href='/welcome.html'", 1000);
                             }
                         }
-
-
 
 
                     } else {
