@@ -168,7 +168,7 @@ public class AdminServiceImpl implements AdminService {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllCountByStudentId(stuId);
+        int cnt = formListDao.getOldCountByStudentId(stuId);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
