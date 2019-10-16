@@ -27,6 +27,7 @@ import java.io.IOException;
 public class AdminLoginServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
+    private boolean clockRunning = false;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,8 +45,19 @@ public class AdminLoginServlet extends BaseServlet {
         //自动更新服务器,提醒服务器更新数据库
         if(result.getData())
         {
-            logger.info("尝试发送请求给 clockServer");
-            Postman.call(request);
+            if(!this.clockRunning)
+            {
+                synchronized (this)
+                {
+                    if(!this.clockRunning)
+                    {
+                        logger.info("尝试发送请求给 clockServer");
+                        Postman.call(request);
+                        this.clockRunning = true;
+                    }
+
+                }
+            }
         }
 
 
