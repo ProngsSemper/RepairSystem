@@ -110,7 +110,7 @@ $(document).ready(function () {
                         }
                         var rem = $('#remember2').is(':checked');
                         if (rem) {
-                            alert("记住密码");
+                            // alert("记住密码");
                             if (identity === 'student') {
                                 addcookie("stuPassword", my_password, 7);
                                 window.setTimeout("window.location.href='/firstPage.html'", 500);
