@@ -87,6 +87,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String QUERY_FORM_BY_WKEY = "select * from form where wKey = ?";
     private static final String QUERY_OLDFORM_BY_WKEY = "select * from oldform where wKey = ?";
     private static final String BOOST_LEVEL="update form set level=\"A\" where formId = ?";
+    private static final String RESET_QUERYCODE = "update form set queryCode = 0 where formId = ?";
     private static final String STUDENT_CONFIRM="INSERT INTO oldform SELECT * FROM `form` WHERE formId=?";
     private static final String DELETE_STUDENT_CONFIRM="DELETE FROM form WHERE formId=?";
 
@@ -444,6 +445,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean boostLevel(int formId) {
+        super.updateOne(connection,RESET_QUERYCODE,formId);
         return super.updateOne(connection,BOOST_LEVEL,formId);
     }
 
