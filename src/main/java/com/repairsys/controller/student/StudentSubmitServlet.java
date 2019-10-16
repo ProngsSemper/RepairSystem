@@ -27,7 +27,7 @@ public class StudentSubmitServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("收到申请表单请求");
-        logger.debug("学生登录 ");
+        logger.debug("去你麻痹 ");
 
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String photoId = requestBody.getString("photoId");
@@ -46,7 +46,7 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("stuPhone"),
                 requestBody.getString("wType"),
                 requestBody.getInteger("appointment"),
-                requestBody.getString("appointDate"),
+                requestBody.getSqlDate("appointDate").toString(),
                 "B"
         );
         int flag = 201;

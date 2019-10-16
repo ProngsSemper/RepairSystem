@@ -20,6 +20,7 @@ var stuMail = document.getElementsByClassName("repair-information")[3];
 var formMsg = document.getElementsByClassName("textareaStyle")[0];
 var photoId = "";
 var a = new Date();
+var y = a.getFullYear();
 var day = a.getDate();
 var months = a.getMonth() + 1;
 // var year=a.getFullYear();
@@ -49,17 +50,17 @@ $("#days").append('<option value=' + (day + 4) + '>' + (day + 4) + '日' + '</op
 $("#days").append('<option value=' + (day + 5) + '>' + (day + 5) + '日' + '</option>');
 $("#days").append('<option value=' + (day + 6) + '>' + (day + 6) + '日' + '</option>');
 
-// (function creatday(day){
-//     for(var i=day;i<=day+7;i++){
-//         $("#days").append('<option value='+day+'>'+day+'日'+'</option>');
-//     }
-// },day);
-// var creatday=(function(i){
 
-// },i)
 var button = $(".handin-tit");
 $("body").delegate(".handin-tit", "click", function () {
     judege = confirm("确认提交");
+    //不验证无法发送成功
+    var b = address.value&&stuId.value&&stuName.value&&stuPhone.value&&stuMail.value&&formMsg.value&&wType.value&&times.value&&days.value&&month.value&&domiNumber.value&&buliding.value;
+    if(b)
+    {
+        alert("请填写完整且正确的表单信息");
+        return;
+    }
     if (judege) {
         $.ajax({
             type: "POST",
@@ -75,11 +76,12 @@ $("body").delegate(".handin-tit", "click", function () {
                 "wType": wType,
                 "room": adress.value + buliding.value + domiNumber.value,
                 "appointment": parseInt(times.value),
-                "appointDate": month.value + '-' + days.value,
+                "appointDate": new Date().getFullYear()+"-"+month.value + '-' + days.value,
             }),
             success: function (msg) {
                 if (msg.code == 201) {
                     alert("报修单提交成功");
+                    alert(new Date().getFullYear());
                     location.reload();
                 }
             },
