@@ -32,7 +32,7 @@ public class StudentSubmitServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String photoId = requestBody.getString("photoId");
         if (photoId == null) {
-            photoId = "";
+            photoId = " -1 ";
         }
         Result res = ServiceFactory.getStudentService().applyForm(
                 requestBody.getString("stuId"),
@@ -46,7 +46,7 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("stuPhone"),
                 requestBody.getString("wType"),
                 requestBody.getInteger("appointment"),
-                requestBody.getSqlDate("appointDate").toString(),
+                requestBody.getString("appointDate"),
                 "B"
         );
         int flag = 201;
@@ -55,6 +55,7 @@ public class StudentSubmitServlet extends BaseServlet {
         } else {
             logger.debug("提交失败{}", res);
         }
+        System.out.println(123);
         request.setAttribute("result", res);
         super.doPost(request, response);
 
