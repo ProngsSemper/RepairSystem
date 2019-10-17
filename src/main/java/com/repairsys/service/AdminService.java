@@ -133,4 +133,14 @@ public interface AdminService {
      */
     Result<Boolean> deleteOne(int formId);
 
+    /**
+     * 传入工人key和报修单id将某报修单变为已安排工人状态
+     * 并记录是哪个管理员进行的操作
+     *
+     * @param wKey     工人 key
+     * @param adminId 管理员key
+     * @param formId   报修单id
+     * @return 返回相应状态码
+     */
+    Result<Boolean> arrange(int wKey, String adminId, int formId);
 }

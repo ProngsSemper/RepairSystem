@@ -132,4 +132,5 @@ public interface AdminDao {
      */
     int getAllCompleteCountByAdminKey();
 
+    Admin queryKey(String adminId);
 }
