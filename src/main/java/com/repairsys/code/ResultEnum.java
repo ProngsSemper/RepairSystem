@@ -86,6 +86,14 @@ public enum ResultEnum {
      */
     CONFIRM_FAILED(400, "确认失败"),
     /**
+     * 确认成功
+     */
+    DELETE_SUCCESSFULLY(201, "删除成功"),
+    /**
+     * 确认失败
+     */
+    DELETE_FAILED(400, "删除失败"),
+    /**
      * @author lyr
      * @date 2019/9/29
      * 插入信息成功

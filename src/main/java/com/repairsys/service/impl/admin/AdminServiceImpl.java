@@ -326,6 +326,16 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
+    public Result<Boolean> deleteOne(int formId){
+        Result<Boolean> result = new Result<>();
+        if (formDao.delete(formId)) {
+            result.setData(true);
+            return result.setResult(ResultEnum.DELETE_SUCCESSFULLY);
+        }
+        result.setData(false);
+        return result.setResult(ResultEnum.DELETE_FAILED);
+    }
 
     public AdminServiceImpl() {
     }

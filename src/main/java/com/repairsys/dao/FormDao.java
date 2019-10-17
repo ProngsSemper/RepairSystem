@@ -256,4 +256,12 @@ public interface FormDao {
      * @return 布尔值
      */
     Boolean studentConfirm(int formId);
+
+    /**
+     * 根据报修单Id删除对应报修单
+     *
+     * @param formId 报修单id
+     * @return 返回布尔值
+     */
+    Boolean delete(int formId);
 }

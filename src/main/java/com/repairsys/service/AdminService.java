@@ -110,8 +110,8 @@ public interface AdminService {
     /**
      * 查询管理员未处理表单
      *
-     * @param page    当前页
-     * @param limit   每页最多显示多少条数据
+     * @param page  当前页
+     * @param limit 每页最多显示多少条数据
      * @return 返回相应状态码
      */
     Result getIncompleteForm(int page, int limit);
@@ -119,10 +119,18 @@ public interface AdminService {
     /**
      * 查询管理员已处理报修单
      *
-     * @param page    当前页
-     * @param limit   页面大小
+     * @param page  当前页
+     * @param limit 页面大小
      * @return 返回相应状态码
      */
     Result getCompleteForm(int page, int limit);
+
+    /**
+     * 根据报修单Id删除对应报修单
+     *
+     * @param formId 报修单id
+     * @return 返回相应状态码
+     */
+    Result<Boolean> deleteOne(int formId);
 
 }
