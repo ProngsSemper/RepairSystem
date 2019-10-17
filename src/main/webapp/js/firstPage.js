@@ -70,9 +70,10 @@ $(document).ready(function () {
         {
             alert("您已经提交过了，不用再点击");
         }
+        ++commitedCount;
         if(commited)
         {
-            ++commitedCount;
+
             return;
         }
         if (judege) {
