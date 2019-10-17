@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -29,6 +30,7 @@ public class WorkerServiceImpl implements WorkerService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerServiceImpl.class);
     private WorkerDao workerDao = DaoFactory.getWorkerDao();
     private FormDao formDao = DaoFactory.getFormDao();
+    private WorkerScheule workerScheule = WorkerScheule.getInstance();
 
     @Override
     public Result<Boolean> login(String wId, String password, HttpSession session) {
@@ -186,6 +188,32 @@ public class WorkerServiceImpl implements WorkerService {
         logger.debug("---------------");
         return res;
 
+    }
+
+    /**
+     * 查询满足条件的工人要求
+     *
+     * @param date       预约的那天
+     * @param hour       预约的整点小时
+     * @param workerType 工人类型
+     * @return 返回推荐的工人的表单集合
+     * @date 2019/10/17
+     */
+    @Override
+    public Result<List<Worker>> getSuitableWorkerList(Date date, int hour, String workerType) {
+
+        Result<List<Worker>> ans = new Result<>();
+
+        List<Worker> res = workerScheule.recommendByAppintment(date, hour, workerType);
+        ans.setData(res);
+        if(res.isEmpty()||res.get(0)==null)
+        {
+            ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        }else{
+            ans.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        return ans;
     }
 
     public WorkerServiceImpl() {

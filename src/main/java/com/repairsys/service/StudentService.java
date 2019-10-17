@@ -84,4 +84,6 @@ public interface StudentService {
      * @return 布尔值
      */
     Result<Boolean> confirm(int formId);
+
+    Result<Boolean> getSuitable();
 }

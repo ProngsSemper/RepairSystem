@@ -5,10 +5,11 @@ import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
 import java.util.List;
 
 /**
- * @author Prongs
+ * @author Prongs ,lyr
  * @date 2019/9/29 15:57
  */
 public interface WorkerService {
@@ -68,5 +69,17 @@ public interface WorkerService {
      * @return 返回相应状态码
      */
     Result getIncompleteForm(String wId, int page, int limit);
+
+
+    /**
+     * 查询满足条件的工人要求
+     * @date 2019/10/17
+     * @param date 预约的那天
+     * @param hour  预约的整点小时
+     * @param workerType  工人类型
+     * @return 返回推荐的工人的表单集合
+     */
+    Result<List<Worker>> getSuitableWorkerList(Date date,int hour ,String workerType);
+
 
 }

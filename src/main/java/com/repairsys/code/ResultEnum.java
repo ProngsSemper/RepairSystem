@@ -25,6 +25,12 @@ public enum ResultEnum {
     LOGIN_SUCCESS(200, "登录成功/服务器成功返回数据"),
 
     /**
+     *
+     * 查询成功
+     * */
+    QUERY_SUCESS(201,"查询成功"),
+
+    /**
      * 用户名或密码不能为空
      */
     USERNAME_PASSWORD_EMPTY(402, "用户名或密码不能为空"),
