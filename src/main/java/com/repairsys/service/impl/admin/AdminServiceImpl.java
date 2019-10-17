@@ -144,8 +144,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     * @param page      当前页面
-     * @param limit     设置限制条数
+     * @param page        当前页面
+     * @param limit       设置限制条数
      * @param studentName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
@@ -326,6 +326,28 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
+    public Result<Boolean> deleteOne(int formId) {
+        Result<Boolean> result = new Result<>();
+        if (formDao.delete(formId)) {
+            result.setData(true);
+            return result.setResult(ResultEnum.DELETE_SUCCESSFULLY);
+        }
+        result.setData(false);
+        return result.setResult(ResultEnum.DELETE_FAILED);
+    }
+
+    @Override
+    public Result<Boolean> arrange(int wKey, String adminId, int formId) {
+        Result<Boolean> result = new Result<>();
+        int adminKey = adminDao.queryKey(adminId).getAdminKey();
+        if (formDao.arrange(wKey, adminKey, formId)) {
+            result.setData(true);
+            return result.setResult(ResultEnum.UPDATE_QUERYCODE_SUCCESSFULLY);
+        }
+        result.setData(false);
+        return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+    }
 
     public AdminServiceImpl() {
     }
