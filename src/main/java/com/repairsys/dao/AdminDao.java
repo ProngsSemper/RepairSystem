@@ -132,4 +132,11 @@ public interface AdminDao {
      */
     int getAllCompleteCountByAdminKey();
 
+    /**
+     * 根据管理员id查管理员key
+     *
+     * @param adminId 管理员id
+     * @return 管理员对象
+     */
+    Admin queryKey(String adminId);
 }

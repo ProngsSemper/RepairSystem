@@ -256,4 +256,23 @@ public interface FormDao {
      * @return 布尔值
      */
     Boolean studentConfirm(int formId);
+
+    /**
+     * 根据报修单Id删除对应报修单
+     *
+     * @param formId 报修单id
+     * @return 返回布尔值
+     */
+    Boolean delete(int formId);
+
+    /**
+     * 传入工人key和报修单id将某报修单变为已安排工人状态
+     * 并记录是哪个管理员进行的操作
+     *
+     * @param wKey     工人 key
+     * @param adminKey 管理员key
+     * @param formId   报修单id
+     * @return 布尔值
+     */
+    Boolean arrange(int wKey, int adminKey, int formId);
 }

@@ -38,6 +38,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
     private static final String UPDATE_BOARD = "update board set queryCode = -1 where queryCode=1";
     private static final String RELEASE_BOARD = "insert into board (queryCode,boardMsg,date)values(1,?,?)";
+    private static final String QUERY_KEY_BY_ID = "SELECT adminKey FROM `administrators` WHERE adminId=?";
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -185,7 +186,10 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         super.addOne(connection, RELEASE_BOARD, board, releaseDate);
     }
 
-
+    @Override
+    public Admin queryKey(String adminId) {
+        return super.selectOne(connection, QUERY_KEY_BY_ID, adminId);
+    }
 
 
 
