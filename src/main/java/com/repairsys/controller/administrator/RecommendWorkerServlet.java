@@ -26,7 +26,10 @@ public class RecommendWorkerServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
-        Result<List<Worker>> res = workerService.getSuitableWorkerList(jsonObject.getSqlDate("date"),jsonObject.getInteger("hour"),jsonObject.getString("wType"));
+        Result<List<Worker>> res = workerService.getSuitableWorkerList(jsonObject.getSqlDate("date"),
+                jsonObject.getInteger("hour"),
+                jsonObject.getString("wType"));
+
         request.setAttribute("result",res);
         super.doPost(request, response);
     }

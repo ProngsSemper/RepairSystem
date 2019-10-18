@@ -206,10 +206,10 @@ public class WorkerServiceImpl implements WorkerService {
 
         List<Worker> res = workerScheule.recommendByAppintment(date, hour, workerType);
         ans.setData(res);
-        if(res.isEmpty()||res.get(0)==null)
-        {
-            ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
-        }else{
+        if(res!=null&&!res.isEmpty())
+            {
+                ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+            }else{
             ans.setResult(ResultEnum.QUERY_FAILED);
         }
 

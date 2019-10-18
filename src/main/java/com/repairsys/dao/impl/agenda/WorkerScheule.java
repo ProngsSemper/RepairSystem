@@ -280,12 +280,23 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         {
             return new LinkedList<>();
         }
-        String tSql = "select wKey from wTime where t"+hour+" =0 and curTime = ?";
+        //切勿删除
+        // String tSql = "select wKey from wTime where t"+hour+" =0 and curTime = "+appointDate.toString();
+        String tSql = "select wKey from wTime where curTime = '"+ appointDate.toString()+ "' ORDER BY t"+hour;
+        logger.debug(tSql);
 
-        String recommendSql = "select * from workers w where wType = '其他' || wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
-        System.out.println(recommendSql);
-        List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql,appointDate);
+        // String recommendSql = "select * from workers w where w.wType = '其他' || w.wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
+        String recommendSql = "select w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+appointDate.toString()+"' and w.wType ='"+wType+"'  GROUP BY w.wKey order by wt.t"+hour;
+        logger.debug(recommendSql);
+        List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
+        System.out.println(list);
+        if(list==null||list.isEmpty()||list.get(0)==null)
+        {
+            logger.debug("处理异常");
+            return new LinkedList<>();
+        }
         List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
+        System.out.println(timeList);
 
         list.sort(Comparator.comparingInt(Worker::getwKey));
         timeList.sort(Comparator.comparingInt(WTime::getwKey));

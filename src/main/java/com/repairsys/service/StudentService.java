@@ -85,5 +85,5 @@ public interface StudentService {
      */
     Result<Boolean> confirm(int formId);
 
-    Result<Boolean> getSuitable();
+
 }
