@@ -11,7 +11,7 @@ transform[0].onclick=function(){
     window.location.href="/try.html";
 }
 transform[1].onclick=function(){
-    window.location.href="file:///E:/%E8%BD%AF%E8%AE%BE/repair.html";
+    window.location.href="../repair.html";
 }
 transform[2].onclick=function(){
     window.location.href="/try.html";

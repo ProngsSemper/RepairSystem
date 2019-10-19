@@ -5,11 +5,13 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,7 +28,11 @@ public class AdminIncompleteFormServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        logger.debug("requestBody1{}",requestBody);
+        logger.debug("requestBody{}",requestBody);
+        String adminId = CookieUtil.getCookie("adminId",request);
+        String adminName = adminService.getNameById(adminId);
+        Cookie cookie = new Cookie("adminName",adminName);
+        response.addCookie(cookie);
         Result result = adminService.getIncompleteForm(
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));

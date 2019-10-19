@@ -139,4 +139,12 @@ public interface AdminDao {
      * @return 管理员对象
      */
     Admin queryKey(String adminId);
+
+    /**
+     * 根据管理员id查管理员姓名
+     *
+     * @param adminId 管理员id
+     * @return 管理员对象
+     */
+    Admin queryName(String adminId);
 }

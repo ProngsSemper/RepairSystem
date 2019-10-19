@@ -257,3 +257,89 @@ body{
     color: #fff;
     background: #8e0b02;
 }
+.dealOrder{
+    float: left;
+    width: 1010px;
+    height: 700px;
+    background: #eeeeee;
+}
+.repairInformation{
+    float: left;
+    width: 505px;
+    height: 600px;
+    /* background: #000; */
+}
+.workInformation{
+    float: left;
+    width: 505px;
+    height: 600px;
+    /* background: #8e0b02; */
+}
+.head-tit{
+    height: 50px;
+    
+}
+.tit{
+    display: inline-block;
+    margin-top: 5px;
+    color: #f99b3f;
+    font-size: 20px;
+    vertical-align: middle;
+    font-weight: bold;
+}
+.head-tit img{
+    display: inline-block;
+    margin: 5px 10px 0 20px;;
+    vertical-align: middle;
+    height: 40px;
+
+}
+.bg-white{
+    background: #fff;
+}
+.repairContant{
+    height: 550px;
+}
+.repairContant .information{
+    margin: 25px auto;
+    width: 400px;
+    height: 500px;
+    /* background: #000; */
+}
+.repairContant .information p{
+    margin:15px 0 15px 20px;
+}
+.information img{
+    vertical-align: top;
+    width: 150px;
+}
+.returnBack{
+    position: relative;
+    /* width: 40px; */
+    height: 70px;
+    cursor: pointer;
+}
+.returnBack img{
+    height: 70px;
+}
+.return-tit{
+    position: absolute;
+    top: -10px;;
+}
+.arrange{
+    position: relative;
+    width: 100%;
+    height: 100px;
+}
+.arrangeWroker{
+    margin: 0px auto 0;
+    border-radius: 10px;;
+    width: 150px;
+    height: 50px;
+    background: #8e0b02;
+    color: #fff;
+    font-size: 20px;
+    line-height: 50px;;
+    text-align: center;
+    cursor: pointer;
+}

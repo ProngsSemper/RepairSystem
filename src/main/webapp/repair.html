@@ -6,9 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/repair.css">
     <script src="js/jquery-1.12.4.js"></script>
-    
+    <script src="js/cookie.js"></script>
     <title>Document</title>
-
 </head>
 <body>
     <div class="topbg"></div>
@@ -30,7 +29,7 @@
                 <li class="list">已删除表单<img src="img/箭头.png" alt="" class="point"></li>
             </ul>
         </div>
-        <div class="contant">
+        <div class="contant" style="display: none;">
             <div class="search">
                 <div class="insert">
                     <i class="iconSearch"></i>
@@ -61,26 +60,58 @@
             </div>
             <div class="item">
                 <div class="tableItem">
-                    <table border="1" class="repairItem" id="table1">
-<!--                        <tr class="row ">-->
-<!--                            <td class="col">学号</td>-->
-<!--                            <td class="col">地址</td>-->
-<!--                            <td class="col">内容</td>   -->
-<!--                            <td class="col">操作</td>-->
-<!--                        </tr>-->
-
+                    <table border="1" class="repairItem"> 
+                       
                     </table>
                     <div class="page">
-<!--                        <span class="page-number cur">1</span>-->
+                        <span class="page-number cur">1</span>
                         <!-- <span class="page-number">2</span> -->
                     </div>
                 </div>
                 
             </div>
         </div>
+        <div class="dealOrder">
+            <div class="repairInformation">
+                <div class="head-tit bg-white">
+                    <img src="img/xinxiinfo21.png" alt="">
+                    <span class="tit">报修信息</span>
+                </div>
+                <div class="repairContant">
+                    <div class="information">
+                        <p>报修人：小明</p>
+                        <p>报修电话：1244345678</p>
+                        <p>学号：12138</p>
+                        <p>学生邮箱12345678@qq.com</p>
+                        <p>地址：北苑20栋a201</p>
+                        <p>报修类型：电工</p>
+                        <p>预约时间：10月10日10:00</p>
+                        <p>报修内容：灯泡坏了</p>
+                        <p>图片：
+                            <img src="img/jindutiao.png" alt="">
+                        </p>
+                    </div>
+
+                </div>
+                <div class="returnBack">
+                    <span class="return-tit">返回上一级</span>
+                    <img src="img/icon-fanhui.png" alt="">
+                </div>
+            </div>
+            <div class="workInformation">
+                <div class="head-tit">
+                    <img src="img/tuijianren.png" alt="">
+                    <span class="tit">工人信息</span>
+                </div>
+                <div class="repairContant bg-white"></div>
+                <div class="arrange bg-white">
+                    <div class="arrangeWroker">
+                        安排工人
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="js/repair.js"></script>
-<!--    <script src="js/m_repair.js"></script>-->
-
 </body>
 </html>

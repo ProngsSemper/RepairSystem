@@ -9,6 +9,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
@@ -347,6 +348,12 @@ public class AdminServiceImpl implements AdminService {
         }
         result.setData(false);
         return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+    }
+
+    public String getNameById(String adminId) {
+        String adminName = adminDao.queryName(adminId).getAdminName();
+
+        return adminName;
     }
 
     public AdminServiceImpl() {
