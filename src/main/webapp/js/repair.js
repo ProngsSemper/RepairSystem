@@ -59,7 +59,9 @@ $(document).ready(function () {
             getWorker();
         }catch (e) {
             console.log("...");
+            alert(123);
         }
+        alert(123);
 
     });
 //监听点击返回上一级按钮
@@ -183,19 +185,20 @@ function getWorker(){
             "wType":wType
         }),
         success:function(msg){
-            var data=msg.data;
-            $('.workerInside').html("");
-            for(var i=0;i<data.length;i++){
-                $('.workerInside').append('<div class="choseWorker"></div>')
-                $('.choseWorker').append('<input type="radio"  name="worke">')
-                $('.choseWorker').append('<div class="workerContant"></div>')
-                $('.workerContant').append('<div class="Name">姓名'+data[i].wName+'</div>')
-                $('.workerContant').append('<div class="leftContant"></div>')
-                $('.leftContant').append('<p>工种：'+data[i].wType+'</p >')
-                $('.leftContant').append('<p>联系电话：'+data[i].wTel+'</p >')
-                $('.workerContant').append('<div class="rightContant"></div>')
-                // $('.leftContant').append('<select class=""></select>')
-            }
+            console.log(msg);
+            // var data=msg.data;
+            // $('.workerInside').html("");
+            // for(var i=0;i<data.length;i++){
+            //     $('.workerInside').append('<div class="choseWorker"></div>')
+            //     $('.choseWorker').append('<input type="radio"  name="worke">')
+            //     $('.choseWorker').append('<div class="workerContant"></div>')
+            //     $('.workerContant').append('<div class="Name">姓名'+data[i].wName+'</div>')
+            //     $('.workerContant').append('<div class="leftContant"></div>')
+            //     $('.leftContant').append('<p>工种：'+data[i].wType+'</p >')
+            //     $('.leftContant').append('<p>联系电话：'+data[i].wTel+'</p >')
+            //     $('.workerContant').append('<div class="rightContant"></div>')
+            //     // $('.leftContant').append('<select class=""></select>')
+            // }
         },
         error:function(xhr){
             alert(xhr.status);
