@@ -23,7 +23,7 @@ public class Form implements Serializable {
     private String stuPhone;
     private String wType;
     private int appointment;
-    private String appointDate;
+    private Date appointDate;
     private String level;
 
     public Date getEndDate() {
@@ -149,11 +149,11 @@ public class Form implements Serializable {
         this.appointment = appointment;
     }
 
-    public String getAppointDate() {
+    public Date getAppointDate() {
         return appointDate;
     }
 
-    public void setAppointDate(String appointDate) {
+    public void setAppointDate(Date appointDate) {
         this.appointDate = appointDate;
     }
 

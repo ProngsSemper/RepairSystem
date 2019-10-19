@@ -116,6 +116,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         Connection conn = connection;
 
         return super.selectList(conn, QUERY_BY_FORMID, formId);
+
     }
 
     /**
@@ -452,7 +453,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean studentConfirm(int formId) {
-        super.updateOne(connection, SET_FINISH_DAY, new Timestamp(System.currentTimeMillis()));
+        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
+            return false;
+        }
+        super.updateOne(connection, SET_FINISH_DAY, new Date(System.currentTimeMillis()), formId);
         super.updateOne(connection, STUDENT_CONFIRM, formId);
         return super.updateOne(connection, DELETE_STUDENT_CONFIRM, formId);
     }
