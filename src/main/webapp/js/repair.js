@@ -67,7 +67,7 @@ function getMsg(pageCount) {
                 table.append(row);
 
                 row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(i).attr("formId", line.formId);
+                $(".row").eq(i+1).attr("formId", line.formId);
             }
         },
         error: function (xhr) {
@@ -108,7 +108,7 @@ $("body").delegate(".col>.deal", "click", function () {
     contant.style.display = "none";
     dealOrder.style.display = "block"
     getFormDetail(formId);
-
+    getWorker();
 })
 //监听点击返回上一级按钮
 // var returnback=document.getElementsByClassName("returnBack")[0];
@@ -134,11 +134,45 @@ function getFormDetail(formId) {
             $(".information").append('<p>学生邮箱：' + data[0].stuMail);
             $(".information").append('<p>地址：' + data[0].room);
             $(".information").append('<p>报修类型：' + data[0].wType);
-            $(".information").append('<p>预约时间：' + data[0].appointDate);
+            $(".information").append('<p>预约时间：' + data[0].appointDate+data[0].appointment+'点');
             $(".information").append('<p>报修内容：' + data[0].formMsg);
             $(".information").append('<p>图片：');
         },
         error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+function getWorker(){
+    var res=$(".information>p").eq(6).html().split("：")
+    var wType=$(".information>p").eq(5).html().split("：")[1];
+    var date=$(res)[1].split(" ")[0];
+    var hour=$(res)[1].split(" ")[1].split("点")[0];
+    $.ajax({
+        type:"POST",
+        url:"",
+        dataType: "json",
+        data: JSON.stringify({
+            "date":date,
+            "hour":parseInt(hour),
+            "wType":wType
+        }),
+        success:function(msg){
+            var data=msg.data;
+            $('.workerInside').html("");
+            for(var i=0;i<data.length;i++){
+                $('.workerInside').append('<div class="choseWorker"></div>')
+                $('.choseWorker').append('<input type="radio"  name="worke">')
+                $('.choseWorker').append('<div class="workerContant"></div>')
+                $('.workerContant').append('<div class="Name">姓名'+data[i].wName+'</div>')
+                $('.workerContant').append('<div class="leftContant"></div>')
+                $('.leftContant').append('<p>工种：'+data[i].wType+'</p >')
+                $('.leftContant').append('<p>联系电话：'+data[i].wTel+'</p >')
+                $('.workerContant').append('<div class="rightContant"></div>')
+                // $('.leftContant').append('<select class=""></select>')
+            }
+        },
+        error:function(xhr){
             alert(xhr.status);
         }
     })
