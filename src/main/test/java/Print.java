@@ -48,7 +48,7 @@ public class Print {
 
     @Test
     public void md5() {
-        String pwd = "PASSWORDddd";
+        String pwd = "huxi9138";
         String newPwd = Md5Util.getMd5(pwd);
         System.out.println(newPwd);
 

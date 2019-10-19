@@ -79,7 +79,7 @@ public class DbTest {
 
     @Test
     public void developer() {
-        boolean b = DeveloperDao.getInstance().register("lyr", "422525");
+        boolean b = DeveloperDao.getInstance().register("181549422", "huxi9138");
         System.out.println(b);
     }
 

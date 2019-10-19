@@ -67,7 +67,7 @@ function getMsg(pageCount) {
                 table.append(row);
 
                 row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(i).attr("formId", line.formId);
+                $(".row").eq(i+1).attr("formId", line.formId);
             }
         },
         error: function (xhr) {
@@ -134,7 +134,7 @@ function getFormDetail(formId) {
             $(".information").append('<p>学生邮箱：' + data[0].stuMail);
             $(".information").append('<p>地址：' + data[0].room);
             $(".information").append('<p>报修类型：' + data[0].wType);
-            $(".information").append('<p>预约时间：' + data[0].appointDate);
+            $(".information").append('<p>预约时间：' + data[0].appointDate+data[0].appointment+'点');
             $(".information").append('<p>报修内容：' + data[0].formMsg);
             $(".information").append('<p>图片：');
         },
