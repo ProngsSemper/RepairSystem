@@ -41,7 +41,6 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String QUERY_KEY_BY_ID = "SELECT adminKey FROM `administrators` WHERE adminId=?";
     private static final String QUERY_NAME_BY_ID = "SELECT adminName FROM `administrators` WHERE adminId=?";
 
-
     static {
         ADMIN_DAO = new AdminDaoImpl();
     }
@@ -149,18 +148,19 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      * @param stuMail 被通知学生的邮箱账号
      * @param day     师傅上门时间是本月的几号
      * @param hour    师傅上门时间是几点
+     * @param wTel    师傅联系电话
      * @return 发送成功返回true
      * @throws Exception 抛出异常
      */
     @Override
-    public boolean sendMail(String stuMail, int day, int hour) throws Exception {
+    public boolean sendMail(String stuMail, int day, int hour, String wTel) throws Exception {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         java.util.Date time = calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
         String format = df.format(time);
-        return MailUtil.sendPrepareMail(stuMail, format);
+        return MailUtil.sendPrepareMail(stuMail, format, wTel);
     }
 
     /**

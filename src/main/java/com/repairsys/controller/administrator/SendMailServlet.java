@@ -19,6 +19,7 @@ import java.io.IOException;
  * @date 2019/10/2 11:29
  */
 @WebServlet("/admin/mail")
+@Deprecated
 public class SendMailServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private static final Logger logger = LoggerFactory.getLogger(SendMailServlet.class);
@@ -31,7 +32,8 @@ public class SendMailServlet extends BaseServlet {
         try {
             result = adminService.senMail(requestBody.getString("stuMail"),
                     requestBody.getInteger("day"),
-                    requestBody.getInteger("hour"));
+                    requestBody.getInteger("hour"),
+                    requestBody.getString("wTel"));
         } catch (Exception e) {
             e.printStackTrace();
         }
