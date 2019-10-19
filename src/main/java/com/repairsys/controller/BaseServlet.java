@@ -33,7 +33,7 @@ public abstract class BaseServlet extends HttpServlet {
 
         if (res != null) {
 
-            sender.write(JSONObject.toJSONStringWithDateFormat(res, "yyyy-MM-dd HH", SerializerFeature.WriteDateUseDateFormat));
+            sender.write(JSONObject.toJSONStringWithDateFormat(res, "yyyy-MM-dd HH:mm", SerializerFeature.WriteDateUseDateFormat));
             sender.flush();
             sender.close();
         }

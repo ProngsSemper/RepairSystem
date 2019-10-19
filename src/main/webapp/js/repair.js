@@ -32,6 +32,7 @@ function getMsg(pageCount) {
 
             // alert(msg.size);
             var page = $(".page");
+            var table=$(".repairItem");
             // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
@@ -91,6 +92,24 @@ $(document).ready(function () {
 
 
 });
+//监听点击处理按钮
+var contant=document.getElementsByClassName("contant")[0];
+var dealOrder=document.getElementsByClassName("dealOrder")[0];
+$("body").delegate(".col>.deal","click",function(){
+    contant.style.display="none";
+    dealOrder.style.display="block"
+});
+//监听点击返回上一级按钮
+// var returnback=document.getElementsByClassName("returnBack")[0];
+$("body").delegate(".returnBack","click",function(){
+    contant.style.display="block";
+    dealOrder.style.display="none";
+});
+// function getFormDetail(formId){
+//     $.ajax({
+//
+//     })
+// }
 
 
 
