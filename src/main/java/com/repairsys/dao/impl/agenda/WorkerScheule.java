@@ -222,6 +222,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @param hours 预约的时间
      * @return 返回推荐的工人
      */
+    @Deprecated
     @Override
     public List<Worker> recommendByAppointment(int... hours) {
         return null;
