@@ -271,8 +271,15 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     }
 
 
-
-
+    /**
+     * 推荐算法排序
+     * @param appointDate 学生预约的时间
+     * @param hour        学生预约的时间，整点
+     * @param wType       工人类型
+     * @return 返回工人表单集合
+     * @deprecated  进过后端同学讨论 ，认为不合理，后期会废弃（在 2019/10/20号以后会采用新的方法排序）
+     */
+    @Deprecated
     @Override
     public List<Worker> recommendByAppintment(Date appointDate, int hour, String wType) {
 
@@ -282,7 +289,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             return new LinkedList<>();
         }
         //切勿删除
-        // String tSql = "select wKey from wTime where t"+hour+" =0 and curTime = "+appointDate.toString();
+
         String tSql = "select wKey from wTime where curTime = '"+ appointDate.toString()+ "' ORDER BY t"+hour;
         logger.debug(tSql);
 
@@ -313,14 +320,51 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
                 timeTable = itR.next();
             }
             worker.setScore(timeTable.getSum());
-
-
         }
         list.sort(Comparator.comparingInt(Worker::getScore).reversed());
 
         return list;
 
     }
+
+
+    /**
+     * 推荐算法排序，推荐调用的方法
+     * @param appointDate 学生预约的时间
+     * @param hour        学生预约的时间，整点
+     * @param wType       工人类型
+     * @return 返回工人表单集合
+     * @date 2019/10/19
+     */
+    public List<Worker> recommendByAppointmemntPlus(Date appointDate, int hour, String wType)
+    {
+        boolean b = hour>=9&&hour<=11||hour>=14&&hour<=18;
+        if(!b)
+        {
+            return new LinkedList<>();
+        }
+
+
+        String tSql = "select wKey from wTime where curTime = '"+ appointDate.toString()+ "' ORDER BY t"+hour;
+
+        String recommendSql = "select w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+appointDate.toString()+"' and w.wType ='"+wType+"'  GROUP BY w.wKey order by wt.t"+hour;
+        logger.debug(tSql);
+
+
+        return null;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -355,6 +399,8 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             );
             if(!diffSet.isEmpty())
             {
+                logger.error("正在更新工人表单");
+                System.out.println("--dd--");
                 //TODO: 还没完成
                 for(int i:diffSet)
                 {
@@ -378,8 +424,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             obj[i-1][0] = arr.get(i-1).getwKey();
             obj[i-1][1] = day;
         }
-
-
         boolean b = true;
         try {
             queryRunner.batch(connection,UPDATE_OLD_PERSON_SERVEN_DAY,obj);
