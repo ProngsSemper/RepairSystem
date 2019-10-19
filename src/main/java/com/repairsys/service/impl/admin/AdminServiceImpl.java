@@ -357,8 +357,10 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public String getNameById(String adminId) {
+        if (adminId==null||"".equals(adminId)){
+            return "";
+        }
         String adminName = adminDao.queryName(adminId).getAdminName();
-
         return adminName;
     }
 

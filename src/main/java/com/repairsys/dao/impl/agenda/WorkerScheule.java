@@ -349,6 +349,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         // String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '2019-10-19' and w.wType = '木工' ORDER BY t9" ;
         String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+ appointDate.toString()+"' and w.wType = '"+wType+"' ORDER BY t"+hour;
         // System.out.println(sql);
+        System.out.println(sql);
         List<WTime> table = super.selectList(connection,sql);
         LinkedList<Worker> carryZero = new LinkedList<>();
         LinkedList<Worker> carry = new LinkedList<>();

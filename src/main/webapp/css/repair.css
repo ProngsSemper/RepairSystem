@@ -382,7 +382,8 @@ body{
     float: left;
     width: 100px;
     height: 100px;
-    background: rgb(167, 27, 27);
+    background-image: url("../img/mingpian2.png");
+    background-size: contain;
 }
 .leftContant p{
     text-indent: 1em;

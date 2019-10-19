@@ -147,6 +147,8 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
+            // let imgD=document.createElement('img');
+            // imgD.attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
             $(".information").append('<p>学号：' + data[0].stuId);
@@ -155,7 +157,7 @@ function getFormDetail(formId) {
             $(".information").append('<p>报修类型：' + data[0].wType);
             $(".information").append('<p>预约时间：' + data[0].appointDate+data[0].appointment+'点');
             $(".information").append('<p>报修内容：' + data[0].formMsg);
-            $(".information").append('<p>图片：');
+            $(".information").append('<p>图片：</p >');
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -173,7 +175,7 @@ function getWorker(){
     var str888=$(".information>p").eq(6).html().split("：")[1].split(" ")[1];
   
     var hour=(str888||"").split("点");
-
+    $('.workerInside').html("");
     $.ajax({
         type:"POST",
         url:"/admin/worker",
@@ -186,19 +188,33 @@ function getWorker(){
         }),
         success:function(msg){
             console.log(msg);
-            // var data=msg.data;
-            // $('.workerInside').html("");
-            // for(var i=0;i<data.length;i++){
-            //     $('.workerInside').append('<div class="choseWorker"></div>')
-            //     $('.choseWorker').append('<input type="radio"  name="worke">')
-            //     $('.choseWorker').append('<div class="workerContant"></div>')
-            //     $('.workerContant').append('<div class="Name">姓名'+data[i].wName+'</div>')
-            //     $('.workerContant').append('<div class="leftContant"></div>')
-            //     $('.leftContant').append('<p>工种：'+data[i].wType+'</p >')
-            //     $('.leftContant').append('<p>联系电话：'+data[i].wTel+'</p >')
-            //     $('.workerContant').append('<div class="rightContant"></div>')
-            //     // $('.leftContant').append('<select class=""></select>')
-            // }
+            var data=msg.data;
+
+            for(var i=0;i<data.length;i++){
+                let divchoseWorker=document.createElement('div');
+                divchoseWorker.className="choseWorker";
+                let input=document.createElement('input')
+                input.type="radio";
+                input.name="worke";
+                let workContantdiv=document.createElement('div');
+                workContantdiv.className="workerContant";
+                let nameDiv=document.createElement('div');
+                nameDiv.className="Name";
+                let leftContantDiv=document.createElement('div');
+                leftContantDiv.className="leftContant";
+                let rightContantDiv=document.createElement('div');
+                rightContantDiv.className="rightContant";
+                $('.workerInside').append(divchoseWorker);
+                $('.choseWorker').eq(i).append(input);
+                $('.choseWorker').eq(i).append(workContantdiv)
+                $('.workerContant').eq(i).append(nameDiv);
+                $('.Name').eq(i).html("姓名："+data[i].wName);
+                $('.workerContant').eq(i).append(leftContantDiv)
+                $('.leftContant').eq(i).append('<p>工种：'+data[i].wType+'</p >')
+                $('.leftContant').eq(i).append('<p>联系电话：'+data[i].wTel+'</p >')
+                $('.workerContant').eq(i).append(rightContantDiv)
+                // $('.leftContant').append('<select class=""></select>')
+            }
         },
         error:function(xhr){
             alert(xhr.status);
