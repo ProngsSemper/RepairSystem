@@ -48,6 +48,7 @@ $(document).ready(function () {
 //监听点击处理按钮
     var contant = document.getElementsByClassName("contant")[0];
     var dealOrder = document.getElementsByClassName("dealOrder")[0];
+    var visited = false;
     $("body").delegate(".col>.deal", "click", function () {
         var formId = $(this).parent().parent().attr("formid");
 
@@ -55,13 +56,16 @@ $(document).ready(function () {
         dealOrder.style.display = "block";
         getFormDetail(formId);
         try{
+            if(visited){return;}
+            visited = true;
 
             getWorker();
+            visited = false;
         }catch (e) {
             console.log("...");
             alert(123);
         }
-        alert(123);
+        // alert(123);
 
     });
 //监听点击返回上一级按钮
@@ -168,6 +172,7 @@ function getFormDetail(formId) {
 // str.substring(0,str.length-2);
 
 function getWorker(){
+
     var wType=$(".information>p").eq(5).html().split("：")[1];
 
     var date8=$(".information>p").eq(6).html().split("：")[1].split(" ")[0];
