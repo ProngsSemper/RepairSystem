@@ -343,3 +343,54 @@ body{
     text-align: center;
     cursor: pointer;
 }
+.workerInside {
+    margin: 0px auto;
+    width: 400px;
+    height: 500px;
+    overflow: auto;
+    /* background: #000; */
+}
+.workerContant{
+    display: inline-block;
+    border: 1px solid #888;
+    border-radius: 10px;;
+    /* margin: 10px 0 0 0 ; */
+    width: 350px;
+    height: 150px;
+    vertical-align: top;
+}
+.choseWorker{
+    float: left;
+    margin: 15px auto  0;
+    width: 450px;
+}
+.Name{
+    height: 30px;
+    border-bottom: 1px solid #888;
+    text-indent: 1em;
+    font-size: 18px;
+    line-height: 30px;
+    color: #888;
+}
+.leftContant{
+    float: left;
+    width: 250px;
+    height: 100px;
+    /* background: #000; */
+}
+.rightContant{
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: rgb(167, 27, 27);
+}
+.leftContant p{
+    text-indent: 1em;
+    line-height: 30px;
+}
+select{
+    width: 50px;
+    height: 25px;
+    margin-left: 1em;
+    margin-top: 5px;
+}
