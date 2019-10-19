@@ -201,10 +201,12 @@ public class WorkerServiceImpl implements WorkerService {
      */
     @Override
     public Result<List<Worker>> getSuitableWorkerList(Date date, int hour, String workerType) {
-
+        System.out.println(date);
+        System.out.println(hour);
+        System.out.println(workerType);
         Result<List<Worker>> ans = new Result<>();
 
-        List<Worker> res = workerScheule.recommendByAppintment(date, hour, workerType);
+        List<Worker> res = workerScheule.recommendByAppointmemntPlus(date, hour, workerType);
         ans.setData(res);
         if(res!=null&&!res.isEmpty())
             {
@@ -212,6 +214,7 @@ public class WorkerServiceImpl implements WorkerService {
             }else{
             ans.setResult(ResultEnum.QUERY_FAILED);
         }
+        System.out.println(ans);
 
         return ans;
     }

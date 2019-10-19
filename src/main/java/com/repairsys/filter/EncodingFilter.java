@@ -30,22 +30,22 @@ public class EncodingFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
-        String t = request.getRequestURI();
-        for (String i : ARRAY) {
-            if (t.endsWith(i)) {
-                logger.debug("放行静态资源 {}", t);
-
-                chain.doFilter(req, resp);
-                return;
-            }
-        }
-        for (String i : UI) {
-            if (t.lastIndexOf(i) > 0) {
-                chain.doFilter(req, resp);
-                return;
-            }
-        }
-
+//        String t = request.getRequestURI();
+//        for (String i : ARRAY) {
+//            if (t.endsWith(i)) {
+//                logger.debug("放行静态资源 {}", t);
+//
+//                chain.doFilter(req, resp);
+//                return;
+//            }
+//        }
+//        for (String i : UI) {
+//            if (t.lastIndexOf(i) > 0) {
+//                chain.doFilter(req, resp);
+//                return;
+//            }
+//        }
+//
         logger.debug("进行过滤处理1");
 
         // 设置请求的编码为 utf-8

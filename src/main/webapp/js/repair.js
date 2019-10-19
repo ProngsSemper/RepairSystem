@@ -18,11 +18,66 @@ $(document).ready(function () {
     // getCookie(stuId);
 });
 
+
+$(document).ready(function () {
+    //监听点击页码操作
+    $("body").delegate(".page>span", "click", function () {
+        // alert(123);
+        var number = $(this).html();
+        // alert(number);
+        getMsg(number);
+
+        $(this).addClass("cur");
+        $(this).siblings().removeClass("cur");
+        // alert("456");
+    });
+
+
+});
+
+
+
+$(document).ready(function () {
+    //监听点击处理按钮
+    $("body").delegate(".page>span", "click", function () {
+        var number = $(this).html();
+        getData(number);
+        $(this).addClass("cur");
+        $(this).siblings().removeClass("cur");
+    });
+//监听点击处理按钮
+    var contant = document.getElementsByClassName("contant")[0];
+    var dealOrder = document.getElementsByClassName("dealOrder")[0];
+    $("body").delegate(".col>.deal", "click", function () {
+        var formId = $(this).parent().parent().attr("formid");
+
+        contant.style.display = "none";
+        dealOrder.style.display = "block";
+        getFormDetail(formId);
+        try{
+
+            getWorker();
+        }catch (e) {
+            console.log("...");
+        }
+
+    });
+//监听点击返回上一级按钮
+// var returnback=document.getElementsByClassName("returnBack")[0];
+    $("body").delegate(".returnBack", "click", function () {
+        contant.style.display = "block";
+        dealOrder.style.display = "none";
+    });
+
+});
+
+
 function getMsg(pageCount) {
     $.ajax({
         type: "POST",
         url: "/admin/incomplete/form",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "page": pageCount,
             "limit": 10,
@@ -77,51 +132,13 @@ function getMsg(pageCount) {
 }
 
 
-$(document).ready(function () {
-    //监听点击页码操作
-    $("body").delegate(".page>span", "click", function () {
-        // alert(123);
-        var number = $(this).html();
-        // alert(number);
-        getMsg(number);
-
-        $(this).addClass("cur");
-        $(this).siblings().removeClass("cur");
-        // alert("456");
-    });
-
-
-});
-//监听点击处理按钮
-$("body").delegate(".page>span", "click", function () {
-    var number = $(this).html();
-    getData(number);
-    $(this).addClass("cur");
-    $(this).siblings().removeClass("cur");
-})
-//监听点击处理按钮
-var contant = document.getElementsByClassName("contant")[0];
-var dealOrder = document.getElementsByClassName("dealOrder")[0];
-$("body").delegate(".col>.deal", "click", function () {
-    var formId = $(this).parent().parent().attr("formid");
-    alert(formId)
-    contant.style.display = "none";
-    dealOrder.style.display = "block"
-    getFormDetail(formId);
-    getWorker();
-})
-//监听点击返回上一级按钮
-// var returnback=document.getElementsByClassName("returnBack")[0];
-$("body").delegate(".returnBack", "click", function () {
-    contant.style.display = "block";
-    dealOrder.style.display = "none";
-})
-
 function getFormDetail(formId) {
+
     $.ajax({
         type: "POST",
         url: "/admin/formId",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "formId": formId,
         }),
@@ -143,18 +160,26 @@ function getFormDetail(formId) {
         }
     })
 }
+
+// str.substring(0,str.length-2);
+
 function getWorker(){
-    var res=$(".information>p").eq(6).html().split("：")
     var wType=$(".information>p").eq(5).html().split("：")[1];
-    var date=$(res)[1].split(" ")[0];
-    var hour=$(res)[1].split(" ")[1].split("点")[0];
+
+    var date8=$(".information>p").eq(6).html().split("：")[1].split(" ")[0];
+
+    var str888=$(".information>p").eq(6).html().split("：")[1].split(" ")[1];
+  
+    var hour=(str888||"").split("点");
+
     $.ajax({
         type:"POST",
-        url:"",
+        url:"/admin/worker",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
-            "date":date,
-            "hour":parseInt(hour),
+            "date":date8,
+            "hour":parseInt(hour[0]),
             "wType":wType
         }),
         success:function(msg){

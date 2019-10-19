@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -26,10 +27,13 @@ public class RecommendWorkerServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
+        System.out.println(jsonObject.getString("date").replace("月","-").replace("日","-"));
+        String s = (jsonObject.getString("date").replace("月","-").replace("日","-"));
+        System.out.println(s);
         Result<List<Worker>> res = workerService.getSuitableWorkerList(jsonObject.getSqlDate("date"),
                 jsonObject.getInteger("hour"),
                 jsonObject.getString("wType"));
-
+        System.out.println(res);
         request.setAttribute("result",res);
         super.doPost(request, response);
     }
