@@ -35,7 +35,7 @@ function getMsg(pageCount){
             // $(".page").html("");
             $(".repairItem").html("");
             var data=msg.data;
-
+            console.log(data);
             var b = $('.page').children().length==0;
 
             if(b)
@@ -49,6 +49,7 @@ function getMsg(pageCount){
             $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
             // alert(2);
             for(var i=0;i<msg.size;i++){
+
                 var line = data[i];
 
 
@@ -66,7 +67,7 @@ function getMsg(pageCount){
                 table.append(row);
 
                 row.append(colNumber,colAdress,colContant,colOperate);
-
+                $(".row").eq(i).attr("formId",line.formId);
             }
         },
         error:function(xhr){
