@@ -1,18 +1,58 @@
 package com.repairsys.bean.entity;
 
 import java.sql.Date;
+import java.util.Comparator;
 
 /**
  * @Author lyr
  * @create 2019/10/8 12:55
  */
 public class WTime implements Comparable<WTime>{
+
+
+
     private int tId;
     private int wKey;
     private Date curTime;
     private int t9,t10,t11,t14,t15,t16,t17,t18;
     private int score = 0;
+    private String wType,wName,wMail,wTel;
 
+    public String getwMail() {
+        return wMail;
+    }
+
+    public void setwMail(String wMail) {
+        this.wMail = wMail;
+    }
+
+    public String getwTel() {
+        return wTel;
+    }
+
+    public void setwTel(String wTel) {
+        this.wTel = wTel;
+    }
+
+    public String getwName() {
+        return wName;
+    }
+
+    public void setwName(String wName) {
+        this.wName = wName;
+    }
+
+    public String getwType() {
+        return wType;
+    }
+
+    public void setwType(String wType) {
+        this.wType = wType;
+    }
+
+    public int getScore() {
+        return score;
+    }
 
     /**
      * 简单的记录分数，实现简单的推荐算法
@@ -136,7 +176,7 @@ public class WTime implements Comparable<WTime>{
                 ", t15=" + t15 +
                 ", t16=" + t16 +
                 ", t17=" + t17 +
-                ", t18=" + t18 +
+                ", t18=" + t18 + this.wType+
                 "}\r\n";
     }
 
@@ -218,6 +258,42 @@ public class WTime implements Comparable<WTime>{
         }
 
     }
+    public int getHourAt(int hour)
+    {
+        switch (hour)
+        {
+            case 9:{
+                return t9;
+            }
+            case 10:
+            {
+                return t10;
+            }
+            case 11:{
+                return t11;
+            }
+            case 14:{
+                return t14;
+            }
+            case 15:{
+                return t15;
+            }
+            case 16:{
+                return t16;
+            }
+            case 17:{
+                return t17;
+            }
+            case 18:{
+                return t18;
+            }
+            default:{
+                return score;
+            }
+        }
+    }
+
+
 
 
 

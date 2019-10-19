@@ -329,6 +329,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
 
     /**
+     * 新方法，推荐使用
      * 推荐算法排序，推荐调用的方法
      * @param appointDate 学生预约的时间
      * @param hour        学生预约的时间，整点
@@ -345,13 +346,27 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         }
 
 
-        String tSql = "select wKey from wTime where curTime = '"+ appointDate.toString()+ "' ORDER BY t"+hour;
+        String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '2019-10-19' and w.wType = '木工' ORDER BY t9" ;
+        List<WTime> table = super.selectList(connection,sql);
+        LinkedList<Worker> carryZero = new LinkedList<>();
+        LinkedList<Worker> carry = new LinkedList<>();
+        for(WTime i:table)
+        {
+            if(i.getHourAt(hour)==0)
+            {
+                carryZero.add(new Worker(i));
+            }else{
+                carry.add(new Worker(i));
 
-        String recommendSql = "select w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+appointDate.toString()+"' and w.wType ='"+wType+"'  GROUP BY w.wKey order by wt.t"+hour;
-        logger.debug(tSql);
+            }
+        }
+        carryZero.sort(new Worker.CompareHandler());
+        carry.sort(new Worker.CompareHandler());
+        carryZero.addAll(carry);
+        
 
 
-        return null;
+        return carryZero;
     }
 
 

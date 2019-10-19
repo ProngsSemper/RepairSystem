@@ -1,6 +1,9 @@
 package com.repairsys.bean.entity;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
+
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -8,6 +11,18 @@ import java.util.Objects;
  * @create 2019/9/24 12:11
  */
 public class Worker implements Serializable, Comparable<Worker> {
+
+    public static class CompareHandler implements Comparator<Worker>
+    {
+
+        @Override
+        public int compare(Worker o1, Worker o2) {
+            return o1.score-o2.score;
+        }
+    }
+
+
+
     private String wId;
     private String wName;
     private String wTel;
@@ -18,6 +33,18 @@ public class Worker implements Serializable, Comparable<Worker> {
     private int score = -1;
 
     public Worker() {
+    }
+
+    public Worker(WTime w)
+    {
+        this.wKey = w.getwKey();
+        this.wName = w.getwName();
+        this.wType =w.getwType();
+        this.score = w.getScore();
+        this.wMail = w.getwMail();
+        this.wTel = w.getwTel();
+
+
     }
 
     public int getScore() {
@@ -95,7 +122,7 @@ public class Worker implements Serializable, Comparable<Worker> {
                 ", wType='" + wType + '\'' +
                 ", wKey=" + wKey +
                 ", score=" + score +
-                '}';
+                "}\r\n";
     }
 
     /**

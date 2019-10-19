@@ -3,6 +3,7 @@ import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
+import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.form.FormDaoImpl;
@@ -110,5 +111,17 @@ public class DbTest {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyById("4566");
         List list = FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), 1, 5);
         System.out.println(list);
+    }
+
+
+
+    //-------------------------------
+
+
+
+    @Test
+    public void recommend()
+    {
+        WorkerScheule.getInstance().recommendByAppointmemntPlus(new Date(System.currentTimeMillis()),9,"木工");
     }
 }
