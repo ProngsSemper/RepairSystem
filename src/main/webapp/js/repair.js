@@ -32,7 +32,7 @@ function getMsg(pageCount) {
 
             // alert(msg.size);
             var page = $(".page");
-            var table=$(".repairItem");
+            var table = $(".repairItem");
             // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
@@ -93,23 +93,56 @@ $(document).ready(function () {
 
 });
 //监听点击处理按钮
-var contant=document.getElementsByClassName("contant")[0];
-var dealOrder=document.getElementsByClassName("dealOrder")[0];
-$("body").delegate(".col>.deal","click",function(){
-    contant.style.display="none";
-    dealOrder.style.display="block"
-});
+$("body").delegate(".page>span", "click", function () {
+    var number = $(this).html();
+    getData(number);
+    $(this).addClass("cur");
+    $(this).siblings().removeClass("cur");
+})
+//监听点击处理按钮
+var contant = document.getElementsByClassName("contant")[0];
+var dealOrder = document.getElementsByClassName("dealOrder")[0];
+$("body").delegate(".col>.deal", "click", function () {
+    var formId = $(this).parent().parent().attr("formid");
+    alert(formId)
+    contant.style.display = "none";
+    dealOrder.style.display = "block"
+    getFormDetail(formId);
+
+})
 //监听点击返回上一级按钮
 // var returnback=document.getElementsByClassName("returnBack")[0];
-$("body").delegate(".returnBack","click",function(){
-    contant.style.display="block";
-    dealOrder.style.display="none";
-});
-// function getFormDetail(formId){
-//     $.ajax({
-//
-//     })
-// }
+$("body").delegate(".returnBack", "click", function () {
+    contant.style.display = "block";
+    dealOrder.style.display = "none";
+})
+
+function getFormDetail(formId) {
+    $.ajax({
+        type: "POST",
+        url: "/admin/formId",
+        dataType: "json",
+        data: JSON.stringify({
+            "formId": formId,
+        }),
+        success: function (msg) {
+            $(".information").html("");
+            var data = msg.data;
+            $(".information").append('<p>报修人：' + data[0].stuName);
+            $(".information").append('<p>报修电话：' + data[0].stuPhone);
+            $(".information").append('<p>学号：' + data[0].stuId);
+            $(".information").append('<p>学生邮箱：' + data[0].stuMail);
+            $(".information").append('<p>地址：' + data[0].room);
+            $(".information").append('<p>报修类型：' + data[0].wType);
+            $(".information").append('<p>预约时间：' + data[0].appointDate);
+            $(".information").append('<p>报修内容：' + data[0].formMsg);
+            $(".information").append('<p>图片：');
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
 
 
 

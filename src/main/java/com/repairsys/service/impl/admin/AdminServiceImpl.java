@@ -9,7 +9,6 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.AdminDao;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
-import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
@@ -97,9 +96,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception {
+    public Result<Boolean> senMail(String stuMail, int day, int hour, String wTel) throws Exception {
         Result<Boolean> result = new Result<>();
-        if (adminDao.sendMail(stuMail, day, hour)) {
+        if (stuMail == null || "".equals(stuMail)) {
+            result.setData(false);
+            return result.setResult(ResultEnum.SEND_MAIL_FAILED);
+        }
+        if (adminDao.sendMail(stuMail, day, hour, wTel)) {
             result.setData(true);
             return result.setResult(ResultEnum.SEND_MAIL_SUCCESSFULLY);
         }
@@ -341,6 +344,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Result<Boolean> arrange(int wKey, String adminId, int formId) {
         Result<Boolean> result = new Result<>();
+        if (adminDao.queryKey(adminId) == null) {
+            return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+        }
         int adminKey = adminDao.queryKey(adminId).getAdminKey();
         if (formDao.arrange(wKey, adminKey, formId)) {
             result.setData(true);

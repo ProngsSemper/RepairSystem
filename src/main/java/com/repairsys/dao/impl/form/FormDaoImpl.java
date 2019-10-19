@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -468,6 +467,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean arrange(int wKey, int adminKey, int formId) {
+        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
+            return false;
+        }
         return super.updateOne(connection, ARRANGE, wKey, adminKey, formId);
     }
 }

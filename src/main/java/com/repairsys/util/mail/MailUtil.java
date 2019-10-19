@@ -32,10 +32,10 @@ public class MailUtil {
 
     private static Session session;
 
-    public static boolean sendPrepareMail(String receiveMailAccount, String date) throws Exception {
+    public static boolean sendPrepareMail(String receiveMailAccount, String date, String tel) throws Exception {
         init();
         // 创建准备维修邮件
-        MimeMessage message = createPrepareMessage(session, MY_EMAIL_ACCOUNT, receiveMailAccount, date);
+        MimeMessage message = createPrepareMessage(session, MY_EMAIL_ACCOUNT, receiveMailAccount, date, tel);
         //根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
         transport.connect(MY_EMAIL_ACCOUNT, MY_EMAIL_PASSWORD);
@@ -89,7 +89,7 @@ public class MailUtil {
      * @return
      * @throws Exception
      */
-    private static MimeMessage createPrepareMessage(Session session, String sendMail, String receiveMail, String date) throws Exception {
+    private static MimeMessage createPrepareMessage(Session session, String sendMail, String receiveMail, String date, String tel) throws Exception {
         //创建一封邮件
         MimeMessage message = new MimeMessage(session);
         //From: 发件人
@@ -99,7 +99,7 @@ public class MailUtil {
         //Subject: 邮件主题
         message.setSubject("维修进度", "UTF-8");
         //Content: 邮件正文（可以使用html标签）
-        message.setContent("维修师傅将于" + date + "上门进行维修，请您做好准备。", "text/html;charset=UTF-8");
+        message.setContent("维修师傅将于" + date + "上门进行维修，请您做好准备，师傅电话：" + tel, "text/html;charset=UTF-8");
         //设置发件时间
         message.setSentDate(new Date());
         //保存设置

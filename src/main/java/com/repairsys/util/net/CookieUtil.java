@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 public class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
+        if (cookies == null) {
+            return "";
+        }
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
                 return cookie.getValue();

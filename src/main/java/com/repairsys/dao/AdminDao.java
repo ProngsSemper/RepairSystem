@@ -71,10 +71,11 @@ public interface AdminDao {
      * @param stuMail 被通知学生的邮箱账号
      * @param day     师傅上门时间是本月的几号
      * @param hour    师傅上门时间是几点
+     * @param wTel    师傅联系电话
      * @return 发送成功返回true
      * @throws Exception 抛出异常
      */
-    boolean sendMail(String stuMail, int day, int hour) throws Exception;
+    boolean sendMail(String stuMail, int day, int hour, String wTel) throws Exception;
 
     /**
      * 查询一个工人的所有表单记录

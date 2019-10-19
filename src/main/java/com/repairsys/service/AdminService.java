@@ -46,10 +46,11 @@ public interface AdminService {
      * @param stuMail 被通知的学生邮箱号
      * @param day     师傅上门的时间是本月的几号
      * @param hour    师傅上门时间是几点
+     * @param wTel    师傅联系电话
      * @return 返回对应状态码
      * @throws Exception 抛出异常
      */
-    Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception;
+    Result<Boolean> senMail(String stuMail, int day, int hour, String wTel) throws Exception;
 
     /**
      * 模糊查询出工人
@@ -137,9 +138,9 @@ public interface AdminService {
      * 传入工人key和报修单id将某报修单变为已安排工人状态
      * 并记录是哪个管理员进行的操作
      *
-     * @param wKey     工人 key
+     * @param wKey    工人 key
      * @param adminId 管理员key
-     * @param formId   报修单id
+     * @param formId  报修单id
      * @return 返回相应状态码
      */
     Result<Boolean> arrange(int wKey, String adminId, int formId);
