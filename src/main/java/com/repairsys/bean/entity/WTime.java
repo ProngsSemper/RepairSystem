@@ -20,11 +20,7 @@ public class WTime implements Comparable<WTime>{
      */
     public int getSum()
     {
-        if(this.score>0)
-        {
-            return this.score;
-        }
-        this.score =  t9+t10+t11+t14+t15+t16+t17+t18;
+
         return this.score;
     }
 
