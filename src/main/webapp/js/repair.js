@@ -50,7 +50,7 @@ $(document).ready(function () {
     var dealOrder = document.getElementsByClassName("dealOrder")[0];
     var visited = false;
     $("body").delegate(".col>.deal", "click", function () {
-        var formId = $(this).parent().parent().attr("formid");
+        formId = $(this).parent().parent().attr("formid");
 
         contant.style.display = "none";
         dealOrder.style.display = "block";
@@ -65,7 +65,30 @@ $(document).ready(function () {
             console.log("...");
             alert(123);
         }
-        // alert(123);
+        let selectDay=document.createElement('select');
+        let selectTime=document.createElement('select');
+        selectDay.className="selectDay";
+        selectTime.className="selectTime";
+        var a=new Date();
+        var day=a.getDate();
+        $(".leftContant").append(selectDay);
+        $(".leftContant").append(selectTime);
+
+            $(".selectDay").append('<option value="'+day+'">'+day+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+1)+'">'+(day+1)+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+2)+'">'+(day+2)+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+3)+'">'+(day+3)+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+4)+'">'+(day+4)+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+5)+'">'+(day+5)+'日'+'</option>');
+            $(".selectDay").append('<option value="'+(day+6)+'">'+(day+6)+'日'+'</option>');
+            $(".selectTime").append('<option value="9">9点</option>');
+            $(".selectTime").append('<option value="10">10点</option>');
+            $(".selectTime").append('<option value="11">11点</option>');
+            $(".selectTime").append('<option value="15">15点</option>');
+            $(".selectTime").append('<option value="16">16点</option>');
+            $(".selectTime").append('<option value="17">17点</option>');
+            $(".selectTime").append('<option value="18">18点</option>');
+
 
     });
 //监听点击返回上一级按钮
@@ -151,8 +174,8 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
-            // let imgD=document.createElement('img');
-            // imgD.attr("src","img/jindutiao.png");
+            let img=document.createElement('img');
+            $(img).attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
             $(".information").append('<p>学号：' + data[0].stuId);
@@ -161,7 +184,7 @@ function getFormDetail(formId) {
             $(".information").append('<p>报修类型：' + data[0].wType);
             $(".information").append('<p>预约时间：' + data[0].appointDate+data[0].appointment+'点');
             $(".information").append('<p>报修内容：' + data[0].formMsg);
-            $(".information").append('<p>图片：</p >');
+            $(".information").append('<p>图片：'+img.src+'</p >');
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -211,6 +234,7 @@ function getWorker(){
                 rightContantDiv.className="rightContant";
                 $('.workerInside').append(divchoseWorker);
                 $('.choseWorker').eq(i).append(input);
+                $('input[name="worke"]').eq(i).attr("number",i);
                 $('.choseWorker').eq(i).append(workContantdiv)
                 $('.workerContant').eq(i).append(nameDiv);
                 $('.Name').eq(i).html("姓名："+data[i].wName);
@@ -218,10 +242,52 @@ function getWorker(){
                 $('.leftContant').eq(i).append('<p>工种：'+data[i].wType+'</p >')
                 $('.leftContant').eq(i).append('<p>联系电话：'+data[i].wTel+'</p >')
                 $('.workerContant').eq(i).append(rightContantDiv)
-                // $('.leftContant').append('<select class=""></select>')
+                $('.choseWorker').eq(i).attr("wKey",data[i].wKey);
+
             }
         },
         error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//监听点击工人按钮
+$("body").delegate('input[name="worke"]','click',function(){
+    workeNumber = $(this).attr("number");
+    alert(workeNumber);
+})
+//监听安排工人按钮
+$("body").delegate('.arrangeWroker','click',function(){
+    arrangeWorker(formId,workeNumber);
+});
+//点击提交安排工人按钮
+function arrangeWorker(formid,workeNumber){
+    var information=document.getElementsByClassName("information")[0];
+    var MailP=information.getElementsByTagName("p")[3].textContent;
+    var Mail=MailP.split("：")[1];
+    var wKey=$('.choseWorker').eq(workeNumber).attr("wKey");
+    var day=document.getElementsByTagName('select')[workeNumber*2+1];
+    var hour=document.getElementsByTagName('select')[workeNumber*2+2];
+    var wTel=$(".leftContant>p").eq(1).html().split("：")[1];
+    $.ajax({
+        type:"PUT",
+        url:"/admin/arrangement/form",
+        dataType: "json",
+        async:false,
+        data: JSON.stringify({
+            "wKey":parseInt(wKey),
+            "formId":parseInt(formid),
+            "stuMail":Mail,
+            "day":parseInt(day.value),
+            "hour":parseInt(hour.value),
+            "wTel":wTel
+        }),
+        success:function (msg) {
+
+            console.log(msg);
+
+        },
+        error:function (xhr) {
             alert(xhr.status);
         }
     })

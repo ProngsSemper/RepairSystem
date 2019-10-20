@@ -8,253 +8,284 @@
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/cookie.js"></script>
     <title>Document</title>
+
+    <style>
+        .m_select{
+            display: inline-block;
+            width: 100px;
+            height: 35px;
+            margin-left: 20px;
+        }
+        .iconSearch{
+            left: 179px;;
+
+        }
+    </style>
+
+
 </head>
 <body>
-    <div class="topbg"></div>
-    <div class="nav">
-        <img src="img/guanlizhongxin.png" alt="" class="icon">
-        <span class="tit">管理后台</span>
-        <div class="nav-right">
-            <div class="date"></div>
-            <div class="managerName">XXX,欢迎你</div>
-            <i class="iconHi"></i>
-            <div class="nav-tit">|管理员</div>
+<div class="topbg"></div>
+<div class="nav">
+    <img src="img/guanlizhongxin.png" alt="" class="icon">
+    <span class="tit">管理后台</span>
+    <div class="nav-right">
+        <div class="date"></div>
+        <div class="managerName">XXX,欢迎你</div>
+        <i class="iconHi"></i>
+        <div class="nav-tit">|管理员</div>
+    </div>
+</div>
+<div class="box">
+    <div class="secondNav">
+        <ul>
+            <li class="list cur">待处理表单<img src="img/箭头.png" alt="" class="point"></li>
+            <li class="list">已处理表单<img src="img/箭头.png" alt="" class="point"></li>
+            <li class="list">已删除表单<img src="img/箭头.png" alt="" class="point"></li>
+        </ul>
+    </div>
+    <div class="contant">
+        <div class="search">
+
+            <div class="insert">
+                <select name="queryType" id="queryType" class="m_select">
+                    <option value="1" >工人姓名</option>
+                    <option value="2" selected>工种类型</option>
+                    <option value="3">报修单id</option>
+                    <option value="4">学生姓名</option>
+                </select>
+
+
+
+                <i class="iconSearch"></i>
+                <input type="text">
+                <button id = "m_query">查找</button>
+            </div>
+
+            <script src="js/m_send.js"></script>
+
+
+
+            <div class="category">
+                <div class="classify">
+                    <span class="search-tit">分类：</span>
+                    <a href="javascript:;" class="a-tit chosen">全部</a>
+                    <a href="javascript:;" class="a-tit">已分配工人</a>
+                    <a href="javascript:;" class="a-tit">未分配工人</a>
+                </div>
+                <div class="adress">
+                    <span class="search-tit">地点：</span>
+                    <a href="javascript:;" class="a-tit chosen">全部</a>
+                    <a href="javascript:;" class="a-tit">北苑</a>
+                    <a href="javascript:;" class="a-tit">南苑</a>
+                </div>
+                <div class="time">
+                    <span class="search-tit">时间：</span>
+                    <a href="javascript:;" class="a-tit chosen">全部</a>
+                    <a href="javascript:;" class="a-tit">今天</a>
+                    <a href="javascript:;" class="a-tit">三天内</a>
+                    <a href="javascript:;" class="a-tit">一周内</a>
+                </div>
+            </div>
+        </div>
+        <div class="item">
+            <div class="tableItem">
+                <table border="1" class="repairItem">
+
+                </table>
+                <div class="page">
+                    <span class="page-number cur">1</span>
+                    <!-- <span class="page-number">2</span> -->
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="box">
-        <div class="secondNav">
-            <ul>
-                <li class="list cur">待处理表单<img src="img/箭头.png" alt="" class="point"></li>
-                <li class="list">已处理表单<img src="img/箭头.png" alt="" class="point"></li>
-                <li class="list">已删除表单<img src="img/箭头.png" alt="" class="point"></li>
-            </ul>
-        </div>
-        <div class="contant">
-            <div class="search">
-                <div class="insert">
-                    <i class="iconSearch"></i>
-                    <input type="text">
-                    <button>查找</button>
-                </div>
-                <div class="category">
-                    <div class="classify">
-                        <span class="search-tit">分类：</span>
-                        <a href="javascript:;" class="a-tit chosen">全部</a>
-                        <a href="javascript:;" class="a-tit">已分配工人</a>
-                        <a href="javascript:;" class="a-tit">未分配工人</a>
-                    </div>
-                    <div class="adress">
-                        <span class="search-tit">地点：</span>
-                        <a href="javascript:;" class="a-tit chosen">全部</a>
-                        <a href="javascript:;" class="a-tit">北苑</a>
-                        <a href="javascript:;" class="a-tit">南苑</a>
-                    </div>
-                    <div class="time">
-                        <span class="search-tit">时间：</span>
-                        <a href="javascript:;" class="a-tit chosen">全部</a>
-                        <a href="javascript:;" class="a-tit">今天</a>
-                        <a href="javascript:;" class="a-tit">三天内</a>
-                        <a href="javascript:;" class="a-tit">一周内</a>
-                    </div>
-                </div>
+    <div class="dealOrder" style="display: none;">
+        <div class="repairInformation">
+            <div class="head-tit bg-white">
+                <img src="img/xinxiinfo21.png" alt="">
+                <span class="tit">报修信息</span>
             </div>
-            <div class="item">
-                <div class="tableItem">
-                    <table border="1" class="repairItem"> 
-                       
-                    </table>
-                    <div class="page">
-                        <span class="page-number cur">1</span>
-                        <!-- <span class="page-number">2</span> -->
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        <div class="dealOrder" style="display: none;">
-            <div class="repairInformation">
-                <div class="head-tit bg-white">
-                    <img src="img/xinxiinfo21.png" alt="">
-                    <span class="tit">报修信息</span>
-                </div>
-                <div class="repairContant">
-                    <div class="information">
-
-                    </div>
+            <div class="repairContant">
+                <div class="information">
 
                 </div>
-                <div class="returnBack">
-                    <span class="return-tit">返回上一级</span>
-                    <img src="img/icon-fanhui.png" alt="">
+
+            </div>
+            <div class="returnBack">
+                <span class="return-tit">返回上一级</span>
+                <img src="img/icon-fanhui.png" alt="">
+            </div>
+        </div>
+        <div class="workInformation">
+            <div class="head-tit">
+                <img src="img/tuijianren.png" alt="">
+                <span class="tit">工人信息</span>
+            </div>
+            <div class="repairContant bg-white">
+                <div class="workerInside">
+                    <div class="choseWorker">
+                        <input type="radio" name="worke">
+                        <div class="workerContant">
+                            <div class="Name">姓名：xxx</div>
+                            <div class="leftContant">
+                                <p>工种：电工</p>
+                                <p>联系电话：123456789001</p>
+                                <select name="" id="day">
+                                    <option value="">9日</option>
+                                    <option value="">10日</option>
+                                    <option value="">11日</option>
+                                    <option value="">12日</option>
+                                    <option value="">13日</option>
+                                    <option value="">14日</option>
+                                    <option value="">15日</option>
+                                </select>
+                                <select name="" id="time">
+                                    <option value="9">9点</option>
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                </select>
+                            </div>
+                            <div class="rightContant"></div>
+                        </div>
+                    </div>
+                    <div class="choseWorker">
+                        <input type="radio" name="worke">
+                        <div class="workerContant">
+                            <div class="Name">姓名：xxx</div>
+                            <div class="leftContant">
+                                <p>工种：电工</p>
+                                <p>联系电话：123456789001</p>
+                                <select name="" id="">
+                                    <option value="">9日</option>
+                                    <option value="">10日</option>
+                                    <option value="">11日</option>
+                                    <option value="">12日</option>
+                                    <option value="">13日</option>
+                                    <option value="">14日</option>
+                                    <option value="">15日</option>
+                                </select>
+                                <select name="" id="">
+                                    <option value="9">9点</option>
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                </select>
+                            </div>
+                            <div class="rightContant"></div>
+                        </div>
+                    </div>
+                    <div class="choseWorker">
+                        <input type="radio" name="worke">
+                        <div class="workerContant">
+                            <div class="Name">姓名：xxx</div>
+                            <div class="leftContant">
+                                <p>工种：电工</p>
+                                <p>联系电话：123456789001</p>
+                                <select name="" id="">
+                                    <option value="">9日</option>
+                                    <option value="">10日</option>
+                                    <option value="">11日</option>
+                                    <option value="">12日</option>
+                                    <option value="">13日</option>
+                                    <option value="">14日</option>
+                                    <option value="">15日</option>
+                                </select>
+                                <select name="" id="">
+                                    <option value="9">9点</option>
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                </select>
+                            </div>
+                            <div class="rightContant"></div>
+                        </div>
+                    </div>
+                    <div class="choseWorker">
+                        <input type="radio"  name="worke">
+                        <div class="workerContant">
+                            <div class="Name">姓名：xxx</div>
+                            <div class="leftContant">
+                                <p>工种：电工</p>
+                                <p>联系电话：123456789001</p>
+                                <select name="" id="">
+                                    <option value="">9日</option>
+                                    <option value="">10日</option>
+                                    <option value="">11日</option>
+                                    <option value="">12日</option>
+                                    <option value="">13日</option>
+                                    <option value="">14日</option>
+                                    <option value="">15日</option>
+                                </select>
+                                <select name="" id="">
+                                    <option value="9">9点</option>
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                </select>
+                            </div>
+                            <div class="rightContant"></div>
+                        </div>
+                    </div>
+                    <div class="choseWorker">
+                        <input type="radio" name="worke">
+                        <div class="workerContant">
+                            <div class="Name">姓名：xxx</div>
+                            <div class="leftContant">
+                                <p>工种：电工</p>
+                                <p>联系电话：123456789001</p>
+                                <select name="" id="">
+                                    <option value="">9日</option>
+                                    <option value="">10日</option>
+                                    <option value="">11日</option>
+                                    <option value="">12日</option>
+                                    <option value="">13日</option>
+                                    <option value="">14日</option>
+                                    <option value="">15日</option>
+                                </select>
+                                <select name="" id="">
+                                    <option value="9">9点</option>
+                                    <option value="10">10点</option>
+                                    <option value="11">11点</option>
+                                    <option value="14">14点</option>
+                                    <option value="15">15点</option>
+                                    <option value="16">16点</option>
+                                    <option value="17">17点</option>
+                                    <option value="18">18点</option>
+                                </select>
+                            </div>
+                            <div class="rightContant"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="workInformation">
-                <div class="head-tit">
-                    <img src="img/tuijianren.png" alt="">
-                    <span class="tit">工人信息</span>
-                </div>
-                <div class="repairContant bg-white">
-                    <div class="workerInside">
-                        <div class="choseWorker">
-                            <input type="radio" name="worke">
-                            <div class="workerContant">
-                                <div class="Name">姓名：xxx</div>
-                                <div class="leftContant">
-                                    <p>工种：电工</p>
-                                    <p>联系电话：123456789001</p>
-                                    <select name="" id="day">
-                                        <option value="">9日</option>
-                                        <option value="">10日</option>
-                                        <option value="">11日</option>
-                                        <option value="">12日</option>
-                                        <option value="">13日</option>
-                                        <option value="">14日</option>
-                                        <option value="">15日</option>
-                                    </select>
-                                    <select name="" id="time">
-                                            <option value="9">9点</option>
-                                            <option value="10">10点</option>
-                                            <option value="11">11点</option>
-                                            <option value="14">14点</option>
-                                            <option value="15">15点</option>
-                                            <option value="16">16点</option>
-                                            <option value="17">17点</option>
-                                            <option value="18">18点</option>
-                                        </select>
-                                </div>
-                                <div class="rightContant"></div>
-                            </div>  
-                        </div>
-                        <div class="choseWorker">
-                                <input type="radio" name="worke">
-                                <div class="workerContant">
-                                    <div class="Name">姓名：xxx</div>
-                                    <div class="leftContant">
-                                        <p>工种：电工</p>
-                                        <p>联系电话：123456789001</p>
-                                        <select name="" id="">
-                                            <option value="">9日</option>
-                                            <option value="">10日</option>
-                                            <option value="">11日</option>
-                                            <option value="">12日</option>
-                                            <option value="">13日</option>
-                                            <option value="">14日</option>
-                                            <option value="">15日</option>
-                                        </select>
-                                        <select name="" id="">
-                                                <option value="9">9点</option>
-                                                <option value="10">10点</option>
-                                                <option value="11">11点</option>
-                                                <option value="14">14点</option>
-                                                <option value="15">15点</option>
-                                                <option value="16">16点</option>
-                                                <option value="17">17点</option>
-                                                <option value="18">18点</option>
-                                            </select>
-                                    </div>
-                                    <div class="rightContant"></div>
-                                </div>  
-                        </div>
-                        <div class="choseWorker">
-                            <input type="radio" name="worke">
-                            <div class="workerContant">
-                                <div class="Name">姓名：xxx</div>
-                                <div class="leftContant">
-                                    <p>工种：电工</p>
-                                    <p>联系电话：123456789001</p>
-                                    <select name="" id="">
-                                        <option value="">9日</option>
-                                        <option value="">10日</option>
-                                        <option value="">11日</option>
-                                        <option value="">12日</option>
-                                        <option value="">13日</option>
-                                        <option value="">14日</option>
-                                        <option value="">15日</option>
-                                    </select>
-                                    <select name="" id="">
-                                            <option value="9">9点</option>
-                                            <option value="10">10点</option>
-                                            <option value="11">11点</option>
-                                            <option value="14">14点</option>
-                                            <option value="15">15点</option>
-                                            <option value="16">16点</option>
-                                            <option value="17">17点</option>
-                                            <option value="18">18点</option>
-                                        </select>
-                                </div>
-                                <div class="rightContant"></div>
-                            </div>  
-                        </div>
-                        <div class="choseWorker">
-                            <input type="radio"  name="worke">
-                            <div class="workerContant">
-                                <div class="Name">姓名：xxx</div>
-                                <div class="leftContant">
-                                    <p>工种：电工</p>
-                                    <p>联系电话：123456789001</p>
-                                    <select name="" id="">
-                                        <option value="">9日</option>
-                                        <option value="">10日</option>
-                                        <option value="">11日</option>
-                                        <option value="">12日</option>
-                                        <option value="">13日</option>
-                                        <option value="">14日</option>
-                                        <option value="">15日</option>
-                                    </select>
-                                    <select name="" id="">
-                                            <option value="9">9点</option>
-                                            <option value="10">10点</option>
-                                            <option value="11">11点</option>
-                                            <option value="14">14点</option>
-                                            <option value="15">15点</option>
-                                            <option value="16">16点</option>
-                                            <option value="17">17点</option>
-                                            <option value="18">18点</option>
-                                        </select>
-                                </div>
-                                <div class="rightContant"></div>
-                            </div>  
-                        </div>
-                        <div class="choseWorker">
-                            <input type="radio" name="worke">
-                            <div class="workerContant">
-                                <div class="Name">姓名：xxx</div>
-                                <div class="leftContant">
-                                    <p>工种：电工</p>
-                                    <p>联系电话：123456789001</p>
-                                    <select name="" id="">
-                                        <option value="">9日</option>
-                                        <option value="">10日</option>
-                                        <option value="">11日</option>
-                                        <option value="">12日</option>
-                                        <option value="">13日</option>
-                                        <option value="">14日</option>
-                                        <option value="">15日</option>
-                                    </select>
-                                    <select name="" id="">
-                                            <option value="9">9点</option>
-                                            <option value="10">10点</option>
-                                            <option value="11">11点</option>
-                                            <option value="14">14点</option>
-                                            <option value="15">15点</option>
-                                            <option value="16">16点</option>
-                                            <option value="17">17点</option>
-                                            <option value="18">18点</option>
-                                        </select>
-                                </div>
-                                <div class="rightContant"></div>
-                            </div>  
-                        </div>
-                    </div>
-                </div>
-                <div class="arrange bg-white">
-                    <div class="arrangeWroker">
-                        安排工人
-                    </div>
+            <div class="arrange bg-white">
+                <div class="arrangeWroker">
+                    安排工人
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/repair.js"></script>
+</div>
+<script src="js/repair.js"></script>
+<script src="js/m_send.js"></script>
 </body>
 </html>
