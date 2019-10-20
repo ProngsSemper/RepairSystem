@@ -79,6 +79,7 @@ public class ServerListener implements ServletContextListener,
     public void contextDestroyed(ServletContextEvent sce) {
 
         this.pool.shutdownNow();
+        System.out.println("线程关闭");
 
     }
 
