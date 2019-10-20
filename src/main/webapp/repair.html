@@ -8,6 +8,21 @@
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/cookie.js"></script>
     <title>Document</title>
+
+    <style>
+        .m_select{
+            display: inline-block;
+            width: 100px;
+            height: 35px;
+            margin-left: 20px;
+        }
+        .iconSearch{
+            left: 179px;;
+
+        }
+    </style>
+
+
 </head>
 <body>
     <div class="topbg"></div>
@@ -31,11 +46,26 @@
         </div>
         <div class="contant">
             <div class="search">
+
                 <div class="insert">
+                    <select name="queryType" id="queryType" class="m_select">
+                        <option value="1" >工人名字</option>
+                        <option value="2" selected>工种类型</option>
+                        <option value="3">报修单id</option>
+                        <option value="4">学生名字</option>
+                    </select>
+
+
+
                     <i class="iconSearch"></i>
-                    <input type="text">
-                    <button>查找</button>
+                    <input type="text" id = "m_text">
+                    <button id = "m_query">查找</button>
                 </div>
+
+                <script src="js/m_send.js"></script>
+
+
+
                 <div class="category">
                     <div class="classify">
                         <span class="search-tit">分类：</span>
