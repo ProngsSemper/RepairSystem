@@ -62,8 +62,6 @@ $(document).ready(function () {
             getWorker();
             visited = false;
         }catch (e) {
-            console.log("...");
-            alert(123);
         }
         let selectDay=document.createElement('select');
         let selectTime=document.createElement('select');
@@ -120,7 +118,7 @@ function getMsg(pageCount) {
             // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
-            console.log(data);
+            // console.log(data);
             var b = $('.page').children().length == 0;
 
             if (b) {
@@ -215,7 +213,7 @@ function getWorker(){
             "wType":wType
         }),
         success:function(msg){
-            console.log(msg);
+            // console.log(msg);
             var data=msg.data;
 
             for(var i=0;i<data.length;i++){
@@ -254,7 +252,7 @@ function getWorker(){
 //监听点击工人按钮
 $("body").delegate('input[name="worke"]','click',function(){
     workeNumber = $(this).attr("number");
-    alert(workeNumber);
+    // alert(workeNumber);
 })
 //监听安排工人按钮
 $("body").delegate('.arrangeWroker','click',function(){
@@ -283,8 +281,6 @@ function arrangeWorker(formid,workeNumber){
             "wTel":wTel
         }),
         success:function (msg) {
-
-            console.log(msg);
 
         },
         error:function (xhr) {
