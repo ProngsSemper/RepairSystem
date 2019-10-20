@@ -29,6 +29,7 @@ public class ArrangeServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        logger.info("安排工人");
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         JSONObject mailRequestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = mailRequestBody.getString("stuMail");
