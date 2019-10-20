@@ -251,6 +251,7 @@ body{
     height: 10px; */
     background: #fff;
     color: #000;
+    margin-left: 10px;
     cursor: pointer;
 }
 .page>.cur{
@@ -382,7 +383,7 @@ body{
     float: left;
     width: 100px;
     height: 100px;
-    background-image: url("../img/mingpian2.png");
+    background-image: url(../img/mingpian2.png);
     background-size: contain;
 }
 .leftContant p{
@@ -394,4 +395,36 @@ select{
     height: 25px;
     margin-left: 1em;
     margin-top: 5px;
+}
+.success{
+    float: left;
+    width: 1010px;
+    height: 700px;
+    background: #fff;
+}
+.successback{
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/fanhui.png);
+    background-size: contain;
+}
+.success-tit{
+    margin: 0 0 0 8px;;
+}
+.successIcon{
+    position: relative;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    margin-top: -280px;
+    background-image: url(../img/gou.png);
+    background-size: contain;
+}
+.successText{
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 170px;
+    left: 45px;
 }

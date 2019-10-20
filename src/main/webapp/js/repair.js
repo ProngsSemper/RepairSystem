@@ -258,8 +258,19 @@ $("body").delegate('input[name="worke"]','click',function(){
 $("body").delegate('.arrangeWroker','click',function(){
     arrangeWorker(formId,workeNumber);
 });
+var dealOrder=document.getElementsByClassName("dealOrder")[0];
+var success=document.getElementsByClassName("success")[0];
+var successback=document.getElementsByClassName("successback")[0];
+var contant=document.getElementsByClassName("contant")[0];
+$("body").delegate('.successback','click',function(){
+    successback.style.display="none";
+    contant.style.display="block";
+    getMsg(1);
+})
 //点击提交安排工人按钮
 function arrangeWorker(formid,workeNumber){
+    var successDiv=document.getElementsByClassName("success")[0];
+    var dealOrder=document.getElementsByClassName("dealOrder")[0];
     var information=document.getElementsByClassName("information")[0];
     var MailP=information.getElementsByTagName("p")[3].textContent;
     var Mail=MailP.split("：")[1];
@@ -281,7 +292,15 @@ function arrangeWorker(formid,workeNumber){
             "wTel":wTel
         }),
         success:function (msg) {
-
+            if(msg.code==201){
+                // dealOrder.display="none";
+                // contant.display="none";
+                // success.display="block";
+                // alert("排期成功");
+                // location.reload();
+                successDiv.style.display="block";
+                dealOrder.style.display="none";
+            }
         },
         error:function (xhr) {
             alert(xhr.status);
