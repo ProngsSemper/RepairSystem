@@ -251,6 +251,7 @@ body{
     height: 10px; */
     background: #fff;
     color: #000;
+    margin-left: 10px;
     cursor: pointer;
 }
 .page>.cur{
