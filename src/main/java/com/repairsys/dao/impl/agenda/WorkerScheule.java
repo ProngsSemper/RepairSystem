@@ -4,6 +4,7 @@ import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
 
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 
 import com.repairsys.util.db.JdbcUtil;
@@ -59,6 +60,14 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             //清理并构建员工工作表单
             preCreateTable();
         }else {
+            /**
+             *
+             * 把过期的表单迁移到旧表中去
+             *
+             * */
+            FormListDaoImpl dao = FormListDaoImpl.getInstance();
+            dao.moveTo();
+
             //这里就要判断 时间段了  [l,r] 和 m时间点的关系
             // m==l时，不更新， l<m<r 时
             java.sql.Date nowDay = new java.sql.Date(System.currentTimeMillis());

@@ -23,7 +23,7 @@ public class RequestBodyFilter implements Filter {
      * 默认需要放行的资源
      */
     private static final String[] ARRAY = {".png", ".jpg", ".css",".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp"};
+    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp","img"};
 
     @Override
     public void destroy() {

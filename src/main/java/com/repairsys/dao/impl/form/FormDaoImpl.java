@@ -46,9 +46,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 将超过7天的废弃数据迁移到old 表
      */
-    private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform " +
-            "select queryCode,formMsg,formDate,stuId,stuMail,adminKey,wKey,photoId,endDate from form " +
-            "where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
+    private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform(queryCode,formMsg,formDate, room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level`) select queryCode,formMsg,formDate,room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level` from form where queryCode>=2 and endDate<= date_sub(CURDATE(),interval 7 day)";
 
     /**
      * 删除超过7天的垃圾数据

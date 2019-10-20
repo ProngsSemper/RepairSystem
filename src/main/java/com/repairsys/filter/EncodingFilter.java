@@ -20,7 +20,8 @@ public class EncodingFilter implements Filter {
      * 默认需要放行的资源
      */
     private static final String[] ARRAY = {".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp"};
+    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp","img"};
+    private static final String HTML = "htm";
     private static final Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
 
     @Override
@@ -51,7 +52,15 @@ public class EncodingFilter implements Filter {
         // 设置请求的编码为 utf-8
         req.setCharacterEncoding("UTF-8");
         //设置响应编码 为 utf-8 ,声明为json格式
-        resp.setContentType("application/json;charset=UTF-8");
+
+
+        if(t.indexOf(HTML)>0)
+        {
+            resp.setContentType("text/html;charset=UTF-8");
+
+        }else{
+            resp.setContentType("application/json;charset=UTF-8");
+        }
         resp.setCharacterEncoding("UTF-8");
 
         chain.doFilter(req, resp);
