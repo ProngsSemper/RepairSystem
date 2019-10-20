@@ -263,7 +263,7 @@ var success=document.getElementsByClassName("success")[0];
 var successback=document.getElementsByClassName("successback")[0];
 var contant=document.getElementsByClassName("contant")[0];
 $("body").delegate('.successback','click',function(){
-    successback.style.display="none";
+    success.style.display="none";
     contant.style.display="block";
     getMsg(1);
 })
