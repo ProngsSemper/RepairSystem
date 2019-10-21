@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,14 +30,18 @@ public class WorkerLoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        Result result = workerService.login(requestBody.getString("id"),
+        String workerId = requestBody.getString("id");
+        int loginSuccess = 200;
+        Result result = workerService.login(workerId,
                 requestBody.getString("password"),
                 session);
         logger.debug("工人登录信息{}", result);
         request.setAttribute("result", result);
-        response.addCookie(new Cookie("identity","worker"));
-        response.addHeader("identity","worker");
+        //登录成功设置cookie
+        if (result.getCode() == loginSuccess) {
+            CookieUtil.setCookie("workerId", workerId, response);
+            response.addHeader("identity", "worker");
+        }
         super.doPost(request, response);
     }
 

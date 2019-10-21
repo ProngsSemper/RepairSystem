@@ -14,11 +14,11 @@ public class NetTest {
     public void loginCall() throws IOException {
         JSONObject jsonObject = null;
         try {
-            jsonObject = Postman.doPost("181549422", "password");
+            jsonObject = Postman.doPost("181549422", "huxi9138");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonObject);
+        System.out.println(jsonObject.getString("userrealname"));
 
     }
 }

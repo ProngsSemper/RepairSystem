@@ -2,6 +2,7 @@ package com.repairsys.util.net;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Prongs
@@ -21,5 +22,19 @@ public class CookieUtil {
             }
         }
         return "";
+    }
+
+    /**
+     * 设置cookie
+     *
+     * @param cookieName cookie的名字
+     * @param cookie     cookie值
+     * @param response   响应
+     */
+    public static void setCookie(String cookieName, String cookie, HttpServletResponse response) {
+        Cookie ck = new Cookie(cookieName, cookie);
+        ck.setPath("/");
+        ck.setMaxAge(60 * 60);
+        response.addCookie(ck);
     }
 }

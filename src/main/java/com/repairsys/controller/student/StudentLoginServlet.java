@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,24 +32,24 @@ public class StudentLoginServlet extends BaseServlet {
         logger.debug("学生登录 ");
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        int loginSuccess = 200;
+        String stuId = requestBody.getString("id");
         Result result = studentService.login(
-                requestBody.getString("id"),
+                stuId,
                 requestBody.getString("password"),
                 session
         );
+        String stuName = studentService.stuName;
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
-
+        request.setAttribute("stuName", stuName);
         logger.debug(" session 的id是： " + session.getId());
-
-        if(result.getCode()==200)
-        {
-            response.addCookie(new Cookie("id",requestBody.getString("id")));
-            response.addCookie(new Cookie("identity","student"));
-            response.addHeader("identity","student");
+        //登录成功设置cookie
+        if (result.getCode() == loginSuccess) {
+            CookieUtil.setCookie("stuName", stuName, response);
+            CookieUtil.setCookie("stuId", stuId, response);
+            response.addHeader("identity", "student");
         }
-
-
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {

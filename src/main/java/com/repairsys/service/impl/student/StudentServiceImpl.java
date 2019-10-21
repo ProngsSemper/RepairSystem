@@ -32,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";
     private static final String flag = "flag";
+    public String stuName;
 
     @Override
     public Result<Boolean> login(String stuId, String stuPassword, HttpSession session) {
@@ -39,6 +40,7 @@ public class StudentServiceImpl implements StudentService {
         JSONObject jsonObject = null;
         try {
             jsonObject = Postman.doPost(stuId, stuPassword);
+            stuName = jsonObject.getString("userrealname");
         } catch (IOException e) {
             logger.error("校园网服务器异常，暂时没有收到回复");
             logger.error(ExceptionEnum.SERVER_CRASH.getDesc());
