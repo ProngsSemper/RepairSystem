@@ -275,4 +275,13 @@ public interface FormDao {
      * @return 布尔值
      */
     Boolean arrange(int wKey, int adminKey, int formId);
+
+    /**
+     * 学生评价工人
+     *
+     * @param evaluation 评价 好评：good，中评：mid，差评：bad
+     * @param wKey       工人key
+     * @return 布尔值
+     */
+    Boolean evaluate(String evaluation, int wKey);
 }
