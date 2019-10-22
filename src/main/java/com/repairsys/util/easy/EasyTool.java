@@ -16,6 +16,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
 import com.sun.corba.se.spi.orbutil.threadpool.Work;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +81,9 @@ public final class EasyTool {
      * 估计bean中的属性，做一个简单的排序，用于实现简单的推荐算法
      * @param workerList 工人或者工人表单的集合
      * @param workerTimeList  工人或者工人时间表类
+     * @deprecated
      */
+    @Deprecated
     public static void resortListOfWorker(List<WTime>workerTimeList,List<Worker> workerList)
     {
         Collections.sort(workerTimeList);
@@ -116,9 +120,14 @@ public final class EasyTool {
 
 
 
-        private static int width = 90;// 定义图片的width
-        private static int height = 20;// 定义图片的height
-        private static int codeCount = 4;// 定义图片上显示验证码的个数
+        private static int width = 90;
+    // 定义图片的width
+        private static int height = 20;
+        // 定义图片的height
+        private static int codeCount = 4;
+
+        // 定义图片上显示验证码的个数
+
         private static int xx = 15;
         private static int fontHeight = 18;
         private static  int codeY = 16;
@@ -134,8 +143,7 @@ public final class EasyTool {
         public static Map<String,Object> generateCodeAndPic() {
             // 定义图像buffer
             BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            // Graphics2D gd = buffImg.createGraphics();
-            // Graphics2D gd = (Graphics2D) buffImg.getGraphics();
+
             Graphics gd = buffImg.getGraphics();
             // 创建一个随机数生成器类
             Random random = new Random();
@@ -190,13 +198,16 @@ public final class EasyTool {
             return map;
         }
 
-        // public static void main(String[] args) throws Exception {
-        //     //创建文件输出流对象
-        //     OutputStream out = new FileOutputStream("D://img/"+System.currentTimeMillis()+".jpg");
-        //     Map<String,Object> map = generateCodeAndPic();
-        //     ImageIO.write((RenderedImage) map.get("codePic"), "jpeg", out);
-        //     System.out.println("验证码的值为："+map.get("code"));
-        // }
+        public static void print(HSSFRow r,String... str)
+        {
+            for(int i=0;i<str.length;++i)
+            {
+                HSSFCell col = r.createCell(i);
+                col.setCellValue(str[i]);
+            }
+        }
+
+
 
 
 
