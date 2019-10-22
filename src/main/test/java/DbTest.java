@@ -135,7 +135,7 @@ public class DbTest {
     {
         // List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         // System.out.println(list);
-        ExcelServiceImpl.getInstance().exportTable();
+        ExcelServiceImpl.getInstance().exportOneByOne();
     }
 
 

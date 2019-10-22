@@ -15,6 +15,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,7 +35,7 @@ public class ExcelServiceImpl implements ExcelService {
 
     }
 
-    private static final String PATH = "E:/demo/file/sample.xls";
+    private static final String PATH = "E:/demo/file/";
     private static final String[] title = {
             "工人名字",
             "表单id",
@@ -61,8 +64,9 @@ public class ExcelServiceImpl implements ExcelService {
             return new Result<Boolean>();
         }
         Result<Boolean> res = new Result<>();
+        String s = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         try(
-                FileOutputStream fos = new FileOutputStream(PATH);
+                FileOutputStream fos = new FileOutputStream(PATH+s+"_all.xls");
                 )
         {
                 Workbook wb = new HSSFWorkbook();
@@ -102,5 +106,101 @@ public class ExcelServiceImpl implements ExcelService {
 
 
         return res;
+    }
+
+    public void exportAll()
+    {
+        exportTable();
+    }
+    public  Result<Boolean> exportOneByOne()
+    {
+        List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
+        if(list==null||list.isEmpty()||list.get(0)==null)
+        {
+            return new Result<Boolean>();
+        }
+        Result<Boolean> res = new Result<>();
+        String s = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+
+        HashMap<String,LinkedList<ExcelTable>> map = new HashMap<>();
+        for(ExcelTable t:list)
+        {
+            LinkedList<ExcelTable> curTable = map.getOrDefault(t.getwName(), new LinkedList<>());
+            curTable.add(t);
+            map.put(t.getwName(),curTable);
+        }
+        for(LinkedList<ExcelTable> table:map.values())
+        {
+            print(table,s);
+        }
+        res.setData(true);
+
+        return res;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public boolean print(LinkedList<ExcelTable > list, String s)
+    {
+        if(list==null||list.isEmpty()||list.get(0)==null)
+        {
+            return false;
+        }
+        Result<Boolean> res = new Result<>();
+        //
+        try(
+                FileOutputStream fos = new FileOutputStream(PATH+s+list.get(0).getwName()+".xls");
+        )
+        {
+            Workbook wb = new HSSFWorkbook();
+            HSSFSheet sheet = (HSSFSheet) wb.createSheet();
+            int i=0;
+            HSSFRow r0 = sheet.createRow(i++);
+            EasyTool.print(r0,title);
+
+            for(ExcelTable t:list)
+            {
+                EasyTool.print(sheet.createRow(i++),
+                        t.getwName(),
+                        t.getFormId(),
+                        t.getFormMsg(),
+                        t.getRoom(),
+                        t.getFormDate(),
+                        t.getStuName(),
+                        t.getStuId(),
+                        t.getStuPhone(),
+                        t.getStuMail(),
+                        t.getAppointDate(),
+                        t.getAppointment()
+
+
+                );
+            }
+
+
+            wb.write(fos);
+            fos.flush();
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        return true;
+
     }
 }
