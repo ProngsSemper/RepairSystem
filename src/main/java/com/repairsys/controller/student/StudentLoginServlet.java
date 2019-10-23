@@ -45,7 +45,6 @@ public class StudentLoginServlet extends BaseServlet {
 
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
-        request.setAttribute("stuName", stuName);
         logger.debug(" session 的id是： " + session.getId());
         // 登录成功设置cookie
         if (result.getCode() == loginSuccess) {
