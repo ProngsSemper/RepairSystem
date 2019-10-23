@@ -33,12 +33,10 @@ public class CheckCodeServlet extends HttpServlet {
     private static final String base = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         //服务器通知浏览器不要缓存
         response.setHeader("pragma", "no-cache");
         response.setHeader("cache-control", "no-cache");
         response.setHeader("expires", "0");
-
         //在内存中创建一个长80，宽30的图片，默认黑色背景
         //参数一：长
         //参数二：宽
@@ -106,29 +104,20 @@ public class CheckCodeServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, Object> codeMap = EasyTool.generateCodeAndPic();
-
         // 将四位数字的验证码保存到Session中。
         HttpSession session = request.getSession();
         session.setAttribute("CHECKCODE_SERVER", codeMap.get("code").toString().toLowerCase());
-
         // 禁止图像缓存。
-        response.setHeader("Pragma", "no-cache");
-        response.setHeader("Cache-Control", "no-cache");
-        response.setDateHeader("Expires", -1);
+        response.setHeader("pragma", "no-cache");
+        response.setHeader("cache-control", "no-cache");
+        response.setHeader("expires", "0");
 
         response.setContentType("image/png");
-        // request.getSession().setAttribute(, checkCode);
-
-        // 将图像输出到Servlet输出流中。
         ServletOutputStream sos;
-        try {
-            sos = response.getOutputStream();
-            ImageIO.write((RenderedImage) codeMap.get("codePic"), "png", sos);
-            sos.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        sos = response.getOutputStream();
+        ImageIO.write((RenderedImage) codeMap.get("codePic"), "png", sos);
+        sos.close();
+
 
     }
 

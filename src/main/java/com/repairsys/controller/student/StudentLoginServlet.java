@@ -45,11 +45,11 @@ public class StudentLoginServlet extends BaseServlet {
         request.setAttribute("stuName", stuName);
         logger.debug(" session 的id是： " + session.getId());
         //登录成功设置cookie
-        if (result.getCode() == loginSuccess) {
-            CookieUtil.setCookie("stuName", stuName, response);
-            CookieUtil.setCookie("stuId", stuId, response);
-            response.addHeader("identity", "student");
-        }
+        // if (result.getCode() == loginSuccess) {
+        //     CookieUtil.setCookie("stuName", stuName, response);
+        //     CookieUtil.setCookie("stuId", stuId, response);
+        //     response.addHeader("identity", "student");
+        // }
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {
