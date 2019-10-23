@@ -122,7 +122,7 @@ public class ExcelServiceImpl implements ExcelService {
         Result<Boolean> res = new Result<>();
         String s = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
 
-        HashMap<String,LinkedList<ExcelTable>> map = new HashMap<>();
+        HashMap<String,LinkedList<ExcelTable>> map = new HashMap<>(list.size());
         for(ExcelTable t:list)
         {
             LinkedList<ExcelTable> curTable = map.getOrDefault(t.getwName(), new LinkedList<>());
