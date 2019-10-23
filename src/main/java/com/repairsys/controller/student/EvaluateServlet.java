@@ -8,6 +8,7 @@ import com.repairsys.service.impl.student.StudentServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,9 @@ public class EvaluateServlet extends BaseServlet {
         int flag = 201;
         if (result.getCode() == flag) {
             logger.debug("评价成功{}", result);
+            String path = "/student/evaluate/detail";
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/" + path);
+            requestDispatcher.forward(request, response);
         } else {
             logger.debug("评价失败{}", result);
         }

@@ -8,7 +8,6 @@ import com.repairsys.service.impl.student.StudentServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,27 +16,24 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/23 8:52
+ * @date 2019/10/23 19:53
  */
-@WebServlet("/student/appoint")
-public class AppointAgainServlet extends BaseServlet {
+@WebServlet("/student/evaluate/detail")
+public class EvaluateDetailServlet extends BaseServlet {
     private final StudentServiceImpl studentService = ServiceFactory.getStudentService();
-    private static final Logger logger = LoggerFactory.getLogger(AppointAgainServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(EvaluateDetailServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        Result result = studentService.appointAgain(requestBody.getString("appointDate"),
-                requestBody.getInteger("appointment"),
-                requestBody.getInteger("formId"));
+        //详细（文字）评价
+        Result result = studentService.addEvaluation(requestBody.getString("msg"),
+                requestBody.getInteger("wKey"));
         int flag = 201;
         if (result.getCode() == flag) {
-            logger.debug("修改预约时间成功{}", result);
-            String path = "/student/level";
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/" + path);
-            requestDispatcher.forward(request, response);
+            logger.debug("评价成功{}", result);
         } else {
-            logger.debug("修改预约时间失败{}", result);
+            logger.debug("评价失败{}", result);
         }
         request.setAttribute("result", result);
         super.doPost(request, response);

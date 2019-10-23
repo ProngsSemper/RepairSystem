@@ -103,4 +103,6 @@ public interface StudentService {
      * @return 布尔值
      */
     Result<Boolean> appointAgain(String appointDate, int appointment, int formId);
+
+    Result<Boolean> addEvaluation(String msg,int wKey);
 }

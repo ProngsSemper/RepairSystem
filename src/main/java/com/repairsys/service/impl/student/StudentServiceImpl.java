@@ -9,6 +9,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
+import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
@@ -199,6 +200,20 @@ public class StudentServiceImpl implements StudentService {
             return result;
         }
         result.setResult(ResultEnum.APPOINT_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> addEvaluation(String msg, int wKey){
+        EvaluationDaoImpl  evaluationDao = (EvaluationDaoImpl)DaoFactory.getEvaluationDao();
+        boolean data = evaluationDao.addEvaluation(msg, wKey);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.EVALUATE_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.EVALUATE_SUCCESSFULLY);
         result.setData(true);
         return result;
     }
