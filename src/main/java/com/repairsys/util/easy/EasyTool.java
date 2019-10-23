@@ -1,31 +1,18 @@
 package com.repairsys.util.easy;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Iterator;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.*;
 
 /**
  * @Author lyr
