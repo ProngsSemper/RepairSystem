@@ -98,6 +98,14 @@ public class WorkerServiceImpl implements WorkerService {
         return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
     }
 
+    @Override
+    public Result getEvaluation(int wKey) {
+        Result result = new Result();
+        String evaluation = workerDao.getEvaluation(wKey);
+        result.setData(evaluation);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
     /**
      * 实现推荐算法，推荐工人
      *

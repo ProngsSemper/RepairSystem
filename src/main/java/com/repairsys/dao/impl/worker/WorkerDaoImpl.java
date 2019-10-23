@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.WorkerDao {
     private final Connection connection = JdbcUtil.getConnection();
-    
+
     private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
@@ -26,6 +26,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String UPDATE_QUERYCODE = "update form set queryCode = ? where formId = ?";
     private static final String GET_SUM = "select count(*) from workers";
     private static final String GET_WORKER_LIST = "select * from workers";
+    private static final String SELECT_WORKER = "SELECT * FROM workers WHERE wKey=?";
 
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
@@ -156,9 +157,20 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.getCount(connection, cntSql, wKey);
 
     }
-    public List<Worker> getList(String sql,Object...obj)
-    {
-        return super.selectList(connection,sql,obj);
+
+    public List<Worker> getList(String sql, Object... obj) {
+        return super.selectList(connection, sql, obj);
     }
 
+    @Override
+    public String getEvaluation(int wKey) {
+        Worker worker = super.selectOne(connection, SELECT_WORKER, wKey);
+        double good = worker.getGood();
+        double mid = worker.getMid();
+        double bad = worker.getBad();
+        double sum = good + mid + bad;
+        double pre = (good / sum) * 100;
+        String result = String.format("%.1f", pre);
+        return result + "%";
+    }
 }

@@ -93,4 +93,11 @@ public interface WorkerDao {
      */
     int getAllIncompleteCountBywKey(int wKey);
 
+    /**
+     * 根据工人key查询他的好评率
+     *
+     * @param wKey 工人key
+     * @return 好评率
+     */
+    String getEvaluation(int wKey);
 }

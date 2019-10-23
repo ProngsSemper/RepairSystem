@@ -81,5 +81,11 @@ public interface WorkerService {
      */
     Result<List<Worker>> getSuitableWorkerList(Date date,int hour ,String workerType);
 
-
+    /**
+     * 根据工人key查询他的好评率
+     *
+     * @param wKey 工人key
+     * @return 好评率
+     */
+    Result getEvaluation(int wKey);
 }
