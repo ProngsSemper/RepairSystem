@@ -24,15 +24,11 @@ public class CookieUtil {
         if (cookies == null) {
             return "";
         }
-        // System.out.println("fuck you2");
         for (Cookie cookie : cookies) {
-            // System.out.println("fuck you3");
             if (name.equals(cookie.getName())) {
-                // System.out.println("fuck you 4");
                 return cookie.getValue();
             }
         }
-        // System.out.println("fuck you5");
         return "";
     }
 
@@ -44,12 +40,9 @@ public class CookieUtil {
      * @param response   响应
      */
     public static void setCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
-        Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie,"utf-8"));
-
+        Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
         ck.setMaxAge(60 * 60);
-
         response.addCookie(ck);
-        // System.out.println("fuck ");
     }
 }
