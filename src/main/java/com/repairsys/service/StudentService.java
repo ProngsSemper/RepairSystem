@@ -104,5 +104,12 @@ public interface StudentService {
      */
     Result<Boolean> appointAgain(String appointDate, int appointment, int formId);
 
-    Result<Boolean> addEvaluation(String msg,int wKey);
+    /**
+     * 学生对工人评价
+     *
+     * @param msg  评价
+     * @param wKey 工人key
+     * @return 布尔值
+     */
+    Result<Boolean> addEvaluation(String msg, int wKey);
 }

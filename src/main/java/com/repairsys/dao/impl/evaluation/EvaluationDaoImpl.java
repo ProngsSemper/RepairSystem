@@ -6,6 +6,7 @@ import com.repairsys.dao.EvaluationDao;
 import com.repairsys.util.db.JdbcUtil;
 
 import java.sql.Connection;
+import java.util.List;
 
 /**
  * @author Prongs
@@ -14,6 +15,7 @@ import java.sql.Connection;
 public class EvaluationDaoImpl extends BaseDao<Evaluation> implements EvaluationDao {
     private final Connection connection = JdbcUtil.getConnection();
     private static final String ADD_EVALUATION = "insert into evaluation (msg,wKey) values (?,?)";
+    private static final String GET_EVALUATION = "SELECT msg FROM `evaluation` WHERE wKey = ?";
 
     private static final EvaluationDaoImpl EVALUATION_DAO;
 
@@ -35,5 +37,10 @@ public class EvaluationDaoImpl extends BaseDao<Evaluation> implements Evaluation
             return false;
         }
         return super.addOne(connection,ADD_EVALUATION,msg,wKey);
+    }
+
+    @Override
+    public List<Evaluation> getMsg(int wKey){
+        return super.selectList(connection,GET_EVALUATION,wKey);
     }
 }

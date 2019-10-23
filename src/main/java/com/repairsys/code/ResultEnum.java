@@ -138,6 +138,15 @@ public enum ResultEnum {
      * 没有查询到相关表单
      */
     QUERY_FAILED(401, "没有查询到相关表单"),
+    /**
+     * 查询评价成功
+     */
+    GET_EVALUATION_SUCCESSFULLY(200, "查询评价成功"),
+
+    /**
+     * 没有查询到相关表单
+     */
+    GET_EVALUATION_FAILED(401, "暂无评价"),
 
     /**
      * @author Prongs

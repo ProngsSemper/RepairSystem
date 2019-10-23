@@ -10,7 +10,6 @@ import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,19 +18,19 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/23 11:15
+ * @date 2019/10/23 20:11
  */
-@WebServlet("/worker/evaluation")
-public class GetEvaluationServlet extends BaseServlet {
+@WebServlet("/worker/evaluation/detail")
+public class GetDetailEvaluationServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
     private final WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
-    private static final Logger logger = LoggerFactory.getLogger(GetEvaluationServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetDetailEvaluationServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String wId = CookieUtil.getCookie("workerId", request);
         int wKey = workerDao.getWorkerKeyById(wId).getwKey();
-        Result result = workerService.getEvaluation(wKey);
+        Result result = workerService.getDetailEvaluation(wKey);
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);
