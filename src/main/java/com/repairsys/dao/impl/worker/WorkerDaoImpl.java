@@ -170,7 +170,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         double mid = worker.getMid();
         double bad = worker.getBad();
         if (good==0&&mid==0&&bad==0){
-            return "0%";
+            return "暂无评价！";
         }
         double sum = good + mid + bad;
         double pre = (good / sum) * 100;
