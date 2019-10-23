@@ -86,6 +86,14 @@ public interface WorkerDao {
     Worker getWorkerTelByKey(int wKey);
 
     /**
+     * 根据工人id查工人key
+     *
+     * @param workerId 工人id
+     * @return 工人key
+     */
+    Worker getWorkerKeyById(String workerId);
+
+    /**
      * 根据工人key查询工人未处理报修单
      *
      * @param wKey 工人key
