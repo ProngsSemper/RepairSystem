@@ -1,6 +1,5 @@
 package com.repairsys.controller.worker;
 
-import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.DaoFactory;
