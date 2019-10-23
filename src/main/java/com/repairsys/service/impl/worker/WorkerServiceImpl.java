@@ -1,5 +1,6 @@
 package com.repairsys.service.impl.worker;
 
+import com.repairsys.bean.entity.Evaluation;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
@@ -10,11 +11,13 @@ import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.FormDao;
 import com.repairsys.dao.WorkerDao;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
+import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.WorkerService;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.string.StringUtils;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,6 +99,14 @@ public class WorkerServiceImpl implements WorkerService {
             return result.setResult(ResultEnum.UPDATE_QUERYCODE_SUCCESSFULLY);
         }
         return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+    }
+
+    @Override
+    public Result getEvaluation(int wKey) {
+        Result result = new Result();
+        String evaluation = workerDao.getEvaluation(wKey);
+        result.setData(evaluation);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
     /**
@@ -217,6 +228,20 @@ public class WorkerServiceImpl implements WorkerService {
         System.out.println(ans);
 
         return ans;
+    }
+
+    @Override
+    public Result getDetailEvaluation(int wKey){
+        EvaluationDaoImpl evaluationDao = (EvaluationDaoImpl)DaoFactory.getEvaluationDao();
+        List<Evaluation> data = evaluationDao.getMsg(wKey);
+        Result result = new Result<>();
+        result.setData(data);
+        if (data.isEmpty()) {
+            result.setResult(ResultEnum.GET_EVALUATION_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.GET_EVALUATION_SUCCESSFULLY);
+        return result;
     }
 
     public WorkerServiceImpl() {

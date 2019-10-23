@@ -9,6 +9,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
+import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
@@ -171,6 +172,48 @@ public class StudentServiceImpl implements StudentService {
             return result;
         }
         result.setResult(ResultEnum.CONFIRM_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> evaluate(String evaluation, int wKey) {
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        boolean data = formDao.evaluate(evaluation, wKey);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.EVALUATE_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.EVALUATE_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> appointAgain(String appointDate, int appointment, int formId) {
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        boolean data = formDao.appointAgain(appointDate, appointment, formId);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.APPOINT_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.APPOINT_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> addEvaluation(String msg, int wKey){
+        EvaluationDaoImpl  evaluationDao = (EvaluationDaoImpl)DaoFactory.getEvaluationDao();
+        boolean data = evaluationDao.addEvaluation(msg, wKey);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.EVALUATE_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.EVALUATE_SUCCESSFULLY);
         result.setData(true);
         return result;
     }

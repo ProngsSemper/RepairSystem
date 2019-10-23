@@ -100,6 +100,22 @@ public enum ResultEnum {
      */
     DELETE_FAILED(400, "删除失败"),
     /**
+     * 评价成功
+     */
+    EVALUATE_SUCCESSFULLY(201, "评价成功"),
+    /**
+     * 评价失败
+     */
+    EVALUATE_FAILED(400, "评价失败"),
+    /**
+     * 评价成功
+     */
+    APPOINT_SUCCESSFULLY(201, "修改预约时间成功"),
+    /**
+     * 评价失败
+     */
+    APPOINT_FAILED(400, "修改预约时间失败"),
+    /**
      * @author lyr
      * @date 2019/9/29
      * 插入信息成功
@@ -122,6 +138,15 @@ public enum ResultEnum {
      * 没有查询到相关表单
      */
     QUERY_FAILED(401, "没有查询到相关表单"),
+    /**
+     * 查询评价成功
+     */
+    GET_EVALUATION_SUCCESSFULLY(200, "查询评价成功"),
+
+    /**
+     * 没有查询到相关表单
+     */
+    GET_EVALUATION_FAILED(401, "暂无评价"),
 
     /**
      * @author Prongs

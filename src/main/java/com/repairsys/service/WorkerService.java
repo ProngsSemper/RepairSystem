@@ -63,23 +63,37 @@ public interface WorkerService {
     /**
      * 查询工人未完成报修单
      *
-     * @param wId  工人Id
+     * @param wId   工人Id
      * @param page  当前页面
      * @param limit 本页最多显示多少数据
      * @return 返回相应状态码
      */
     Result getIncompleteForm(String wId, int page, int limit);
 
-
     /**
      * 查询满足条件的工人要求
-     * @date 2019/10/17
-     * @param date 预约的那天
-     * @param hour  预约的整点小时
-     * @param workerType  工人类型
+     *
+     * @param date       预约的那天
+     * @param hour       预约的整点小时
+     * @param workerType 工人类型
      * @return 返回推荐的工人的表单集合
+     * @date 2019/10/17
      */
-    Result<List<Worker>> getSuitableWorkerList(Date date,int hour ,String workerType);
+    Result<List<Worker>> getSuitableWorkerList(Date date, int hour, String workerType);
 
+    /**
+     * 根据工人key查询他的好评率
+     *
+     * @param wKey 工人key
+     * @return 好评率
+     */
+    Result getEvaluation(int wKey);
 
+    /**
+     * 工人根据自己的key查询详细（文字）评价
+     *
+     * @param wKey 工人key
+     * @return 评价详情
+     */
+    Result getDetailEvaluation(int wKey);
 }

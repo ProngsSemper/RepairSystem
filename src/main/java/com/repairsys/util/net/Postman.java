@@ -1,7 +1,6 @@
 package com.repairsys.util.net;
 
 import com.alibaba.fastjson.JSONObject;
-import javafx.geometry.Pos;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
