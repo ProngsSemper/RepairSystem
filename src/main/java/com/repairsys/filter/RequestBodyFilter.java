@@ -33,6 +33,7 @@ public class RequestBodyFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        logger.debug(t);
         for (String i : ARRAY) {
             if (t.endsWith(i)) {
                 logger.debug("放行静态资源 {}", t);
