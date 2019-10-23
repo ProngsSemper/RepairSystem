@@ -33,12 +33,13 @@ public class StudentServiceImpl implements StudentService {
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";
     private static final String flag = "flag";
-    public String stuName;
+    // public String stuName; 会有线程安全问题，已经注释，不谢
 
     @Override
     public Result<Boolean> login(String stuId, String stuPassword, HttpSession session) {
         boolean serverCash = false;
         JSONObject jsonObject = null;
+        String stuName = null;
         try {
             jsonObject = Postman.doPost(stuId, stuPassword);
             stuName = jsonObject.getString("userrealname");
@@ -48,6 +49,7 @@ public class StudentServiceImpl implements StudentService {
             serverCash = true;
         }
         Result<Boolean> result = new Result<>();
+
 
         if (serverCash) {
             Developer bean = DeveloperDao.getInstance().login(stuId, stuPassword);
@@ -65,6 +67,8 @@ public class StudentServiceImpl implements StudentService {
             } else if (FLAG.equals(jsonObject.getString(flag))) {
                 result.setData(true);
                 result.setResult(ResultEnum.LOGIN_SUCCESS);
+                result.setDesc(stuName);
+                //放在desc就不会怕线程的问题了
             } else {
                 result.setData(false);
                 result.setResult(ResultEnum.LOGIN_FAIL);

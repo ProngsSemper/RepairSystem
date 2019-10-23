@@ -3,6 +3,8 @@ package com.repairsys.util.net;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * @author Prongs
@@ -12,15 +14,25 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
+        try {
+            request.setCharacterEncoding("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Cookie[] cookies = request.getCookies();
+        System.out.println("fuck you1");
         if (cookies == null) {
             return "";
         }
+        // System.out.println("fuck you2");
         for (Cookie cookie : cookies) {
+            // System.out.println("fuck you3");
             if (name.equals(cookie.getName())) {
+                // System.out.println("fuck you 4");
                 return cookie.getValue();
             }
         }
+        // System.out.println("fuck you5");
         return "";
     }
 
@@ -31,10 +43,13 @@ public class CookieUtil {
      * @param cookie     cookie值
      * @param response   响应
      */
-    public static void setCookie(String cookieName, String cookie, HttpServletResponse response) {
-        Cookie ck = new Cookie(cookieName, cookie);
+    public static void setCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
+        Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie,"utf-8"));
+
         ck.setPath("/");
         ck.setMaxAge(60 * 60);
+
         response.addCookie(ck);
+        // System.out.println("fuck ");
     }
 }

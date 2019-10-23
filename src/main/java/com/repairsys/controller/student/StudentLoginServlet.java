@@ -2,6 +2,7 @@ package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 //写完了哦
 
 /**
@@ -39,17 +41,33 @@ public class StudentLoginServlet extends BaseServlet {
                 requestBody.getString("password"),
                 session
         );
-        String stuName = studentService.stuName;
+        String stuName = result.getDesc();
+
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
         request.setAttribute("stuName", stuName);
         logger.debug(" session 的id是： " + session.getId());
-        //登录成功设置cookie
-        // if (result.getCode() == loginSuccess) {
-        //     CookieUtil.setCookie("stuName", stuName, response);
-        //     CookieUtil.setCookie("stuId", stuId, response);
-        //     response.addHeader("identity", "student");
-        // }
+        // 登录成功设置cookie
+        if (result.getCode() == loginSuccess) {
+            System.out.println(456);
+            try {
+                CookieUtil.setCookie("stuName", stuName, response);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            System.out.println(789);
+            try {
+                CookieUtil.setCookie("stuId", stuId, response);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            System.out.println(666);
+            response.addHeader("identity", "student");
+            logger.debug("设置成功");
+            result.setResult(ResultEnum.LOGIN_SUCCESS);
+
+        }
+        System.out.println(123);
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {

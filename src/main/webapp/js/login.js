@@ -100,29 +100,7 @@ $(document).ready(function () {
                         // window.location.href = "www.baidu.com";
                         var identity = jqXHR.getResponseHeader('identity');
                         alert('登录成功');
-                        // var my_id = $('#id').val();
-                        // var my_password = $('#password').val();
-                        // if (identity === 'student') {
-                        //     addcookie("stuId", my_id, 7);
-                        // } else if (identity === 'admin') {
-                        //     addcookie("adminId", my_id, 1825);
-                        // } else if (identity === 'worker') {
-                        //     addcookie("workerId", my_id, 1825);
-                        // }
-                        // // var rem = $('#remember2').is(':checked');
-                        // if (rem) {
-                        // alert("记住密码");
-                        // if (identity === 'student') {
-                        //     addcookie("stuPassword", my_password, 7);
-                        //     window.setTimeout("window.location.href='/firstPage.html'", 500);
-                        // } else if (identity === 'admin') {
-                        //     addcookie("adminPassword", my_password, 1825);
-                        //     window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
-                        // } else if (identity === 'worker') {
-                        //     addcookie("workerPassword", my_password, 1825);
-                        //     window.setTimeout("window.location.href='/welcome.html'", 500);
-                        // }
-                        // } else {
+
                         if (identity == 'student') {
                             window.setTimeout("window.location.href='/firstPage.html'", 1000);
                         } else if (identity == 'admin') {
