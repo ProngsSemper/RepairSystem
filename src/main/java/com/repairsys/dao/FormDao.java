@@ -275,4 +275,23 @@ public interface FormDao {
      * @return 布尔值
      */
     Boolean arrange(int wKey, int adminKey, int formId);
+
+    /**
+     * 学生评价工人
+     *
+     * @param evaluation 评价 好评：good，中评：mid，差评：bad
+     * @param wKey       工人key
+     * @return 布尔值
+     */
+    Boolean evaluate(String evaluation, int wKey);
+
+    /**
+     * 学生一键再修时重新预约时间
+     *
+     * @param appointDate 预约日期
+     * @param appointment 预约时间
+     * @param formId      报修单id
+     * @return 布尔值
+     */
+    Boolean appointAgain(String appointDate, int appointment, int formId);
 }
