@@ -95,6 +95,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String GOOD = "UPDATE workers SET good = good + 1 WHERE wKey = ?";
     private static final String MID = "UPDATE workers SET mid = mid + 1 WHERE wKey = ?";
     private static final String BAD = "UPDATE workers SET bad = bad + 1 WHERE wKey = ?";
+    /**
+     * 学生申请一键再修时，重新预约时间
+     */
+    private static final String APPOINT_AGAIN = "UPDATE form SET appointDate=DATE_FORMAT('2019-'?,'%y-%m-%d'),appointment=? WHERE formId=?";
 
     String INSERT_FORM =
             "INSERT INTO FORM (stuId,queryCode,formId,formMsg,formDate,stuMail,photoId,adminKey,room)values(?,?,?,?,?,?,?,?,?)";
@@ -479,15 +483,23 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     @Override
-    public Boolean evaluate(String evaluation, int wKey){
-        if ("good".equals(evaluation)){
-            return super.updateOne(connection,GOOD,wKey);
-        }else if ("mid".equals(evaluation)){
-            return super.updateOne(connection,MID,wKey);
-        }else if ("bad".equals(evaluation)){
-            return super.updateOne(connection,BAD,wKey);
-        }else {
+    public Boolean evaluate(String evaluation, int wKey) {
+        if ("good".equals(evaluation)) {
+            return super.updateOne(connection, GOOD, wKey);
+        } else if ("mid".equals(evaluation)) {
+            return super.updateOne(connection, MID, wKey);
+        } else if ("bad".equals(evaluation)) {
+            return super.updateOne(connection, BAD, wKey);
+        } else {
             return false;
         }
+    }
+
+    @Override
+    public Boolean appointAgain(String appointDate, int appointment, int formId) {
+        if (appointDate == null || appointment == 0 || formId == 0 || "".equals(appointDate)) {
+            return false;
+        }
+        return super.updateOne(connection, APPOINT_AGAIN, appointDate, appointment, formId);
     }
 }

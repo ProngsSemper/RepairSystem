@@ -108,6 +108,14 @@ public enum ResultEnum {
      */
     EVALUATE_FAILED(400, "评价失败"),
     /**
+     * 评价成功
+     */
+    APPOINT_SUCCESSFULLY(201, "修改预约时间成功"),
+    /**
+     * 评价失败
+     */
+    APPOINT_FAILED(400, "修改预约时间失败"),
+    /**
      * @author lyr
      * @date 2019/9/29
      * 插入信息成功

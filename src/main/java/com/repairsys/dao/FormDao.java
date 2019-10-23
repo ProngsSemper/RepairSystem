@@ -284,4 +284,14 @@ public interface FormDao {
      * @return 布尔值
      */
     Boolean evaluate(String evaluation, int wKey);
+
+    /**
+     * 学生一键再修时重新预约时间
+     *
+     * @param appointDate 预约日期
+     * @param appointment 预约时间
+     * @param formId      报修单id
+     * @return 布尔值
+     */
+    Boolean appointAgain(String appointDate, int appointment, int formId);
 }

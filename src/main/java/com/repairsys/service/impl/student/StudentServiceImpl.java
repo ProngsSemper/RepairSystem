@@ -178,13 +178,27 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Result<Boolean> evaluate(String evaluation, int wKey) {
         FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
-        boolean data = formDao.evaluate(evaluation,wKey);
+        boolean data = formDao.evaluate(evaluation, wKey);
         Result<Boolean> result = new Result<>();
         if (!data) {
             result.setResult(ResultEnum.EVALUATE_FAILED);
             return result;
         }
         result.setResult(ResultEnum.EVALUATE_SUCCESSFULLY);
+        result.setData(true);
+        return result;
+    }
+
+    @Override
+    public Result<Boolean> appointAgain(String appointDate, int appointment, int formId) {
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        boolean data = formDao.appointAgain(appointDate, appointment, formId);
+        Result<Boolean> result = new Result<>();
+        if (!data) {
+            result.setResult(ResultEnum.APPOINT_FAILED);
+            return result;
+        }
+        result.setResult(ResultEnum.APPOINT_SUCCESSFULLY);
         result.setData(true);
         return result;
     }
