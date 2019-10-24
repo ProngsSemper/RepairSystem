@@ -47,7 +47,7 @@ public class UploadServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         String path = request.getServletContext().getRealPath("/upload");
         Collection<Part> parts = request.getParts();
-        LinkedList<String> imgPath = new LinkedList<>();
+        LinkedList<String> imgPathList = new LinkedList<>();
 
         for(Part part: parts)
         {
@@ -65,14 +65,14 @@ public class UploadServlet extends HttpServlet {
                 String finalFileName = fileName+name;
                 System.out.println(finalFileName);
                 part.write(finalFileName);
-                imgPath.add(finalFileName);
+                imgPathList.add(finalFileName);
 
             }
 
 
         }
         //TODO:需要注释掉
-        for(String i:imgPath)
+        for(String i:imgPathList)
         {
             System.out.println(i);
         }

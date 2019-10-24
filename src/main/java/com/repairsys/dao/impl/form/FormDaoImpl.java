@@ -51,7 +51,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 删除超过7天的垃圾数据
      */
-    private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and endDate<= date_sub(CURDATE(),interval 7 day)";
+    private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and appointDate<= date_sub(CURDATE(),interval 7 day)";
     /**
      * 设置管理员的id
      */
