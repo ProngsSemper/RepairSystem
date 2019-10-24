@@ -1,12 +1,11 @@
-* {
+*{
     padding: 0;
     margin: 0;
     text-decoration: none;
     list-style: none;
     font-family: arial;
 }
-
-body {
+body{
     margin: 0 auto;
     width: 1260px;
     height: auto;
@@ -14,183 +13,158 @@ body {
     background-size: 60%;
 
 }
-
-.nav {
+.nav{
     position: relative;
-    height: 125px;
+    /* height: 125px; */
     width: 1260px;
     overflow: hidden;
 }
-
 /* .nav img{
     float: left;
 } */
-.logo {
+.logo{
     position: relative;
     /* top: -20px; */
-    margin: 20px 0 0 20px;
+    margin: 20px 0 0 80px;
 }
-
-.line {
-    /* float: left; */
+.line{
     position: relative;
-    /* top: -20px; */
+    top: -7px;
     display: inline-block;
     margin-left: 15px;
     margin-top: 20px;
     width: 2px;
-    height: 65px;
+    height: 50px;
     background: #8e0b02;
 }
-
-.name {
+.name{
     position: relative;
     top: -15px;
     margin-top: 30px;
-    width: 200px;
+    width: 220px;
 }
-
-.nav .right-top {
+.nav .right-top{
     float: right;
     transform: rotateY(180deg);
 }
-
-.nav::after {
+.nav::after{
     content: "";
     display: block;
     clear: both;
 }
-
-.contant {
+.contant{
     position: relative;
     width: 1260px;
-    height: 450px;
+    height: 500px;
+    background: #c6736f;
     overflow: hidden;
 }
-
-.footer {
+.footer{
     width: 1260px;
-
+    
 }
-
-.footer .right-bottom {
+.footer .right-bottom{
     float: right;
     margin: 0 10px 0 0;
     width: 100px;
     transform: rotate(90deg) rotateX(180deg);
 }
-
-.footer .left-bottom {
+.footer .left-bottom{
     width: 100px;
     transform: rotate(90deg);
 }
-
-.school {
+.school{
     width: 60%;
     height: 450px;
     overflow: hidden;
 }
-
-.schoolImg {
+.schoolImg{
     position: relative;
-    margin: 70px 0 0 80px;
+    margin: 40px 0 20px 80px;
     width: 600px;
     height: 285px;
 }
-
-.login {
-    /* margin: 100px; */
+.login{
+    margin-left: -100px;
     width: 40%;
     height: 450px;
     overflow: hidden;
 }
-
-.contant > div {
+.contant>div{
     float: left;
 }
-
-.contant::after {
+.contant::after{
     content: "";
     clear: both;
     display: block;
 }
-
-.contant > :first-child::after {
+.contant>:first-child::after{
     content: "";
     clear: both;
     display: block;
 }
-
-.contant > :last-child::after {
+.contant>:last-child::after{
     content: "";
     clear: both;
     display: block;
 }
-
-.loginBox {
+.loginBox{
     position: relative;
-    margin: 0 auto;
+    margin:0 auto;
+    margin-top: 50px;
+    border-radius: 10px;
     width: 400px;
     height: 400px;
     background: #fff;
-    box-shadow: 4px 4px 8px 6px #888888
+    box-shadow:10px 9px 20px 0px rgba(0, 0, 0, 0.37);
 }
-
-.loginBox .inputStyle {
+.loginBox .inputStyle{
+    border-radius: 5px;
+    border: 1px solid #88888878;
     line-height: 30px;
     width: 300px;
     height: 35px;
     font-size: 18px;
     text-indent: 2em;
 }
-
-.loginBox > form {
+.loginBox>form{
     width: 400px;
     height: 400px;
     margin: 0 0 0 45px;
 }
-
-.stuId {
+.stuId{
     margin-top: 75px;
 }
-
-.stuPassword {
+.stuPassword{
     margin-top: 20px;
 }
-
-.chose {
+.chose{
     width: 15px;;
     margin: 0px 5px 0px 0px;
 }
-
-.remmber {
+.remmber{
     margin: 10px 0px 0 215px;
     overflow: hidden;
 }
-
-.remmber::after {
+.remmber::after{
     content: "";
     clear: both;
     display: block;
 }
-
-.square {
+.square{
     width: 20px;
 }
-
-.tit-name {
+.tit-name{
     font-size: 18px;
     color: rgb(137, 137, 137);
 }
-
-.radio {
+.radio{
     display: inline-block;
-    margin: 15px 40px 0 0;
+    margin: 20px 40px 0 0;
 }
-
-.Submit {
+.Submit{
     border-radius: 5px;
-    margin: 20px 0 0 20px;
+    margin: 30px 0 0 20px;
     border: none;
     width: 250px;
     height: 50px;
@@ -201,68 +175,82 @@ body {
     text-align: center;
 }
 
-.nav .left-top {
+.nav .left-top{
     float: left;
     width: 100px;
-    transform: rotate(180deg);
+    transform:  rotate(180deg);
 }
-
-.nav .right-top {
+.nav .right-top{
     float: right;
     width: 100px;
-    transform: rotateX(180deg);
+    transform:  rotateX(180deg);
 }
-
-.tit {
+.tit{
     display: block;
     margin: 10px auto 0px;
     width: 200px;
 }
-
-.tit-under {
+.tit-under{
     position: relative;
     top: -90px;
     left: 173px;
     width: 200px;
 }
-
-.checkInput {
+.checkInput{
+    border-radius: 5px;
     width: 100px;
     height: 30px;
     font-size: 16px;
+    text-indent: 10px;
+    border: 1px solid #88888878;
 }
-
-.codeImg {
+.check{
+    margin: 20px 0 0 0;
+}
+.codeImg{
     margin-top: -2px;
     height: 35px;
     width: 90px;;
     vertical-align: middle;
 }
-
-.linkImg {
+.linkImg{
     display: inline-block;
     width: 90px;
     height: 35px;
 }
-
-.people {
+.people{
     position: absolute;
-    width: 30px;
+    width: 25px;
     height: 35px;
-    left: 49px;
-    top: 78px;
+    left: 53px;
+    top: 80px;
     background-image: url(../img/people.png);
     background-size: 90%;
     background-repeat: no-repeat;
 }
-
-.lock {
+.lock{
     position: absolute;
-    width: 30px;
-    height: 35px;
-    left: 49px;
+    width: 25px;
+    height: 30px;
+    left: 54px;
     top: 139px;
     background-image: url(../img/lock.png);
     background-size: 90%;
     background-repeat: no-repeat;
+}
+.tree{
+    float: right;
+    /* position: absolute; */
+    margin: 0 30px -3px 0;
+}
+.school-tit{
+    text-align: center;
+}
+.school-tit span{
+    margin: 0 20px;
+    font-size: 30px;
+    color: #fff;
+}
+input:focus{
+    outline: none;
 }

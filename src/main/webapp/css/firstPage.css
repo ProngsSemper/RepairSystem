@@ -257,6 +257,7 @@ body{
 .textareaStyle{
     font-size: 18px;;
     vertical-align: top;
+    resize: none;
 }
 .handIn{
     display: block;
@@ -282,4 +283,128 @@ body{
 .handin-tit{
     display: inline-block;
     margin-left: 15px;
+}
+.findOrder{
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #eeeeee;
+    width: 900px;
+    height: 1000px;
+    /* background: #000; */
+}
+.iconClip{
+    position: absolute;
+    top: -20px;
+    right: 80px;
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/图层\ 2.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.overChange{
+    overflow: initial;
+}
+.iconLabel{
+    position: absolute;
+    /* top: -20px; */
+    /* right: 80px; */
+    width: 80px;
+    height: 80px;
+    background-image: url(../img/biaoqian.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.orderContant{
+    margin: 100px auto;
+    border: 1px solid #eee;
+    width: 800px;
+    height: 800px;
+}
+.order{
+    position: relative;
+    margin: 40px auto;
+    width: 700px;
+    height: 200px;
+    border: 1px solid #eee;
+    box-shadow: 4px 4px 14px 0px #888888
+}
+.yellowLabel
+{
+    position: absolute;
+    /* top: -20px; */
+    /* right: 80px; */
+    left: -15px;
+    width: 110px;
+    height: 110px;
+    background-image: url(../img/shuqianbookmark30.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.order .state-tit{
+    position: absolute;
+    left: 25px;
+    display: block;
+    width: 30px;
+    height: 80px;
+    font-size: 20px;
+    text-align: center;
+    
+}
+.order .orderInformation{
+    width: 500px;
+    height: 130px;
+    margin: 25px auto;
+    /* border: 1px solid #8e0b02; */
+}
+.orderInformation .orderInside{
+    float: left;
+    width:250px;
+    height: 130px;
+    /* background: #000; */
+}
+.order-tit
+{
+    margin: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.orderInside img{
+    display: block;
+    margin: 2px auto;
+    width: 150px;
+    height: 120px;
+}
+.finish
+{
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    border: 1px solid #8e0b02;
+    border-radius: 10px;
+    padding: 5px 8px;
+    color: #8e0b02;
+    background: #fff;
+    cursor: pointer;
+}
+.page{
+    float: right;
+    width: 200px;
+    height: 30px;
+    margin: 30px 0 0 0;
+    /* background: #000; */
+}
+.page>.cur{
+    color: #fff;
+    background: #8e0b02;
+}
+.page-number{
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid #373737;
+    /* width: 10px;
+    height: 10px; */
+    background: #fff;
+    color: #000;
+    cursor: pointer;
 }
