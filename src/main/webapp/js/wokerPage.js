@@ -88,8 +88,14 @@ function finishButton(formId,stuMail){
             "stuMail":stuMail
         }),
         success:function(msg){
-            if(msg==201){
-                alert("报修单已完成！")
+            if(msg.code==201){
+                alert("报修单已完成！");
+                var bigBox=document.getElementsByClassName("bigBox")[0];
+                var operatrContant=document.getElementsByClassName("operatrContant")[0];
+                var search=document.getElementsByClassName("search")[0];
+                bigBox.style.display="block";
+                operatrContant.style.display="none";
+                search.style.display="block";
             }
         },
         error:function(xhr){
@@ -109,8 +115,14 @@ function wrongButton(formId,stuMail){
             "stuMail":stuMail
         }),
         success:function(msg){
-            if(msg==201){
-                alert("报修单异常已处理！")
+            if(msg.code==201){
+                alert("报修单异常已处理！");
+                var bigBox=document.getElementsByClassName("bigBox")[0];
+                var operatrContant=document.getElementsByClassName("operatrContant")[0];
+                var search=document.getElementsByClassName("search")[0];
+                bigBox.style.display="block";
+                operatrContant.style.display="none";
+                search.style.display="block";
             }
         },
         error:function(xhr){
