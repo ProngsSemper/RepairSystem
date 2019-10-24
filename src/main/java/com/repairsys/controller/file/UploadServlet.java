@@ -78,12 +78,9 @@ public class UploadServlet extends HttpServlet {
         //TODO:需要注释掉
 
         int primaryKey = FILE_DAO.addOne(imgPathList);
-
-
-
-
-
-
+        FORM_DAO.setPhotoId(primaryKey,formId);
+        //TODO:应该可以了
+        
     }
 
     @Override

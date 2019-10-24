@@ -346,6 +346,10 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     public Boolean setPhotoId(String id, String formId) {
         return super.updateOne(connection, SET_PHOTO_KEY, id, formId);
     }
+    public Boolean setPhotoId(int id,String formId)
+    {
+        return super.updateOne(connection,SET_PHOTO_KEY,id,formId);
+    }
 
     /**
      * 工作完成，工人抹除任务

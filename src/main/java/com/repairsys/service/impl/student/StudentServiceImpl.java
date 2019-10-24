@@ -54,9 +54,11 @@ public final class StudentServiceImpl implements StudentService {
         if (serverCash) {
             Developer bean = DeveloperDao.getInstance().login(stuId, stuPassword);
             if (bean != null) {
+                logger.debug("验证成功");
                 result.setResult(ResultEnum.LOGIN_SUCCESS);
                 result.setData(true);
             } else {
+                logger.debug("验证失败");
                 result.setData(false);
                 result.setResult(ResultEnum.LOGIN_FAIL);
             }
