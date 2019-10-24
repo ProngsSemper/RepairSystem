@@ -20,7 +20,7 @@ public class CookieUtil {
             e.printStackTrace();
         }
         Cookie[] cookies = request.getCookies();
-        System.out.println("fuck you1");
+
         if (cookies == null) {
             return "";
         }

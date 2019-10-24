@@ -33,6 +33,7 @@ public class StudentServiceImpl implements StudentService {
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";
     private static final String flag = "flag";
+    // public String stuName;
 
     @Override
     public Result<Boolean> login(String stuId, String stuPassword, HttpSession session) {

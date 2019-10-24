@@ -185,6 +185,11 @@ public final class EasyTool {
             return map;
         }
 
+    /**
+     * 打印Excel表的一个方法
+     * @param r row,行数
+     * @param str 列字符串数组
+     */
         public static void print(HSSFRow r,String... str)
         {
             for(int i=0;i<str.length;++i)

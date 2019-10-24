@@ -48,7 +48,7 @@ public class StudentLoginServlet extends BaseServlet {
         logger.debug(" session 的id是： " + session.getId());
         // 登录成功设置cookie
         if (result.getCode() == loginSuccess) {
-            System.out.println(456);
+
             try {
                 CookieUtil.setCookie("stuName", stuName, response);
             } catch (UnsupportedEncodingException e) {
@@ -60,7 +60,7 @@ public class StudentLoginServlet extends BaseServlet {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            System.out.println(666);
+
             response.addHeader("identity", "student");
             logger.debug("设置成功");
             result.setResult(ResultEnum.LOGIN_SUCCESS);
