@@ -97,7 +97,6 @@ $(document).ready(function () {
                     if (rel.code === 200) {
 
                         refreshCode();
-                        // window.location.href = "www.baidu.com";
                         var identity = jqXHR.getResponseHeader('identity');
                         alert('登录成功');
 
@@ -106,9 +105,8 @@ $(document).ready(function () {
                         } else if (identity == 'admin') {
                             window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
                         } else if (identity == 'worker') {
-                            window.setTimeout("window.location.href='/welcome.html'", 1000);
+                            window.setTimeout("window.location.href='/workerPage.html'", 1000);
                         }
-                        // }
                     } else {
                         alert("用户名或密码错误");
                         refreshCode();
