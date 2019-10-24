@@ -152,10 +152,10 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.selectList(connection, GET_WORKER_LIST);
     }
 
+     private static final String CNT_SQL = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
     @Override
     public int getAllIncompleteCountBywKey(int wKey) {
-        String cntSql = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
-        return super.getCount(connection, cntSql, wKey);
+        return super.getCount(connection, CNT_SQL, wKey);
 
     }
 
