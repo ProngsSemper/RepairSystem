@@ -108,6 +108,7 @@ public abstract class BaseDao<T> {
         return res;
 
     }
+    // protected boolean updateOne
 
     /**
      * 删除一条为 T类型的数据，并回馈结果

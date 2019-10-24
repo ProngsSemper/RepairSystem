@@ -18,6 +18,7 @@ public interface Sortable {
      * 根据预约的时间推荐空闲且合适的工人
      * @param hours 预约的时间
      * @return 返回推荐的工人
+     * @deprecated
      */
     List<Worker> recommendByAppointment(int... hours);
     /**
@@ -30,6 +31,7 @@ public interface Sortable {
 
 
     /**
+     * 根据预约的时间推荐空闲且合适的工人
      * @param appointDate 学生预约的时间
      * @param hour  学生预约的时间，整点
      * @param wType  工人类型

@@ -26,8 +26,8 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
         super(Photo.class);
     }
     private static final String GET_ONE_INFO = "select * from photo where photoId = ?";
-    private static final String ADD_ONE_INFO = "insert into photo (`photoId`,`photoPath1`,`photoPath2,`photoPath3`)" +
-            "values(?,?,?)";
+
+
     private int getCnt()
     {
         if(this.cnt>0)
@@ -65,11 +65,11 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
     public Photo getBeanInfo(String id) {
         return super.selectOne(JdbcUtil.getConnection(),GET_ONE_INFO,id);
     }
-
+    private static final String ADD_ONE_INFO = "insert into photo (photoId,photoPath1,photoPath2,photoPath3)VALUES( ?, ?, ?, ?)";
     /**
      * 添加一条数据进入数据库
      *
-     * @param id    数据库表中的主键名字
+     *
      * @param paths 存储的路径
      * @return 返回存储存储到数据库的主键 id
      */
@@ -87,7 +87,7 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
         //防止高并发写入时出问题，需要加锁
         i = this.cnt;
         try{
-            super.addOne(JdbcUtil.getConnection(),ADD_ONE_INFO,this.cnt,pathList);
+            super.addOne(JdbcUtil.getConnection(),ADD_ONE_INFO,i,pathList[0],pathList[1],pathList[2]);
             this.cnt++;
         }finally {
             lock.unlock();

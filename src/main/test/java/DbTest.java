@@ -8,6 +8,7 @@ import com.repairsys.dao.impl.agenda.TableDaoImpl;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
+import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.table.WorkerTableImpl;
@@ -20,6 +21,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -136,6 +138,20 @@ public class DbTest {
         // List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         // System.out.println(list);
         ExcelServiceImpl.getInstance().exportOneByOne();
+    }
+
+
+    @Test
+    public void printTest()
+    {
+    //    upload
+        FileDaoImpl dao = FileDaoImpl.getInstance();
+        LinkedList<String> list = new LinkedList();
+        list.add("123");
+        list.add("123");
+        list.add("123");
+        dao.addOne(list);
+
     }
 
 

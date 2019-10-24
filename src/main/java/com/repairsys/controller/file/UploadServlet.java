@@ -67,7 +67,8 @@ public class UploadServlet extends HttpServlet {
                 String name = part.getSubmittedFileName();
                 String fileName = path+"\\"+ UUID.randomUUID().toString();
                 String finalFileName = fileName+name;
-                System.out.println(finalFileName);
+                // System.out.println(finalFileName);
+                logger.debug(finalFileName);
                 part.write(finalFileName);
                 imgPathList.add(finalFileName);
 
@@ -78,11 +79,11 @@ public class UploadServlet extends HttpServlet {
         //TODO:需要注释掉
 
         int primaryKey = FILE_DAO.addOne(imgPathList);
-
-
-
-
-
+        logger.debug("key: {}",primaryKey);
+        boolean b = FORM_DAO.setPhotoId(primaryKey,formId);
+        System.out.println(b);
+        //TODO:应该可以了
+        request.getRequestDispatcher("../m_sucess.jsp").forward(request,response);
 
     }
 
