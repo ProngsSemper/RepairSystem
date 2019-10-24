@@ -40,7 +40,7 @@ public class UploadServlet extends HttpServlet {
          * TODO: 这里先用假的formId 代替
          *
          * */
-        formId = "26";
+        formId = "34";
 
         logger.debug("正在提交图片信息");
         request.setCharacterEncoding("utf-8");

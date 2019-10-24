@@ -11,7 +11,7 @@ import java.util.Properties;
 /**
  * @author Prongs
  */
-public class MailUtil {
+public final class MailUtil {
     /**
      * 我的邮箱账号
      */

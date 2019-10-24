@@ -301,9 +301,9 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         String tSql = "select wKey from wTime where curTime = '"+ appointDate.toString()+ "' ORDER BY t"+hour;
         logger.debug(tSql);
+        //TODO:有修改和优化过sql语句，如果运行出错，可以检查一下这条命令
 
-        // String recommendSql = "select * from workers w where w.wType = '其他' || w.wType ='"+wType +"' and w.wKey in ( "+tSql+" )";
-        String recommendSql = "select w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+appointDate.toString()+"' and w.wType ='"+wType+"'  GROUP BY w.wKey order by wt.t"+hour;
+        String recommendSql = "select DISTINCT w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '"+appointDate.toString()+"' and w.wType ='"+wType+"' order by wt.t"+hour;
         logger.debug(recommendSql);
         List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
         System.out.println(list);

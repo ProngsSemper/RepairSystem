@@ -20,7 +20,7 @@ import java.util.List;
  * @Author lyr
  * @create 2019/10/22 19:12
  */
-public class ExcelServiceImpl implements ExcelService {
+public final class ExcelServiceImpl implements ExcelService {
     private static ExcelServiceImpl service = new ExcelServiceImpl();
 
     public static ExcelServiceImpl getInstance() {

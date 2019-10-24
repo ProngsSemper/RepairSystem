@@ -7,7 +7,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @author Prongs
  */
-public class Md5Util {
+public final class Md5Util {
 
     /**
      * 得到加密后的字符串

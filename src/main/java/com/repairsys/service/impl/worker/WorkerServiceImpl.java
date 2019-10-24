@@ -28,7 +28,7 @@ import java.util.List;
  * @author Prongs
  * @date 2019/9/29 15:59
  */
-public class WorkerServiceImpl implements WorkerService {
+public final class WorkerServiceImpl implements WorkerService {
     private static final Logger logger = LoggerFactory.getLogger(WorkerServiceImpl.class);
     private WorkerDao workerDao = DaoFactory.getWorkerDao();
     private FormDao formDao = DaoFactory.getFormDao();

@@ -27,7 +27,7 @@ import java.util.List;
  * @Author lyr, Prongs
  * @create 2019/9/24 18:08
  */
-public class AdminServiceImpl implements AdminService {
+public final class AdminServiceImpl implements AdminService {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     private AdminDao adminDao = DaoFactory.getAdminDao();

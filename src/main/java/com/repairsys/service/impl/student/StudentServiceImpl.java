@@ -28,7 +28,7 @@ import java.util.List;
  * @Author lyr, Prongs
  * @create 2019/9/30 12:09
  */
-public class StudentServiceImpl implements StudentService {
+public final class StudentServiceImpl implements StudentService {
 
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";

@@ -12,7 +12,7 @@ import java.net.URLEncoder;
  * cookie工具类
  * 直接从cookie拿id进行查询
  */
-public class CookieUtil {
+public final class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
         try {
             request.setCharacterEncoding("utf-8");

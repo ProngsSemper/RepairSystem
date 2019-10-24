@@ -14,7 +14,7 @@ import java.util.List;
  * @Author lyr
  * @create 2019/9/29 0:53
  */
-public class FormServiceImpl implements FormService {
+public final class FormServiceImpl implements FormService {
     private FormDao formDao = DaoFactory.getFormDao();
 
     @Override
