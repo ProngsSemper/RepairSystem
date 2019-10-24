@@ -82,6 +82,7 @@ $(document).ready(function () {
             $(".selectTime").append('<option value="9">9点</option>');
             $(".selectTime").append('<option value="10">10点</option>');
             $(".selectTime").append('<option value="11">11点</option>');
+            $(".selectTime").append('<option value="14">14点</option>');
             $(".selectTime").append('<option value="15">15点</option>');
             $(".selectTime").append('<option value="16">16点</option>');
             $(".selectTime").append('<option value="17">17点</option>');

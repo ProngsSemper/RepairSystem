@@ -73,7 +73,6 @@ $(document).ready(function () {
         ++commitedCount;
         if(commited)
         {
-
             return;
         }
         if (judege) {
