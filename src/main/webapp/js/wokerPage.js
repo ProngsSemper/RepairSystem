@@ -76,7 +76,7 @@ function getMsg(pageCount) {
         }
     })
 }
-function finishButton(formId,wKey,stuMail){
+function finishButton(formId,stuMail){
     $.ajax({
         type: "POST",
         url: "/worker/queryCode",
@@ -85,7 +85,6 @@ function finishButton(formId,wKey,stuMail){
         data: JSON.stringify({
             "queryCode":2,
             "formId": formId,
-            "wKey":wKey,
             "stuMail":stuMail
         }),
         success:function(msg){
@@ -98,7 +97,7 @@ function finishButton(formId,wKey,stuMail){
         }
     });
 }
-function wrongButton(formId,wKey,stuMail){
+function wrongButton(formId,stuMail){
     $.ajax({
         type: "POST",
         url: "/worker/queryCode",
@@ -107,7 +106,6 @@ function wrongButton(formId,wKey,stuMail){
         data: JSON.stringify({
             "queryCode":-1,
             "formId": formId,
-            "wKey":wKey,
             "stuMail":stuMail
         }),
         success:function(msg){
@@ -153,11 +151,15 @@ function getFormDetail(formId) {
 
 //监听点击完成按钮
 $("body").delegate('.finishButton','click',function(){
-    var stuMail=$(".orderInsideBox>p").eq(3).split("：")[1];
+    var stuMailBox=document.getElementsByClassName("orderInsideBox")[0];
+    var stuMail = stuMailBox.getElementsByTagName("p")[3].innerText.split("：")[1];
     finishButton(formId,stuMail);
+    getMsg(1);
 });
 //监听异常按钮
-$("body").delegate('.finishButton','click',function(){
-    var stuMail=$(".orderInsideBox>p").eq(3).split("：")[1];
+$("body").delegate('.wrongButton','click',function(){
+    var stuMailBox=document.getElementsByClassName("orderInsideBox")[0];
+    var stuMail = stuMailBox.getElementsByTagName("p")[3].innerText.split("：")[1];
     wrongButton(formId,stuMail);
+    getMsg(1);
 });
