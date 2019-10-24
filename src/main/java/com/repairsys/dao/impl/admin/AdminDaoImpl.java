@@ -297,9 +297,10 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     }
 
     @Override
-    public int getAllCompleteCountByAdminKey() {
-        String cntSql = "SELECT COUNT(*) FROM form WHERE queryCode !=0";
-        return super.getCount(connection, cntSql);
+    public int getAllCompleteCount() {
+        String cntSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = "where queryCode != 0";
+        return super.getCount(connection, cntSql.replaceAll("where",rex));
 
     }
 

@@ -288,15 +288,13 @@ public class AdminServiceImpl implements AdminService {
         List list = dao.adminCompleteForm(page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = adminDao.getAllCompleteCountByAdminKey();
+        int cnt = adminDao.getAllCompleteCount();
         res.setTotalCount(cnt);
-
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
         res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
-
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}", list, res.getTotalPage());

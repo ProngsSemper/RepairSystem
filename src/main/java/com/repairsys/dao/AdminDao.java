@@ -131,7 +131,7 @@ public interface AdminDao {
      *
      * @return 返回总数
      */
-    int getAllCompleteCountByAdminKey();
+    int getAllCompleteCount();
 
     /**
      * 根据管理员id查管理员key
