@@ -159,6 +159,14 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
 
     }
 
+    @Override
+    public int getAllCompleteCountBywKey(int wKey) {
+        String cntSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = " where wKey=? AND queryCode>1";
+        return super.getCount(connection, cntSql.replaceAll("where", rex), wKey, wKey);
+
+    }
+
     public List<Worker> getList(String sql, Object... obj) {
         return super.selectList(connection, sql, obj);
     }
@@ -169,7 +177,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         double good = worker.getGood();
         double mid = worker.getMid();
         double bad = worker.getBad();
-        if (good==0&&mid==0&&bad==0){
+        if (good == 0 && mid == 0 && bad == 0) {
             return "暂无评价！";
         }
         double sum = good + mid + bad;

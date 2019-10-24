@@ -46,6 +46,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String ADMIN_INCOMPLETE_FORM = "select * from form where queryCode = 0 limit ?,?";
     private static final String ADMIN_FORM = "select * from form where queryCode != 0 limit ?,?";
     private static final String WORKER_INCOMPLETE_FORM = "select * from form where wKey = ? and queryCode = 1 limit ?,?";
+    private static final String WORKER_COMPLETE_FORM = "SELECT * FROM form WHERE wKey = ? AND queryCode > 1 UNION SELECT * FROM oldform WHERE wKey = ? and queryCode > 1 limit ?,?";
     private static final String ADMIN_QUERY_TYPE = "SELECT * FROM `form` WHERE wType=? UNION SELECT * FROM `oldform` WHERE wType=? limit ?,?";
     private static final String QUERY_LEVEL = "SELECT * FROM `form` WHERE LEVEL=\"A\"";
     private static final String STUDENT_UNDONE = "SELECT * FROM `form` WHERE stuId=? limit ?,?";
@@ -224,7 +225,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public int getOldCountByStudentId(String studentId) {
-        return super.getCount(connection, GET_OLD_BY_STUDENTID_COUNT,studentId);
+        return super.getCount(connection, GET_OLD_BY_STUDENTID_COUNT, studentId);
     }
 
     public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
@@ -298,6 +299,12 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         int wKey = getWorkerKeyById(wId);
         int[] ans = EasyTool.getLimitNumber(page, size);
         return super.selectList(connection, WORKER_INCOMPLETE_FORM, wKey, ans[0], ans[1]);
+    }
+
+    public List<Form> workerCompleteForm(String wId, int page, int size) {
+        int wKey = getWorkerKeyById(wId);
+        int[] ans = EasyTool.getLimitNumber(page, size);
+        return super.selectList(connection, WORKER_COMPLETE_FORM, wKey, wKey, ans[0], ans[1]);
     }
 
     public List<Form> adminQueryWorkerType(String wType, int page, int size) {
