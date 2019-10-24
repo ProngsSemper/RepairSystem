@@ -29,8 +29,9 @@ public class GetEvaluationServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String wId = CookieUtil.getCookie("workerId", request);
-        int wKey = workerDao.getWorkerKeyById(wId).getwKey();
+//        String wId = CookieUtil.getCookie("workerId", request);
+//        int wKey = workerDao.getWorkerKeyById(wId).getwKey();
+        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey",request));
         Result result = workerService.getEvaluation(wKey);
         int flag = 200;
         if (result.getCode() == flag) {
