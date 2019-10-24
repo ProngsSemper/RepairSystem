@@ -1,9 +1,8 @@
 package com.repairsys.controller.worker;
 
+import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
-import com.repairsys.dao.DaoFactory;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.net.CookieUtil;
@@ -18,20 +17,21 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/23 20:11
+ * @date 2019/10/24 9:09
  */
-@WebServlet("/worker/evaluation/detail")
-public class GetDetailEvaluationServlet extends BaseServlet {
+@WebServlet("/worker/complete/form")
+public class WorkerCompleteServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-    private final WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
-    private static final Logger logger = LoggerFactory.getLogger(GetDetailEvaluationServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(WorkerCompleteServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String wId = CookieUtil.getCookie("workerId", request);
-//        int wKey = workerDao.getWorkerKeyById(wId).getwKey();
-        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey",request));
-        Result result = workerService.getDetailEvaluation(wKey);
+        JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        String workerId = CookieUtil.getCookie("workerId", request);
+        Result result = workerService.getCompleteForm(workerId,
+                requestBody.getInteger("page"),
+                requestBody.getInteger("limit")
+        );
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);

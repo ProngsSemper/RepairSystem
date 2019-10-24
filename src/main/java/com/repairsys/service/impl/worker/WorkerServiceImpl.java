@@ -17,7 +17,6 @@ import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.WorkerService;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.string.StringUtils;
-import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,32 +117,20 @@ public class WorkerServiceImpl implements WorkerService {
      */
     @Override
     public Result getSortedWorkerList(List<Worker> workerList, List<WTime> workerTimeList) {
-        EasyTool.resortListOfWorker(workerTimeList,workerList);
+        EasyTool.resortListOfWorker(workerTimeList, workerList);
         Result<List<Worker>> res = new Result<>();
         res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         res.setData(workerList);
 
-
         return res;
     }
 
-
-    public Result getSortedWorkerList()
-    {
+    public Result getSortedWorkerList() {
         WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
         List<Worker> workerList = workerDao.getAllWorkerList();
         List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList();
-        return this.getSortedWorkerList(workerList,timeList);
+        return this.getSortedWorkerList(workerList, timeList);
     }
-
-
-
-
-
-
-
-
-
 
     public Result getAllFormByStudentName(String stuName, int page, int limit) {
         if (page <= 0) {
@@ -201,6 +188,33 @@ public class WorkerServiceImpl implements WorkerService {
 
     }
 
+    @Override
+    public Result getCompleteForm(String wId, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
+        int wKey = dao.getWorkerKeyById(wId);
+        List list = dao.workerCompleteForm(wId, page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = workerDao.getAllCompleteCountBywKey(wKey);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}", list, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
     /**
      * 查询满足条件的工人要求
      *
@@ -219,10 +233,9 @@ public class WorkerServiceImpl implements WorkerService {
 
         List<Worker> res = workerScheule.recommendByAppointmemntPlus(date, hour, workerType);
         ans.setData(res);
-        if(res!=null&&!res.isEmpty())
-            {
-                ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
-            }else{
+        if (res != null && !res.isEmpty()) {
+            ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        } else {
             ans.setResult(ResultEnum.QUERY_FAILED);
         }
         System.out.println(ans);
@@ -231,8 +244,8 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public Result getDetailEvaluation(int wKey){
-        EvaluationDaoImpl evaluationDao = (EvaluationDaoImpl)DaoFactory.getEvaluationDao();
+    public Result getDetailEvaluation(int wKey) {
+        EvaluationDaoImpl evaluationDao = (EvaluationDaoImpl) DaoFactory.getEvaluationDao();
         List<Evaluation> data = evaluationDao.getMsg(wKey);
         Result result = new Result<>();
         result.setData(data);

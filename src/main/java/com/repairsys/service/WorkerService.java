@@ -71,6 +71,16 @@ public interface WorkerService {
     Result getIncompleteForm(String wId, int page, int limit);
 
     /**
+     * 查询工人已完成报修单
+     *
+     * @param wId   工人Id
+     * @param page  当前页面
+     * @param limit 本页最多显示多少数据
+     * @return 返回相应状态码
+     */
+    Result getCompleteForm(String wId, int page, int limit);
+
+    /**
      * 查询满足条件的工人要求
      *
      * @param date       预约的那天
