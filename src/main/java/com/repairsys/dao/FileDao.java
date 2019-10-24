@@ -1,5 +1,7 @@
 package com.repairsys.dao;
 
+import java.util.LinkedList;
+
 /**
  * @Author lyr
  * @create 2019/10/24 0:09
@@ -23,6 +25,15 @@ public interface FileDao<T> {
      * @return 返回要查询的javabean
      */
     T getBeanInfo(String id);
+
+
+    /**
+     * 添加一条数据进入数据库
+     * @param id 数据库表中的主键名字
+     * @param paths 存储的路径
+     * @return 返回存储的主键
+     */
+    int addOne(LinkedList<String> paths);
 
 
 

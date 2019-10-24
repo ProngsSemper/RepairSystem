@@ -1,6 +1,8 @@
 package com.repairsys.controller.file;
 
 
+import com.repairsys.dao.impl.file.FileDaoImpl;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +28,8 @@ import java.util.UUID;
 @WebServlet("/upload/img")
 @MultipartConfig()
 public class UploadServlet extends HttpServlet {
+    private static final FileDaoImpl FILE_DAO = FileDaoImpl.getInstance();
+    private static final FormListDaoImpl FORM_DAO = FormListDaoImpl.getInstance();
     private static final String[] ARR =
     {
             ".jpg",".jpeg",".png",".gif"
@@ -72,10 +76,11 @@ public class UploadServlet extends HttpServlet {
 
         }
         //TODO:需要注释掉
-        for(String i:imgPathList)
-        {
-            System.out.println(i);
-        }
+
+        int primaryKey = FILE_DAO.addOne(imgPathList);
+
+
+
 
 
 
