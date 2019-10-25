@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -137,7 +138,7 @@ public class DbTest {
     {
         // List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         // System.out.println(list);
-        ExcelServiceImpl.getInstance().exportOneByOne();
+        ExcelServiceImpl.getInstance().exportOneByOne(new Result());
     }
 
 
@@ -154,6 +155,12 @@ public class DbTest {
 
     }
 
+    @Test
+    public void print()
+    {
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.getTime().getDay());
+    }
 
 
 

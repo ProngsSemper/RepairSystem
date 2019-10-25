@@ -1,6 +1,8 @@
 package com.repairsys.service.impl.table;
 
 import com.repairsys.bean.entity.ExcelTable;
+
+import com.repairsys.bean.vo.Excel;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.table.WorkerTableImpl;
 import com.repairsys.service.ExcelService;
@@ -31,8 +33,8 @@ public final class ExcelServiceImpl implements ExcelService {
 
     }
 
-    private static final String PATH = "E:/demo/file/";
-    private static final String[] title = {
+    private  String path = null;
+    private static final String[] TITLE = {
             "工人名字",
             "表单id",
             "报修信息",
@@ -52,24 +54,27 @@ public final class ExcelServiceImpl implements ExcelService {
      *
      * @return 返回操作是否成功
      */
+    @SuppressWarnings("unchecked")
     @Override
-    public Result<Boolean> exportTable() {
+    public Result<HashMap> exportTable(Result res) {
         List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         if(list==null||list.isEmpty()||list.get(0)==null)
         {
-            return new Result<Boolean>();
+            return res;
         }
-        Result<Boolean> res = new Result<>();
+
         String s = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         try(
-                FileOutputStream fos = new FileOutputStream(PATH+s+"_all.xls");
+                FileOutputStream fos = new FileOutputStream(path+s+"_all_.xls");
                 )
         {
+                Excel p = (Excel)res;
+                p.getPaths().put("所有人",path+s+"_all_.xls");
                 Workbook wb = new HSSFWorkbook();
                 HSSFSheet sheet = (HSSFSheet) wb.createSheet();
                 int i=0;
                 HSSFRow r0 = sheet.createRow(i++);
-                EasyTool.print(r0,title);
+                EasyTool.print(r0, TITLE);
 
                 for(ExcelTable t:list)
                 {
@@ -104,21 +109,45 @@ public final class ExcelServiceImpl implements ExcelService {
         return res;
     }
 
-    public void exportAll()
+    /**
+     * @param result 首先要获取path路径打印
+     * @return 然后
+     */
+    public Result exportAll(Result result)
     {
-        exportTable();
+        if(this.path==null)
+        {
+            synchronized (this)
+            {
+                if(this.path==null)
+                {
+                    //TODO: 需要注意，在 servlet里面传参
+                    this.path = result.getDesc();
+                }
+            }
+            //把路径存储在 desc描述里面，到这里取出来
+        }
+        //注意，下面的代码，请不要调换上下位置，不然就是一堆bug
+        exportOneByOne(result);
+        exportTable(result);
+        return result;
     }
-    public  Result<Boolean> exportOneByOne()
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public  Result<HashMap> exportOneByOne(Result res)
     {
         List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         if(list==null||list.isEmpty()||list.get(0)==null)
         {
-            return new Result<Boolean>();
+            return res;
         }
-        Result<Boolean> res = new Result<>();
+        // Result<Boolean> res = new Result<>();
         String s = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+        HashMap<String,String> paths = new HashMap<>(list.size()+1);
+        ((Excel)res).setPaths(paths);
 
-        HashMap<String,LinkedList<ExcelTable>> map = new HashMap<>(list.size());
+        java.util.HashMap<String,LinkedList<ExcelTable>> map = new java.util.HashMap(list.size());
         for(ExcelTable t:list)
         {
             LinkedList<ExcelTable> curTable = map.getOrDefault(t.getwName(), new LinkedList<>());
@@ -127,9 +156,9 @@ public final class ExcelServiceImpl implements ExcelService {
         }
         for(LinkedList<ExcelTable> table:map.values())
         {
-            print(table,s);
+            print(table,s,paths);
         }
-        res.setData(true);
+
 
         return res;
     }
@@ -148,7 +177,7 @@ public final class ExcelServiceImpl implements ExcelService {
 
 
 
-    public boolean print(LinkedList<ExcelTable > list, String s)
+    private boolean print(LinkedList<ExcelTable > list, String s,HashMap<String,String> paths)
     {
         if(list==null||list.isEmpty()||list.get(0)==null)
         {
@@ -157,15 +186,17 @@ public final class ExcelServiceImpl implements ExcelService {
         Result<Boolean> res = new Result<>();
         //
         try(
-                FileOutputStream fos = new FileOutputStream(PATH+s+list.get(0).getwName()+".xls");
+                FileOutputStream fos = new FileOutputStream(path+s+list.get(0).getwName()+".xls");
         )
         {
+            paths.put(list.get(0).getwName(),path+s+list.get(0).getwName()+".xls");
             Workbook wb = new HSSFWorkbook();
             HSSFSheet sheet = (HSSFSheet) wb.createSheet();
             int i=0;
             HSSFRow r0 = sheet.createRow(i++);
-            EasyTool.print(r0,title);
+            EasyTool.print(r0, TITLE);
 
+            //for 循环导出一个员工对象的一列数据
             for(ExcelTable t:list)
             {
                 EasyTool.print(sheet.createRow(i++),

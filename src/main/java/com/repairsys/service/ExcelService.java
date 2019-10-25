@@ -1,6 +1,9 @@
 package com.repairsys.service;
 
+
 import com.repairsys.bean.vo.Result;
+
+import java.util.HashMap;
 
 /**
  * @Author lyr
@@ -9,7 +12,15 @@ import com.repairsys.bean.vo.Result;
 public interface ExcelService {
     /**
      * 导出工人每天的工作任务 ，Excel表
+     * @param res 需要填写的答案，添加数据后返回
      * @return 返回操作是否成功
      */
-    Result<Boolean> exportTable();
+    Result<HashMap> exportTable(Result res);
+
+
+    /**
+     * @param res
+     * @return
+     */
+    Result<HashMap> exportOneByOne(Result res);
 }

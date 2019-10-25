@@ -49,7 +49,7 @@ public class UploadServlet extends HttpServlet {
         logger.debug("正在提交图片信息");
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-        String path = request.getServletContext().getRealPath("/upload");
+        String path = request.getServletContext().getRealPath("/upload/img");
         Collection<Part> parts = request.getParts();
         LinkedList<String> imgPathList = new LinkedList<>();
 
@@ -67,7 +67,7 @@ public class UploadServlet extends HttpServlet {
                 String name = part.getSubmittedFileName();
                 String fileName = path+"\\"+ UUID.randomUUID().toString();
                 String finalFileName = fileName+name;
-                // System.out.println(finalFileName);
+
                 logger.debug(finalFileName);
                 part.write(finalFileName);
                 imgPathList.add(finalFileName);
