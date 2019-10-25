@@ -201,6 +201,7 @@ function searchFormId(formId) {
                     '<div class="adress">' + data[0].room + '</div>' +
                     '<div class="contant">' + data[0].formMsg + '</div>' +
                     '<div class="operate"><a href="javascript:;" class="deal">详情</a></div>')
+                    $(".grid-content").eq( 1).attr("formid", data[0].formId);
             // }
         },
         error: function (xhr) {
@@ -272,6 +273,7 @@ function searchStuName(page) {
 //监听搜索按钮
 var searchContant = document.getElementById("searchContant");
 var formIdInput = document.getElementsByClassName("searchInput")[0];
+var returntable=document.getElementsByClassName("returntable")[0];
 $("body").delegate('.iconSearch', 'click', function () {
 
     alert("按钮已点击");
@@ -281,10 +283,12 @@ $("body").delegate('.iconSearch', 'click', function () {
         alert(formIdInput.value);
         searchFormId(formIdInput.value);
         searchFlag = 1
+        returntable.style.display="block";
     } else if (searchContant.value == "学生姓名") {
         alert("按学生姓名搜索");
         searchStuName(1);
-        searchFlag = 1
+        searchFlag = 1;
+        returntable.style.display="block";
     } else {
         alert("请选择搜索范围");
     }
@@ -299,4 +303,9 @@ $("body").delegate(".page>span", "click", function () {
     }
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
+});
+//监听table内的返回按钮
+$("body").delegate(".returntable", "click", function () {
+    getMsg(1);
+    returntable.style.display="none";
 });
