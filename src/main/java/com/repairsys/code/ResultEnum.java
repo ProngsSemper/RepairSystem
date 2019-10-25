@@ -64,7 +64,7 @@ public enum ResultEnum {
      * 表单重复提交，一小时内无法再提交
      *
      * */
-    SUBMITTED_REPEATLY(405,"后台检测表单已经提交过了，一小时内不允许重复提交"),
+    SUBMITTED_REPEATLY(405,"后台检测表单已经提交过了，一分钟内不允许再提交"),
 
     SUBMITTED_FAILED(400, "报修单提交失败"),
     /**

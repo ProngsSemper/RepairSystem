@@ -32,15 +32,19 @@ public class StudentSubmitServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("收到申请表单请求");
         boolean commited = false;
-        for(Cookie cookie:request.getCookies())
+        if(request.getCookies()!=null)
         {
-            boolean b = "commited".equals(cookie.getName());
-            if(b)
+            for(Cookie cookie:request.getCookies())
             {
-                commited = true;
-                break;
+                boolean b = "commited".equals(cookie.getName());
+                if(b)
+                {
+                    commited = true;
+                    break;
+                }
             }
         }
+        logger.info("处理中");
         if(commited)
         {
             Result<Boolean> commitedRes = new Result<Boolean>();
