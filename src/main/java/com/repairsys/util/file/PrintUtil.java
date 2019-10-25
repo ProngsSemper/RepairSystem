@@ -2,12 +2,12 @@ package com.repairsys.util.file;
 
 import com.repairsys.bean.vo.Excel;
 import com.repairsys.bean.vo.Result;
-import org.apache.commons.io.monitor.FileAlterationObserver;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.HashMap;
+
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -25,7 +25,7 @@ public final class PrintUtil {
      */
     public static LinkedList<File> dfs(String path,String target)
     {
-        System.out.println("path: -- "+ path);
+
         LinkedList<File> fileList = new LinkedList<>();
         File curPackage = new File(path);
         if(!curPackage.exists())
@@ -41,7 +41,7 @@ public final class PrintUtil {
             if(f.isDirectory())
             {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>0)
+                if(p.lastIndexOf(target)>=0)
                 {
                     //减枝操作，加快算法的速度
                     //注意，这里是遍历Excel表的存储路径，因此其文件目录是按照天数来算的
@@ -50,7 +50,7 @@ public final class PrintUtil {
                 }
             }else{
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>0)
+                if(p.lastIndexOf(target)>=0)
                 {
 
                     fileList.add(f.getAbsoluteFile());
@@ -78,17 +78,16 @@ public final class PrintUtil {
             if(f.isDirectory())
             {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>0)
+                if(p.lastIndexOf(target)>=0)
                 {
                     dfs(f.getAbsolutePath(),ans,target);
                 }
                 break;
             }else{
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>0)
+                if(p.lastIndexOf(target)>=0)
                 {
-                    // logger.debug("查询到相关文件");
-                    // System.out.println(f.getAbsolutePath());
+                    //查询到相关文件
                     ans.add(f.getAbsoluteFile());
                 }
             }
@@ -133,8 +132,6 @@ public final class PrintUtil {
                 fis.close();
 
             }
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

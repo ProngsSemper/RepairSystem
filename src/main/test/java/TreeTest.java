@@ -175,4 +175,10 @@ public class TreeTest {
         String p = "\\dd\\dd\\dd".replaceAll("\\\\","/");
         System.out.println(p);
     }
+
+    @Test
+    public void printStr()
+    {
+        System.out.println("123".lastIndexOf("123"));
+    }
 }
