@@ -41,7 +41,6 @@ public class StudentSubmitServlet extends BaseServlet {
                 break;
             }
         }
-
         if(commited)
         {
             Result<Boolean> commitedRes = new Result<Boolean>();
@@ -54,10 +53,9 @@ public class StudentSubmitServlet extends BaseServlet {
         }
         HttpSession session = request.getSession();
 
-
         //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        String message = requestBody.getString("formMsg");
+        String message = requestBody.getString("formMsg").trim();
         String mdMessage = StringUtils.getStringMd5(message);
         String temp = (String) session.getAttribute("mdMessage");
         boolean b = temp==null||(!temp.equals(mdMessage));
@@ -72,7 +70,7 @@ public class StudentSubmitServlet extends BaseServlet {
             return;
         }else{
             logger.info("正在后台提交数据");
-            session.setAttribute("mdMessage",temp);
+            session.setAttribute("mdMessage",message);
         }
         //经过检验，提交的不是重复记录，可以通过，写入数据库
         String photoId = requestBody.getString("photoId");
