@@ -137,7 +137,7 @@ public final class WorkerServiceImpl implements WorkerService {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.getAllListByStudentName(stuName, page, limit);
+        List list = formListDao.workerGetAllListByStudentName(stuName, page, limit);
         Page res = new Page();
         if (!StringUtils.getByStudentId(stuName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
