@@ -50,7 +50,7 @@ public class Print {
 
     @Test
     public void md5() {
-        String pwd = "huxi9138";
+        String pwd = "少冰少糖加椰果";
         String newPwd = Md5Util.getMd5(pwd);
         System.out.println(newPwd);
 

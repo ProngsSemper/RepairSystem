@@ -75,7 +75,8 @@ public class StudentSubmitServlet extends BaseServlet {
         if (res.getCode() == flag) {
             logger.debug("提交成功{}", res);
             Cookie time = new Cookie("commited","1");
-            time.setMaxAge(60*60);
+            time.setMaxAge(60);
+            //一分钟内不准提交
             response.addCookie(time);
 
         } else {

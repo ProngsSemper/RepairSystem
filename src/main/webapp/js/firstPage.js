@@ -96,7 +96,7 @@ $(document).ready(function () {
 
                     }else if(msg.code==405)
                     {
-                        alert("您已经提交过了,一小时后再交");
+                        alert("您已经提交过了,一分钟后再交");
                     }
                         commited = false;
                 },
