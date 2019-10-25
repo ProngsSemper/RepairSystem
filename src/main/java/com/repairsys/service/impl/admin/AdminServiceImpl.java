@@ -150,14 +150,36 @@ public final class AdminServiceImpl implements AdminService {
     /**
      * @param page        当前页面
      * @param limit       设置限制条数
-     * @param studentName 学生姓名
+     * @param stuName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
     @Override
-    public Result<List<Form>> getAllFormByStudentName(String studentName, int page, int limit) {
+    public Result getAllFormByStudentName(String stuName, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.adminGetAllListByStudentName(stuName, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuName)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getAllCountByStudentName(stuName);
+        res.setTotalCount(cnt);
 
-        WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-        return workerService.getAllFormByStudentName(studentName, page, limit);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
 
     }
 

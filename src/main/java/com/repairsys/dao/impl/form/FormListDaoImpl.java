@@ -234,9 +234,14 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(connection, GET_ALL_BY_STUDENT_NAME, studentId, ans[0], ans[1]);
     }
 
-    public List<Form> getAllListByStudentName(String studentName, int page, int limit) {
-        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=0 limit ?,?";
+    public List<Form> workerGetAllListByStudentName(String studentName, int page, int limit) {
+        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=1 limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+    }
 
+    public List<Form> adminGetAllListByStudentName(String studentName, int page, int limit) {
+        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=0 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
     }
