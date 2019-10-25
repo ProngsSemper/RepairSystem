@@ -68,14 +68,22 @@ function refreshCode() {
 }
 
 //新的js代码
+function load()
+{
+    var loadingMask = document.getElementById('loadingDiv');
+    loadingMask.parentNode.removeChild(loadingMask);
+}
 
 $(document).ready(function () {
     $('#login').click(
+
         function () {
 
             //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
             var radio = $("input[name='identity']:checked").val();
             var vcode = $('#myCode').val();
+            // document.write(_LoadingHtml);
+            // window.setTimeout(load,3000);
 
             $.ajax({
                 type: "POST",
@@ -94,6 +102,7 @@ $(document).ready(function () {
                 success: function (data, status, jqXHR) {
                     // var rel = JSON.parse(msg);
                     var rel = data;
+
                     if (rel.code === 200) {
 
                         refreshCode();

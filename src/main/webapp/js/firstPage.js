@@ -66,15 +66,13 @@ $(document).ready(function () {
             alert("请填写正确的表单信息");
             return;
         }
-        if(commitedCount>2)
-        {
-            alert("您已经提交过了，不用再点击");
-        }
-        ++commitedCount;
+
         if(commited)
         {
+            alert("正在提交...");
             return;
         }
+        commited = true;
         if (judege) {
             $.ajax({
                 type: "POST",
@@ -96,21 +94,22 @@ $(document).ready(function () {
                     if (msg.code == 201) {
                         alert("报修单提交成功");
 
-                        if(commited==false||commited===false)
-                        {
-                            commited=true;
-                        }
+                    }else if(msg.code==405)
+                    {
+                        alert("您已经提交过了");
                     }
+                        commited = false;
                 },
                 error: function (xhr) {
                     alert("后台服务器检测到异常：请检查一下表单信息是否填写正确");
-                    if(commitedCount>5)
-                    {
-                        alert("可能服务器在维护，同学请过一天或者半天再来");
-                    }
+                    commited=false;
                 }
-            })
+            });
+        }else{
+            alert("放弃提交");
+            commited = false;
         }
+
     });
 
     function check(str) {

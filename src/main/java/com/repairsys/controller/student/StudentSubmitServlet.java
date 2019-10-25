@@ -43,6 +43,8 @@ public class StudentSubmitServlet extends BaseServlet {
         {
             Result<Boolean> commitedRes = new Result<Boolean>();
             commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
+            logger.debug("检测到提交过了，返回");
+            request.setAttribute("result",commitedRes);
 
             super.doPost(request, response);
             return;
