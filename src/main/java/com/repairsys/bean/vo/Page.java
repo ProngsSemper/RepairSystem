@@ -32,7 +32,7 @@ public class Page<T> extends Result<T> {
 
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
-        // this.count = totalCount;
+
     }
 
     public int getTargetPage() {
@@ -51,8 +51,5 @@ public class Page<T> extends Result<T> {
         this.size = size;
     }
 
-    // public int getCount() {
-    //     return count;
-    // }
 
 }

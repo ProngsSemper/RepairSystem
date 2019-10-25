@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.util.Collection;
@@ -49,7 +50,12 @@ public class UploadServlet extends HttpServlet {
         logger.debug("正在提交图片信息");
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
-        String path = request.getServletContext().getRealPath("/upload/img");
+        String path = request.getServletContext().getRealPath("/upload/img/");
+        File f = new File(path);
+        if(!f.exists())
+        {
+            f.mkdir();
+        }
         Collection<Part> parts = request.getParts();
         LinkedList<String> imgPathList = new LinkedList<>();
 

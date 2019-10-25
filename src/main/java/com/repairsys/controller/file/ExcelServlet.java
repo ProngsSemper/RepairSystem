@@ -6,6 +6,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ExcelService;
 import com.repairsys.service.impl.table.ExcelServiceImpl;
+import com.repairsys.util.time.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,16 +43,29 @@ public class ExcelServlet extends BaseServlet {
         logger.debug("初始化..");
 
         Excel<Excel> excel = new Excel();
-        excel.setDesc(request.getServletContext().getRealPath("/upload/excel"));
+        String path = request.getServletContext().getRealPath("/upload/excel/").replaceAll("\\\\","/")+ TimeUtil.getCurTime()+"/";
+        //设置一下路径
+
+        excel.setDesc(path);
         logger.debug(excel.getDesc());
 
 
-        ExcelServiceImpl.getInstance().exportAll(excel);
+        ExcelServiceImpl service = ExcelServiceImpl.getInstance();
+        service.exportAll(excel);
+
+        service.exportZipFile(request.getServletContext().getRealPath("/upload/zip/").replaceAll("\\\\","/")+TimeUtil.getCurTime()+".zip",
+                TimeUtil.getCurTime(),
+                excel
+        );
+
 
         excel.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         request.setAttribute("result",excel);
         this.result = excel;
         this.time = tmp;
+
+        //TODO:顺便打印 压缩包，并把压缩包路径也返回
+
 
 
         super.doPost(request,response);

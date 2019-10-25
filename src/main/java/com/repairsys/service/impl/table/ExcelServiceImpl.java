@@ -7,11 +7,13 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.table.WorkerTableImpl;
 import com.repairsys.service.ExcelService;
 import com.repairsys.util.easy.EasyTool;
+import com.repairsys.util.file.PrintUtil;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -113,6 +115,7 @@ public final class ExcelServiceImpl implements ExcelService {
      * @param result 首先要获取path路径打印
      * @return 然后
      */
+    @Override
     public Result exportAll(Result result)
     {
         if(this.path==null)
@@ -123,6 +126,11 @@ public final class ExcelServiceImpl implements ExcelService {
                 {
                     //TODO: 需要注意，在 servlet里面传参
                     this.path = result.getDesc();
+                    File file = new File(this.path);
+                    if(!file.exists())
+                    {
+                        file.mkdir();
+                    }
                 }
             }
             //把路径存储在 desc描述里面，到这里取出来
@@ -161,6 +169,15 @@ public final class ExcelServiceImpl implements ExcelService {
 
 
         return res;
+    }
+
+    @Override
+    public void exportZipFile(String exportPath,String target,Result result)
+    {
+        // 注意，这里我是 在 servlet那里创建里 result对象，为了节省变量，把path 路径存储在了 result对象里面的 description 描述中，因此这里是配合 专门的servlet来使用的
+        LinkedList<File> targetFileList = PrintUtil.dfs(result.getDesc(),target);
+        PrintUtil.export(result,exportPath,targetFileList);
+
     }
 
 
