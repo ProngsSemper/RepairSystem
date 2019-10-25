@@ -5,6 +5,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
+import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
 
@@ -32,13 +34,14 @@ public class StudentSubmitServlet extends BaseServlet {
         boolean commited = false;
         for(Cookie cookie:request.getCookies())
         {
-            boolean b = cookie.getName().equals("commited");
+            boolean b = "commited".equals(cookie.getName());
             if(b)
             {
                 commited = true;
                 break;
             }
         }
+
         if(commited)
         {
             Result<Boolean> commitedRes = new Result<Boolean>();
@@ -49,9 +52,29 @@ public class StudentSubmitServlet extends BaseServlet {
             super.doPost(request, response);
             return;
         }
+        HttpSession session = request.getSession();
 
 
+        //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        String message = requestBody.getString("formMsg");
+        String mdMessage = StringUtils.getStringMd5(message);
+        String temp = (String) session.getAttribute("mdMessage");
+        boolean b = temp==null||(!temp.equals(mdMessage));
+        if(!b)
+        {
+            Result<Boolean> commitedRes = new Result<Boolean>();
+            commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
+            logger.debug("检测到提交过了，返回");
+            request.setAttribute("result",commitedRes);
+
+            super.doPost(request, response);
+            return;
+        }else{
+            logger.info("正在后台提交数据");
+            session.setAttribute("mdMessage",temp);
+        }
+        //经过检验，提交的不是重复记录，可以通过，写入数据库
         String photoId = requestBody.getString("photoId");
         if (photoId == null) {
             photoId = " -1 ";
@@ -59,7 +82,7 @@ public class StudentSubmitServlet extends BaseServlet {
         Result<Boolean> res = ServiceFactory.getStudentService().applyForm(
                 requestBody.getString("stuId"),
                 0,
-                requestBody.getString("formMsg"),
+                message,
                 new Timestamp(System.currentTimeMillis()),
                 requestBody.getString("stuMail"),
                 photoId,
@@ -78,7 +101,6 @@ public class StudentSubmitServlet extends BaseServlet {
             time.setMaxAge(60);
             //一分钟内不准提交
             response.addCookie(time);
-
         } else {
             logger.debug("提交失败{}", res);
         }
