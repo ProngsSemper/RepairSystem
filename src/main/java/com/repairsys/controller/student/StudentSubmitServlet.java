@@ -73,8 +73,10 @@ public class StudentSubmitServlet extends BaseServlet {
             super.doPost(request, response);
             return;
         }else{
+            logger.info(temp);
+            logger.info(mdMessage);
             logger.info("正在后台提交数据");
-            session.setAttribute("mdMessage",message);
+            session.setAttribute("mdMessage",mdMessage);
         }
         //经过检验，提交的不是重复记录，可以通过，写入数据库
         String photoId = requestBody.getString("photoId");
@@ -106,7 +108,7 @@ public class StudentSubmitServlet extends BaseServlet {
         } else {
             logger.debug("提交失败{}", res);
         }
-        System.out.println(123);
+
         request.setAttribute("result", res);
         super.doPost(request, response);
 
