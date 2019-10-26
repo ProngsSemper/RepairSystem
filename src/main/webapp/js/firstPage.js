@@ -143,7 +143,7 @@ function gerRepairOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            alert("123");
+            // alert("123");
             console.log(msg);
             var page=$(".page");
             // $(".page").html("");
