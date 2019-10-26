@@ -132,18 +132,18 @@ public final class WorkerServiceImpl implements WorkerService {
         return this.getSortedWorkerList(workerList, timeList);
     }
 
-    public Result getAllFormByStudentName(String stuName, int page, int limit) {
+    public Result getAllIncompleteFormByStudentName(String stuName, int wKey, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.workerGetAllListByStudentName(stuName, page, limit);
+        List list = formListDao.workerGetAllIncompleteListByStudentName(stuName, wKey, page, limit);
         Page res = new Page();
         if (!StringUtils.getByStudentId(stuName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllAdminIncompleteCountByStudentName(stuName);
+        int cnt = formListDao.getAllWorkerIncompleteCountByStudentName(stuName, wKey);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));

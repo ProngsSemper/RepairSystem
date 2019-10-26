@@ -240,10 +240,10 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(connection, GET_ALL_BY_STUDENT_NAME, studentId, ans[0], ans[1]);
     }
 
-    public List<Form> workerGetAllListByStudentName(String studentName, int page, int limit) {
-        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=1 limit ?,?";
+    public List<Form> workerGetAllIncompleteListByStudentName(String studentName, int wKey, int page, int limit) {
+        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=1 and wKey=? limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+        return super.selectList(connection, getAllByStudentName, wKey, ans[0], ans[1]);
     }
 
     public List<Form> adminGetAllIncompleteListByStudentName(String studentName, int page, int limit) {
@@ -261,6 +261,11 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public int getAllAdminIncompleteCountByStudentName(String studentName) {
         String sql = "select form1.cnt from (select count(*) cnt from form where stuName like '%" + studentName + "%' AND queryCode = 0) form1";
         return super.getCount(connection, sql);
+    }
+
+    public int getAllWorkerIncompleteCountByStudentName(String studentName, int wKey) {
+        String sql = "select form1.cnt from (select count(*) cnt from form where stuName like '%" + studentName + "%' AND queryCode = 1 AND wKey=?) form1";
+        return super.getCount(connection, sql, wKey);
     }
 
     public int getAllAdminCompleteCountByStudentName(String studentName) {

@@ -215,7 +215,7 @@ function searchStuName(page) {
     var stuName = document.getElementsByClassName("searchInput")[0];
     $.ajax({
         type: "POST",
-        url: "/worker/stuName",
+        url: "/worker/incomplete/stuName",
         dataType: "json",
         async: false,
         data: JSON.stringify({

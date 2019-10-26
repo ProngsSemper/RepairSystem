@@ -3,8 +3,11 @@ package com.repairsys.controller.worker;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +21,19 @@ import java.io.IOException;
  * @author Prongs
  * @date 2019/10/3 11:48
  */
-@WebServlet("/worker/stuName")
+@WebServlet("/worker/incomplete/stuName")
 public class GetByStudentNameServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+    private final FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
     private static final Logger logger = LoggerFactory.getLogger(GetByStudentNameServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        Result result = workerService.getAllFormByStudentName(requestBody.getString("stuName"),
+        String workerId = CookieUtil.getCookie("workerId", request);
+        int wKey = formListDao.getWorkerKeyById(workerId);
+        Result result = workerService.getAllIncompleteFormByStudentName(requestBody.getString("stuName"),
+                wKey,
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit")
         );
