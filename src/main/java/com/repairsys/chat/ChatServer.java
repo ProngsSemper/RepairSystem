@@ -11,4 +11,32 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/chat")
 public class ChatServer {
+
+    @OnOpen
+    public void onOpen(Session session)
+    {
+        System.out.println("通道已经连接");
+    }
+
+
+    @OnMessage
+    public void onMessage(String message)
+    {
+        System.out.println("开始接受数据");
+    }
+    // @OnClose
+    // public void onClose()
+    // {
+    //
+    // }
+
+
+
+
+
+
+
+
+
+
 }

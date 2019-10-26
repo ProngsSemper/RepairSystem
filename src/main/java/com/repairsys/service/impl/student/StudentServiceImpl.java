@@ -86,7 +86,7 @@ public final class StudentServiceImpl implements StudentService {
         AdminServiceImpl adminService = ServiceFactory.getAdminService();
         return adminService.getHistoryBoard(page, limit);
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public Result getBoard() {
         BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
