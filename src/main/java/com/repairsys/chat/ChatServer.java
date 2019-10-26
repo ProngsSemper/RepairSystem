@@ -1,4 +1,5 @@
 package com.repairsys.chat;
+import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -13,6 +14,8 @@ public class ChatServer {
     @OnOpen
     public void onOpen(Session session, EndpointConfig config)
     {
+        //TODO: 可以获取 httpsession了
+        HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
 
         System.out.println("通道已经连接");
     }
