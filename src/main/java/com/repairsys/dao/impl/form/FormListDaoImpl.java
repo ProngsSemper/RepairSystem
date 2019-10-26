@@ -229,16 +229,26 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(connection, sql2, ans[0], ans[1]);
     }
 
-    public int getCountByStudentId(String studentId) {
-        String rex = "where stuId=?";
-        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex), studentId, studentId);
+    public int getIncompleteCountByStudentId(String studentId) {
+        String sql = "select form1.cnt from (select count(*) cnt from form where stuId=?) form1";
+        return super.getCount(connection, sql, studentId);
     }
 
-    private static final String GET_ALL_BY_STUDENT_ID = "select * from form where stuId =? UNION select * from oldform where stuId =? limit ?,?";
+    public int getCompleteCountByStudentId(String studentId) {
+        String sql = "select form1.cnt from (select count(*) cnt from oldform where stuId=?) form1";
+        return super.getCount(connection, sql, studentId);
+    }
 
-    public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
+    private static final String STUDENT_GET_INCOMPLETE_BY_STUDENT_ID = "select * from form where stuId =? limit ?,?";
+    private static final String STUDENT_GET_COMPLETE_BY_STUDENT_ID = "select * from oldform where stuId =? limit ?,?";
+
+    public List<Form> getIncompleteListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, GET_ALL_BY_STUDENT_ID, studentId, studentId, ans[0], ans[1]);
+        return super.selectList(connection, STUDENT_GET_INCOMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
+    }
+    public List<Form> getCompleteListByStudentId(String studentId, int page, int limit) {
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(connection, STUDENT_GET_COMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
     }
 
     public List<Form> workerGetAllIncompleteListByStudentName(String studentName, int wKey, int page, int limit) {

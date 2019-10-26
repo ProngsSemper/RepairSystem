@@ -136,7 +136,7 @@ var page=document.getElementsByClassName("page")[0];
 function gerRepairOrder(pageCount){
     $.ajax({
         type: "POST",
-        url: "/student/history/form",
+        url: "/student/incomplete/history/form",
         dataType: "json",
         data: JSON.stringify({
             "page":pageCount,
@@ -186,3 +186,36 @@ function gerRepairOrder(pageCount){
         }
     })
 }
+//学生确认报修完成
+function insureFinish(formId){
+    $.ajax({
+        type: "POST",
+        url: "/student/confirmation/form",
+        dataType: "json",
+        data: JSON.stringify({
+            "formId":formId
+        }),
+        success:function(msg){
+            if(msg.code=="201"){
+                alert("确认完成");
+            }
+        },
+        error:function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+//监听学生点击确认按钮
+$("body").delegate(".finish", "click", function () {
+    let formId=$(".orderInformation").attr("formId");
+    alert(formId);
+    insureFinish(formId);
+});
+//监听点击页码
+$("body").delegate(".page>span","click",function(){
+    let page= $(this).html();
+    // alert(page);
+    gerRepairOrder(page);
+    $(this).addClass("cur");
+    $(this).siblings().removeClass("cur");
+})

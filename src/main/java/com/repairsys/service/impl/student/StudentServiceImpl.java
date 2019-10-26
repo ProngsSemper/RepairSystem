@@ -169,18 +169,18 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+       public Result getIncompleteFormByStudentId(String stuId, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.getAllListByStudentId(stuId, page, limit);
+        List list = formListDao.getIncompleteListByStudentId(stuId, page, limit);
         Page res = new Page();
         if (!StringUtils.getByStudentId(stuId)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getCountByStudentId(stuId);
+        int cnt = formListDao.getIncompleteCountByStudentId(stuId);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -196,6 +196,36 @@ public final class StudentServiceImpl implements StudentService {
         return res;
 
     }
+
+    @Override
+    public Result getCompleteFormByStudentId(String stuId, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.getCompleteListByStudentId(stuId, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuId)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getCompleteCountByStudentId(stuId);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
 
     @Override
     public Result<Boolean> confirm(int formId) {
