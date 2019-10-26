@@ -9,6 +9,37 @@
     <script src="js/jquery-1.12.4.js"></script>
 </head>
 <body>
+    <div class="againDiv" style="display: none;">
+        <div class="againTime">
+            <span class="again-tit">重新预约</span>
+            <i class="icon-cha"></i>
+            <div class="againSelectTime">
+                <select name="againmonth" id="againmonth">
+                        <option value="10" label="10月"></option>
+                    </select>
+                    <select name="againday" id="againday">
+                        <option value="26">26日</option>
+                        <option value="26">27日</option>
+                        <option value="26">28日</option>
+                        <option value="26">29日</option>
+                        <option value="26">30日</option>
+                        <option value="26">31日</option>
+                        <option value="26">32日</option>
+                    </select>
+                    <select name="againtime" id="againtime">
+                        <option value="9" label="9点"></option>
+                        <option value="9" label="10点"></option>
+                        <option value="11" label="11点"></option>
+                        <option value="14" label="14点"></option>
+                        <option value="15" label="15点"></option>
+                        <option value="16" label="16点"></option>
+                        <option value="17" label="17点"></option>
+                        <option value="18" label="18点"></option>
+                    </select>
+            </div>
+            <button class="againInsure">确认</button>
+        </div>
+    </div>
     <div class="head">
         <img src="img/logo.png" alt="" class="logo">
         <img src="img/name.png" alt="" class="name">
@@ -159,7 +190,7 @@
                 <div class="order">
                     <i class="yellowLabel"></i>
                     <span class="state-tit">未处理</span>
-                    <div class="orderInformation">
+                    <div class="orderInformation" formId="12">
                         <div class="orderInside">
                             <p class="order-tit">报修人：刘家旻</p>
                             <p class="order-tit">报修地点：北苑17栋a111</p>
@@ -172,19 +203,36 @@
                         <button class="finish">确认完成</button>
                     </div>
                 </div>
-               
-
-            </div>
-            <div class="page">
-                <!-- <span class="page-number cur">1</span>
-                <span class="page-number cur">2</span>
-                <span class="page-number cur">3</span>
-                <span class="page-number cur">4</span>
-                <span class="page-number cur">5</span> -->
+                <div class="order">
+                        <i class="yellowLabel"></i>
+                        <span class="state-tit">待确认</span>
+                        <div class="orderInformation" formId="42">
+                            <div class="orderInside">
+                                <p class="order-tit">报修人：刘家旻</p>
+                                <p class="order-tit">报修地点：北苑17栋a111</p>
+                                <p class="order-tit">电话：12345678909986</p>
+                                <p class="order-tit">内容：灯泡坏了</p>
+                            </div>
+                            <div class="orderImg">
+                                <img src="img/head1.jpg" alt="">
+                            </div>
+                            <button class="again">一键再修</button>
+                            <button class="finish">确认完成</button>
+                        </div>
+                    </div>
+                <div class="page">
+                    <span class="page-number cur">1</span>
+                    <span class="page-number cur">2</span>
+                    <span class="page-number cur">3</span>
+                    <span class="page-number cur">4</span>
+                    <span class="page-number cur">5</span>
+                </div>
             </div>
             
         </div>
+        
     </div>
+    
     <div class="contant hide"></div>
     <script src="js/firstPage.js"></script>
 <!-- 用来发送 ajax请求 ，后端组同学编写    -->
