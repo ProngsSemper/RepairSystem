@@ -7,14 +7,20 @@
 }
 body{
     margin: 0 auto;
-    width: 1260px;
-    height: auto;
-    background-color: #f9f6f4;
-    background-size: 60%;
+    /* width: 1260px; */
+    height: 100%;
+    /* background-color: #f9f6f4; */
+    /* background-size: 60%; */
+    background: #c6736f;
 
+}
+.bg-with{
+    background-color: #f9f6f4;
 }
 .nav{
     position: relative;
+    margin: 0 auto;
+    
     /* height: 125px; */
     width: 1260px;
     overflow: hidden;
@@ -52,11 +58,15 @@ body{
     display: block;
     clear: both;
 }
+.bg{
+    background: #c6736f;
+}
 .contant{
+    margin: 0 auto;
     position: relative;
     width: 1260px;
     height: 500px;
-    background: #c6736f;
+    /* background: #c6736f; */
     overflow: hidden;
 }
 .footer{
