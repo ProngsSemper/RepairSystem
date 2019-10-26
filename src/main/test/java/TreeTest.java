@@ -1,16 +1,12 @@
-import com.repairsys.util.easy.EasyTool;
+
 import com.repairsys.util.file.PrintUtil;
 import com.repairsys.util.time.TimeUtil;
-import net.sf.json.util.JSONUtils;
-import org.junit.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
-import javax.jnlp.ClipboardService;
+import org.junit.Test;
+
+
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -122,17 +118,9 @@ public class TreeTest {
 
 
 
-         } catch (FileNotFoundException e) {
-             e.printStackTrace();
          } catch (IOException e) {
              e.printStackTrace();
-         } finally {
-
          }
-
-
-
-
 
 
     }

@@ -141,6 +141,39 @@ public final class PrintUtil {
 
 
     }
+    @SuppressWarnings("unchecked")
+    public static void findFile(Result<Integer> result,String target,String nextPath)
+    {
+        Integer cnt = (Integer) result.getData();
+        String desc = result.getDesc();
+        File pag = new File(nextPath);
+        if(!pag.exists())
+        {
+            return;
+        }
+        File[] fList = pag.listFiles();
+        for(File f: fList)
+        {
+
+            String p = f.getAbsolutePath();
+            if(p.lastIndexOf(target)<0)
+            {
+                continue;
+            }
+            if(f.isDirectory())
+            {
+                findFile(result,target,p);
+            }else{
+
+
+                ((Excel)result).getPaths().put(desc+cnt,p);
+                ++cnt;
+                result.setData(cnt);
+
+            }
+        }
+
+    }
 
 
 

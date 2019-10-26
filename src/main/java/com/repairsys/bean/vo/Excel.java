@@ -8,9 +8,9 @@ import java.util.LinkedList;
  * @create 2019/10/25 17:03
  */
 public class Excel<T> extends Result<T> {
-    private java.util.HashMap<String,String> paths;
+    private java.util.Map<String,String> paths;
 
-    public java.util.HashMap<String, String> getPaths() {
+    public java.util.Map<String, String> getPaths() {
         return paths;
     }
 

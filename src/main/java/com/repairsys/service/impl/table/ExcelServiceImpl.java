@@ -4,6 +4,7 @@ import com.repairsys.bean.entity.ExcelTable;
 
 import com.repairsys.bean.vo.Excel;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.table.WorkerTableImpl;
 import com.repairsys.service.ExcelService;
 import com.repairsys.util.easy.EasyTool;
@@ -155,7 +156,7 @@ public final class ExcelServiceImpl implements ExcelService {
         HashMap<String,String> paths = new HashMap<>(list.size()+1);
         ((Excel)res).setPaths(paths);
 
-        java.util.HashMap<String,LinkedList<ExcelTable>> map = new java.util.HashMap(list.size());
+        java.util.LinkedHashMap<String,LinkedList<ExcelTable>> map = new java.util.LinkedHashMap(list.size());
         for(ExcelTable t:list)
         {
             LinkedList<ExcelTable> curTable = map.getOrDefault(t.getwName(), new LinkedList<>());
@@ -180,18 +181,23 @@ public final class ExcelServiceImpl implements ExcelService {
 
     }
 
+    /**
+     * 查找服务器过去历史中，导出的 文件和 zip
+     *
+     * @param result 上一层servlet中传入的结果对象
+     * @param target 你要查询的目标，可以是一段字符串，只要文件夹或文件夹下的路径包含这段字符串就记录，不过本人使用的是天数来区分不同的包，所有只是传一个年月日
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public void findPackageByString(Result result, String target) {
 
-
-
-
-
-
-
-
-
-
-
-
+        result.setData(0);
+        String p = result.getDesc();
+        result.setDesc("excel");
+        PrintUtil.findFile(result,target,p+"/excel/");
+        result.setDesc("zip");
+        PrintUtil.findFile(result,target,p+"/zip/");
+    }
 
 
     private boolean print(LinkedList<ExcelTable > list, String s,HashMap<String,String> paths)

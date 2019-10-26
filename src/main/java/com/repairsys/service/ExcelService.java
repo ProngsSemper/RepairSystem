@@ -48,6 +48,15 @@ public interface ExcelService {
     void exportZipFile(String exportPath,String target,Result result);
 
 
+    /**
+     * 查找服务器过去历史中，导出的 文件和 zip
+     * @param result 上一层servlet中传入的结果对象
+     * @param target 你要查询的目标，可以是一段字符串，只要文件夹或文件夹下的路径包含这段字符串就记录，不过本人使用的是天数来区分不同的包，所有只是传一个年月日
+     */
+    void findPackageByString(Result result,String target);
+
+
+
 
 
 
