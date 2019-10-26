@@ -128,7 +128,7 @@
         </dependency>
 
 
-
+        <!-- 操作 Excel表格的插件       -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
@@ -139,6 +139,20 @@
             <artifactId>poi</artifactId>
             <version>3.8</version>
         </dependency>
+
+        <!--  webSocket 的包       -->
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+
 
 
 
