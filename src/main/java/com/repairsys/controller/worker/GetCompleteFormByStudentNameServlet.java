@@ -13,29 +13,35 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/3 11:48
+ * @date 2019/10/26 10:23
  */
-@WebServlet("/worker/incomplete/stuName")
-public class GetByStudentNameServlet extends BaseServlet {
+@WebServlet("/worker/complete/stuName")
+public class GetCompleteFormByStudentNameServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
     private final FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-    private static final Logger logger = LoggerFactory.getLogger(GetByStudentNameServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetIncompleteFormByStudentNameServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String workerId = CookieUtil.getCookie("workerId", request);
         int wKey = formListDao.getWorkerKeyById(workerId);
-        Result result = workerService.getAllIncompleteFormByStudentName(requestBody.getString("stuName"),
+        Result result = workerService.getAllCompleteFormByStudentName(
+                "林"
+//                requestBody.getString("stuName")
+                ,
                 wKey,
-                requestBody.getInteger("page"),
-                requestBody.getInteger("limit")
+//                requestBody.getInteger("page")
+                1,
+//                requestBody.getInteger("limit")
+                5
         );
         int flag = 200;
         if (result.getCode() == flag) {

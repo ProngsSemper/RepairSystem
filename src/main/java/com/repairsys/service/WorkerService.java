@@ -71,6 +71,17 @@ public interface WorkerService {
     Result getIncompleteForm(String wId, int page, int limit);
 
     /**
+     * 工人根据学生姓名模糊查询未完成报修单
+     *
+     * @param stuName 学生姓名
+     * @param wKey    工人key
+     * @param page    当前页
+     * @param limit   页面大小
+     * @return 返回相应状态码
+     */
+    Result getAllIncompleteFormByStudentName(String stuName, int wKey, int page, int limit);
+
+    /**
      * 查询工人已完成报修单
      *
      * @param wId   工人Id

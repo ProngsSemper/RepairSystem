@@ -132,6 +132,7 @@ public final class WorkerServiceImpl implements WorkerService {
         return this.getSortedWorkerList(workerList, timeList);
     }
 
+    @Override
     public Result getAllIncompleteFormByStudentName(String stuName, int wKey, int page, int limit) {
         if (page <= 0) {
             page = 1;
@@ -153,6 +154,33 @@ public final class WorkerServiceImpl implements WorkerService {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
 
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
+    public Result getAllCompleteFormByStudentName(String stuName, int wKey, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.workerGetAllCompleteListByStudentName(stuName, wKey, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuName)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getAllWorkerCompleteCountByStudentName(stuName, wKey);
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
