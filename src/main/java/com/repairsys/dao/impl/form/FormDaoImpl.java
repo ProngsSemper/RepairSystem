@@ -22,9 +22,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * 查询表单的 id号
      */
     private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
+    private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
     private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
     private static final String ADMIN_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode=0";
     private static final String WORKER_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
+    private static final String ADMIN_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and queryCode <> 0";
     /**
      * 根据学生的 id号查询
      */
@@ -137,16 +139,19 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.selectList(connection, WORKER_QUERY_COMPLETE_BY_FORMID, formId, wKey);
     }
 
-    /**
-     * 在旧表单中通过报修单id来查找历史报修单
-     *
-     * @param formId 报修单id
-     * @param wKey   工人key
-     * @return oldfrom表中数据
-     */
+    @Override
+    public List<Form> adminQueryCompleteFormByFormId(String formId) {
+        return super.selectList(connection, ADMIN_QUERY_COMPLETE_BY_FORMID, formId);
+    }
+
+
     @Override
     public List<Form> workerQueryOldByFormId(String formId, int wKey) {
         return super.selectList(connection, WORKER_QUERY_BY_FORMID_OLD, formId, wKey);
+    }
+    @Override
+    public List<Form> adminQueryOldByFormId(String formId) {
+        return super.selectList(connection, ADMIN_QUERY_BY_FORMID_OLD, formId);
     }
 
     /**

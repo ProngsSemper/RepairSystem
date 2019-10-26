@@ -67,6 +67,25 @@ public final class AdminServiceImpl implements AdminService {
         return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
     }
 
+    public Result getCompleteFormByFormId(String formId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        List<Form> list = formDao.adminQueryCompleteFormByFormId(formId);
+        if (list.isEmpty()) {
+            list = formDao.adminQueryOldByFormId(formId);
+            if (list.isEmpty()) {
+                return result.setResult(ResultEnum.QUERY_FAILED);
+            }
+            result.setData(list);
+            return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
     @Override
     @Deprecated
     public Result getByStudentId(String stuId) {
