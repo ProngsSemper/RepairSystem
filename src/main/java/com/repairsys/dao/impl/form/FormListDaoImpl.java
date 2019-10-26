@@ -246,6 +246,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, STUDENT_GET_INCOMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
     }
+
     public List<Form> getCompleteListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, STUDENT_GET_COMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
@@ -265,6 +266,12 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
     public List<Form> adminGetAllCompleteListByStudentName(String studentName, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode <> 0 UNION select * from oldform where stuName like '%" + studentName + "%' and queryCode <> 0 limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+    }
+
+    public List<Form> adminGetInCompleteListByLocation(String location, int page, int limit) {
+        String getAllByStudentName = "select * from form where room like '%" + location + "%' and queryCode=0  limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
     }
@@ -293,6 +300,11 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public int getAllAdminCompleteCountByStudentName(String studentName) {
         String rex = " where stuName like '%" + studentName + "%' AND queryCode <> 0";
         return super.getCount(connection, COUNT_SQL.replaceAll("where", rex));
+    }
+
+    public int getAllAdminIncompleteCountByLocation(String location) {
+        String sql = "select form1.cnt from (select count(*) cnt from form where room like '%" + location + "%' AND queryCode = 0) form1";
+        return super.getCount(connection, sql);
     }
 
     public int getAllCountByStudentId(String studentId) {
