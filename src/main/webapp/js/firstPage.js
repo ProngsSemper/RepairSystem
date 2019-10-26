@@ -130,3 +130,58 @@ $(document).ready(function () {
 
 
 });
+//进度查询
+gerRepairOrder(1);
+var page=document.getElementsByClassName("page")[0];
+function gerRepairOrder(pageCount){
+    $.ajax({
+        type: "POST",
+        url: "/student/history/form",
+        dataType: "json",
+        data: JSON.stringify({
+            "page":pageCount,
+            "limit":3,
+        }),
+        success:function(msg){
+            alert("123");
+            console.log(msg);
+            var page=$(".page");
+            // $(".page").html("");
+            $(".orderContant").html("");
+            var data=msg.data;
+            if($(".page").children().length==0){
+                for(var i=1;i<=msg.totalPage;i++){
+                    page.append('<span class="page-number">'+i+'</span>');
+                }
+            }
+            for(var i=0;i<msg.size;i++){
+                if(data[i].queryCode=="0"){
+                    condition="待排期"
+                }
+                else if(data[i].queryCode=="1"){
+                    condition="已排期"
+                }
+                else if(data[i].queryCode=="2"){
+                    condition="待确认"
+                }
+                else{
+                    condition="异常"
+                }
+                $(".orderContant").append('<div class="order"></div>');
+                $(".order").eq(i).append('<i class="yellowLabel"></i><span class="state-tit">'+condition+'</span>');
+                $(".order").eq(i).append('<div class="orderInformation"></div>');
+                $(".orderInformation").eq(i).append('<div class="orderInside">'+
+                    '<p class="order-tit">报修人：'+data[i].stuName+'</p>'+
+                    '<p class="order-tit">报修地址：'+data[i].room+'</p>'+
+                    '<p class="order-tit">报修电话：'+data[i].stuPhone+'</p>'+
+                    '<p class="order-tit">报修内容：'+data[i].formMsg+'</p>'+
+                    '</div>')
+                $(".orderInformation").eq(i).append('<div class="orderImg"><img src="img/head1.jpg"></div>')
+                $(".orderInformation").eq(i).append('<button class="finish">确认完成</button>')
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
