@@ -21,6 +21,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 查询表单的 id号
      */
+    private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
     private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
     private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
     private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
@@ -73,7 +74,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 更新工作完成时间
      */
-    private static final String SET_FINISH_DAY = "update form set endDate = ? where formId = ?";
+    private static final String SET_FINISH_DAY = "update form set endDate = ?, queryCode=3 where formId = ?";
     /**
      * 管理员分配维修任务时的更新操作
      */
@@ -144,11 +145,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return super.selectList(connection, ADMIN_QUERY_COMPLETE_BY_FORMID, formId);
     }
 
-
     @Override
     public List<Form> workerQueryOldByFormId(String formId, int wKey) {
         return super.selectList(connection, WORKER_QUERY_BY_FORMID_OLD, formId, wKey);
     }
+
     @Override
     public List<Form> adminQueryOldByFormId(String formId) {
         return super.selectList(connection, ADMIN_QUERY_BY_FORMID_OLD, formId);
@@ -476,7 +477,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean studentConfirm(int formId) {
-        if (super.selectOne(connection, WORKER_QUERY_INCOMPLETE_BY_FORMID, formId) == null) {
+        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
             return false;
         }
         super.updateOne(connection, SET_FINISH_DAY, new Date(System.currentTimeMillis()), formId);
@@ -491,7 +492,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean arrange(int wKey, int adminKey, int formId) {
-        if (super.selectOne(connection, WORKER_QUERY_INCOMPLETE_BY_FORMID, formId) == null) {
+        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
             return false;
         }
         return super.updateOne(connection, ARRANGE, wKey, adminKey, formId);
