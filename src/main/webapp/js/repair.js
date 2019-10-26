@@ -164,7 +164,7 @@ function getFormDetail(formId) {
 
     $.ajax({
         type: "POST",
-        url: "/admin/formId",
+        url: "/admin/incomplete/formId",
         dataType: "json",
         async:false,
         data: JSON.stringify({

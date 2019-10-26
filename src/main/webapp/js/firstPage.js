@@ -143,7 +143,7 @@ function gerRepairOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            // alert("123");
+            alert("123");
             console.log(msg);
             var page=$(".page");
             // $(".page").html("");
@@ -178,7 +178,10 @@ function gerRepairOrder(pageCount){
                     '</div>')
                 $(".orderInformation").eq(i).append('<div class="orderImg"><img src="img/head1.jpg"></div>')
                 $(".orderInformation").eq(i).append('<button class="finish">确认完成</button>')
-                $(".orderInformation").eq(i).attr("formId",data[i].formId);
+                $(".orderInformation").eq(i).attr("formId", data[i].formId);
+                if(condition=="待确认"||condition=="异常"){
+                    $(".orderInformation").eq(i).append('<button class="again">一键再修</button>')
+                }
             }
         },
         error:function(xhr){
@@ -200,14 +203,14 @@ function insureFinish(formId){
                 alert("确认完成");
             }
         },
-        error:function (xhr) {
+        error:function (xhr) { 
             alert(xhr.status);
-        }
+         }
     })
 }
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
-    let formId=$(".orderInformation").attr("formId");
+    formId = $(this).parent().attr("formid");
     alert(formId);
     insureFinish(formId);
 });
@@ -219,3 +222,61 @@ $("body").delegate(".page>span","click",function(){
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
 })
+//监听一键再修按钮
+var againDiv=document.getElementsByClassName("againDiv")[0];
+$("body").delegate(".again","click",function(){
+    // alert("133");
+    againDiv.style.display="block";
+    againDiv.scrollIntoView({
+        behavior:'smooth'//平滑的移过去
+    })
+    formId = $(this).parent().attr("formid");
+    alert(formId);
+    var a=new Date();
+    $("#againmonth").html("");
+    $("#againday").html("");
+    // $("#again").html("");
+    $("#againmonth").append('<option value="'+(a.getMonth()+1)+'" label="'+(a.getMonth()+1)+'月">');
+    $("#againday").append('<option value="'+(a.getDate())+'" label="'+a.getDate()+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+1)+'" label="'+(a.getDate()+1)+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+2)+'" label="'+(a.getDate()+2)+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+3)+'" label="'+(a.getDate()+3)+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+4)+'" label="'+(a.getDate()+4)+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+5)+'" label="'+(a.getDate()+5)+'日">');
+    $("#againday").append('<option value="'+(a.getDate()+6)+'" label="'+(a.getDate()+6)+'日">');
+})
+//监听一键再修里的确认按钮
+var againmonth=document.getElementById("againmonth");
+var againday=document.getElementById("againday");
+var againtime=document.getElementById("againtime");
+$("body").delegate(".againInsure","click",function(){
+    var appointDate=againmonth.value+"="+againday.value;
+    var appointment=againtime.value;
+    againRepair(formId,appointDate,appointment);
+    againDiv.style.display="none";
+})
+//一键再修方法
+function againRepair(formId,appointDate,appointment){
+    $.ajax({
+        type: "PUT",
+        url: "/student/appoint",
+        dataType: "json",
+        data: JSON.stringify({
+            "formId":parseInt(formId),
+            "appointDate":appointDate,
+            "appointment":parseInt(appointment)
+        }),
+        success:function(msg){
+            if(msg.code=="201"){
+                alert("一键再修成功");
+            }
+        },
+        error:function (xhr) { 
+            alert(xhr.status);
+         }
+    })
+}
+//监听重新预约时间里的叉
+$("body").delegate(".icon-cha","click",function(){
+    againDiv.style.display="none";
+});
