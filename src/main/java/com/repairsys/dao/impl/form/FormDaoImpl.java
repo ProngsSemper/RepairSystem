@@ -21,8 +21,12 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     /**
      * 查询表单的 id号
      */
-    private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
-    private static final String QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ?";
+    private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
+    private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
+    private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
+    private static final String ADMIN_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode=0";
+    private static final String WORKER_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
+    private static final String ADMIN_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and queryCode <> 0";
     /**
      * 根据学生的 id号查询
      */
@@ -113,31 +117,41 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return FORM_DAO;
     }
 
-    /**
-     * 根据维修单号来查询维修单的信息
-     *
-     * @param formId 维修单号
-     * @return 返回表单bean对象
-     */
     @Override
-    public List<Form> queryByFormId(String formId) {
-        Connection conn = connection;
-
-        return super.selectList(conn, QUERY_BY_FORMID, formId);
-
+    public List<Form> adminQueryIncompleteFormByFormId(String formId) {
+        return super.selectList(connection, ADMIN_QUERY_INCOMPLETE_BY_FORMID, formId);
     }
 
     /**
-     * 在旧表单中通过报修单id来查找历史报修单
+     * 工人根据维修单号来查询未完成维修单的信息
      *
-     * @param formId 报修单id
-     * @return oldfrom表中数据
+     * @param formId 维修单号
+     * @param wKey   工人id
+     * @return 返回表单bean对象
      */
     @Override
-    public List<Form> queryOldByFormId(String formId) {
-        Connection conn = connection;
+    public List<Form> workerQueryIncompleteFormByFormId(String formId, int wKey) {
+        return super.selectList(connection, WORKER_QUERY_INCOMPLETE_BY_FORMID, formId, wKey);
+    }
 
-        return super.selectList(conn, QUERY_BY_FORMID_OLD, formId);
+    @Override
+    public List<Form> workerQueryCompleteFormByFormId(String formId, int wKey) {
+        return super.selectList(connection, WORKER_QUERY_COMPLETE_BY_FORMID, formId, wKey);
+    }
+
+    @Override
+    public List<Form> adminQueryCompleteFormByFormId(String formId) {
+        return super.selectList(connection, ADMIN_QUERY_COMPLETE_BY_FORMID, formId);
+    }
+
+
+    @Override
+    public List<Form> workerQueryOldByFormId(String formId, int wKey) {
+        return super.selectList(connection, WORKER_QUERY_BY_FORMID_OLD, formId, wKey);
+    }
+    @Override
+    public List<Form> adminQueryOldByFormId(String formId) {
+        return super.selectList(connection, ADMIN_QUERY_BY_FORMID_OLD, formId);
     }
 
     /**
@@ -173,10 +187,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryByStudentId(String stuId) {
-
-        Connection conn = connection;
         String finalSql = QUERY_BY_STUDENTID + stuId + "%'";
-        return super.selectList(conn, finalSql);
+        return super.selectList(connection, finalSql);
     }
 
     /**
@@ -187,9 +199,8 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     @Override
     public List<Form> queryOldByStudentId(String stuId) {
-        Connection conn = connection;
         String finalSql = QUERY_BY_STUDENTID_OLD + stuId + "%'";
-        return super.selectList(conn, finalSql);
+        return super.selectList(connection, finalSql);
     }
 
     /**
@@ -346,9 +357,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     public Boolean setPhotoId(String id, String formId) {
         return super.updateOne(connection, SET_PHOTO_KEY, id, formId);
     }
-    public Boolean setPhotoId(int id,String formId)
-    {
-        return super.updateOne(connection,SET_PHOTO_KEY,id,formId);
+
+    public Boolean setPhotoId(int id, String formId) {
+        return super.updateOne(connection, SET_PHOTO_KEY, id, formId);
     }
 
     /**
@@ -465,7 +476,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean studentConfirm(int formId) {
-        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
+        if (super.selectOne(connection, WORKER_QUERY_INCOMPLETE_BY_FORMID, formId) == null) {
             return false;
         }
         super.updateOne(connection, SET_FINISH_DAY, new Date(System.currentTimeMillis()), formId);
@@ -480,7 +491,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean arrange(int wKey, int adminKey, int formId) {
-        if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
+        if (super.selectOne(connection, WORKER_QUERY_INCOMPLETE_BY_FORMID, formId) == null) {
             return false;
         }
         return super.updateOne(connection, ARRANGE, wKey, adminKey, formId);

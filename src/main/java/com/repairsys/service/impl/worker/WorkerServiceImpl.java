@@ -53,21 +53,33 @@ public final class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public Result getByFormId(String formId) {
+    public Result getIncompleteFormByFormId(String formId, int wKey) {
         Result<List<Form>> result = new Result();
         //查找表单号为空
         if (!StringUtils.getByFormId(formId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
-        List<Form> list = formDao.queryByFormId(formId);
-        //在未过期表单中找不到时到过期表单中寻找
+        List<Form> list = formDao.workerQueryIncompleteFormByFormId(formId, wKey);
         if (list.isEmpty()) {
-            list = formDao.queryOldByFormId(formId);
-            //在过期表单中也找不到
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
+    @Override
+    public Result getCompleteFormByFormId(String formId, int wKey) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        List<Form> list = formDao.workerQueryCompleteFormByFormId(formId, wKey);
+        if (list.isEmpty()) {
+            list = formDao.workerQueryOldByFormId(formId, wKey);
             if (list.isEmpty()) {
                 return result.setResult(ResultEnum.QUERY_FAILED);
             }
-            //在过期表单中找到了
             result.setData(list);
             return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         }
@@ -132,18 +144,19 @@ public final class WorkerServiceImpl implements WorkerService {
         return this.getSortedWorkerList(workerList, timeList);
     }
 
-    public Result getAllFormByStudentName(String stuName, int page, int limit) {
+    @Override
+    public Result getAllIncompleteFormByStudentName(String stuName, int wKey, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.workerGetAllListByStudentName(stuName, page, limit);
+        List list = formListDao.workerGetAllIncompleteListByStudentName(stuName, wKey, page, limit);
         Page res = new Page();
         if (!StringUtils.getByStudentId(stuName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllCountByStudentName(stuName);
+        int cnt = formListDao.getAllWorkerIncompleteCountByStudentName(stuName, wKey);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -153,6 +166,34 @@ public final class WorkerServiceImpl implements WorkerService {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
 
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
+    @Override
+    public Result getAllCompleteFormByStudentName(String stuName, int wKey, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.workerGetAllCompleteListByStudentName(stuName, wKey, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuName)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getAllWorkerCompleteCountByStudentName(stuName, wKey);
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}，{}", list, cnt, res.getTotalPage());

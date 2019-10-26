@@ -1,6 +1,7 @@
 package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.vo.Result;
 
 import java.sql.Date;
 import java.util.List;
@@ -11,13 +12,35 @@ import java.util.List;
  */
 public interface FormDao {
     /**
-     * 根据维修单号来查询维修单的信息
+     * 工人根据维修单号来查询未完成维修单的信息
      *
      * @param formId 维修单号
-     * @return 返回一条javabean对象
+     * @param wKey   工人id
+     * @return 返回表单bean对象
      */
-    List<Form> queryByFormId(String formId);
-
+    List<Form> workerQueryIncompleteFormByFormId(String formId, int wKey);
+    /**
+     * 工人根据维修单号来查询已完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @param wKey   工人id
+     * @return 返回表单bean对象
+     */
+    List<Form> workerQueryCompleteFormByFormId(String formId, int wKey);
+    /**
+     * 管理员根据维修单号来查询未完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @return 返回表单bean对象
+     */
+    List<Form> adminQueryIncompleteFormByFormId(String formId);
+    /**
+     * 管理员根据维修单号来查询已完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @return 返回表单bean对象
+     */
+    List<Form> adminQueryCompleteFormByFormId(String formId);
     /**
      * 根据学生学号来查询维修单的信息
      *
@@ -201,12 +224,21 @@ public interface FormDao {
     List<Form> queryOldByStudentId(String stuId);
 
     /**
-     * 在旧表单中通过报修单id来查找历史报修单
+     * 工人在旧表单中通过报修单id来查找报修单
+     *
+     * @param formId 报修单id
+     * @param wKey
+     * @return oldfrom表中数据
+     */
+    List<Form> workerQueryOldByFormId(String formId, int wKey);
+
+    /**
+     * 管理员在旧表单中通过报修单id来查找报修单
      *
      * @param formId 报修单id
      * @return oldfrom表中数据
      */
-    List<Form> queryOldByFormId(String formId);
+    List<Form> adminQueryOldByFormId(String formId);
 
     /**
      * 分页查询

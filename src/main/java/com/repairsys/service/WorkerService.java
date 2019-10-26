@@ -24,12 +24,13 @@ public interface WorkerService {
     Result<Boolean> login(String wId, String password, HttpSession session);
 
     /**
-     * 工人根据报修单号查询报修单
+     * 工人根据报修单号查询未完成报修单
      *
      * @param formId 报修单号
+     * @param wKey
      * @return 返回对应状态码
      */
-    Result getByFormId(String formId);
+    Result getIncompleteFormByFormId(String formId, int wKey);
 
     /**
      * 工人根据学生学号查询报修单
@@ -71,6 +72,17 @@ public interface WorkerService {
     Result getIncompleteForm(String wId, int page, int limit);
 
     /**
+     * 工人根据学生姓名模糊查询未完成报修单
+     *
+     * @param stuName 学生姓名
+     * @param wKey    工人key
+     * @param page    当前页
+     * @param limit   页面大小
+     * @return 返回相应状态码
+     */
+    Result getAllIncompleteFormByStudentName(String stuName, int wKey, int page, int limit);
+
+    /**
      * 查询工人已完成报修单
      *
      * @param wId   工人Id
@@ -79,6 +91,26 @@ public interface WorkerService {
      * @return 返回相应状态码
      */
     Result getCompleteForm(String wId, int page, int limit);
+
+    /**
+     * 工人根据报修单号查询已完成报修单
+     *
+     * @param formId 报修单号
+     * @param wKey   工人key
+     * @return 返回对应状态码
+     */
+    Result getCompleteFormByFormId(String formId, int wKey);
+
+    /**
+     * 工人根据学生姓名模糊查询已完成报修单
+     *
+     * @param stuName 学生姓名
+     * @param wKey    工人key
+     * @param page    当前页
+     * @param limit   页面大小
+     * @return 返回相应状态码
+     */
+    Result getAllCompleteFormByStudentName(String stuName, int wKey, int page, int limit);
 
     /**
      * 查询满足条件的工人要求
