@@ -229,15 +229,16 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(connection, sql2, ans[0], ans[1]);
     }
 
-    public int getOldCountByStudentId(String studentId) {
-        return super.getCount(connection, GET_OLD_BY_STUDENTID_COUNT, studentId);
+    public int getCountByStudentId(String studentId) {
+        String rex = "where stuId=?";
+        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex), studentId, studentId);
     }
 
-    private static final String GET_ALL_BY_STUDENT_NAME = "select * from oldform where stuId =? limit ?,?";
+    private static final String GET_ALL_BY_STUDENT_ID = "select * from form where stuId =? UNION select * from oldform where stuId =? limit ?,?";
 
     public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, GET_ALL_BY_STUDENT_NAME, studentId, ans[0], ans[1]);
+        return super.selectList(connection, GET_ALL_BY_STUDENT_ID, studentId, studentId, ans[0], ans[1]);
     }
 
     public List<Form> workerGetAllIncompleteListByStudentName(String studentName, int wKey, int page, int limit) {

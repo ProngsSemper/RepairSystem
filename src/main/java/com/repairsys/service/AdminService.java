@@ -30,7 +30,7 @@ public interface AdminService {
      * @param formId 报修单号
      * @return 返回对应状态码
      */
-    Result getByFormId(String formId);
+    Result getIncompleteFormByFormId(String formId);
 
     /**
      * 管理员根据学生学号查询报修单

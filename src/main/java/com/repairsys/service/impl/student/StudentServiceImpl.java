@@ -180,7 +180,7 @@ public final class StudentServiceImpl implements StudentService {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getOldCountByStudentId(stuId);
+        int cnt = formListDao.getCountByStudentId(stuId);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -189,7 +189,6 @@ public final class StudentServiceImpl implements StudentService {
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
-
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}，{}", list, cnt, res.getTotalPage());

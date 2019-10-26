@@ -19,25 +19,20 @@ import java.io.IOException;
 
 /**
  * @author Prongs
- * @date 2019/10/26 10:23
+ * @date 2019/10/3 11:42
  */
-@WebServlet("/worker/complete/stuName")
-public class GetCompleteFormByStudentNameServlet extends BaseServlet {
+@WebServlet("/worker/incomplete/formId")
+public class GetIncompleteFormByFormIdServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
     private final FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-    private static final Logger logger = LoggerFactory.getLogger(GetIncompleteFormByStudentNameServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(GetIncompleteFormByFormIdServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String workerId = CookieUtil.getCookie("workerId", request);
         int wKey = formListDao.getWorkerKeyById(workerId);
-        Result result = workerService.getAllCompleteFormByStudentName(
-                requestBody.getString("stuName"),
-                wKey,
-                requestBody.getInteger("page"),
-                requestBody.getInteger("limit")
-        );
+        Result result = workerService.getIncompleteFormByFormId(requestBody.getString("formId"), wKey);
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);

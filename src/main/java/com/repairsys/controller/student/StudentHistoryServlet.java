@@ -29,7 +29,10 @@ public class StudentHistoryServlet extends BaseServlet {
         if (stuId != null && stuId.length() >= 9) {
             //尽量加多点约束，我们学校真实的学号长度>=9 的，
             StudentServiceImpl handler = ServiceFactory.getStudentService();
-            result = handler.getAllFormByStudentId(stuId, requestBody.getInteger("page"), requestBody.getInteger("limit")
+            result = handler.getAllFormByStudentId(
+                    stuId,
+                    requestBody.getInteger("page"),
+                    requestBody.getInteger("limit")
             );
             request.setAttribute("result", result);
 
