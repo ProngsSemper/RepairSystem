@@ -77,6 +77,16 @@ public interface StudentService {
     Result getUndoneForm(String stuId, int page, int limit);
 
     /**
+     * 根据学生id查学生未确认报修单
+     *
+     * @param stuId 学生id
+     * @param page  当前页
+     * @param limit 页面大小
+     * @return 报修单集合
+     */
+    Result getAllFormByStudentId(String stuId, int page, int limit);
+
+    /**
      * 根据报修单id让学生确认报修完成
      * 确认后数据迁移到oldform
      *

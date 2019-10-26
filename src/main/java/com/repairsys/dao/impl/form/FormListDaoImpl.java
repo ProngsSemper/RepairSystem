@@ -50,6 +50,10 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String ADMIN_QUERY_TYPE = "SELECT * FROM `form` WHERE wType=? UNION SELECT * FROM `oldform` WHERE wType=? limit ?,?";
     private static final String QUERY_LEVEL = "SELECT * FROM `form` WHERE LEVEL=\"A\"";
     private static final String STUDENT_UNDONE = "SELECT * FROM `form` WHERE stuId=? limit ?,?";
+    /**
+     * 获取总页数
+     */
+    private static final String COUNT_SQL = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
 
     private static final FormListDaoImpl DAO = new FormListDaoImpl();
 
@@ -212,6 +216,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     private static final String GET_STU_ID_COUNT = "select count(*) from form where stuId =?";
+
     public int getPageCountByStudentId(String studentId) {
         return super.getCount(connection, GET_STU_ID_COUNT, studentId);
 
@@ -229,6 +234,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     private static final String GET_ALL_BY_STUDENT_NAME = "select * from oldform where stuId =? limit ?,?";
+
     public List<Form> getAllListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, GET_ALL_BY_STUDENT_NAME, studentId, ans[0], ans[1]);
@@ -240,25 +246,31 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
     }
 
-    public List<Form> adminGetAllListByStudentName(String studentName, int page, int limit) {
+    public List<Form> adminGetAllIncompleteListByStudentName(String studentName, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=0 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
     }
 
-    public int getAllCountByStudentName(String studentName) {
-        String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
-        String rex = " where stuName like '%" + studentName + "%'";
-
-        return super.getCount(connection, countSql.replaceAll("where", rex));
-
+    public List<Form> adminGetAllCompleteListByStudentName(String studentName, int page, int limit) {
+        String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode <> 0 UNION select * from oldform where stuName like '%" + studentName + "%' and queryCode <> 0 limit ?,?";
+        int[] ans = EasyTool.getLimitNumber(page, limit);
+        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
     }
 
-    private static final String countSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+    public int getAllAdminIncompleteCountByStudentName(String studentName) {
+        String sql = "select form1.cnt from (select count(*) cnt from form where stuName like '%" + studentName + "%' AND queryCode = 0) form1";
+        return super.getCount(connection, sql);
+    }
+
+    public int getAllAdminCompleteCountByStudentName(String studentName) {
+        String rex = " where stuName like '%" + studentName + "%' AND queryCode <> 0";
+        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex));
+    }
+
     public int getAllCountByStudentId(String studentId) {
         String rex = " where stuId = ?";
-
-        return super.getCount(connection, countSql.replaceAll("where", rex), studentId);
+        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex), studentId);
 
     }
 
@@ -275,12 +287,13 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     private static final String GET_BY_ADMIN_KEY = "select adminKey from administrators where adminId = ?";
+
     public int getAdminKeyById(String adminId) {
         return super.selectOne(connection, GET_BY_ADMIN_KEY, adminId).getAdminKey();
     }
 
-
     private static final String GET_BY_WID = "select wKey from workers where wId = ?";
+
     public int getWorkerKeyById(String wId) {
         return super.selectOne(connection, GET_BY_WID, wId).getwKey();
     }

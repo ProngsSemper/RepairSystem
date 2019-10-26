@@ -71,14 +71,24 @@ public interface AdminService {
     Result<List<Form>> getFormByStudentId(int page, int limit, String studentId);
 
     /**
-     * 根据学生id进行模糊查询 实现分页功能
+     * 根据学生id进行模糊查询未处理报修单 实现分页功能
      *
      * @param page        当前页面
      * @param limit       设置限制条数
      * @param studentName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
-    Result<List<Form>> getAllFormByStudentName(String studentName, int page, int limit);
+    Result<List<Form>> getAllIncompleteFormByStudentName(String studentName, int page, int limit);
+
+    /**
+     * 根据学生id进行模糊查询已处理报修单 实现分页功能
+     *
+     * @param page    当前页面
+     * @param limit   设置限制条数
+     * @param stuName 学生姓名
+     * @return 返回学生提交的所有申请状态
+     */
+    Result getAllCompleteFormByStudentName(String stuName, int page, int limit);
 
     /**
      * 根据工人名字模糊查询表单

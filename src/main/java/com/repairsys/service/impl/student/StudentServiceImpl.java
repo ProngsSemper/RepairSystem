@@ -16,6 +16,7 @@ import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.StudentService;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.Postman;
+import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,7 +50,6 @@ public final class StudentServiceImpl implements StudentService {
             serverCash = true;
         }
         Result<Boolean> result = new Result<>();
-
 
         if (serverCash) {
             Developer bean = DeveloperDao.getInstance().login(stuId, stuPassword);
@@ -169,6 +169,36 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.getAllListByStudentId(stuId, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuId)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getOldCountByStudentId(stuId);
+        res.setTotalCount(cnt);
+
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
+    @Override
     public Result<Boolean> confirm(int formId) {
         FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
         boolean data = formDao.studentConfirm(formId);
@@ -211,8 +241,8 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Result<Boolean> addEvaluation(String msg, int wKey){
-        EvaluationDaoImpl  evaluationDao = (EvaluationDaoImpl)DaoFactory.getEvaluationDao();
+    public Result<Boolean> addEvaluation(String msg, int wKey) {
+        EvaluationDaoImpl evaluationDao = (EvaluationDaoImpl) DaoFactory.getEvaluationDao();
         boolean data = evaluationDao.addEvaluation(msg, wKey);
         Result<Boolean> result = new Result<>();
         if (!data) {

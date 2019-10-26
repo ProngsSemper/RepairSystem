@@ -143,7 +143,7 @@ public final class WorkerServiceImpl implements WorkerService {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllCountByStudentName(stuName);
+        int cnt = formListDao.getAllAdminIncompleteCountByStudentName(stuName);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
