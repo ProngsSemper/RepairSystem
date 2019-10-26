@@ -276,16 +276,15 @@ var formIdInput = document.getElementsByClassName("searchInput")[0];
 var returntable=document.getElementsByClassName("returntable")[0];
 $("body").delegate('.iconSearch', 'click', function () {
 
-    alert("按钮已点击");
+    // alert("按钮已点击");
     if (searchContant.value == "报修单号") {
-        alert("按报修单号搜索");
-
-        alert(formIdInput.value);
+        // alert("按报修单号搜索");
+        // alert(formIdInput.value);
         searchFormId(formIdInput.value);
         searchFlag = 1
         returntable.style.display="block";
     } else if (searchContant.value == "学生姓名") {
-        alert("按学生姓名搜索");
+        // alert("按学生姓名搜索");
         searchStuName(1);
         searchFlag = 1;
         returntable.style.display="block";

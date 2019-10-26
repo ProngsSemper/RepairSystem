@@ -32,20 +32,24 @@ body{
 .nav{
     /* position: relative; */
     /* float: left; */
+    
+    background: #8e0b02;
+    
+}
+.navLi{
     width: 1260px;
     height: 50px;
-    background: #8e0b02;
     text-align:center;
     margin: 0 auto;
 }
-.nav ul{
+.navLi ul{
     width: 100%;
     height: 50px;
     /* margin: 0 0 0 177px;
     overflow: hidden; */
     text-align: center;
 }
-.nav .index{
+.navLi .index{
     display: inline-block;
     /* float: left; */
     padding: 0 100px;
@@ -56,10 +60,10 @@ body{
     text-align: center;
     cursor: pointer;
 }
-.nav li:hover{
+.navLi li:hover{
     background: rgba(255, 255, 255, .5);
 }
-.nav .current{
+.navLi .current{
     background: rgba(255, 255, 255, .5);
 }
 
@@ -68,7 +72,7 @@ body{
     width: 1260px;
     height: auto;
     /* background: #000; */
-    overflow: auto;
+    /* overflow: auto; */
 }
 .contant .notice{
     float: left;
@@ -77,7 +81,7 @@ body{
     height: 450px;
     background: #8e0b02;
     /* margin: 30px 0 0 20px; */
-    margin-left: 54px;
+    /* margin-left: 54px; */
     background-image: url(../img/yun.png);
     background-repeat: no-repeat;
     background-size: 60%;
@@ -327,32 +331,35 @@ body{
     width: 700px;
     height: 200px;
     border: 1px solid #eee;
-    box-shadow: 4px 4px 14px 0px #888888
+    box-shadow: 6px 4px 6px 0px #888888;
 }
 .yellowLabel
 {
     position: absolute;
-    /* top: -20px; */
+    top: -1px;
     /* right: 80px; */
-    left: -15px;
+    left: 25px;
     width: 110px;
-    height: 110px;
-    background-image: url(../img/shuqianbookmark30.png);
+    height: 115px;
+    background-image: url(../img/biaoqian1.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
 .order .state-tit{
     position: absolute;
-    left: 25px;
+    left: 40px;
+    top: 6px;
     display: block;
+    padding: 3px 0;
     width: 30px;
-    height: 80px;
-    font-size: 20px;
+    /* height: 80px; */
+    font-size: 19px;
+    line-height: 22px;
     text-align: center;
     
 }
 .order .orderInformation{
-    width: 500px;
+    width: 400px;
     height: 130px;
     margin: 25px auto;
     /* border: 1px solid #8e0b02; */
@@ -363,13 +370,16 @@ body{
     height: 130px;
     /* background: #000; */
 }
+.orderInformation .orderImg{
+    display: inline-block;
+}
 .order-tit
 {
     margin: 5px;
     font-weight: bold;
     font-size: 16px;
 }
-.orderInside img{
+.orderImg img{
     display: block;
     margin: 2px auto;
     width: 150px;
@@ -388,12 +398,14 @@ body{
     cursor: pointer;
 }
 .page{
+    top: -100px;
     float: right;
+    position: relative;
     width: 200px;
     height: 30px;
     margin: 30px 0 0 0;
-    /* background: #000; */
 }
+
 .page>.cur{
     color: #fff;
     background: #8e0b02;
@@ -407,4 +419,5 @@ body{
     background: #fff;
     color: #000;
     cursor: pointer;
+    margin: 0 10px 0 0;
 }
