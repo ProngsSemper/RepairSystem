@@ -178,6 +178,7 @@ function gerRepairOrder(pageCount){
                     '</div>')
                 $(".orderInformation").eq(i).append('<div class="orderImg"><img src="img/head1.jpg"></div>')
                 $(".orderInformation").eq(i).append('<button class="finish">确认完成</button>')
+                $(".orderInformation").eq(i).attr("formId",data[i].formId);
             }
         },
         error:function(xhr){
