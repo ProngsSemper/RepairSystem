@@ -110,9 +110,10 @@ public interface StudentService {
      *
      * @param evaluation 评价 好评：good，中评：mid，差评：bad
      * @param wKey       工人key
+     * @param formId
      * @return 布尔值
      */
-    Result<Boolean> evaluate(String evaluation, int wKey);
+    Result<Boolean> evaluate(String evaluation, int wKey, int formId);
 
     /**
      * 学生一键再修时重新预约时间

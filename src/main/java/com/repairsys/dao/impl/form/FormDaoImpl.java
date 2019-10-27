@@ -100,6 +100,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String GOOD = "UPDATE workers SET good = good + 1 WHERE wKey = ?";
     private static final String MID = "UPDATE workers SET mid = mid + 1 WHERE wKey = ?";
     private static final String BAD = "UPDATE workers SET bad = bad + 1 WHERE wKey = ?";
+    private static final String FINISH_EVALUATE = "UPDATE oldform SET queryCode=4 WHERE formId = ?";
     /**
      * 学生申请一键再修时，重新预约时间
      */
@@ -499,12 +500,15 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     @Override
-    public Boolean evaluate(String evaluation, int wKey) {
+    public Boolean evaluate(String evaluation, int wKey, int formId) {
         if ("good".equals(evaluation)) {
+            super.updateOne(connection,FINISH_EVALUATE,formId);
             return super.updateOne(connection, GOOD, wKey);
         } else if ("mid".equals(evaluation)) {
+            super.updateOne(connection,FINISH_EVALUATE,formId);
             return super.updateOne(connection, MID, wKey);
         } else if ("bad".equals(evaluation)) {
+            super.updateOne(connection,FINISH_EVALUATE,formId);
             return super.updateOne(connection, BAD, wKey);
         } else {
             return false;
