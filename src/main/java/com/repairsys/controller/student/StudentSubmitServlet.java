@@ -6,6 +6,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.util.string.StringUtils;
+import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
