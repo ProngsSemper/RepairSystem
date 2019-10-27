@@ -204,6 +204,19 @@ public final class EasyTool {
         }
 
 
+        public static void debug(int cnt,Object... arr)
+        {
+            for(int i=0;i<cnt;++i)
+            {
+                logger.debug("{}",i);
+                for(int j=0;j<arr.length;++j)
+                {
+                    logger.debug("{}",arr[j]);
+                }
+            }
+        }
+
+
 
 
 

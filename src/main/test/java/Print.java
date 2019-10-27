@@ -7,6 +7,7 @@ import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
+import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
@@ -128,5 +129,11 @@ public class Print {
         String text = "{ 'list':" +admin.getTargetSet()+"}";
         System.out.println(text);
 
+    }
+
+    @Test
+    public void debug()
+    {
+        EasyTool.debug(10,1,2,3);
     }
 }
