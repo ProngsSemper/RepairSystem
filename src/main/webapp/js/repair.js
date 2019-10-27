@@ -82,7 +82,6 @@ $(document).ready(function () {
             $(".selectTime").append('<option value="9">9点</option>');
             $(".selectTime").append('<option value="10">10点</option>');
             $(".selectTime").append('<option value="11">11点</option>');
-            $(".selectTime").append('<option value="14">14点</option>');
             $(".selectTime").append('<option value="15">15点</option>');
             $(".selectTime").append('<option value="16">16点</option>');
             $(".selectTime").append('<option value="17">17点</option>');
@@ -164,7 +163,7 @@ function getFormDetail(formId) {
 
     $.ajax({
         type: "POST",
-        url: "/admin/incomplete/formId",
+        url: "/admin/formId",
         dataType: "json",
         async:false,
         data: JSON.stringify({
@@ -264,14 +263,11 @@ var success=document.getElementsByClassName("success")[0];
 var successback=document.getElementsByClassName("successback")[0];
 var contant=document.getElementsByClassName("contant")[0];
 $("body").delegate('.successback','click',function(){
-    success.style.display="none";
-    contant.style.display="block";
-    getMsg(1);
+    successback.style.display="none";
+    dealOrder.style.display="block";
 })
 //点击提交安排工人按钮
 function arrangeWorker(formid,workeNumber){
-    var successDiv=document.getElementsByClassName("success")[0];
-    var dealOrder=document.getElementsByClassName("dealOrder")[0];
     var information=document.getElementsByClassName("information")[0];
     var MailP=information.getElementsByTagName("p")[3].textContent;
     var Mail=MailP.split("：")[1];
@@ -297,10 +293,8 @@ function arrangeWorker(formid,workeNumber){
                 // dealOrder.display="none";
                 // contant.display="none";
                 // success.display="block";
-                // alert("排期成功");
-                // location.reload();
-                successDiv.style.display="block";
-                dealOrder.style.display="none";
+                alert("排期成功");
+                location.reload();
             }
         },
         error:function (xhr) {
@@ -308,12 +302,37 @@ function arrangeWorker(formid,workeNumber){
         }
     })
 }
+//监听删除按钮
+$("body").delegate(".del","click",function () { 
+    formId=$(this).parent().parent().attr("formId");
+    var judge= confirm("是否删除该报修单");
+    if(judge){
+        delOrder(formId);
+    }
 
+    getMsg(1);
 
-
-
-
-
+})
+//删除报修订单
+function delOrder(formId){
+    $.ajax({
+        type:"POST",
+        url:"/admin/delete/form",
+        dataType:"json",
+        data:JSON.stringify({
+            "formId":formId
+        }),
+        success:function (msg) {
+            if(msg.code==201){
+                alert("报修单已删除！");
+                location.reload();
+            }
+        },
+        error:function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
 
 
 
