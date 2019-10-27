@@ -3,6 +3,8 @@ package com.repairsys.controller.administrator;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.CookieUtil;
@@ -27,6 +29,7 @@ import java.io.IOException;
 @WebServlet("/admin/login")
 public class AdminLoginServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
+    private final AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
     private static final Logger logger = LoggerFactory.getLogger(AdminLoginServlet.class);
 
     @Override
@@ -38,11 +41,13 @@ public class AdminLoginServlet extends BaseServlet {
         Result<Boolean> result = adminService.login(adminId,
                 requestBody.getString("password"),
                 session);
+        String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
+        CookieUtil.setToken("adminToken",adminToken,response);
         logger.debug("管理员登录信息{}", result);
         request.setAttribute("result", result);
         //登录成功设置cookie
         if (result.getCode()==loginSuccess){
-            CookieUtil.setCookie("adminId", adminId, response);
+            CookieUtil.setToken("adminId", adminId, response);
             response.addHeader("identity", "admin");
             session.setAttribute("adminId",adminId);
         }

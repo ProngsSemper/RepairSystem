@@ -1,10 +1,14 @@
 package com.repairsys.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.util.easy.EasyTool;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,14 +25,28 @@ import java.io.IOException;
 @WebServlet({"/user/login"})
 public class UserLoginServlet extends BaseServlet {
     private static final Logger logger = LoggerFactory.getLogger(UserLoginServlet.class);
+    private final AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
     private static final String STU = "1";
     private static final String ADMIN = "2";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("接收到用户登录请求");
+        if (CookieUtil.getCookie("adminToken",request)!=null&&CookieUtil.getCookie("adminId",request)!=null){
+            Admin t = adminDao.getToken(CookieUtil.getCookie("adminId",request));
+            if (t!=null&&t.getAdminToken().equals(CookieUtil.getCookie("adminToken",request))){
+                request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
+                return;
+            }
+        }
         boolean b = EasyTool.compareToCode(request);
         if (!b) {
+            JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
+            if(jsonObject==null)
+            {
+                request.getRequestDispatcher("../login.html").forward(request,response);
+                return;
+            }
             logger.debug("验证码错误");
             Result<Boolean> result = new Result<>();
             result.setResult(ResultEnum.CODE_FALSE);

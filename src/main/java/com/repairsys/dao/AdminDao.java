@@ -36,6 +36,8 @@ public interface AdminDao {
      */
     Admin login(String id, String password);
 
+    Admin getToken(String id);
+
     /**
      * 申请注册管理员账户
      *

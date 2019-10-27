@@ -12,6 +12,7 @@ public class Admin implements Serializable {
     private String adminPassword;
     private String adminMail;
     private int adminKey;
+    private String adminToken;
 
     public Admin() {
     }
@@ -56,6 +57,14 @@ public class Admin implements Serializable {
         this.adminKey = adminKey;
     }
 
+    public String getAdminToken() {
+        return adminToken;
+    }
+
+    public void setAdminToken(String adminToken) {
+        this.adminToken = adminToken;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +
@@ -64,6 +73,7 @@ public class Admin implements Serializable {
                 ", adminPassword='" + adminPassword + '\'' +
                 ", adminMail='" + adminMail + '\'' +
                 ", adminKey=" + adminKey +
+                ", adminToken='" + adminToken + '\'' +
                 '}';
     }
 }
