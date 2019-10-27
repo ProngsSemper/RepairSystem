@@ -61,7 +61,7 @@ public final class EasyTool {
         String ans = (String) request.getSession().getAttribute("CHECKCODE_SERVER");
         System.out.println(ans);
         logger.debug("{}", ans);
-        boolean b = false;
+        boolean b;
         b = ans.equals(code);
         logger.debug("{}", b);
         return b;

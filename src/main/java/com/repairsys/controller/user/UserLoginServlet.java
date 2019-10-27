@@ -37,38 +37,23 @@ public class UserLoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         logger.debug("接收到用户登录请求");
-
-        // JSONObject jsonObject1 = (JSONObject) request.getAttribute("requestBody");
-        // if(jsonObject1!=null)
-        // {
-        //     String b = jsonObject1.getString("vcode");
-        //     if(b!=null&&b.length()>0)
-        //     {
-        //         // request.getSession().
-        //         request.getSession().removeAttribute("adminId");
-        //
-        //     }
-        // }
-        // System.out.println(123);
-
-
-
-
         String adminToken = CookieUtil.getCookie("adminToken", request);
         String adminId = CookieUtil.getCookie("adminId", request);
         String wToken = CookieUtil.getCookie("wToken", request);
         String workerId = CookieUtil.getCookie("workerId", request);
-        if ((adminToken != null && adminId != null) || (wToken != null && workerId != null)) {
-            Admin admin = adminDao.getToken(adminId);
-            Worker worker = workerDao.getToken(workerId);
-            if (admin != null && admin.getAdminToken().equals(adminToken)) {
-                request.getSession().setAttribute("adminId",adminId);
-                request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
-                return;
-            }
-            else if (worker != null && worker.getwToken().equals(wToken)) {
-                request.getRequestDispatcher("../workerPage.html").forward(request, response);
-                return;
+        if ("".equals(request.getAttribute("adminId"))&& "".equals(request.getAttribute("workerId"))) {
+            if ((adminToken != null && adminId != null) || (wToken != null && workerId != null)) {
+                Admin admin = adminDao.getToken(adminId);
+                Worker worker = workerDao.getToken(workerId);
+                if (admin != null && admin.getAdminToken().equals(adminToken)) {
+                    request.getSession().setAttribute("adminId", adminId);
+                    request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
+                    return;
+                } else if (worker != null && worker.getwToken().equals(wToken)) {
+                    request.getSession().setAttribute("workerId", workerId);
+                    request.getRequestDispatcher("../workerPage.html").forward(request, response);
+                    return;
+                }
             }
         }
         boolean b = EasyTool.compareToCode(request);

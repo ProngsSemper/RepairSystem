@@ -110,7 +110,6 @@ public class CheckCodeServlet extends HttpServlet {
         response.setHeader("pragma", "no-cache");
         response.setHeader("cache-control", "no-cache");
         response.setHeader("expires", "0");
-
         response.setContentType("image/png");
         ServletOutputStream sos;
         sos = response.getOutputStream();
