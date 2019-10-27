@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,7 +35,25 @@ public class UserLoginServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         logger.debug("接收到用户登录请求");
+
+        // JSONObject jsonObject1 = (JSONObject) request.getAttribute("requestBody");
+        // if(jsonObject1!=null)
+        // {
+        //     String b = jsonObject1.getString("vcode");
+        //     if(b!=null&&b.length()>0)
+        //     {
+        //         // request.getSession().
+        //         request.getSession().removeAttribute("adminId");
+        //
+        //     }
+        // }
+        // System.out.println(123);
+
+
+
+
         String adminToken = CookieUtil.getCookie("adminToken", request);
         String adminId = CookieUtil.getCookie("adminId", request);
         String wToken = CookieUtil.getCookie("wToken", request);
@@ -43,6 +62,8 @@ public class UserLoginServlet extends BaseServlet {
             Admin admin = adminDao.getToken(adminId);
             Worker worker = workerDao.getToken(workerId);
             if (admin != null && admin.getAdminToken().equals(adminToken)) {
+                String aId = CookieUtil.getAdminId(request);
+                request.getSession().setAttribute("adminId",aId);
                 request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
                 return;
             }

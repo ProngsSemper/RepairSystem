@@ -1,8 +1,4 @@
-// document.write("<script type='text/javascript' src='Ajax.js'></script>");
-// document.onload=function(){
-//     var data=JSON.parse(getVerCode());
-// }
-// document.write("<script language=javascript src='cookie.js'></script>");
+
 function bodyScale() {
     var devicewidth = document.documentElement.clientWidth;
     var scale = devicewidth / 1440;
@@ -113,7 +109,10 @@ $(document).ready(function () {
                         } else if (identity == 'worker') {
                             window.setTimeout("window.location.href='/workerPage.html'", 1000);
                         }
-                    } else {
+                    } else if(rel.code==403) {
+                        alert("验证码错误");
+                        refreshCode();
+                    }else{
                         alert("用户名或密码错误");
                         refreshCode();
                     }

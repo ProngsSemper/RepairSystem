@@ -1,6 +1,9 @@
 package com.repairsys.util.net;
 
+import org.apache.http.HttpRequest;
+
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -62,5 +65,24 @@ public final class CookieUtil {
             cookie.setPath("/");
             response.addCookie(cookie);
         }
+    }
+
+    public static String getAdminId(HttpServletRequest request)
+    {
+        try {
+            request.setCharacterEncoding("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Cookie[] cookies = request.getCookies();
+        if (cookies == null || cookies.length == 0) {
+            return "";
+        }
+        for (Cookie cookie : cookies) {
+            if ("adminId".equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return "";
     }
 }

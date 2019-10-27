@@ -31,7 +31,7 @@ public class ChatServer {
     private String getTarget()
     {
         String target = null;
-        int i =ADMIN_MAP.size()==0? 0: R.nextInt(ADMIN_MAP.size());
+        int i =ADMIN_MAP.size()<=0 ? 0: R.nextInt(ADMIN_MAP.size());
         for(Map.Entry<String,User> t: ADMIN_MAP.entrySet())
         {
             --i;
@@ -47,7 +47,7 @@ public class ChatServer {
     private User getPersonToTalk()
     {
         User target = null;
-        int i = R.nextInt(ADMIN_MAP.size());
+        int i = ADMIN_MAP.size()==0? 0: R.nextInt(ADMIN_MAP.size());
         for(Map.Entry<String,User> t: ADMIN_MAP.entrySet())
         {
             --i;
@@ -149,12 +149,6 @@ public class ChatServer {
 
     public void send(JSONObject jsonObject,Session session) throws IOException {
         String target = jsonObject.getString("target");
-        if(target==null)
-        {
-            target = this.target;
-        }
-        System.out.println(target);
-
 
 
         if(!isAdmin)
@@ -163,8 +157,8 @@ public class ChatServer {
             //学生发送给管理员，需要查找管理员的''电话号码''
             System.out.println(3);
 
-            User u = ADMIN_MAP.get(target);
-            System.out.println(target);
+            User u = ADMIN_MAP.get(this.target);
+
             // boolean notNull = checkEmpty(u);
             if(u==null)
             {
