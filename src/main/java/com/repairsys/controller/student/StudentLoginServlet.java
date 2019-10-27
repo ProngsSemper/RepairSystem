@@ -2,19 +2,21 @@ package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 //写完了哦
 
 /**
@@ -31,24 +33,32 @@ public class StudentLoginServlet extends BaseServlet {
         logger.debug("学生登录 ");
         HttpSession session = request.getSession();
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        int loginSuccess = 200;
+        String stuId = requestBody.getString("id");
         Result result = studentService.login(
-                requestBody.getString("id"),
+                stuId,
                 requestBody.getString("password"),
                 session
         );
+        String stuName = result.getDesc();
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
-
         logger.debug(" session 的id是： " + session.getId());
+        // 登录成功设置cookie
+        if (result.getCode() == loginSuccess) {
 
-        if(result.getCode()==200)
-        {
-            response.addCookie(new Cookie("id",requestBody.getString("id")));
-            response.addCookie(new Cookie("identity","student"));
-            response.addHeader("identity","student");
+            try {
+                CookieUtil.setCookie("stuName", stuName, response);
+                CookieUtil.setCookie("stuId", stuId, response);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            response.addHeader("identity", "student");
+            session.setAttribute("stuId",stuId);
+            logger.debug("设置成功");
+            result.setResult(ResultEnum.LOGIN_SUCCESS);
+
         }
-
-
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {

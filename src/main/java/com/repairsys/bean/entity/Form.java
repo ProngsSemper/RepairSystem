@@ -23,6 +23,8 @@ public class Form implements Serializable {
     private String stuPhone;
     private String wType;
     private int appointment;
+    private Date appointDate;
+    private String level;
 
     public Date getEndDate() {
         return endDate;
@@ -147,6 +149,22 @@ public class Form implements Serializable {
         this.appointment = appointment;
     }
 
+    public Date getAppointDate() {
+        return appointDate;
+    }
+
+    public void setAppointDate(Date appointDate) {
+        this.appointDate = appointDate;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     @Override
     public String toString() {
         return "Form{" +
@@ -165,6 +183,8 @@ public class Form implements Serializable {
                 ", stuPhone='" + stuPhone + '\'' +
                 ", wType='" + wType + '\'' +
                 ", appointment=" + appointment +
+                ", appointDate='" + appointDate + '\'' +
+                ", level='" + level + '\'' +
                 '}';
     }
 }

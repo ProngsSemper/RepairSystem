@@ -1,12 +1,23 @@
 package com.repairsys.bean.entity;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * @Author lyr
  * @create 2019/9/24 12:11
  */
 public class Worker implements Serializable, Comparable<Worker> {
+
+    public static class CompareHandler implements Comparator<Worker> {
+
+        @Override
+        public int compare(Worker o1, Worker o2) {
+            return o1.score - o2.score;
+        }
+    }
+
     private String wId;
     private String wName;
     private String wTel;
@@ -15,8 +26,21 @@ public class Worker implements Serializable, Comparable<Worker> {
     private String wType;
     private int wKey;
     private int score = -1;
+    private int good;
+    private int mid;
+    private int bad;
 
     public Worker() {
+    }
+
+    public Worker(WTime w) {
+        this.wKey = w.getwKey();
+        this.wName = w.getwName();
+        this.wType = w.getwType();
+        this.score = w.getScore();
+        this.wMail = w.getwMail();
+        this.wTel = w.getwTel();
+
     }
 
     public int getScore() {
@@ -83,6 +107,30 @@ public class Worker implements Serializable, Comparable<Worker> {
         this.wType = wType;
     }
 
+    public int getGood() {
+        return good;
+    }
+
+    public void setGood(int good) {
+        this.good = good;
+    }
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
+    public int getBad() {
+        return bad;
+    }
+
+    public void setBad(int bad) {
+        this.bad = bad;
+    }
+
     @Override
     public String toString() {
         return "Worker{" +
@@ -94,6 +142,9 @@ public class Worker implements Serializable, Comparable<Worker> {
                 ", wType='" + wType + '\'' +
                 ", wKey=" + wKey +
                 ", score=" + score +
+                ", good=" + good +
+                ", mid=" + mid +
+                ", bad=" + bad +
                 '}';
     }
 
@@ -138,5 +189,22 @@ public class Worker implements Serializable, Comparable<Worker> {
     @Override
     public int compareTo(Worker o) {
         return o.wKey - this.wKey;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Worker worker = (Worker) o;
+        return worker.getwKey() == ((Worker) o).getwKey();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(wKey);
     }
 }

@@ -1,0 +1,349 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+.main{
+    display: flex;
+    height: auto;
+    width: 1260px;
+    margin: 0 auto;
+}
+.leftNav{
+    width: 150px;
+
+    background: #8e0b02;
+}
+.leftNav img{
+    display: block;
+    margin: 20px auto;
+    width: 70px;
+    cursor: pointer;
+}
+.split{
+    height: 20px;
+    background: #ff0000;
+}
+.order-tit{
+    display: block;
+    margin-top: -10px;
+    color: #fff;
+    text-align: center;
+}
+.rightTit{
+    position: relative;
+    flex-wrap: nowrap;
+    width: 1260px;
+    overflow: hidden;
+}
+.box{
+    flex-wrap: nowrap;
+    display: flex;
+    justify-content: space-between;
+    height: 70px;
+    overflow: hidden;
+}
+.leftBox{
+    display: inline-block;
+    position: relative;
+    margin-left: 100px;
+    height: 70px;
+    flex-wrap: nowrap;
+    /* background: #000; */
+}
+.iconHi{
+    position: absolute;
+    top:25px;
+    left: -35px;
+    width: 25px;
+    height: 25px;
+    background-image: url(../img/hi.png);
+    background-size: contain;
+}
+.left-tit{
+    display: inline-block;
+    height: 70px;
+    line-height: 70px;
+}
+.dateTime{
+    display: inline-block;
+    margin-left: 40px;
+    height: 70px;
+    line-height: 70px;
+    font-weight: bold;
+}
+.rightBox{
+    margin-right: 50px;
+
+}
+.rightBox img{
+    align-items: center;
+    height: 70px;
+}
+.title{
+    display: inline-block;
+    font-size: 25px;
+    line-height: 70px;
+    position: relative;
+    top: -20px;
+    left: -10px;
+}
+.search{
+    background: #eee;
+    height: 100px;
+}
+
+select{
+    width: 130px;
+    height: 40px;
+    font-size: 18px;
+    color: inherit;
+}
+option{
+    height: 40px;
+}
+.searchInput{
+    position: relative;
+    top: -2px;
+    left: -5px;
+    width: 300px;
+    height: 36px;
+    font-size: 18px;
+}
+.iconSearch{
+    position: relative;
+    top: 12px;
+    left: -10px;
+    border: none;
+    height: 40px;
+    width: 80px;
+    background-image: url(../img/fangdajing.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 20px 0;
+    border-color: transparent;
+    background-color: rgba(128, 128, 128, .5);
+    color: inherit;
+
+}
+.searchBox button:focus{
+    outline:none;
+    border: none;
+}
+.searchBox input:focus{
+    outline-color: #8e0b02;
+}
+.bg-purple-dark {
+    background: #99a9bf;
+}
+.bg-purple {
+    background: #d3dce6;
+
+}
+.bg-purple-light {
+    background: #e5e9f2;
+}
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+    display: flex;
+    width: 800px;
+    margin: 0 auto;
+}
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+.contant{
+    text-align: center;;
+    /* background: #fff; */
+    justify-content:center;
+    width: 300px;
+    flex-wrap:nowrap;
+    line-height: 36px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.formId{
+    width: 100px;
+    text-align: center;;
+    /* background: #fff; */
+    justify-content:center;
+    /* width: 200px; */
+    flex-wrap:nowrap;
+    line-height: 36px;
+}
+.formNumber{
+    width: 150px;
+    text-align: center;;
+    /* background: #fff; */
+    justify-content:center;
+    /* width: 200px; */
+    flex-wrap:nowrap;
+    line-height: 36px;
+}
+.operate{
+    width: 100px;
+    text-align: center;;
+    /* background: #fff; */
+    justify-content:center;
+    /* width: 200px; */
+    flex-wrap:nowrap;
+    line-height: 36px;
+}
+.adress{
+    width: 150px;
+    text-align: center;;
+    /* background: #fff; */
+    justify-content:center;
+    /* width: 200px; */
+    flex-wrap:nowrap;
+    line-height: 36px;
+}
+.searchBox{
+    position: relative;
+    top: 20px;
+    left: 100px;
+}
+.tableBox{
+    margin: 0 auto;
+    width: 900px;
+}
+.page{
+    display: flex;
+    justify-content: flex-end;
+    width: 800px;
+}
+.page-number{
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid #373737;
+    margin: 10px 0 0 10px;
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+}
+.page>.cur{
+    color: #fff;
+    background: #8e0b02;
+}
+.grid-content:hover{
+    width: 900px;
+    margin: 0 auto;
+    transform: .6s;
+}
+.operatrContant{
+    height: auto;
+    /* background: #f20; */
+}
+.returnLast{
+    height: 70px;
+    background: #eee;
+}
+.returnLast img{
+    height: 70px;
+    vertical-align: middle;
+}
+.orderInside{
+    margin: 0 auto;
+    width: 600px;
+    background: #fff;
+}
+.ordertit{
+    margin: 10px 0 ;
+    background: #fff;
+}
+.ordertit img{
+    width: 50px;
+    vertical-align: middle;
+} 
+.ordertit span{
+    margin: 0 0 0 5px;
+    color: #f99b3f;
+} 
+.orderInformation{
+    position: relative;
+    border-radius: 20px;
+    height: 550px;
+    background: #eee;
+}
+.orderInsideBox{
+    position: relative;
+    top: 25px;
+    margin: 0px auto;
+    width: 400px;
+    height: 350px;
+    /* background: #000; */
+}
+.orderInsideBox p{
+    margin: 10px 0 0 0 ;
+    max-width: 400px;
+}
+.orderInsideBox img{
+    height: 100px;
+    vertical-align: top;
+}
+.footButton{
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.Button{
+    position: relative;
+    border: none;
+    border-radius: 10px;
+    width: 150px;
+    height: 40px;
+    background: #f99b3f;
+    margin: 0 10px;
+    cursor: pointer;
+}
+button:focus{
+    outline: none;
+    /* outline-color: #8e0b02;; */
+    /* border-radius: 10px; */
+}
+.Button span{
+    margin-left: 20px;
+}
+.iconfinfish{
+    position: absolute;
+    left: 25px;
+    top: 4px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/weixiu.png);
+    background-size: contain;
+}
+.iconWrong{
+    position: absolute;
+    left: 23px;
+    top: 3px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/gaojingxinxi.png);
+    background-size: contain;
+}
+.finish{
+    /* width: 800px; */
+    height: 430px;
+    /* background: #000; */
+}
+.order{
+    position: relative;
+    height: 430px;
+}
+.returntable{
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 100px;
+    width: 50px;
+    height: 50px;
+    background-image: url(../img/icon-fanhui.png);
+    background-size: contain;
+    transform: rotate(180deg);
+}

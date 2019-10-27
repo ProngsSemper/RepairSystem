@@ -40,6 +40,10 @@ public final class StringUtils {
      * @return 返回加密过后的字符串
      */
     public static String getStringMd5(String password) {
+        if(password==null||password.isEmpty())
+        {
+            password = "";
+        }
 
         return Md5Util.getMd5(password);
     }

@@ -33,7 +33,7 @@ public abstract class BaseServlet extends HttpServlet {
 
         if (res != null) {
 
-            sender.write(JSONObject.toJSONStringWithDateFormat(res, "yyyy-MM-dd HH:mm:ss", SerializerFeature.WriteDateUseDateFormat));
+            sender.write(JSONObject.toJSONStringWithDateFormat(res, "yyyy-MM-dd ", SerializerFeature.WriteDateUseDateFormat));
             sender.flush();
             sender.close();
         }
@@ -50,4 +50,9 @@ public abstract class BaseServlet extends HttpServlet {
         doPost(req, resp);
     }
 
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doPost(req, resp);
+    }
 }

@@ -25,6 +25,11 @@ public enum ResultEnum {
     LOGIN_SUCCESS(200, "登录成功/服务器成功返回数据"),
 
     /**
+     * 查询成功
+     */
+    QUERY_SUCESS(201, "查询成功"),
+
+    /**
      * 用户名或密码不能为空
      */
     USERNAME_PASSWORD_EMPTY(402, "用户名或密码不能为空"),
@@ -53,7 +58,14 @@ public enum ResultEnum {
      */
     SUBMITTED_SUCCESSFULLY(201, "报修单提交成功"),
 
-    SUBMITTED_FAILED(400,"报修单提交失败"),
+    /**
+     * 表单重复提交，一小时内无法再提交
+     */
+    SUBMITTED_REPEATLY(405, "后台检测表单已经提交过了，一分钟内不允许再提交"),
+
+    SUBMITTED_SENSITIVELY(401, "报修单中含有敏感词！请检查并修改！"),
+
+    SUBMITTED_FAILED(400, "报修单提交失败"),
     /**
      * 修改报修单状态成功
      */
@@ -62,6 +74,48 @@ public enum ResultEnum {
      * 修改报修单状态失败
      */
     UPDATE_QUERYCODE_FAILED(400, "修改报修单状态失败"),
+    /**
+     * 修改优先级成功
+     */
+    BOOST_SUCCESSFULLY(201, "修改优先级成功"),
+    /**
+     * 修改优先级失败
+     */
+    BOOST_FAILED(400, "修改优先级失败"),
+    /**
+     * 确认成功
+     */
+    CONFIRM_SUCCESSFULLY(201, "确认成功"),
+    /**
+     * 确认失败
+     */
+    CONFIRM_FAILED(400, "确认失败"),
+    /**
+     * 确认成功
+     */
+    DELETE_SUCCESSFULLY(201, "删除成功"),
+    /**
+     * 确认失败
+     */
+    DELETE_FAILED(400, "删除失败"),
+    /**
+     * 评价成功
+     */
+    EVALUATE_SUCCESSFULLY(201, "评价成功"),
+    /**
+     * 评价失败
+     */
+    EVALUATE_FAILED(400, "评价失败"),
+
+    EVALUATE_SENSITIVELY(401, "评价中含有敏感词！评价失败！"),
+    /**
+     * 评价成功
+     */
+    APPOINT_SUCCESSFULLY(201, "修改预约时间成功"),
+    /**
+     * 评价失败
+     */
+    APPOINT_FAILED(400, "修改预约时间失败"),
     /**
      * @author lyr
      * @date 2019/9/29
@@ -85,6 +139,15 @@ public enum ResultEnum {
      * 没有查询到相关表单
      */
     QUERY_FAILED(401, "没有查询到相关表单"),
+    /**
+     * 查询评价成功
+     */
+    GET_EVALUATION_SUCCESSFULLY(200, "查询评价成功"),
+
+    /**
+     * 没有查询到相关表单
+     */
+    GET_EVALUATION_FAILED(401, "暂无评价"),
 
     /**
      * @author Prongs
@@ -109,7 +172,9 @@ public enum ResultEnum {
      * @author Prongs
      * @date 2019/10/08
      */
-    RELEASE_SUCCESSFULLY(200, "公告发布成功");
+    RELEASE_SUCCESSFULLY(200, "公告发布成功"),
+
+    RELEASE_SENSITIVELY(400, "公告中含有敏感词！公告发布失败！");
 
     /**
      * 状态码   code

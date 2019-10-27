@@ -11,13 +11,35 @@ import java.util.List;
  */
 public interface FormDao {
     /**
-     * 根据维修单号来查询维修单的信息
+     * 工人根据维修单号来查询未完成维修单的信息
      *
      * @param formId 维修单号
-     * @return 返回一条javabean对象
+     * @param wKey   工人id
+     * @return 返回表单bean对象
      */
-    List<Form> queryByFormId(String formId);
-
+    List<Form> workerQueryIncompleteFormByFormId(String formId, int wKey);
+    /**
+     * 工人根据维修单号来查询已完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @param wKey   工人id
+     * @return 返回表单bean对象
+     */
+    List<Form> workerQueryCompleteFormByFormId(String formId, int wKey);
+    /**
+     * 管理员根据维修单号来查询未完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @return 返回表单bean对象
+     */
+    List<Form> adminQueryIncompleteFormByFormId(String formId);
+    /**
+     * 管理员根据维修单号来查询已完成维修单的信息
+     *
+     * @param formId 维修单号
+     * @return 返回表单bean对象
+     */
+    List<Form> adminQueryCompleteFormByFormId(String formId);
     /**
      * 根据学生学号来查询维修单的信息
      *
@@ -201,12 +223,21 @@ public interface FormDao {
     List<Form> queryOldByStudentId(String stuId);
 
     /**
-     * 在旧表单中通过报修单id来查找历史报修单
+     * 工人在旧表单中通过报修单id来查找报修单
+     *
+     * @param formId 报修单id
+     * @param wKey
+     * @return oldfrom表中数据
+     */
+    List<Form> workerQueryOldByFormId(String formId, int wKey);
+
+    /**
+     * 管理员在旧表单中通过报修单id来查找报修单
      *
      * @param formId 报修单id
      * @return oldfrom表中数据
      */
-    List<Form> queryOldByFormId(String formId);
+    List<Form> adminQueryOldByFormId(String formId);
 
     /**
      * 分页查询
@@ -226,7 +257,6 @@ public interface FormDao {
      */
     int getCountByWorkerKey(String wkey);
 
-
     /**
      * 用户申请表单提交
      *
@@ -236,9 +266,64 @@ public interface FormDao {
      * @param formDate 表单日期
      * @param formMail 用户的邮箱账号
      * @param photoId  用户发送的照片在服务器的地址存储路径
-     * @param room 宿舍房间号，维修地址
+     * @param room     宿舍房间号，维修地址
      * @return 布尔值
      */
-    Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId,String room);
+    Boolean apply(String stuId, int code, String formMsg, Date formDate, String formMail, String photoId, String room);
 
+    /**
+     * 根据报修单id提高其优先级
+     *
+     * @param formId 报修单id
+     * @return 布尔值
+     */
+    Boolean boostLevel(int formId);
+
+    /**
+     * 根据报修单id让学生确认报修完成
+     * 确认后数据迁移到oldform
+     *
+     * @param formId 报修单id
+     * @return 布尔值
+     */
+    Boolean studentConfirm(int formId);
+
+    /**
+     * 根据报修单Id删除对应报修单
+     *
+     * @param formId 报修单id
+     * @return 返回布尔值
+     */
+    Boolean delete(int formId);
+
+    /**
+     * 传入工人key和报修单id将某报修单变为已安排工人状态
+     * 并记录是哪个管理员进行的操作
+     *
+     * @param wKey     工人 key
+     * @param adminKey 管理员key
+     * @param formId   报修单id
+     * @return 布尔值
+     */
+    Boolean arrange(int wKey, int adminKey, int formId);
+
+    /**
+     * 学生评价工人
+     *
+     * @param evaluation 评价 好评：good，中评：mid，差评：bad
+     * @param wKey       工人key
+     * @param formId
+     * @return 布尔值
+     */
+    Boolean evaluate(String evaluation, int wKey, int formId);
+
+    /**
+     * 学生一键再修时重新预约时间
+     *
+     * @param appointDate 预约日期
+     * @param appointment 预约时间
+     * @param formId      报修单id
+     * @return 布尔值
+     */
+    Boolean appointAgain(String appointDate, int appointment, int formId);
 }

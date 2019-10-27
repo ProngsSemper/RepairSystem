@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>首页</title>
+  <link rel="stylesheet" href="css/firstPage.css">
+  <script src="js/jquery-1.12.4.js"></script>
+  <style>
+    #btn{
+      width: 500px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+<input type="text" placeholder="输入你的消息" id ="msg"><br>
+<input type="text" placeholder="sender" id = "sender"><br>
+<input type="text" placeholder="target" id = "target"><br>
+<button id="btn"></button>
+
+<script>
+  $(document).ready(function () {
+    ws = new WebSocket("ws://localhost/chat");
+    ws.onerror = function () {
+      alert("出现错误");
+    };
+    ws.onopen=function () {
+      alert("开启聊天");
+    };
+    ws.onmessage=function (event) {
+      alert("收到消息");
+      alert(event.data);
+      
+    };
+    ws.onclose=function () {
+      alert("socket 关闭");
+    };
+
+    $("#btn").click(function () {
+      var msg = {
+        "msg":$("#msg").val(),
+        "sender":$("#sender").val(),
+        "target":$("#target").val()
+      };
+      var pack = JSON.stringify(msg);
+      ws.send(pack);
+    });
+
+
+
+
+
+
+
+  });
+
+
+</script>
+
+
+</body>
+</html>

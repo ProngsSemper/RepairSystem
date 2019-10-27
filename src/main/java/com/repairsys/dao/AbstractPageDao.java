@@ -3,6 +3,7 @@ package com.repairsys.dao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public abstract class AbstractPageDao<T> extends BaseDao<T> {
     private static final String SELECT_PAGE = "select * from ? limit ?,?";
+    private final Connection connection = JdbcUtil.getConnection();
 
     protected AbstractPageDao(Class<T> clazz) {
         super(clazz);
@@ -27,7 +29,7 @@ public abstract class AbstractPageDao<T> extends BaseDao<T> {
      */
     public List<T> getPageList(String sql, Object... args) {
 
-        return super.selectList(JdbcUtil.getConnection(), sql, args);
+        return super.selectList(connection, sql, args);
     }
 
     /**
@@ -39,7 +41,7 @@ public abstract class AbstractPageDao<T> extends BaseDao<T> {
     public List<T> getPageList(String sql, int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
 
-        return super.selectList(JdbcUtil.getConnection(), sql, ans[0], ans[1]);
+        return super.selectList(connection, sql, ans[0], ans[1]);
     }
 
     /**

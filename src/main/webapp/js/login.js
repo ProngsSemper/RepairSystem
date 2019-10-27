@@ -1,4 +1,4 @@
-// document.write("<script type='text/javascript' src='Ajax.js'></script>"); 
+// document.write("<script type='text/javascript' src='Ajax.js'></script>");
 // document.onload=function(){
 //     var data=JSON.parse(getVerCode());
 // }
@@ -17,7 +17,7 @@ var Name = document.getElementsByClassName("stuId")[0];
 var Password = document.getElementsByClassName("stuPassword")[0];
 var checkCode = document.getElementsByClassName("checkInput")[0];
 var remmber = document.getElementsByClassName('square')[0];
-
+var cartoon = document.getElementsByClassName("cartoon")[0];
 //添加 radio是为了区分用户
 //添加验证码是为了给后台判断验证码
 
@@ -68,6 +68,10 @@ function refreshCode() {
 }
 
 //新的js代码
+function load() {
+    var loadingMask = document.getElementById('loadingDiv');
+    loadingMask.parentNode.removeChild(loadingMask);
+}
 
 $(document).ready(function () {
     $('#login').click(
@@ -76,11 +80,14 @@ $(document).ready(function () {
             //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
             var radio = $("input[name='identity']:checked").val();
             var vcode = $('#myCode').val();
+            // document.write(_LoadingHtml);
+            // window.setTimeout(load,3000);
 
             $.ajax({
                 type: "POST",
                 url: "/user/login",
                 dataType: "json",
+                async: false,
                 data: JSON.stringify({
                     // "id": Name.value,
                     // "password": Password.value,
@@ -93,46 +100,19 @@ $(document).ready(function () {
                 success: function (data, status, jqXHR) {
                     // var rel = JSON.parse(msg);
                     var rel = data;
+
                     if (rel.code === 200) {
 
                         refreshCode();
-                        // window.location.href = "www.baidu.com";
                         var identity = jqXHR.getResponseHeader('identity');
-                        alert('登录成功');
-                        var my_id = $('#id').val();
-                        var my_password = $('#password').val();
-                        var rem = $('#remember2').is(':checked');
-                        if (rem) {
-                            alert("记住密码");
-                            if (identity === 'student') {
-                                addcookie("stuId", my_id, 7);
-                                addcookie("stuPassword", my_password, 7);
-                                window.setTimeout("window.location.href='/firstPage.html'", 500);
-                            } else if (identity === 'admin') {
-                                addcookie("adminId", my_id, 1825);
-                                addcookie("adminPassword", my_password, 1825);
-                                window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
-                            } else if (identity === 'worker') {
-                                addcookie("workerId", my_id, 1825);
-                                addcookie("workerPassword", my_password, 1825);
-                                window.setTimeout("window.location.href='/welcome.html'", 500);
-                            }
-                        }else {
-                            if(identity=='student')
-                            {
-                                window.setTimeout("window.location.href='/firstPage.html'", 1000);
-                            }else if(identity=='admin')
-                            {
-                                window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
-                            }else if(identity=='worker')
-                            {
-                                window.setTimeout("window.location.href='/welcome.html'", 1000);
-                            }
+                        cartoon.style.display = "block";
+                        if (identity == 'student') {
+                            window.setTimeout("window.location.href='/firstPage.html'", 1000);
+                        } else if (identity == 'admin') {
+                            window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
+                        } else if (identity == 'worker') {
+                            window.setTimeout("window.location.href='/workerPage.html'", 1000);
                         }
-
-
-
-
                     } else {
                         alert("用户名或密码错误");
                         refreshCode();

@@ -22,8 +22,8 @@ public interface WorkerDao {
     /**
      * 工人完成了修理任务
      * <p>
-     * 定义queryCode ,0是开始状态，开始报修，1是联系状态，已经约好工人，2是修好7天内状态，
-     * 3是已经修好状态（迁移入oldform)，-1是缺少材料等情况 还需要再修。
+     * 定义queryCode ,0是开始状态，开始报修，1是联系状态，已经约好工人，
+     * 2是工人上门维修完毕 等待学生确认修好状态，3是已经修好状态（迁移入oldform)，-1是有缺少材料等问题状态
      *
      * @param queryCode 表单状态码
      * @param formId    工人完成了维修任务，可以修改表单的信息， 修改表单的信息需要填写 formId,指定具体的记录
@@ -86,6 +86,14 @@ public interface WorkerDao {
     Worker getWorkerTelByKey(int wKey);
 
     /**
+     * 根据工人id查工人key
+     *
+     * @param workerId 工人id
+     * @return 工人key
+     */
+    Worker getWorkerKeyById(String workerId);
+
+    /**
      * 根据工人key查询工人未处理报修单
      *
      * @param wKey 工人key
@@ -93,4 +101,19 @@ public interface WorkerDao {
      */
     int getAllIncompleteCountBywKey(int wKey);
 
+    /**
+     * 根据工人key查询工人已处理报修单
+     *
+     * @param wKey 工人key
+     * @return 返回该工人已处理报修单总数
+     */
+    int getAllCompleteCountBywKey(int wKey);
+
+    /**
+     * 根据工人key查询他的好评率
+     *
+     * @param wKey 工人key
+     * @return 好评率
+     */
+    String getEvaluation(int wKey);
 }

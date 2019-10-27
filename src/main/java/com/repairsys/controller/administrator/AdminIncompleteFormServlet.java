@@ -5,11 +5,13 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,11 +28,16 @@ public class AdminIncompleteFormServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        Result result = adminService.getIncompleteForm(requestBody.getString("adminId"),
+        logger.debug("requestBody{}", requestBody);
+        //进入此页面时从cookie获取管理员id 查询对应name后再把管理员name设置到cookie
+        String adminId = CookieUtil.getCookie("adminId", request);
+        String adminName = adminService.getNameById(adminId);
+        CookieUtil.setCookie("adminName", adminName, response);
+        Result result = adminService.getIncompleteForm(
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));
         int flag = 200;
+        logger.debug("requestBody{}", requestBody);
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);
         } else {

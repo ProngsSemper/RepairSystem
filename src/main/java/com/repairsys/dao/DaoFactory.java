@@ -2,6 +2,7 @@ package com.repairsys.dao;
 
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
+import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 
@@ -29,6 +30,10 @@ public class DaoFactory {
      * 负责处理公告信息的实现类
      */
     private static BoardDao BOARD_DAO = BoardDaoImpl.getInstance();
+    /**
+     * 负责处理学生对工人详细评价的实现类
+     */
+    private static EvaluationDao Evaluation_DAO = EvaluationDaoImpl.getInstance();
 
     public static AdminDao getAdminDao() {
 
@@ -45,6 +50,10 @@ public class DaoFactory {
 
     public static BoardDao getBoardDao() {
         return BOARD_DAO;
+    }
+
+    public static EvaluationDao getEvaluationDao() {
+        return Evaluation_DAO;
     }
 
 }

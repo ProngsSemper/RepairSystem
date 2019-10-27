@@ -12,6 +12,7 @@ body{
     position: relative;
     width: 1260px;
     height: 95px;
+    margin: 0 auto;
 }
 .head .logo{
     position: absolute;
@@ -30,20 +31,25 @@ body{
 }
 .nav{
     /* position: relative; */
-    float: left;
-    width: 100%;
-    height: 50px;
+    /* float: left; */
+    
     background: #8e0b02;
-    text-align:center;
+    
 }
-.nav ul{
+.navLi{
+    width: 1260px;
+    height: 50px;
+    text-align:center;
+    margin: 0 auto;
+}
+.navLi ul{
     width: 100%;
     height: 50px;
     /* margin: 0 0 0 177px;
     overflow: hidden; */
     text-align: center;
 }
-.nav .index{
+.navLi .index{
     display: inline-block;
     /* float: left; */
     padding: 0 100px;
@@ -54,26 +60,28 @@ body{
     text-align: center;
     cursor: pointer;
 }
-.nav li:hover{
+.navLi li:hover{
     background: rgba(255, 255, 255, .5);
 }
-.nav .current{
+.navLi .current{
     background: rgba(255, 255, 255, .5);
 }
 
 .contant{
-    margin-top: 80px;
-    width: 100%;
-    height: 500px;
+    margin: 40px auto;
+    width: 1260px;
+    height: auto;
     /* background: #000; */
+    /* overflow: auto; */
 }
 .contant .notice{
     float: left;
+    position: relative;
     width: 350px;
-    height: 450px;;
+    height: 450px;
     background: #8e0b02;
     /* margin: 30px 0 0 20px; */
-    margin-left: 123px;;
+    /* margin-left: 54px; */
     background-image: url(../img/yun.png);
     background-repeat: no-repeat;
     background-size: 60%;
@@ -123,12 +131,549 @@ body{
 .worker{
     position: absolute;
     height: 93px;
-    right: 130px;
+    right: 300px;
     bottom: 0;
 }
 .toolCase{
     position: absolute;
     height: 80px;
-    right: 0px;
+    right: 180px;
     bottom: 0;
+}
+.date{
+    float: left;
+    display: block;
+    position: absolute;
+    bottom: 20px;
+    right: 25px;;
+    font-size: 18px;
+    color: #fff;
+}
+.imformation{
+    margin: 0 auto;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    height: 500px;
+    width: 900px;
+    background: #fff;
+}
+.hide{
+    display: none;;
+}
+.imformation .bg{
+    height: 20px;
+    background: #eee;
+}
+.top-tit{
+    width: 100%;
+    margin-top: 10px;;
+    height: 80px;
+    /* background: #000; */
+    
+}
+.repair-tit{
+    float: right;
+    margin: 0px 20px 0px 0;
+    width: 200px;
+    height: 80px;
+    /* background: #fff; */
+}
+.chinaName{
+    color: #f99b3f;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+.englishName{
+    font-size: 18px;;
+    text-align: center;
+    line-height: 25px;;
+}
+.insideContant{
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #eee;
+    border-radius: 5px;
+    width: 800px;
+    height: 350px;  
+}
+.repairName{
+    display: block;
+    position: absolute;
+    top: -15px;
+    left: 40px;;
+    width: 150px;
+    height: 30px;
+    background: #f99b3f;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+}
+.form{
+    margin: 40px auto;
+    width: 500px;
+    height: 280px;
+    /* background: #000; */
+}
+.form .repair-information{
+    /* display: block; */
+    /* margin: 0 auto; */
+    width: 250px;
+    height: 25px;
+    font-size: 18px;
+    text-indent: 1em;
+}
+.form .spanStyle{
+    display: inline-block;
+    margin-right: 25px;
+    width: 100px;
+    text-align: right;
+}
+.formBlock{
+    position: relative;
+    margin-top: 15px;;
+}
+.formBlock>select{
+    margin: 0 8px 0 -2px;
+    height: 26px;
+}
+.formBlock>select>option{
+    margin: 0 8px 0 -2px;
+    height: 25px;
+}
+.dormitoryNumber{
+    width: 100px;
+    height: 24px;
+    text-indent: 1em;
+}
+.pos{
+    margin-top: 60px;;
+}
+.radios{
+    margin:0 10px 0 8px;
+}
+.form .appoint{
+    width: 150px;
+    height: 20px;;
+    font-size: 14px;
+}
+.textareaStyle{
+    font-size: 18px;;
+    vertical-align: top;
+    resize: none;
+}
+.handIn{
+    display: block;
+    margin: 0 auto;
+    border: none;
+    border-radius: 6px;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    background: #f99b3f;
+}
+.iconHandin{
+    position: absolute;
+    top: 8px;
+    left: 215px;
+    background-image: url(../img/dianji.png);
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;;
+}
+.handin-tit{
+    display: inline-block;
+    margin-left: 15px;
+}
+.findOrder{
+    position: relative;
+    margin: 0 auto;
+    border:1px solid #eeeeee;
+    width: 900px;
+    height: 1000px;
+    /* background: #000; */
+}
+.iconClip{
+    position: absolute;
+    top: -20px;
+    right: 80px;
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/clip.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.overChange{
+    overflow: initial;
+}
+.iconLabel{
+    width: 150px;
+    height: 50px;
+    margin: 5px 0 0 -50px;
+    
+    background-image: url(../img/biaoqian.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.curLabel{
+    width: 200px;
+    height: 70px;
+}
+.iconLabel:hover{
+    margin-left: -70px;
+    transform: all .5s;
+}
+.label-tit{
+    margin-left: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+    line-height: 50px;
+}
+.cur-tit{
+    font-size: 24px;
+    line-height: 70px;
+    margin-left: 20px;
+}
+.orderContant{
+    margin: 0 auto;
+    /* border: 1px solid #eee; */
+    width: 800px;
+    height: 800px;
+}
+.order{
+    position: relative;
+    margin: 40px auto;
+    width: 700px;
+    height: 200px;
+    border: 1px solid #eee;
+    box-shadow: 6px 4px 6px 0px #888888;
+}
+.finishorder{
+    position: relative;
+    margin: 40px auto;
+    width: 700px;
+    height: 200px;
+    border: 1px solid #eee;
+    box-shadow: 6px 4px 6px 0px #888888;
+}
+.yellowLabel
+{
+    position: absolute;
+    top: -1px;
+    /* right: 80px; */
+    left: 25px;
+    width: 110px;
+    height: 115px;
+    background-image: url(../img/biaoqian1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.order .state-tit{
+    position: absolute;
+    left: 40px;
+    top: 6px;
+    display: block;
+    padding: 3px 0;
+    width: 30px;
+    /* height: 80px; */
+    font-size: 19px;
+    line-height: 22px;
+    text-align: center;
+    
+}
+.finishorder .finishstate-tit{
+    position: absolute;
+    left: 40px;
+    top: 6px;
+    display: block;
+    padding: 3px 0;
+    width: 30px;
+    /* height: 80px; */
+    font-size: 19px;
+    line-height: 22px;
+    text-align: center;
+    
+}
+.order .orderInformation{
+    width: 400px;
+    height: 130px;
+    margin: 25px auto;
+    /* border: 1px solid #8e0b02; */
+}
+.finishorder .finishorderInformation{
+    width: 400px;
+    height: 130px;
+    margin: 25px auto;
+    /* border: 1px solid #8e0b02; */
+}
+.orderInformation .orderInside{
+    float: left;
+    width:250px;
+    height: 130px;
+    /* background: #000; */
+}
+.finishorderInformation .finishorderInside{
+    float: left;
+    width:250px;
+    height: 130px;
+    /* background: #000; */
+}
+.orderInformation .orderImg{
+    display: inline-block;
+}
+.finishorderInformation .finishorderImg{
+    display: inline-block;
+}
+.order-tit
+{
+    margin: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.finishorder-tit
+{
+    margin: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.orderImg img{
+    display: block;
+    margin: 2px auto;
+    width: 150px;
+    height: 120px;
+}
+.finishorderImg img{
+    display: block;
+    margin: 2px auto;
+    width: 150px;
+    height: 120px;
+}
+.finish
+{
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    border: 1px solid #8e0b02;
+    border-radius: 10px;
+    padding: 5px 8px;
+    color: #8e0b02;
+    background: #fff;
+    cursor: pointer;
+}
+.comment
+{
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    border: 1px solid #8e0b02;
+    border-radius: 10px;
+    padding: 5px 8px;
+    color: #8e0b02;
+    background: #fff;
+    cursor: pointer;
+}
+.again{
+    position: absolute;
+    bottom: 10px;
+    right: 110px;
+    border: 1px solid #8e0b02;
+    border-radius: 10px;
+    padding: 5px 8px;
+    color: #8e0b02;
+    background: #fff;
+    cursor: pointer;
+}
+.page{
+    float: right;
+    width: 200px;
+    height: 30px;
+    margin: 30px 0 0 0;
+    /* background: #000; */
+    position: relative;
+    right: 70px;
+    bottom: 70px;
+}
+.page>.cur{
+    color: #fff;
+    background: #8e0b02;
+}
+.page-number{
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 5px;
+    border: 1px solid #373737;
+    /* width: 10px;
+    height: 10px; */
+    background: #fff;
+    color: #000;
+    cursor: pointer;
+}
+.againDiv{
+    /* float: left; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: 10;
+}
+.againTime{
+    position: relative;
+    /* top: 50%; */
+    /* margin-top: -300px; */
+    margin: 200px auto;
+    width: 350px;
+    height: 300px;
+    background: #ffffffd9;
+}
+.again-tit{
+    display: block;
+    position: absolute;
+    top: 20px;
+    margin: 0px 0 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+.againSelectTime{
+    position: absolute;
+    display: inline-block;
+    top: 100px;
+    left: 20px;
+    margin: 0 auto;
+}
+.againSelectTime select{
+    width: 100px;
+    height: 40px;
+}
+.againInsure{
+    position: absolute;
+    bottom: 20px;
+    border: none;
+    /* left: 50%; */
+    left: 100px;
+    margin: 0 auto;
+    width: 150px;
+    /* width: 100px; */
+    height: 50px;
+    border-radius: 10px;
+    background: #8e0b02;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.againInsure:focus{
+    outline: none;
+}
+.icon-cha{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/cha.png);
+    background-size: contain;
+    cursor: pointer;
+}
+.finishOrderContant{
+    margin: 0 auto;
+    /* border: 1px solid #eee; */
+    width: 800px;
+    height: 800px;
+    /* background: #000; */
+}
+.evaluate{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: 10;
+}
+.evaluateBox{
+    position: relative;
+    /* top: 50%; */
+    /* margin-top: -300px; */
+    margin: 200px auto;
+    width: 500px;
+    height: 370px;
+    background: #ffffffd9;
+}
+.evaluateBox-tit{
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+.flowerEvaluate{
+    position: relative;
+    top: 56px;
+    margin: 0 auto;
+    width: 322px;
+    height: 30px;
+}
+.iconattitude{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.icon-good{
+    background-image: url(../img/good.png);
+}
+.icon-middle{
+    background-image: url(../img/middle.png);
+}
+.icon-bad{
+    background-image: url(../img/bad.png);
+}
+.attitudeRadio>span{
+    line-height: 30px;
+    margin-left: 35px;
+}
+.attitudeRadio{
+    display: inline-block;
+    margin-left: 20px;
+}
+.commentArea{
+    font-size: 18px;;
+    vertical-align: top;
+    resize: none;
+}
+.textEvaluate{
+    top: 75px;
+    width: 300px;
+    position: relative;
+    margin: 0 auto;
+}
+.evaluateSure{
+    position: absolute;
+    bottom: 15px;
+    border: none;
+    /* left: 50%; */
+    left: 185px;
+    margin: 0 auto;
+    width: 150px;
+    /* width: 100px; */
+    height: 50px;
+    border-radius: 10px;
+    background: #8e0b02;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+.icon-chaa{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/cha.png);
+    background-size: contain;
+    cursor: pointer;
 }

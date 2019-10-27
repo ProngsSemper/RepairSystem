@@ -7,7 +7,9 @@ import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
+
 import com.repairsys.util.mail.MailUtil;
+import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +32,7 @@ public class UpdateQueryCodeServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = requestBody.getString("stuMail");
-        int wKey = requestBody.getInteger("wKey");
+        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey",request));
         int queryCode = requestBody.getInteger("queryCode");
         int flag = 201;
         int finishCode = 2;

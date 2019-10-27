@@ -1,15 +1,20 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
+import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author lyr, Prongs
@@ -20,7 +25,9 @@ import java.util.List;
 public class Print {
     @Test
     public void printSome() {
-        System.out.println("hello");
+        Calendar c = Calendar.getInstance();
+        System.out.println(c.getTime());
+        System.out.println("更新数据库时间："+c.get(Calendar.YEAR)+"-"+(1+c.get(Calendar.MONTH))+"-"+c.get(Calendar.DATE)+" " +c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":" +c.get(Calendar.SECOND));
 
     }
 
@@ -44,7 +51,7 @@ public class Print {
 
     @Test
     public void md5() {
-        String pwd = "PASSWORDddd";
+        String pwd = "少冰少糖加椰果";
         String newPwd = Md5Util.getMd5(pwd);
         System.out.println(newPwd);
 
@@ -102,6 +109,30 @@ public class Print {
         FormService formService = new FormServiceImpl();
         int i = formService.getTotalCount();
         System.out.println(i);
+    }
+
+    @Test
+    public void printUUID()
+    {
+        String y =  UUID.randomUUID().toString();
+        System.out.println(y);
+    }
+    @Test
+    public void printPerson()
+    {
+        com.repairsys.chat.bean.Admin admin = new com.repairsys.chat.bean.Admin();
+        admin.append("123");
+        admin.append("12222");
+        admin.append("444");
+        System.out.println(admin.getTargetSet());
+        String text = "{ 'list':" +admin.getTargetSet()+"}";
+        System.out.println(text);
+
+    }
+
+    @Test
+    public void testToke(){
+        System.out.println(Md5Util.getMd5(String.valueOf(System.currentTimeMillis())));
     }
 
 }

@@ -13,8 +13,6 @@ import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.AdminService;
-import com.repairsys.service.ServiceFactory;
-import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,7 @@ import java.util.List;
  * @Author lyr, Prongs
  * @create 2019/9/24 18:08
  */
-public class AdminServiceImpl implements AdminService {
+public final class AdminServiceImpl implements AdminService {
 
     private static final Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     private AdminDao adminDao = DaoFactory.getAdminDao();
@@ -54,21 +52,33 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getByFormId(String formId) {
+    public Result getIncompleteFormByFormId(String formId) {
         Result<List<Form>> result = new Result();
         //查找表单号为空
         if (!StringUtils.getByFormId(formId)) {
             return result.setResult(ResultEnum.QUERY_EMPTY);
         }
-        List<Form> list = formDao.queryByFormId(formId);
-        //在未过期表单中找不到时到过期表单中寻找
+        List<Form> list = formDao.adminQueryIncompleteFormByFormId(formId);
+
         if (list.isEmpty()) {
-            list = formDao.queryOldByFormId(formId);
-            //在过期表单中也找不到
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        }
+        result.setData(list);
+        return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+    }
+
+    public Result getCompleteFormByFormId(String formId) {
+        Result<List<Form>> result = new Result();
+        //查找表单号为空
+        if (!StringUtils.getByFormId(formId)) {
+            return result.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        List<Form> list = formDao.adminQueryCompleteFormByFormId(formId);
+        if (list.isEmpty()) {
+            list = formDao.adminQueryOldByFormId(formId);
             if (list.isEmpty()) {
                 return result.setResult(ResultEnum.QUERY_FAILED);
             }
-            //在过期表单中找到了
             result.setData(list);
             return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         }
@@ -96,9 +106,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result<Boolean> senMail(String stuMail, int day, int hour) throws Exception {
+    public Result<Boolean> senMail(String stuMail, int day, int hour, String wTel) throws Exception {
         Result<Boolean> result = new Result<>();
-        if (adminDao.sendMail(stuMail, day, hour)) {
+        if (stuMail == null || "".equals(stuMail)) {
+            result.setData(false);
+            return result.setResult(ResultEnum.SEND_MAIL_FAILED);
+        }
+        if (adminDao.sendMail(stuMail, day, hour, wTel)) {
             result.setData(true);
             return result.setResult(ResultEnum.SEND_MAIL_SUCCESSFULLY);
         }
@@ -144,31 +158,24 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     * @param page      当前页面
-     * @param limit     设置限制条数
-     * @param studentName 学生姓名
+     * @param page    当前页面
+     * @param limit   设置限制条数
+     * @param stuName 学生姓名
      * @return 返回学生提交的所有申请状态
      */
     @Override
-    public Result<List<Form>> getAllFormByStudentName(String studentName, int page, int limit) {
-
-        WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-        return workerService.getAllFormByStudentName(studentName, page, limit);
-
-    }
-
-    public Result getAllFormByStudentId(String stuId, int page, int limit) {
+    public Result getAllIncompleteFormByStudentName(String stuName, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
-        List list = formListDao.getAllListByStudentId(stuId, page, limit);
+        List list = formListDao.adminGetAllIncompleteListByStudentName(stuName, page, limit);
         Page res = new Page();
-        if (!StringUtils.getByStudentId(stuId)) {
+        if (!StringUtils.getByStudentId(stuName)) {
             return res.setResult(ResultEnum.QUERY_EMPTY);
         }
         res.setData(list);
-        int cnt = formListDao.getAllCountByStudentId(stuId);
+        int cnt = formListDao.getAllAdminIncompleteCountByStudentName(stuName);
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -184,6 +191,55 @@ public class AdminServiceImpl implements AdminService {
         logger.debug("---------------");
         return res;
 
+    }
+
+    @Override
+    public Result getAllCompleteFormByStudentName(String stuName, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.adminGetAllCompleteListByStudentName(stuName, page, limit);
+        Page res = new Page();
+        if (!StringUtils.getByStudentId(stuName)) {
+            return res.setResult(ResultEnum.QUERY_EMPTY);
+        }
+        res.setData(list);
+        int cnt = formListDao.getAllAdminCompleteCountByStudentName(stuName);
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+    }
+
+    @Override
+    public Result getIncompleteFormByLocation(String location, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.adminGetInCompleteListByLocation(location, page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = formListDao.getAllAdminIncompleteCountByLocation(location);
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
     }
 
     @Override
@@ -250,16 +306,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getIncompleteForm(String adminId, int page, int limit) {
+    public Result getIncompleteForm(int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
         FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
-        int adminKey = dao.getAdminKeyById(adminId);
-        List list = dao.adminIncompleteForm(adminId, page, limit);
+        List list = dao.adminIncompleteForm(page, limit);
         Page res = new Page();
         res.setData(list);
-        int cnt = adminDao.getAllIncompleteCountByAdminKey(adminKey);
+        int cnt = adminDao.getAllIncompleteCountByAdminKey();
         res.setTotalCount(cnt);
 
         res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
@@ -268,6 +323,30 @@ public class AdminServiceImpl implements AdminService {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
 
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}", list, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+
+    }
+
+    @Override
+    public Result getCompleteForm(int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl dao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = dao.adminCompleteForm(page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = adminDao.getAllCompleteCount();
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
         res.setTargetPage(page);
         res.setSize(list.size());
         logger.debug("{},{}", list, res.getTotalPage());
@@ -301,6 +380,39 @@ public class AdminServiceImpl implements AdminService {
 
     }
 
+    @Override
+    public Result<Boolean> deleteOne(int formId) {
+        Result<Boolean> result = new Result<>();
+        if (formDao.delete(formId)) {
+            result.setData(true);
+            return result.setResult(ResultEnum.DELETE_SUCCESSFULLY);
+        }
+        result.setData(false);
+        return result.setResult(ResultEnum.DELETE_FAILED);
+    }
+
+    @Override
+    public Result<Boolean> arrange(int wKey, String adminId, int formId) {
+        Result<Boolean> result = new Result<>();
+        if (adminDao.queryKey(adminId) == null) {
+            return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+        }
+        int adminKey = adminDao.queryKey(adminId).getAdminKey();
+        if (formDao.arrange(wKey, adminKey, formId)) {
+            result.setData(true);
+            return result.setResult(ResultEnum.UPDATE_QUERYCODE_SUCCESSFULLY);
+        }
+        result.setData(false);
+        return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
+    }
+
+    public String getNameById(String adminId) {
+        if (adminId == null || "".equals(adminId)) {
+            return "";
+        }
+        String adminName = adminDao.queryName(adminId).getAdminName();
+        return adminName;
+    }
 
     public AdminServiceImpl() {
     }

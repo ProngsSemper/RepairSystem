@@ -71,10 +71,11 @@ public interface AdminDao {
      * @param stuMail 被通知学生的邮箱账号
      * @param day     师傅上门时间是本月的几号
      * @param hour    师傅上门时间是几点
+     * @param wTel    师傅联系电话
      * @return 发送成功返回true
      * @throws Exception 抛出异常
      */
-    boolean sendMail(String stuMail, int day, int hour) throws Exception;
+    boolean sendMail(String stuMail, int day, int hour, String wTel) throws Exception;
 
     /**
      * 查询一个工人的所有表单记录
@@ -113,10 +114,9 @@ public interface AdminDao {
     /**
      * 根据管理员key查管理员未处理的报修单
      *
-     * @param adminKey 管理员key
      * @return 返回未处理报修单总数
      */
-    int getAllIncompleteCountByAdminKey(int adminKey);
+    int getAllIncompleteCountByAdminKey();
 
     /**
      * 管理员根据工种类型查询报修单总数
@@ -126,4 +126,26 @@ public interface AdminDao {
      */
     int getAllCountByWorkerType(String wType);
 
+    /**
+     * 根据管理员key返回已处理报修单总数
+     *
+     * @return 返回总数
+     */
+    int getAllCompleteCount();
+
+    /**
+     * 根据管理员id查管理员key
+     *
+     * @param adminId 管理员id
+     * @return 管理员对象
+     */
+    Admin queryKey(String adminId);
+
+    /**
+     * 根据管理员id查管理员姓名
+     *
+     * @param adminId 管理员id
+     * @return 管理员对象
+     */
+    Admin queryName(String adminId);
 }

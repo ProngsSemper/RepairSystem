@@ -23,7 +23,7 @@ public class RequestBodyFilter implements Filter {
      * 默认需要放行的资源
      */
     private static final String[] ARRAY = {".png", ".jpg", ".css",".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp"};
+    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp","img"};
 
     @Override
     public void destroy() {
@@ -31,8 +31,15 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        if(t.lastIndexOf("/chat")>=0)
+        {
+            chain.doFilter(request,resp);
+            return;
+        }
+        logger.debug(t);
         for (String i : ARRAY) {
             if (t.endsWith(i)) {
                 logger.debug("放行静态资源 {}", t);

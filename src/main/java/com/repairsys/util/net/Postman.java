@@ -8,7 +8,10 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -19,6 +22,7 @@ public final class Postman {
 
     private static final String LOGIN_REQUEST = "http://jwxt.gduf.edu.cn/app.do?method=authUser&";
     private static final int PASS = 200;
+    private static final Logger logger = LoggerFactory.getLogger(Postman.class);
 
     /**
      * 没有进行超时处理的方法,不安全的方法
@@ -80,6 +84,36 @@ public final class Postman {
         CloseableHttpResponse response = httpClient.execute(getHandler);
 
         return getJsonObject(response);
+    }
+
+    /**
+     * 发送请求提醒服务器改更新一下数据库了
+     * @param request 请求
+     */
+    public static void call(HttpServletRequest request)
+    {
+
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
+        logger.debug("内部发送请求"+basePath);
+
+        HttpGet getHandler = new HttpGet(basePath + "/server/clock");
+
+        //创建一个用于抓包的客户端
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        //设置超时处理，不然会一直阻塞读取
+        //设置请求和传输超时时间
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(4000).setConnectTimeout(4000).build();
+
+        getHandler.setConfig(requestConfig);
+
+        //提交并且获取url的响应
+        try {
+
+            CloseableHttpResponse response = httpClient.execute(getHandler);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

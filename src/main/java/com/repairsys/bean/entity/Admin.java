@@ -48,6 +48,14 @@ public class Admin implements Serializable {
         this.adminMail = adminMail;
     }
 
+    public int getAdminKey() {
+        return adminKey;
+    }
+
+    public void setAdminKey(int adminKey) {
+        this.adminKey = adminKey;
+    }
+
     @Override
     public String toString() {
         return "Admin{" +

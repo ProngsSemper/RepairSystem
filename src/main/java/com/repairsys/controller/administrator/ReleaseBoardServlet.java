@@ -2,9 +2,11 @@ package com.repairsys.controller.administrator;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * @author Prongs
@@ -27,8 +30,21 @@ public class ReleaseBoardServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-
-        Result result = adminService.releaseBoard(requestBody.getString("board"),
+        String boardMsg = requestBody.getString("board");
+        //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
+        SensitiveWordFilter filter = new SensitiveWordFilter();
+        boolean b = filter.isContainSensitiveWord(boardMsg, 1);
+        Set<String> set = filter.getSensitiveWord(boardMsg, 1);
+        Result result = new Result<>();
+        if (b) {
+            result.setResult(ResultEnum.RELEASE_SENSITIVELY);
+            result.setDesc("所含敏感词为：" + set);
+            logger.debug("发布失败{}", result);
+            request.setAttribute("result", result);
+            super.doPost(request, response);
+            return;
+        }
+        result = adminService.releaseBoard(boardMsg,
                 new Timestamp(System.currentTimeMillis()));
         int flag = 200;
         if (result.getCode() == flag) {

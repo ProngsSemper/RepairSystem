@@ -11,6 +11,7 @@ import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
+import com.repairsys.util.md5.Md5Util;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ import java.util.List;
  */
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Admin> {
     private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
+    private final Connection connection = JdbcUtil.getConnection();
 
     private static final AdminDaoImpl ADMIN_DAO;
 
@@ -36,7 +38,11 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String REGISTER = "insert into administrators (`adminId`, `adminName`, `adminPassword`, `adminMail`) values(?,?,?,?)";
     private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
     private static final String UPDATE_BOARD = "update board set queryCode = -1 where queryCode=1";
+    private static final String TOKEN = "update administrators set adminToken=? where adminId=?";
     private static final String RELEASE_BOARD = "insert into board (queryCode,boardMsg,date)values(1,?,?)";
+    private static final String QUERY_KEY_BY_ID = "SELECT adminKey FROM `administrators` WHERE adminId=?";
+    private static final String QUERY_NAME_BY_ID = "SELECT adminName FROM `administrators` WHERE adminId=?";
+
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -59,7 +65,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public Admin getById(String id) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         return super.selectOne(conn, QUERY_ONE);
     }
 
@@ -71,7 +77,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> getAdminInfoList() {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
         return super.selectList(conn, QUERY_ALL_ADMIN);
     }
 
@@ -84,10 +90,10 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public Admin login(String id, String password) {
-        Connection conn = JdbcUtil.getConnection();
         String pwd = StringUtils.getStringMd5(password);
         logger.info(id + pwd);
-        return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
+        super.updateOne(connection,TOKEN, Md5Util.getMd5(String.valueOf(System.currentTimeMillis())),id);
+        return super.selectOne(connection, LOGIN_FOR_ADMIN, id, pwd);
     }
 
     /**
@@ -132,7 +138,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public boolean register(Object... args) {
 
-        Connection conn = JdbcUtil.getConnection();
+        Connection conn = connection;
 
         boolean b = super.addOne(conn, REGISTER, args);
 
@@ -145,18 +151,19 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      * @param stuMail 被通知学生的邮箱账号
      * @param day     师傅上门时间是本月的几号
      * @param hour    师傅上门时间是几点
+     * @param wTel    师傅联系电话
      * @return 发送成功返回true
      * @throws Exception 抛出异常
      */
     @Override
-    public boolean sendMail(String stuMail, int day, int hour) throws Exception {
+    public boolean sendMail(String stuMail, int day, int hour, String wTel) throws Exception {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         java.util.Date time = calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM月dd日 HH时");
         String format = df.format(time);
-        return MailUtil.sendPrepareMail(stuMail, format);
+        return MailUtil.sendPrepareMail(stuMail, format, wTel);
     }
 
     /**
@@ -180,12 +187,19 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
 
     @Override
     public void releaseBoard(String board, Timestamp releaseDate) {
-        Connection connection = JdbcUtil.getConnection();
         super.updateOne(connection, UPDATE_BOARD);
         super.addOne(connection, RELEASE_BOARD, board, releaseDate);
     }
 
+    @Override
+    public Admin queryKey(String adminId) {
+        return super.selectOne(connection, QUERY_KEY_BY_ID, adminId);
+    }
 
+    @Override
+    public Admin queryName(String adminId) {
+        return super.selectOne(connection, QUERY_NAME_BY_ID, adminId);
+    }
 
 
 
@@ -222,7 +236,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> selectPageList(int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
-        return super.selectList(JdbcUtil.getConnection(), QUERY_ADMIN_LIST, ans[0], ans[1]);
+        return super.selectList(connection, QUERY_ADMIN_LIST, ans[0], ans[1]);
     }
 
     /**
@@ -232,7 +246,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public int selectPageCount() {
-        return super.getCount(JdbcUtil.getConnection(), QUERY_ADMIN_LIST_COUNT);
+        return super.getCount(connection, QUERY_ADMIN_LIST_COUNT);
     }
 
     /**
@@ -274,21 +288,29 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     public int getAllCountByWorkerName(String wName) {
         String cntSql = "select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
 
-        return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("rep", wName));
+        return super.getCount(connection, cntSql.replaceAll("rep", wName));
 
     }
 
     @Override
-    public int getAllIncompleteCountByAdminKey(int adminKey) {
-        String cntSql = "SELECT COUNT(*) FROM form WHERE adminKey = ? AND queryCode=0";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, adminKey);
+    public int getAllIncompleteCountByAdminKey() {
+        String cntSql = "SELECT COUNT(*) FROM form WHERE queryCode=0";
+        return super.getCount(connection, cntSql);
+
+    }
+
+    @Override
+    public int getAllCompleteCount() {
+        String cntSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
+        String rex = "where queryCode != 0";
+        return super.getCount(connection, cntSql.replaceAll("where",rex));
 
     }
 
     @Override
     public int getAllCountByWorkerType(String wType) {
         String cntSql = "select (select count(*) as i from form f where f.wType in (select w.wType from workers w where w.wType = ?))+( select count(*) as j from oldform o where o.wType in (select w.wType from workers w where w.wType = ?)) as total";
-        return super.getCount(JdbcUtil.getConnection(), cntSql, wType, wType);
+        return super.getCount(connection, cntSql, wType, wType);
 
     }
 
