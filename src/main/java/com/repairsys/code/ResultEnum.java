@@ -25,10 +25,9 @@ public enum ResultEnum {
     LOGIN_SUCCESS(200, "登录成功/服务器成功返回数据"),
 
     /**
-     *
      * 查询成功
-     * */
-    QUERY_SUCESS(201,"查询成功"),
+     */
+    QUERY_SUCESS(201, "查询成功"),
 
     /**
      * 用户名或密码不能为空
@@ -60,11 +59,11 @@ public enum ResultEnum {
     SUBMITTED_SUCCESSFULLY(201, "报修单提交成功"),
 
     /**
-     *
      * 表单重复提交，一小时内无法再提交
-     *
-     * */
-    SUBMITTED_REPEATLY(405,"后台检测表单已经提交过了，一分钟内不允许再提交"),
+     */
+    SUBMITTED_REPEATLY(405, "后台检测表单已经提交过了，一分钟内不允许再提交"),
+
+    SUBMITTED_SENSITIVELY(401, "报修单中含有敏感词！请检查并修改！"),
 
     SUBMITTED_FAILED(400, "报修单提交失败"),
     /**
@@ -107,6 +106,8 @@ public enum ResultEnum {
      * 评价失败
      */
     EVALUATE_FAILED(400, "评价失败"),
+
+    EVALUATE_SENSITIVELY(401, "评价中含有敏感词！评价失败！"),
     /**
      * 评价成功
      */
@@ -171,7 +172,9 @@ public enum ResultEnum {
      * @author Prongs
      * @date 2019/10/08
      */
-    RELEASE_SUCCESSFULLY(200, "公告发布成功");
+    RELEASE_SUCCESSFULLY(200, "公告发布成功"),
+
+    RELEASE_SENSITIVELY(400, "公告中含有敏感词！公告发布失败！");
 
     /**
      * 状态码   code

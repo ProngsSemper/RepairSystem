@@ -2,9 +2,11 @@ package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
+import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
+import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * @author Prongs
@@ -26,6 +29,19 @@ public class EvaluateDetailServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
+        String msg = requestBody.getString("msg");
+        //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
+        SensitiveWordFilter filter = new SensitiveWordFilter();
+        boolean isBadWords = filter.isContainSensitiveWord(msg,1);
+        Set<String> set = filter.getSensitiveWord(msg, 1);
+        if (isBadWords){
+            Result<Boolean> sensitive = new Result<>();
+            sensitive.setResult(ResultEnum.EVALUATE_SENSITIVELY);
+            sensitive.setDesc("所含敏感词为：" + set);
+            logger.debug("检测到有敏感词！");
+            request.setAttribute("result",sensitive);
+            return;
+        }
         //详细（文字）评价
         Result result = studentService.addEvaluation(requestBody.getString("msg"),
                 requestBody.getInteger("wKey"));

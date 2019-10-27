@@ -1,6 +1,7 @@
+var commited = false;
+var commitedCount=0;
 $(document).ready(function () {
-    var commited = false;
-    var commitedCount=0;
+
 
     //切换
     var li = document.getElementsByClassName('index');
@@ -61,7 +62,7 @@ $(document).ready(function () {
         judege = confirm("确认提交");
         //不验证无法发送成功
         var bool = check(stuId.value)&&check(stuName.value)&&check(stuPhone.value)&&check(buliding.value)&&check(domiNumber.value)&&check(stuMail.value)&&check(formMsg.value)&&check(times.value)&&check(days.value)&&check(wType);
-        if(bool==false||bool===false)
+        if(bool==false||bool==false)
         {
             alert("请填写正确的表单信息");
             return;
@@ -91,16 +92,21 @@ $(document).ready(function () {
                      "appointDate": month.value + '-' + days.value,
                 }),
                 success: function (msg) {
+                    console.log(msg);
                     if (msg.code == 201) {
                         alert("报修单提交成功");
 
                     }else if(msg.code==405)
                     {
                         alert("您已经提交过了,一分钟后再交");
+                    }else if(msg.code==401)
+                    {
+                        alert("您的报修单中含有敏感词！"+msg.desc+"，请检查并修改后再提交！");
                     }
                         commited = false;
                 },
                 error: function (xhr) {
+                    alert(xhr.status);
                     alert("后台服务器检测到异常：请检查一下表单信息是否填写正确");
                     commited=false;
                 }
