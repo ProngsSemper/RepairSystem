@@ -45,6 +45,8 @@ public class WorkerLoginServlet extends BaseServlet {
             String wKey = String.valueOf(workerDao.getWorkerKeyById(workerId).getwKey());
             CookieUtil.setCookie("workerId", workerId, response);
             CookieUtil.setCookie("wKey", wKey, response);
+            String wToken = workerDao.getToken(requestBody.getString("id")).getwToken();
+            CookieUtil.setToken("wToken",wToken,response);
             response.addHeader("identity", "worker");
         }
         super.doPost(request, response);

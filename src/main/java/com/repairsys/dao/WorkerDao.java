@@ -19,6 +19,8 @@ public interface WorkerDao {
      */
     Worker login(String wId, String wPassword);
 
+    Worker getToken(String id);
+
     /**
      * 工人完成了修理任务
      * <p>

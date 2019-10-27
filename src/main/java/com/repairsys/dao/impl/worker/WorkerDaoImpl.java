@@ -4,6 +4,7 @@ import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
+import com.repairsys.util.md5.Md5Util;
 
 import java.sql.Connection;
 import java.util.List;
@@ -27,6 +28,8 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String GET_SUM = "select count(*) from workers";
     private static final String GET_WORKER_LIST = "select * from workers";
     private static final String SELECT_WORKER = "SELECT * FROM workers WHERE wKey=?";
+    private static final String GET_TOKEN = "select wToken from workers where wId=?";
+    private static final String TOKEN = "update workers set wToken=? where wId=?";
 
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
@@ -45,9 +48,15 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public Worker login(String wId, String wPassword) {
+        String wToken = Md5Util.getMd5(String.valueOf(System.currentTimeMillis()));
+        super.updateOne(connection, TOKEN, wToken, wId);
         return super.selectOne(connection, WORKER_LOGIN, wId, wPassword);
     }
 
+    @Override
+    public Worker getToken(String id){
+        return super.selectOne(connection,GET_TOKEN,id);
+    }
     /**
      * 工人完成了修理任务
      *

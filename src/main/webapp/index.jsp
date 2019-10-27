@@ -16,7 +16,11 @@
 </body>
 <script>
     <%
-    if (CookieUtil.getCookie("adminToken",request)!=null&&CookieUtil.getCookie("adminName",request)!=null){
+    String adminToken = CookieUtil.getCookie("adminToken",request);
+    String adminId = CookieUtil.getCookie("adminId",request);
+    String wToken = CookieUtil.getCookie("wToken",request);
+    String workerId = CookieUtil.getCookie("workerId",request);
+    if ((adminToken!=null&&adminId!=null)||(wToken!=null&&workerId!=null)){
         request.getRequestDispatcher("/user/login").forward(request, response);
         return;
     }else {
