@@ -348,10 +348,11 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     public boolean setTime(String date, int hour, String wKey) {
 
         String thour = "t"+hour;
-        String sql = "update wtime set " +thour +" = "+thour+"+1  where wKey " +" = "+ wKey;
-        // System.out.println(sql);
+        String sql = "update wtime set " +thour +" = "+thour+"+1  where wKey " +" = "+ wKey+" and curTime = '"+date+"'";
+         System.out.println(sql);
         logger.debug(sql);
         return super.addOne(connection,sql);
+//        return super.addOne(connection,sql);
     }
 
 

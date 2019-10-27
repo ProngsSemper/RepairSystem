@@ -32,6 +32,17 @@ import java.util.List;
  * @create 2019/9/27 10:13
  */
 public class DbTest {
+
+    @Test
+    public void updateI()
+    {
+        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(),9,"1");
+        System.out.println(TimeUtil.getTime(1,2));
+    }
+
+
+
+
     @Test
     public void addForm() {
         FormDaoImpl.getInstance().apply("123d", "宿舍水管坏d了，过来修，北苑17栋，B513", new Date(new java.util.Date().getTime()));

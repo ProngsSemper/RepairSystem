@@ -1,7 +1,7 @@
 package com.repairsys.util.time;
 
 import java.text.SimpleDateFormat;
-
+import java.util.Calendar;
 
 /**
  * @Author lyr
@@ -9,10 +9,31 @@ import java.text.SimpleDateFormat;
  */
 public final class TimeUtil {
 
-    public static String getCurTime()
-    {
+    public static String getCurTime() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         return format.format(System.currentTimeMillis());
+    }
+
+    public static String getTime(int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+//        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        java.util.Date time = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String format = df.format(time);
+        return format;
+    }
+
+    public static String getTime(int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.MONTH, month - 1);
+//        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        java.util.Date time = calendar.getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String format = df.format(time);
+        return format;
+
     }
 
 }

@@ -3,9 +3,11 @@ package com.repairsys.controller.administrator;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.CookieUtil;
+import com.repairsys.util.time.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +41,11 @@ public class ArrangeServlet extends BaseServlet {
                 requestBody.getInteger("formId"));
         int flag = 201;
         if (result.getCode() == flag) {
+//            todo:可能有逻辑问题，到时检查
+            String wKey = requestBody.getString("wKey");
+            int hour = requestBody.getInteger("hour");
+            String date = TimeUtil.getTime(requestBody.getInteger("day"));
+            WorkerScheule.getInstance().setTime(date, hour, wKey);
             logger.debug("修改报修单状态成功{}", result);
             //发送通知邮件
             try {
