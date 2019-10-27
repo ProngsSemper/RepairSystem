@@ -97,6 +97,8 @@ $(document).ready(function () {
                     }else if(msg.code==405)
                     {
                         alert("您已经提交过了,一分钟后再交");
+                    }else if (msg.code==401){
+                        alert("报修单中检测到有敏感词！"+msg.desc+"，请修改后重新提交！");
                     }
                         commited = false;
                 },
