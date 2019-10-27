@@ -162,10 +162,10 @@ public class ChatServer {
             System.out.println(3);
 
             User u = ADMIN_MAP.get(target);
-            boolean notNull = checkEmpty(u);
-            if(!notNull)
+            // boolean notNull = checkEmpty(u);
+            if(u==null)
             {
-                // System.out.println("");
+
                 offlineCall(session);
                 // return;
             }else {
@@ -178,10 +178,8 @@ public class ChatServer {
             System.out.println(4);
         //    如果有标记，说明是管理员,要对学生发信息
             User u =  MAP.get(target);
-            boolean notNull = checkEmpty(u);
-            System.out.println(u);
-            System.out.println(notNull);
-            if(notNull)
+
+            if(u!=null)
             {
                 u.receive(jsonObject);
                 // return;
@@ -206,26 +204,26 @@ public class ChatServer {
         }
     }
 
-    public boolean checkEmpty(String text)
-    {
-        if(text==null||text.length()<=3)
-        {
-            System.out.println("找不到");
-            return false;
-        }
-        return true;
-    }
+    // public boolean checkEmpty(String text)
+    // {
+    //     if(text==null||text.length()<=3)
+    //     {
+    //         System.out.println("找不到");
+    //         return false;
+    //     }
+    //     return true;
+    // }
 
-    public boolean checkEmpty(Object text)
-    {
-        if(text==null)
-        {
-            System.out.println("找不到");
-            return false;
-        }
-        System.out.println("找到了");
-        return true;
-    }
+    // public boolean checkEmpty(Object text)
+    // {
+    //     if(text==null)
+    //     {
+    //         System.out.println("找不到");
+    //         return false;
+    //     }
+    //     System.out.println("找到了");
+    //     return true;
+    // }
 
 
 
