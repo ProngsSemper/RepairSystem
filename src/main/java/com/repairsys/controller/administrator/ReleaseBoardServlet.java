@@ -40,15 +40,17 @@ public class ReleaseBoardServlet extends BaseServlet {
             result.setResult(ResultEnum.RELEASE_SENSITIVELY);
             result.setDesc("所含敏感词为：" + set);
             logger.debug("发布失败{}", result);
+            request.setAttribute("result", result);
+            super.doPost(request, response);
+            return;
+        }
+        result = adminService.releaseBoard(boardMsg,
+                new Timestamp(System.currentTimeMillis()));
+        int flag = 200;
+        if (result.getCode() == flag) {
+            logger.debug("发布成功{}", result);
         } else {
-            result = adminService.releaseBoard(boardMsg,
-                    new Timestamp(System.currentTimeMillis()));
-            int flag = 200;
-            if (result.getCode() == flag) {
-                logger.debug("发布成功{}", result);
-            } else {
-                logger.debug("发布失败{}", result);
-            }
+            logger.debug("发布失败{}", result);
         }
         request.setAttribute("result", result);
         super.doPost(request, response);
