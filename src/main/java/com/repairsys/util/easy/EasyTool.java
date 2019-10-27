@@ -52,6 +52,10 @@ public final class EasyTool {
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         logger.debug("获得对象");
         System.out.println(jsonObject);
+        if(jsonObject==null)
+        {
+            return false;
+        }
         String code = jsonObject.getString("vcode").toLowerCase();
         System.out.println(code);
         String ans = (String) request.getSession().getAttribute("CHECKCODE_SERVER");

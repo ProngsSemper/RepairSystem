@@ -1,3 +1,8 @@
+delete
+select
+truncate
+update
+insert
 18禁
 a片
 caonima

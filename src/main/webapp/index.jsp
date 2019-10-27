@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.repairsys.util.net.CookieUtil" %>
 <html>
 <head>
     <style>
@@ -14,9 +15,22 @@
 
 </body>
 <script>
-    window.onload = function () {
-        window.location.href = 'login.html';
-    }
+    <%
+    String adminToken = CookieUtil.getCookie("adminToken",request);
+    String adminId = CookieUtil.getCookie("adminId",request);
+    String wToken = CookieUtil.getCookie("wToken",request);
+    String workerId = CookieUtil.getCookie("workerId",request);
+    if ((adminToken!=null&&adminId!=null)||(wToken!=null&&workerId!=null)){
+        request.getRequestDispatcher("/user/login").forward(request, response);
+        return;
+    }else {
+    %>
+            window.onload = function () {
+                window.location.href = 'login.html';
+            };
+    <%
+        }
+    %>
 </script>
 
 

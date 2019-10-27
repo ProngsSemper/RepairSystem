@@ -29,6 +29,7 @@ public class Worker implements Serializable, Comparable<Worker> {
     private int good;
     private int mid;
     private int bad;
+    private String wToken;
 
     public Worker() {
     }
@@ -131,6 +132,14 @@ public class Worker implements Serializable, Comparable<Worker> {
         this.bad = bad;
     }
 
+    public String getwToken() {
+        return wToken;
+    }
+
+    public void setwToken(String wToken) {
+        this.wToken = wToken;
+    }
+
     @Override
     public String toString() {
         return "Worker{" +
@@ -145,6 +154,7 @@ public class Worker implements Serializable, Comparable<Worker> {
                 ", good=" + good +
                 ", mid=" + mid +
                 ", bad=" + bad +
+                ", wToken='" + wToken + '\'' +
                 '}';
     }
 
