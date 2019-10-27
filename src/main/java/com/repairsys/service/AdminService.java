@@ -33,6 +33,16 @@ public interface AdminService {
     Result getIncompleteFormByFormId(String formId);
 
     /**
+     * 根据南北苑查询管理员未处理报修单
+     *
+     * @param location 南/北苑
+     * @param page     当前页
+     * @param limit    页面大小
+     * @return 返回相应状态码
+     */
+    Result getIncompleteFormByLocation(String location, int page, int limit);
+
+    /**
      * 管理员根据学生学号查询报修单
      *
      * @param stuId 学生学号

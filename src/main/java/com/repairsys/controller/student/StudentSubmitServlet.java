@@ -6,6 +6,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.util.string.StringUtils;
+import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * @Author lyr
@@ -47,7 +49,7 @@ public class StudentSubmitServlet extends BaseServlet {
         logger.info("处理中");
         if(commited)
         {
-            Result<Boolean> commitedRes = new Result<Boolean>();
+            Result<Boolean> commitedRes = new Result<>();
             commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
             logger.debug("检测到提交过了，返回");
             request.setAttribute("result",commitedRes);
@@ -60,16 +62,28 @@ public class StudentSubmitServlet extends BaseServlet {
         //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String message = requestBody.getString("formMsg").trim();
+        SensitiveWordFilter filter = new SensitiveWordFilter();
+        //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
+        boolean isBadWords = filter.isContainSensitiveWord(message,1);
+        Set<String> set = filter.getSensitiveWord(message, 1);
+        if (isBadWords){
+            Result<Boolean> sensitive = new Result<>();
+            sensitive.setResult(ResultEnum.SUBMITTED_SENSITIVELY);
+            sensitive.setDesc("所含敏感词为：" + set);
+            logger.debug("检测到有敏感词！");
+            request.setAttribute("result",sensitive);
+            super.doPost(request, response);
+            return;
+        }
         String mdMessage = StringUtils.getStringMd5(message);
         String temp = (String) session.getAttribute("mdMessage");
         boolean b = temp==null||(!temp.equals(mdMessage));
         if(!b)
         {
-            Result<Boolean> commitedRes = new Result<Boolean>();
+            Result<Boolean> commitedRes = new Result<>();
             commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
             logger.debug("检测到提交过了，返回");
             request.setAttribute("result",commitedRes);
-
             super.doPost(request, response);
             return;
         }else{

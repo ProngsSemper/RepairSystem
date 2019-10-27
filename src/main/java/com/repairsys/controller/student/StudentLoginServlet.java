@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +41,6 @@ public class StudentLoginServlet extends BaseServlet {
                 session
         );
         String stuName = result.getDesc();
-
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
         logger.debug(" session 的id是： " + session.getId());
@@ -51,22 +49,15 @@ public class StudentLoginServlet extends BaseServlet {
 
             try {
                 CookieUtil.setCookie("stuName", stuName, response);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            System.out.println(789);
-            try {
                 CookieUtil.setCookie("stuId", stuId, response);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
             response.addHeader("identity", "student");
             logger.debug("设置成功");
             result.setResult(ResultEnum.LOGIN_SUCCESS);
 
         }
-        System.out.println(123);
         try {
             super.doPost(request, response);
         } catch (ServletException | IOException e) {
