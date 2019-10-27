@@ -112,7 +112,7 @@ class SensitiveWordInit {
     private Set<String> readSensitiveWordFile() throws Exception {
         Set<String> set;
         File path = new File(this.getClass().getResource("").getPath());
-        File file = new File(path + "\\keywords.txt");
+        File file = new File("F:\\算法\\我的团队项目\\p1\\src\\main\\java\\com\\repairsys\\util\\textfilter\\keywords.txt");
         try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING)) {
             if (file.isFile() && file.exists()) {
                 set = new HashSet<>();
