@@ -11,7 +11,6 @@ import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
-import com.repairsys.util.md5.Md5Util;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,11 +37,9 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     private static final String REGISTER = "insert into administrators (`adminId`, `adminName`, `adminPassword`, `adminMail`) values(?,?,?,?)";
     private static final String QUERY_ONE = "select * from administrators where `adminId` = ?";
     private static final String UPDATE_BOARD = "update board set queryCode = -1 where queryCode=1";
-    private static final String TOKEN = "update administrators set adminToken=? where adminId=?";
     private static final String RELEASE_BOARD = "insert into board (queryCode,boardMsg,date)values(1,?,?)";
     private static final String QUERY_KEY_BY_ID = "SELECT adminKey FROM `administrators` WHERE adminId=?";
     private static final String QUERY_NAME_BY_ID = "SELECT adminName FROM `administrators` WHERE adminId=?";
-
 
     static {
         ADMIN_DAO = new AdminDaoImpl();
@@ -90,10 +87,10 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public Admin login(String id, String password) {
+        Connection conn = connection;
         String pwd = StringUtils.getStringMd5(password);
         logger.info(id + pwd);
-        super.updateOne(connection,TOKEN, Md5Util.getMd5(String.valueOf(System.currentTimeMillis())),id);
-        return super.selectOne(connection, LOGIN_FOR_ADMIN, id, pwd);
+        return super.selectOne(conn, LOGIN_FOR_ADMIN, id, pwd);
     }
 
     /**
