@@ -22,12 +22,14 @@
     String workerId = CookieUtil.getCookie("workerId",request);
     if ((adminToken!=null&&adminId!=null)||(wToken!=null&&workerId!=null)){
         request.getRequestDispatcher("/user/login").forward(request, response);
+        out.clear();
+        out=pageContext.pushBody();
         return;
     }else {
     %>
-            window.onload = function () {
-                window.location.href = 'login.html';
-            };
+    window.onload = function () {
+        window.location.href = 'login.html';
+    };
     <%
         }
     %>

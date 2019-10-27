@@ -1,9 +1,6 @@
 package com.repairsys.util.net;
 
-import org.apache.http.HttpRequest;
-
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
