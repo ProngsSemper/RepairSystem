@@ -493,6 +493,9 @@ body{
     height: 30px;
     margin: 30px 0 0 0;
     /* background: #000; */
+    position: relative;
+    right: 70px;
+    bottom: 70px;
 }
 .page>.cur{
     color: #fff;
@@ -500,6 +503,7 @@ body{
 }
 .page-number{
     display: inline-block;
+    margin: 0 5px;
     padding: 0 5px;
     border: 1px solid #373737;
     /* width: 10px;

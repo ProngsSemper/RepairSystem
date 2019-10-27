@@ -143,15 +143,17 @@ function gerRepairOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            alert("123");
-            console.log(msg);
             var page=$(".page");
             // $(".page").html("");
+
             $(".orderContant").html("");
             var data=msg.data;
             if($(".page").children().length==0){
                 for(var i=1;i<=msg.totalPage;i++){
                     page.append('<span class="page-number">'+i+'</span>');
+                    if(i==1){
+                        $(".page-number").eq(0).addClass("cur");
+                    }
                 }
             }
             for(var i=0;i<msg.size;i++){
@@ -217,8 +219,12 @@ $("body").delegate(".finish", "click", function () {
 //监听点击页码
 $("body").delegate(".page>span","click",function(){
     let page= $(this).html();
-    // alert(page);
-    gerRepairOrder(page);
+    if(orderContant.style.display=="block"){
+        gerRepairOrder(page);
+    }
+    else{
+        gerfinishOrder(page);
+    }
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
 })
@@ -315,15 +321,21 @@ function gerfinishOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            alert("123");
             console.log(msg);
             $(".finishOrderContant").html("");
             var data=msg.data;
             if($(".page").children().length==0){
                 for(var i=1;i<=msg.totalPage;i++){
-                    page.append('<span class="page-number">'+i+'</span>');
+                    let span=document.createElement('span');
+                    span.className="page-number";
+                    span.innerText=i;
+                    page.append(span);
+                    if(i==1){
+                        $(".page-number").eq(0).addClass("cur");
+                    }
                 }
             }
+
             for(var i=0;i<msg.size;i++){
                 $(".finishOrderContant").append('<div class="finishorder"></div>');
                 $(".finishorder").eq(i).append('<i class="yellowLabel"></i><span class="finishstate-tit">'+"已完成"+'</span>');
@@ -335,9 +347,12 @@ function gerfinishOrder(pageCount){
                     '<p class="finishorder-tit">报修内容：'+data[i].formMsg+'</p>'+
                     '</div>')
                 $(".finishorderInformation").eq(i).append('<div class="finishorderImg"><img src="img/head1.jpg"></div>')
-                $(".finishorderInformation").eq(i).append('<button class="comment">评价</button>')
+                if(data[i].queryCode!=4){
+                    $(".finishorderInformation").eq(i).append('<button class="comment">评价</button>')
+                }
+
                 $(".finishorderInformation").eq(i).attr("wKey", data[i].wKey);
-                
+                $(".finishorderInformation").eq(i).attr("formId", data[i].formId);
             }
         },
         error:function(xhr){
@@ -353,6 +368,7 @@ $("body").delegate(".comment","click",function () {
         behavior:'smooth'//平滑的移过去
     })
     wKey=$(this).parent().attr("wKey");
+    formId=$(this).parent().attr("formId");
 })
 //监听评价单选框
 var commentArea=document.getElementsByClassName("commentArea")[0];
@@ -368,20 +384,24 @@ $("body").delegate(".evaluateRadio", "click", function () {
 });
 //学生评价方法
 
-function stuEvaluation(evaluation,wKey,massage){
+function stuEvaluation(evaluation,wKey,massage,formId){
     $.ajax({
         type: "POST",
         url: "/student/evaluate/detail",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "evaluation":evaluation,
             "wKey":wKey,
-            "msg":massage
+            "msg":massage,
+            "formId":parseInt(formId),
         }),
         success:function(msg){
             if(msg.code==201){
                 alert("评价成功");
                 // evaluate.style.display="none";
+            }else if (msg.code==401){
+                alert("检测到敏感词！"+msg.desc+"请修改后再评价！")
             }
         },
         error:function(xhr){
@@ -397,7 +417,8 @@ $("body").delegate(".icon-chaa", "click", function () {
 //监听评价里的确认
 $("body").delegate(".evaluateSure","click",function () {
     massage=commentArea.value;
-    stuEvaluation(evaluation,wKey,massage);
+    stuEvaluation(evaluation,wKey,massage,formId);
     evaluate.style.display="none";
+    gerfinishOrder(1);
     // $(this).html("")
 })
