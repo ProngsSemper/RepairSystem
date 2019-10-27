@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="againDiv" style="display: none;">
+    
         <div class="againTime">
             <span class="again-tit">重新预约</span>
             <i class="icon-cha"></i>
@@ -38,6 +39,33 @@
                     </select>
             </div>
             <button class="againInsure">确认</button>
+        </div>
+    </div>
+    <div class="evaluate" style="display: none;">
+        <div class="evaluateBox">
+            <i class="icon-chaa"></i>
+            <span class="evaluateBox-tit">评价</span>
+            <div class="flowerEvaluate">
+                <div class="attitudeRadio">
+                    <input type="radio" name="attitudeComment" value="good" class="evaluateRadio">
+                    <i class="iconattitude icon-good"></i>
+                    <span>好评</span>
+                </div>
+                <div class="attitudeRadio">
+                    <input type="radio" name="attitudeComment" value="mid" class="evaluateRadio">
+                    <i class="iconattitude icon-middle"></i>
+                    <span>中评</span>
+                </div>
+                <div class="attitudeRadio">
+                    <input type="radio" name="attitudeComment" value="bad" class="evaluateRadio">
+                    <i class="iconattitude icon-bad"></i>
+                    <span>差评</span>
+                </div>
+            </div>
+            <div class="textEvaluate">
+                <textarea name="tectComment" id="" cols="34" rows="9" placeholder="来点文字表述呗~(限100字)" class="commentArea" maxlength="100"></textarea>
+            </div>
+            <button class="evaluateSure">确认</button>
         </div>
     </div>
     <div class="head">
@@ -185,7 +213,13 @@
     <div class="contant hide overChange">
         <div class="findOrder">
             <i class="iconClip"></i>
-            <i class="iconLabel"></i>
+            <!-- <i class="iconLabel"></i> -->
+            <div class="iconLabel curLabel">
+                <span class="label-tit cur-tit">未完成</span>
+            </div>
+            <div class="iconLabel">
+                <span class="label-tit">已完成</span>
+            </div>
             <div class="orderContant">
                 <div class="order">
                     <i class="yellowLabel"></i>
@@ -219,7 +253,24 @@
                             <button class="again">一键再修</button>
                             <button class="finish">确认完成</button>
                         </div>
-                    </div>
+                </div>
+                <div class="order">
+                        <i class="yellowLabel"></i>
+                        <span class="state-tit">待确认</span>
+                        <div class="orderInformation" formId="42">
+                            <div class="orderInside">
+                                <p class="order-tit">报修人：刘家旻</p>
+                                <p class="order-tit">报修地点：北苑17栋a111</p>
+                                <p class="order-tit">电话：12345678909986</p>
+                                <p class="order-tit">内容：灯泡坏了</p>
+                            </div>
+                            <div class="orderImg">
+                                <img src="img/head1.jpg" alt="">
+                            </div>
+                            <button class="again">一键再修</button>
+                            <button class="finish">确认完成</button>
+                        </div>
+                </div>
                 <div class="page">
                     <span class="page-number cur">1</span>
                     <span class="page-number cur">2</span>
@@ -228,7 +279,24 @@
                     <span class="page-number cur">5</span>
                 </div>
             </div>
-            
+            <div class="finishOrderContant">
+<!--                <div class="finishorder">-->
+<!--                    <i class="yellowLabel"></i>-->
+<!--                    <span class="finishstate-tit">已完成</span>-->
+<!--                    <div class="finishorderInformation" formId="12">-->
+<!--                        <div class="finishorderInside">-->
+<!--                            <p class="finishorder-tit">报修人：刘家旻</p>-->
+<!--                            <p class="finishorder-tit">报修地点：北苑17栋a111</p>-->
+<!--                            <p class="finishorder-tit">电话：12345678909986</p>-->
+<!--                            <p class="finishorder-tit">内容：灯泡坏了</p>-->
+<!--                        </div>-->
+<!--                        <div class="finishorderImg">-->
+<!--                            <img src="img/head1.jpg" alt="">-->
+<!--                        </div>-->
+<!--                        <button class="comment">评价</button>-->
+<!--                    </div>-->
+                </div>
+            </div>
         </div>
         
     </div>

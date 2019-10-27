@@ -1,7 +1,6 @@
 package com.repairsys.dao;
 
 import com.repairsys.bean.entity.Form;
-import com.repairsys.bean.vo.Result;
 
 import java.sql.Date;
 import java.util.List;
@@ -313,9 +312,10 @@ public interface FormDao {
      *
      * @param evaluation 评价 好评：good，中评：mid，差评：bad
      * @param wKey       工人key
+     * @param formId
      * @return 布尔值
      */
-    Boolean evaluate(String evaluation, int wKey);
+    Boolean evaluate(String evaluation, int wKey, int formId);
 
     /**
      * 学生一键再修时重新预约时间

@@ -1,7 +1,6 @@
-var commited = false;
-var commitedCount=0;
 $(document).ready(function () {
-
+    var commited = false;
+    var commitedCount=0;
 
     //切换
     var li = document.getElementsByClassName('index');
@@ -62,7 +61,7 @@ $(document).ready(function () {
         judege = confirm("确认提交");
         //不验证无法发送成功
         var bool = check(stuId.value)&&check(stuName.value)&&check(stuPhone.value)&&check(buliding.value)&&check(domiNumber.value)&&check(stuMail.value)&&check(formMsg.value)&&check(times.value)&&check(days.value)&&check(wType);
-        if(bool==false||bool==false)
+        if(bool==false||bool===false)
         {
             alert("请填写正确的表单信息");
             return;
@@ -92,21 +91,16 @@ $(document).ready(function () {
                      "appointDate": month.value + '-' + days.value,
                 }),
                 success: function (msg) {
-                    console.log(msg);
                     if (msg.code == 201) {
                         alert("报修单提交成功");
 
                     }else if(msg.code==405)
                     {
                         alert("您已经提交过了,一分钟后再交");
-                    }else if(msg.code==401)
-                    {
-                        alert("您的报修单中含有敏感词！"+msg.desc+"，请检查并修改后再提交！");
                     }
                         commited = false;
                 },
                 error: function (xhr) {
-                    alert(xhr.status);
                     alert("后台服务器检测到异常：请检查一下表单信息是否填写正确");
                     commited=false;
                 }
@@ -149,7 +143,7 @@ function gerRepairOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            // alert("123");
+            alert("123");
             console.log(msg);
             var page=$(".page");
             // $(".page").html("");
@@ -286,3 +280,124 @@ function againRepair(formId,appointDate,appointment){
 $("body").delegate(".icon-cha","click",function(){
     againDiv.style.display="none";
 });
+//切换未完成和已完成
+var iconLabel=document.getElementsByClassName("iconLabel");
+var orderContant=document.getElementsByClassName("orderContant")[0];
+var finishOrderContant=document.getElementsByClassName("finishOrderContant")[0];
+iconLabel[0].onclick=function(){
+    orderContant.style.display="block";
+    finishOrderContant.style.display="none";
+    $(".label-tit").eq(0).addClass("cur-tit");
+    $(".label-tit").eq(1).removeClass("cur-tit");
+    $(".iconLabel").eq(0).addClass("curLabel");
+    $(".iconLabel").eq(1).removeClass("curLabel");
+    $(".page").html("");
+    gerRepairOrder(1);
+}
+iconLabel[1].onclick=function(){
+    orderContant.style.display="none";
+    finishOrderContant.style.display="block";
+    $(".label-tit").eq(1).addClass("cur-tit");
+    $(".label-tit").eq(0).removeClass("cur-tit");
+    $(".iconLabel").eq(1).addClass("curLabel");
+    $(".iconLabel").eq(0).removeClass("curLabel");
+    $(".page").html("");
+    gerfinishOrder(1);
+}
+//获得已完成的信息
+function gerfinishOrder(pageCount){
+    $.ajax({
+        type: "POST",
+        url: "/student/complete/history",
+        dataType: "json",
+        data: JSON.stringify({
+            "page":pageCount,
+            "limit":3,
+        }),
+        success:function(msg){
+            alert("123");
+            console.log(msg);
+            $(".finishOrderContant").html("");
+            var data=msg.data;
+            if($(".page").children().length==0){
+                for(var i=1;i<=msg.totalPage;i++){
+                    page.append('<span class="page-number">'+i+'</span>');
+                }
+            }
+            for(var i=0;i<msg.size;i++){
+                $(".finishOrderContant").append('<div class="finishorder"></div>');
+                $(".finishorder").eq(i).append('<i class="yellowLabel"></i><span class="finishstate-tit">'+"已完成"+'</span>');
+                $(".finishorder").eq(i).append('<div class="finishorderInformation"></div>');
+                $(".finishorderInformation").eq(i).append('<div class="finishorderInside">'+
+                    '<p class="finishorder-tit">报修人：'+data[i].stuName+'</p>'+
+                    '<p class="finishorder-tit">报修地址：'+data[i].room+'</p>'+
+                    '<p class="finishorder-tit">报修电话：'+data[i].stuPhone+'</p>'+
+                    '<p class="finishorder-tit">报修内容：'+data[i].formMsg+'</p>'+
+                    '</div>')
+                $(".finishorderInformation").eq(i).append('<div class="finishorderImg"><img src="img/head1.jpg"></div>')
+                $(".finishorderInformation").eq(i).append('<button class="comment">评价</button>')
+                $(".finishorderInformation").eq(i).attr("wKey", data[i].wKey);
+                
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//监听点击评价按钮
+var evaluate=document.getElementsByClassName("evaluate")[0];
+$("body").delegate(".comment","click",function () {
+    evaluate.style.display="block";
+    evaluate.scrollIntoView({
+        behavior:'smooth'//平滑的移过去
+    })
+    wKey=$(this).parent().attr("wKey");
+})
+//监听评价单选框
+var commentArea=document.getElementsByClassName("commentArea")[0];
+var evaluateRadio=document.getElementsByClassName("evaluateRadio");
+$("body").delegate(".evaluateRadio", "click", function () {
+    for (var i = 0; i < evaluateRadio.length; i++) {
+        if (evaluateRadio[i].checked) {
+            evaluation = evaluateRadio[i].value;
+            break;
+        }
+    }
+
+});
+//学生评价方法
+
+function stuEvaluation(evaluation,wKey,massage){
+    $.ajax({
+        type: "POST",
+        url: "/student/evaluate/detail",
+        dataType: "json",
+        data: JSON.stringify({
+            "evaluation":evaluation,
+            "wKey":wKey,
+            "msg":massage
+        }),
+        success:function(msg){
+            if(msg.code==201){
+                alert("评价成功");
+                // evaluate.style.display="none";
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//监听评价里的叉
+$("body").delegate(".icon-chaa", "click", function () {
+    evaluate.style.display="none";
+});
+
+//监听评价里的确认
+$("body").delegate(".evaluateSure","click",function () {
+    massage=commentArea.value;
+    stuEvaluation(evaluation,wKey,massage);
+    evaluate.style.display="none";
+    // $(this).html("")
+})
