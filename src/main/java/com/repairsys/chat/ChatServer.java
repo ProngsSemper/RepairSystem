@@ -31,7 +31,7 @@ public class ChatServer {
     private String getTarget()
     {
         String target = null;
-        int i =ADMIN_MAP.size()==0?0: R.nextInt(ADMIN_MAP.size());
+        int i =ADMIN_MAP.size()==0? 0: R.nextInt(ADMIN_MAP.size());
         for(Map.Entry<String,User> t: ADMIN_MAP.entrySet())
         {
             --i;
@@ -43,7 +43,7 @@ public class ChatServer {
         }
         return target;
     }
-    // private User
+
     private User getPersonToTalk()
     {
         User target = null;
@@ -57,6 +57,7 @@ public class ChatServer {
                 break;
             }
         }
+        this.target = target.getUserName();
         return target;
     }
 
@@ -90,7 +91,7 @@ public class ChatServer {
             Admin admin = (Admin)getPersonToTalk();
             admin.append(tmp);
             this.userName = tmp;
-            this.target = admin.getUserName();
+
             u.setTarget(this.target);
 
             String text = "{ 'list':" +admin.getTargetSet()+"}";
@@ -104,6 +105,7 @@ public class ChatServer {
             User u = ADMIN_MAP.getOrDefault(name,new Admin());
             u.setSession(session);
             u.setUserName(name);
+
             this.isAdmin = true;
             ADMIN_MAP.put(name,u);
 
@@ -162,6 +164,7 @@ public class ChatServer {
             System.out.println(3);
 
             User u = ADMIN_MAP.get(target);
+            System.out.println(target);
             // boolean notNull = checkEmpty(u);
             if(u==null)
             {
