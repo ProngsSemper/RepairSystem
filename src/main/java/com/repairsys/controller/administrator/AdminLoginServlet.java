@@ -44,6 +44,7 @@ public class AdminLoginServlet extends BaseServlet {
         if (result.getCode()==loginSuccess){
             CookieUtil.setCookie("adminId", adminId, response);
             response.addHeader("identity", "admin");
+            session.setAttribute("adminId",adminId);
         }
         super.doPost(request, response);
     }

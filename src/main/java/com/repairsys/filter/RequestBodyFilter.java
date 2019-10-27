@@ -31,8 +31,14 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        if(t.lastIndexOf("/chat")>=0)
+        {
+            chain.doFilter(request,resp);
+            return;
+        }
         logger.debug(t);
         for (String i : ARRAY) {
             if (t.endsWith(i)) {

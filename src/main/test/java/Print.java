@@ -14,6 +14,7 @@ import org.junit.Test;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author lyr, Prongs
@@ -110,4 +111,22 @@ public class Print {
         System.out.println(i);
     }
 
+    @Test
+    public void printUUID()
+    {
+        String y =  UUID.randomUUID().toString();
+        System.out.println(y);
+    }
+    @Test
+    public void printPerson()
+    {
+        com.repairsys.chat.bean.Admin admin = new com.repairsys.chat.bean.Admin();
+        admin.append("123");
+        admin.append("12222");
+        admin.append("444");
+        System.out.println(admin.getTargetSet());
+        String text = "{ 'list':" +admin.getTargetSet()+"}";
+        System.out.println(text);
+
+    }
 }

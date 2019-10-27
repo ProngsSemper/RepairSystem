@@ -93,11 +93,11 @@ public class DbTest {
 
     @Test
     public void loginDeveloper() {
-        Developer developer = DeveloperDao.getInstance().login("lyr", "422525000");
-        System.out.println(developer);
+        // Developer developer = DeveloperDao.getInstance().login("lyr", "");
+        // System.out.println(developer);
 
-        developer = DeveloperDao.getInstance().login("lyr", "422525");
-        System.out.println(developer);
+        DeveloperDao.getInstance().register("181549422","huxi9138" );
+        System.out.println();
 
     }
 

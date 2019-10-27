@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -8,7 +9,7 @@
     <script type="text/javascript">
         // 创建WebSocket对象
 
-        var webSocket = new WebSocket("ws://localhost:8080/WebSocket1/chat");
+        var webSocket = new WebSocket("ws://localhost/chat");
         var sendMsg = function() {
             var inputElement = document.getElementById('msg');
 
@@ -23,30 +24,25 @@
         }
         var send = function(event) {
             //设置回车发送消息
-            if (event.keyCode == 13) {
+            if (event.keyCode === 13) {
                 sendMsg();
             }
         };
         webSocket.onopen = function() {
 
-            n = prompt('请给自己取一个昵称：');
-
-            if (n != '' && n != null)
-                webSocket.send(n);
-            else
-            //设置游客登录
-                webSocket.send("游客" + Math.random() * 100000000000000000);
+            webSocket("新人接入");
             document.getElementById('msg').onkeydown = send;
             document.getElementById('sendBn').onclick = sendMsg;
         };
         // 为onmessage事件绑定监听器，接收消息
         webSocket.onmessage = function(event) {
-            var show = document.getElementById('show')
+            var show = document.getElementById('show');
             // 接收、并显示消息
             show.innerHTML += new Date() + "<br/>" + event.data + "<br/>";
             //让聊天框滚动条始终显示新消息
             show.scrollTop = show.scrollHeight;
-        }
+            console.log(event);
+        };
 
         webSocket.onclose = function() {
             document.getElementById('msg').onkeydown = null;

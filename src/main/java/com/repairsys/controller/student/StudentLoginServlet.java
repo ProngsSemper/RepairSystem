@@ -54,6 +54,7 @@ public class StudentLoginServlet extends BaseServlet {
                 e.printStackTrace();
             }
             response.addHeader("identity", "student");
+            session.setAttribute("stuId",stuId);
             logger.debug("设置成功");
             result.setResult(ResultEnum.LOGIN_SUCCESS);
 
