@@ -264,3 +264,79 @@ body{
 input:focus{
     outline: none;
 }
+.container{
+    top: 65px;
+    position: relative;
+    margin: 150px auto;
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+}
+
+/*
+    要使用动画
+
+
+*/
+
+.container .pillar{
+    width:8px;
+    height:40px;
+    border-radius:4px;
+    background-color:lightgreen;
+    animation-name:kf;
+    animation-iteration-count:infinite;
+    animation-duration:1s;
+    animation-timing-function:ease;
+
+
+}
+
+@keyframes kf{
+    
+    0%,100%{
+        background-color:lightgreen;
+
+    }
+    50%{
+        transform:scaleY(1.75);
+        background-color:lightblue;
+    
+    }
+
+}
+
+.container .pillar:nth-child(2){
+    animation-delay:0.2s;
+
+}
+.container .pillar:nth-child(3){
+    animation-delay:0.4s;
+
+}
+.container .pillar:nth-child(4){
+    animation-delay:0.6s;
+
+}
+.container .pillar:nth-child(5){
+    animation-delay:0.8s;
+
+}
+.cartoon{
+    display: none;
+    position: absolute;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: 10;
+}
+.bgwith{
+    background: #ffffffd1;
+    border-radius: 10px;
+    width: 300px;
+    height: 170px;
+    margin: 0 auto;
+    position: relative;
+    top: 20px;
+}

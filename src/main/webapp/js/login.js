@@ -3,21 +3,21 @@
 //     var data=JSON.parse(getVerCode());
 // }
 // document.write("<script language=javascript src='cookie.js'></script>");
-// function bodyScale() {
-//     var devicewidth = document.documentElement.clientWidth;
-//     var scale = devicewidth / 1440;
-//     document.body.style.zoom = scale;
-// }
-//
-// window.onload = window.onresize = function () {
-//     bodyScale();
-// };
+function bodyScale() {
+    var devicewidth = document.documentElement.clientWidth;
+    var scale = devicewidth / 1440;
+    document.body.style.zoom = scale;
+}
+
+window.onload = window.onresize = function () {
+    bodyScale();
+};
 var submit = document.getElementsByClassName("Submit")[0];
 var Name = document.getElementsByClassName("stuId")[0];
 var Password = document.getElementsByClassName("stuPassword")[0];
 var checkCode = document.getElementsByClassName("checkInput")[0];
 var remmber = document.getElementsByClassName('square')[0];
-
+var cartoon = document.getElementsByClassName("cartoon")[0];
 //添加 radio是为了区分用户
 //添加验证码是为了给后台判断验证码
 
@@ -68,15 +68,13 @@ function refreshCode() {
 }
 
 //新的js代码
-function load()
-{
+function load() {
     var loadingMask = document.getElementById('loadingDiv');
     loadingMask.parentNode.removeChild(loadingMask);
 }
 
 $(document).ready(function () {
     $('#login').click(
-
         function () {
 
             //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
@@ -107,8 +105,7 @@ $(document).ready(function () {
 
                         refreshCode();
                         var identity = jqXHR.getResponseHeader('identity');
-                        alert('登录成功');
-
+                        cartoon.style.display = "block";
                         if (identity == 'student') {
                             window.setTimeout("window.location.href='/firstPage.html'", 1000);
                         } else if (identity == 'admin') {
