@@ -12,7 +12,6 @@ import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
-import com.repairsys.util.net.CookieUtil;
 import com.repairsys.util.string.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
