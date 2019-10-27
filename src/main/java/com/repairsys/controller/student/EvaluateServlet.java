@@ -29,7 +29,8 @@ public class EvaluateServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         //下面这个evaluation只能传good、mid、bad分别表示好评、中评、差评
         Result result = studentService.evaluate(requestBody.getString("evaluation"),
-                requestBody.getInteger("wKey"));
+                requestBody.getInteger("wKey"),
+                requestBody.getInteger("formId"));
         int flag = 201;
         if (result.getCode() == flag) {
             logger.debug("评价成功{}", result);

@@ -86,6 +86,7 @@ public final class StudentServiceImpl implements StudentService {
         AdminServiceImpl adminService = ServiceFactory.getAdminService();
         return adminService.getHistoryBoard(page, limit);
     }
+
     @SuppressWarnings("unchecked")
     @Override
     public Result getBoard() {
@@ -169,7 +170,7 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
-       public Result getIncompleteFormByStudentId(String stuId, int page, int limit) {
+    public Result getIncompleteFormByStudentId(String stuId, int page, int limit) {
         if (page <= 0) {
             page = 1;
         }
@@ -226,7 +227,6 @@ public final class StudentServiceImpl implements StudentService {
 
     }
 
-
     @Override
     public Result<Boolean> confirm(int formId) {
         FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
@@ -242,9 +242,9 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Result<Boolean> evaluate(String evaluation, int wKey) {
+    public Result<Boolean> evaluate(String evaluation, int wKey, int formId) {
         FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
-        boolean data = formDao.evaluate(evaluation, wKey);
+        boolean data = formDao.evaluate(evaluation, wKey, formId);
         Result<Boolean> result = new Result<>();
         if (!data) {
             result.setResult(ResultEnum.EVALUATE_FAILED);
