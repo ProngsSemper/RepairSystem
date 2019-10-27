@@ -16,8 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatServer {
     private static int onlineCount = 0;
     private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap();
-    private Session session;
-    
+    private static final ConcurrentHashMap<String ,User> ADMIN_MAP = new ConcurrentHashMap<>();
+
+
+
 
     @OnOpen
     public void onOpen(Session session, EndpointConfig config)
