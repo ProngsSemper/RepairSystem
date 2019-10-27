@@ -129,4 +129,10 @@ public class Print {
         System.out.println(text);
 
     }
+
+    @Test
+    public void testToke(){
+        System.out.println(Md5Util.getMd5(String.valueOf(System.currentTimeMillis())));
+    }
+
 }
