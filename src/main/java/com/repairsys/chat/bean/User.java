@@ -11,8 +11,18 @@ import java.io.Serializable;
  * @create 2019/10/27 11:01
  */
 public class User implements Serializable {
-    private Session session;
-    private String userName;
+    protected Session session;
+    protected String userName;
+
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
+    private String target;
 
 
     public Session getSession() {

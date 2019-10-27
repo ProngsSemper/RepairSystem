@@ -22,10 +22,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatServer {
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     private static int onlineCount = 0;
-    private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap();
+    private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<String ,User> ADMIN_MAP = new ConcurrentHashMap<>();
     private static final Random R = new Random();
     private String userName;
+    private String target;
     private  boolean isAdmin = false;
     private String getTarget()
     {
@@ -89,7 +90,9 @@ public class ChatServer {
             Admin admin = (Admin)getPersonToTalk();
             admin.append(tmp);
             this.userName = tmp;
-            // admin.receive();
+            this.target = admin.getUserName();
+            u.setTarget(this.target);
+
             String text = "{ 'list':" +admin.getTargetSet()+"}";
             admin.receive(text);
             u.receive("{'target':'"+admin.getUserName()+"'}");
@@ -144,15 +147,11 @@ public class ChatServer {
 
     public void send(JSONObject jsonObject,Session session) throws IOException {
         String target = jsonObject.getString("target");
+        if(target==null)
+        {
+            target = this.target;
+        }
         System.out.println(target);
-         // boolean b = checkEmpty(target);
-         if(target==null)
-         {
-             System.out.println(1);
-             offlineCall(session);
-             return;
-         }
-        System.out.println(2);
 
 
 

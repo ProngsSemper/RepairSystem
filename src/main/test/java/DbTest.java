@@ -17,7 +17,9 @@ import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.service.impl.table.ExcelServiceImpl;
+import com.repairsys.util.time.TimeUtil;
 import org.junit.Test;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -139,6 +141,13 @@ public class DbTest {
         // List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         // System.out.println(list);
         ExcelServiceImpl.getInstance().exportOneByOne(new Result());
+    }
+
+    @Test
+    public void printTime()
+    {
+        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(),9,"1");
+
     }
 
 

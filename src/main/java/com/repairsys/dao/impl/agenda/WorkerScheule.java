@@ -335,6 +335,24 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         return list;
 
     }
+    // private String UPDATE_TIME = "update wtime set t9 = t9+1 where curTime = ? and wkey = 1";
+    /**
+     * 更新工人的任务表
+     *
+     * @param date 设置日期
+     * @param hour 设置几点
+     * @param wKey 工人的id
+     * @return
+     */
+    @Override
+    public boolean setTime(String date, int hour, String wKey) {
+
+        String thour = "t"+hour;
+        String sql = "update wtime set " +thour +" = "+thour+"+1  where wKey " +" = "+ wKey;
+        // System.out.println(sql);
+        logger.debug(sql);
+        return super.addOne(connection,sql);
+    }
 
 
     /**

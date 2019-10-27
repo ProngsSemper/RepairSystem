@@ -118,4 +118,7 @@ public interface WorkerDao {
      * @return 好评率
      */
     String getEvaluation(int wKey);
+
+
+
 }

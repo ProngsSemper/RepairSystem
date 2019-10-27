@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface Sortable {
 
+
     /**
      * 根据预约的时间推荐空闲且合适的工人
      * @param hours 预约的时间
@@ -38,6 +39,17 @@ public interface Sortable {
      * @return
      */
     List<Worker> recommendByAppintment(Date appointDate,int hour,String wType);
+
+
+    /**
+     * 更新工人的任务表
+     * @param date 设置日期
+     * @param hour 设置几点
+     * @param wKey 工人的id
+     * @return
+     */
+    boolean setTime(String date,int hour,String wKey);
+
 
 
 
