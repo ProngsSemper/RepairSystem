@@ -67,7 +67,13 @@ public class CheckCodeServlet extends HttpServlet {
         //参数二：图片的格式，如PNG,JPG,GIF
         //参数三：图片输出到哪里去
         request.getSession().setAttribute("CHECKCODE_SERVER", checkCode);
-        ImageIO.write(image, "PNG", response.getOutputStream());
+        ServletOutputStream out = response.getOutputStream();
+
+        ImageIO.write(image, "PNG", out);
+        out.flush();
+        out.close();
+
+
     }
 
     /**
