@@ -18,6 +18,11 @@ public class SensitiveWordFilter {
         sensitiveWordMap = new SensitiveWordInit().initKeyWord();
     }
 
+    /**
+     * 判断是否含有敏感词
+     *
+     * @param txt 输入的文本内容
+     */
     public boolean isContainSensitiveWord(String txt, int matchType) {
         boolean flag = false;
         for (int i = 0; i < txt.length(); i++) {
@@ -29,8 +34,15 @@ public class SensitiveWordFilter {
         return flag;
     }
 
+    /**
+     * 获得敏感词
+     *
+     * @param txt
+     * @param matchType
+     * @return
+     */
     public Set<String> getSensitiveWord(String txt, int matchType) {
-        Set<String> sensitiveWordList = new HashSet<String>();
+        Set<String> sensitiveWordList = new HashSet<>();
 
         for (int i = 0; i < txt.length(); i++) {
             int length = checkSensitiveWord(txt, i, matchType);
@@ -43,6 +55,14 @@ public class SensitiveWordFilter {
         return sensitiveWordList;
     }
 
+    /**
+     * 将敏感词替换成其他字符
+     *
+     * @param txt
+     * @param matchType
+     * @param replaceChar
+     * @return
+     */
     public String replaceSensitiveWord(String txt, int matchType, String replaceChar) {
         String resultTxt = txt;
         Set<String> set = getSensitiveWord(txt, matchType);
@@ -58,6 +78,13 @@ public class SensitiveWordFilter {
         return resultTxt;
     }
 
+    /**
+     * 为上面的方法所用，获取替换的字符
+     *
+     * @param replaceChar
+     * @param length
+     * @return
+     */
     public String getReplaceChars(String replaceChar, int length) {
         StringBuilder resultReplace = new StringBuilder(replaceChar);
         for (int i = 1; i < length; i++) {

@@ -2,15 +2,12 @@ package com.repairsys.controller.worker;
 
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
-import com.repairsys.dao.DaoFactory;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,14 +21,11 @@ import java.io.IOException;
 @WebServlet("/worker/evaluation")
 public class GetEvaluationServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
-    private final WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
     private static final Logger logger = LoggerFactory.getLogger(GetEvaluationServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String wId = CookieUtil.getCookie("workerId", request);
-//        int wKey = workerDao.getWorkerKeyById(wId).getwKey();
-        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey",request));
+        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey", request));
         Result result = workerService.getEvaluation(wKey);
         int flag = 200;
         if (result.getCode() == flag) {

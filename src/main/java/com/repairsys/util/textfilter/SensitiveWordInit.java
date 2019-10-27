@@ -18,6 +18,9 @@ class SensitiveWordInit {
         super();
     }
 
+    /**
+     * 初始化关键词
+     */
     @SuppressWarnings("rawtypes")
     Map initKeyWord() {
         try {
@@ -30,7 +33,7 @@ class SensitiveWordInit {
     }
 
     /**
-     * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：<br>
+     * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：
      * 中 = {
      * isEnd = 0
      * 国 = {<br>
@@ -99,6 +102,12 @@ class SensitiveWordInit {
         }
     }
 
+    /**
+     * 读取敏感词txt文件
+     *
+     * @return 返回set
+     * @throws Exception 文件不存在/找不到文件
+     */
     @SuppressWarnings("resource")
     private Set<String> readSensitiveWordFile() throws Exception {
         Set<String> set;
@@ -113,7 +122,7 @@ class SensitiveWordInit {
                     set.add(txt);
                 }
             } else {
-                throw new Exception("找不到敏感词文件");
+                throw new Exception("请检查文件是否存在");
             }
         }
         return set;
