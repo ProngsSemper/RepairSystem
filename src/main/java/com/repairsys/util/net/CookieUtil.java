@@ -20,7 +20,7 @@ public final class CookieUtil {
             e.printStackTrace();
         }
         Cookie[] cookies = request.getCookies();
-        if (cookies == null||cookies.length==0) {
+        if (cookies == null || cookies.length == 0) {
             return "";
         }
         for (Cookie cookie : cookies) {
@@ -48,7 +48,7 @@ public final class CookieUtil {
     public static void setToken(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
-        ck.setMaxAge(-1);
+        ck.setMaxAge(5 * 365 * 24 * 60 * 60);
         response.addCookie(ck);
     }
 

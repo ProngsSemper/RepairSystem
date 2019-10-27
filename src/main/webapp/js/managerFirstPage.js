@@ -8,7 +8,7 @@ window.onload = window.onresize = function () {
 };
 var transform=document.getElementsByClassName("category");
 transform[0].onclick=function(){
-    window.location.href="/try.html";
+    window.location.href="../notice.html";
 }
 transform[1].onclick=function(){
     window.location.href="../repair.html";
