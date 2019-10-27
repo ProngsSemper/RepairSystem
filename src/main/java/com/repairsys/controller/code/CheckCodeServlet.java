@@ -1,7 +1,6 @@
 package com.repairsys.controller.code;
 
 import com.repairsys.util.easy.EasyTool;
-import org.apache.http.HttpRequest;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -117,8 +116,6 @@ public class CheckCodeServlet extends HttpServlet {
         sos = response.getOutputStream();
         ImageIO.write((RenderedImage) codeMap.get("codePic"), "png", sos);
         sos.close();
-
-
     }
 
 

@@ -67,22 +67,4 @@ public final class CookieUtil {
         }
     }
 
-    public static String getAdminId(HttpServletRequest request)
-    {
-        try {
-            request.setCharacterEncoding("utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null || cookies.length == 0) {
-            return "";
-        }
-        for (Cookie cookie : cookies) {
-            if ("adminId".equals(cookie.getName())) {
-                return cookie.getValue();
-            }
-        }
-        return "";
-    }
 }

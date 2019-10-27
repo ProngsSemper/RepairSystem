@@ -62,8 +62,7 @@ public class UserLoginServlet extends BaseServlet {
             Admin admin = adminDao.getToken(adminId);
             Worker worker = workerDao.getToken(workerId);
             if (admin != null && admin.getAdminToken().equals(adminToken)) {
-                String aId = CookieUtil.getAdminId(request);
-                request.getSession().setAttribute("adminId",aId);
+                request.getSession().setAttribute("adminId",adminId);
                 request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
                 return;
             }
