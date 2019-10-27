@@ -16,11 +16,21 @@
 </body>
 <script>
     <%
+    System.out.println(123);
     String adminToken = CookieUtil.getCookie("adminToken",request);
     String adminId = CookieUtil.getCookie("adminId",request);
     String wToken = CookieUtil.getCookie("wToken",request);
     String workerId = CookieUtil.getCookie("workerId",request);
     if ((adminToken!=null&&adminId!=null)||(wToken!=null&&workerId!=null)){
+        if(adminId!=null&&(!adminId.equals("")))
+        {
+            request.setAttribute("adminId",adminId);
+            request.setAttribute("adminToken",adminToken);
+        }else if(!wToken.equals("")){
+            request.setAttribute("wToken",wToken);
+            request.setAttribute("workerId",workerId);
+
+        }
         request.getRequestDispatcher("/user/login").forward(request, response);
         out.clear();
         out=pageContext.pushBody();

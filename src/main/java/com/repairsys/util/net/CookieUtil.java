@@ -14,21 +14,17 @@ import java.net.URLEncoder;
  */
 public final class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
-        try {
-            request.setCharacterEncoding("utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
         Cookie[] cookies = request.getCookies();
         if (cookies == null || cookies.length == 0) {
-            return "";
+            return "dd";
         }
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
                 return cookie.getValue();
             }
         }
-        return "";
+        return "dd";
     }
 
     /**
