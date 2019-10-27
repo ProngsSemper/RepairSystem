@@ -38,20 +38,6 @@ public class UserLoginServlet extends BaseServlet {
 
         logger.debug("接收到用户登录请求");
 
-        // JSONObject jsonObject1 = (JSONObject) request.getAttribute("requestBody");
-        // if(jsonObject1!=null)
-        // {
-        //     String b = jsonObject1.getString("vcode");
-        //     if(b!=null&&b.length()>0)
-        //     {
-        //         // request.getSession().
-        //         request.getSession().removeAttribute("adminId");
-        //
-        //     }
-        // }
-        // System.out.println(123);
-
-
 
 
         String adminToken = CookieUtil.getCookie("adminToken", request);
