@@ -20,8 +20,8 @@ public class EncodingFilter implements Filter {
     /**
      * 默认需要放行的资源
      */
-    private static final String[] ARRAY = {".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"?","woff", "limit", ".html", ".jsp","img"};
+    private static final String[] ARRAY = {"/",".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
+    private static final String[] UI = {"index","?","woff", "limit", ".html", ".jsp","img"};
     private static final String HTML = "htm";
     private static final Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
 
@@ -42,7 +42,7 @@ public class EncodingFilter implements Filter {
             }
         }
         for (String i : UI) {
-            if (t.lastIndexOf(i) > 0) {
+            if (t.lastIndexOf(i) >= 0) {
                 chain.doFilter(req, resp);
                 return;
             }

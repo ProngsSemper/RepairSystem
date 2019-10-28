@@ -17,14 +17,14 @@ public final class CookieUtil {
 
         Cookie[] cookies = request.getCookies();
         if (cookies == null || cookies.length == 0) {
-            return "dd";
+            return null;
         }
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
                 return cookie.getValue();
             }
         }
-        return "dd";
+        return null;
     }
 
     /**

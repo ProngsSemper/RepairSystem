@@ -11,14 +11,7 @@
 </head>
 <body>
 <h2>欢迎来到广金报修系统</h2>
-    <%
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        request.getRequestDispatcher("index.do").forward(request,response);
-        out.clear();
-        out = pageContext.pushBody();
 
-    %>
 
 </body>
 <script>
@@ -30,3 +23,12 @@
 
 
 </html>
+
+<%
+    request.setCharacterEncoding("utf-8");
+    response.setCharacterEncoding("utf-8");
+    request.getRequestDispatcher("index.do").forward(request,response);
+    out.clear();
+    out = pageContext.pushBody();
+
+%>

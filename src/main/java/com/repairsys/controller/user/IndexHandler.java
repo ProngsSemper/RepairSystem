@@ -6,6 +6,7 @@ import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
+import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.net.CookieUtil;
 
@@ -28,7 +29,27 @@ public class IndexHandler extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("login.html");
+        String adminToken = CookieUtil.getCookie("adminToken",request);
+        EasyTool.debug(100,adminToken);
+        if(adminToken!=null)
+        {
+           boolean b=  AdminDaoImpl.getInstance().existsToken(adminToken)==null;
+           EasyTool.debug(100,adminToken);
+           if(!b)
+           {
+               request.getRequestDispatcher("managerFirstPage.html").forward(request,response);
+               return;
+           }
+
+        }else
+        {
+            //不存在就查 workerId
+            request.getRequestDispatcher("login.html").forward(request,response);
+            return;
+        }
+
+        request.getRequestDispatcher("login.html").forward(request,response);
+        return;
     }
 
     @Override
