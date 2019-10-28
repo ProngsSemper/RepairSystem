@@ -105,8 +105,10 @@ public final class PrintUtil {
         if(!b)
         {
             try {
+                logger.debug("尝试创建文件夹{}",zipFile.getAbsolutePath());
                 zipFile.createNewFile();
             } catch (IOException e) {
+                logger.error("创建文件夹失败{}",zipFile.getAbsolutePath());
                 e.printStackTrace();
             }
         }

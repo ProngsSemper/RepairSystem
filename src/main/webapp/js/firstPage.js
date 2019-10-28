@@ -61,6 +61,7 @@ $(document).ready(function () {
         judege = confirm("确认提交");
         //不验证无法发送成功
         var bool = check(stuId.value)&&check(stuName.value)&&check(stuPhone.value)&&check(buliding.value)&&check(domiNumber.value)&&check(stuMail.value)&&check(formMsg.value)&&check(times.value)&&check(days.value)&&check(wType);
+        alert();
         if(bool==false||bool===false)
         {
             alert("请填写正确的表单信息");
@@ -76,6 +77,7 @@ $(document).ready(function () {
         if (judege) {
             $.ajax({
                 type: "POST",
+                async:false,
                 url: "/student/submission/form",
                 dataType: "json",
                 data: JSON.stringify({
@@ -92,13 +94,16 @@ $(document).ready(function () {
                 }),
                 success: function (msg) {
                     if (msg.code == 201) {
+                        //todo: 快看这里
+                        onloadFile();
                         alert("报修单提交成功");
 
                     }else if(msg.code==405)
                     {
                         alert("您已经提交过了,一分钟后再交");
-                    }else if (msg.code==401){
-                        alert("报修单中检测到有敏感词！"+msg.desc+"，请修改后重新提交！");
+                    }else if(msg.code==401)
+                    {
+                        alert("检测到敏感词汇,无法提交");
                     }
                         commited = false;
                 },
@@ -424,3 +429,10 @@ $("body").delegate(".evaluateSure","click",function () {
     gerfinishOrder(1);
     // $(this).html("")
 })
+$("body").delegate(".bye","click",function () { 
+    window.location.href="/login.html"
+})
+//上传文件
+function onloadFile(){
+    document.photo.submit();
+}

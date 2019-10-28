@@ -73,6 +73,7 @@
         <img src="img/name.png" alt="" class="name">
         <img src="img/worker.png" alt="" class="worker">
         <img src="img/gongjuxiang.png" alt="" class="toolCase">
+        <i class="bye"></i>
     </div>
     <div class="nav">
         <div class="navLi">
@@ -199,8 +200,14 @@
                         </div>
                         <div class="formBlock">
                             <span class="spanStyle">报修内容:</span>
-                            <textarea rows="7" cols="30" class="textareaStyle" placeholder="请输入具体报修内容"
-                                      name="formMsg"></textarea>
+                            <textarea rows="7" cols="30" class="textareaStyle" placeholder="请输入具体报修内容"  name="formMsg"></textarea>
+                            <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" onsubmit="return saveRro()" id="selectPro" target="nm_iframe">
+                                <input type="file" name="photo" id="inputphoto" value=" ">
+                                <!-- <img src="img/photo.png" alt="" class="photo"> -->
+                            </form>
+                            
+                            <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>  
+
                         </div>
                         <div class="formBlock">
                             <i class="iconHandin"></i>

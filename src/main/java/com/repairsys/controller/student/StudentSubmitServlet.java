@@ -1,9 +1,11 @@
 package com.repairsys.controller.student;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.util.string.StringUtils;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
@@ -62,7 +64,9 @@ public class StudentSubmitServlet extends BaseServlet {
         //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String message = requestBody.getString("formMsg").trim();
-        SensitiveWordFilter filter = new SensitiveWordFilter();
+        //todo: 获取web-inf 目录下的敏感词文件
+        String path = request.getServletContext().getRealPath("/WEB-INF");
+        SensitiveWordFilter filter = new SensitiveWordFilter(path);
         //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
         boolean isBadWords = filter.isContainSensitiveWord(message,1);
         Set<String> set = filter.getSensitiveWord(message, 1);
@@ -70,7 +74,7 @@ public class StudentSubmitServlet extends BaseServlet {
             Result<Boolean> sensitive = new Result<>();
             sensitive.setResult(ResultEnum.SUBMITTED_SENSITIVELY);
             sensitive.setDesc("所含敏感词为：" + set);
-            logger.debug("检测到有敏感词！");
+            logger.debug("检测到有敏感词！{}",sensitive);
             request.setAttribute("result",sensitive);
             super.doPost(request, response);
             return;
@@ -112,9 +116,13 @@ public class StudentSubmitServlet extends BaseServlet {
                 requestBody.getString("appointDate"),
                 "B"
         );
+
         int flag = 201;
         if (res.getCode() == flag) {
             logger.debug("提交成功{}", res);
+            Form form = FormListDaoImpl.getInstance().getNewFormId(requestBody.getString("stuId"));
+            request.getSession().setAttribute("formId",form.getFormId());
+            logger.debug("设置成功{}",form);
             Cookie time = new Cookie("commited","1");
             time.setMaxAge(60);
             //一分钟内不准提交

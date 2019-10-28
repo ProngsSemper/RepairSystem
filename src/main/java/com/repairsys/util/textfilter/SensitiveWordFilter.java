@@ -14,8 +14,8 @@ public class SensitiveWordFilter {
     private static int minMatchTYpe = 1;
 //	public static int maxMatchType = 2;
 
-    public SensitiveWordFilter() {
-        sensitiveWordMap = new SensitiveWordInit().initKeyWord();
+    public SensitiveWordFilter(String path) {
+        sensitiveWordMap = new SensitiveWordInit(path).initKeyWord();
     }
 
     /**

@@ -32,7 +32,8 @@ public class EvaluateDetailServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String msg = requestBody.getString("msg");
         //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
-        SensitiveWordFilter filter = new SensitiveWordFilter();
+        String txtPath = request.getServletContext().getRealPath("/WEB-INF");
+        SensitiveWordFilter filter = new SensitiveWordFilter(txtPath);
         boolean isBadWords = filter.isContainSensitiveWord(msg, 1);
         Set<String> set = filter.getSensitiveWord(msg, 1);
         Result result;

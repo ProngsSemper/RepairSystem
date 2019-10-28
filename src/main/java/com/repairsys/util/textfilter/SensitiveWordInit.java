@@ -14,8 +14,19 @@ class SensitiveWordInit {
     @SuppressWarnings("rawtypes")
     private HashMap sensitiveWordMap;
 
-    SensitiveWordInit() {
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    private String path;
+
+    SensitiveWordInit(String path) {
         super();
+        this.path = path;
     }
 
     /**
@@ -111,7 +122,7 @@ class SensitiveWordInit {
     @SuppressWarnings("resource")
     private Set<String> readSensitiveWordFile() throws Exception {
         Set<String> set;
-        File path = new File(this.getClass().getResource("").getPath());
+        File path = new File(this.path);
         File file = new File(path + "\\badWords.txt");
         try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING)) {
             if (file.isFile() && file.exists()) {

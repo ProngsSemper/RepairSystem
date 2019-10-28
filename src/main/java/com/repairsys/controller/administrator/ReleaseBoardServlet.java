@@ -32,7 +32,8 @@ public class ReleaseBoardServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String boardMsg = requestBody.getString("board");
         //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
-        SensitiveWordFilter filter = new SensitiveWordFilter();
+        String path = request.getServletContext().getRealPath("/WEB-INF");
+        SensitiveWordFilter filter = new SensitiveWordFilter(path);
         boolean b = filter.isContainSensitiveWord(boardMsg, 1);
         Set<String> set = filter.getSensitiveWord(boardMsg, 1);
         Result result = new Result<>();

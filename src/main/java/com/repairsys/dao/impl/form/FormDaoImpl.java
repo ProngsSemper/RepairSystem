@@ -236,6 +236,17 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     /**
+     * 学生如果提交图片，我需要获取formId ,发现接口 没定义，这里直接加了
+     * @param stuId 学生输入的id号
+     * @return 带有 formId 的 form
+     */
+    public Form getNewFormId(String stuId)
+    {
+        String sql = "select formId from form where stuId = ? order by  formId DESC limit 0,1";
+        return super.selectOne(connection,sql,stuId);
+    }
+
+    /**
      * 用户申请表单提交
      *
      * @param stuId    学生账号
