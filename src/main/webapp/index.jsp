@@ -16,6 +16,22 @@
 </body>
 <script>
 
+  window.onload=function () {
+      var str = window.location.href;
+      alert(str);
+      if(str.indexOf("index.jsp")<0)
+      {
+          window.location.href="http://localhost/index.jsp";
+
+      }else{
+          <%
+
+            request.getRequestDispatcher("index.do").forward(request,response);
+
+          %>
+      }
+  }
+
 
 
 
@@ -24,11 +40,4 @@
 
 </html>
 
-<%
-    request.setCharacterEncoding("utf-8");
-    response.setCharacterEncoding("utf-8");
-    request.getRequestDispatcher("index.do").forward(request,response);
-    out.clear();
-    out = pageContext.pushBody();
 
-%>

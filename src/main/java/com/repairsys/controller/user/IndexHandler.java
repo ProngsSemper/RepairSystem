@@ -35,21 +35,22 @@ public class IndexHandler extends BaseServlet {
         {
            boolean b=  AdminDaoImpl.getInstance().existsToken(adminToken)==null;
            EasyTool.debug(100,adminToken);
+            System.out.println(b);
            if(!b)
            {
-               request.getRequestDispatcher("managerFirstPage.html").forward(request,response);
+               System.out.println("----------------转发-------------");
+              response.sendRedirect("managerFirstPage.html");
                return;
            }
 
         }else
         {
             //不存在就查 workerId
-            request.getRequestDispatcher("login.html").forward(request,response);
+            response.sendRedirect("login.html");
             return;
         }
 
-        request.getRequestDispatcher("login.html").forward(request,response);
-        return;
+
     }
 
     @Override
