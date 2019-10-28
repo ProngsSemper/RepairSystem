@@ -28,43 +28,11 @@ public class IndexHandler extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
-        String adminToken = CookieUtil.getCookie("adminToken",request);
-        String adminId = CookieUtil.getCookie("adminId",request);
-        String wToken = CookieUtil.getCookie("wToken",request);
-        String workerId = CookieUtil.getCookie("workerId",request);
-        EasyTool.debug(100,adminId,adminToken,workerId,wToken);
-        if ((!"".equals(adminId) )||(!"".equals(workerId))) {
-
-
-            if ((adminToken != null && adminId != null) || (wToken != null && workerId != null)) {
-                Admin admin = adminDao.getToken(adminId);
-                Worker worker = workerDao.getToken(workerId);
-                if (admin != null && admin.getAdminToken().equals(adminToken)) {
-
-
-                    System.out.println(11111111);
-                    request.getSession().setAttribute("adminId", adminId);
-                    request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
-                    return;
-                } else if (worker != null && worker.getwToken().equals(wToken)) {
-
-
-                    System.out.println(222222222);
-
-                    request.getSession().setAttribute("workerId", workerId);
-                    request.getRequestDispatcher("../workerPage.html").forward(request, response);
-                    return;
-                }
-            }else{
-                response.sendRedirect("../login.html");
-            }
-        }
+        response.sendRedirect("login.html");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        this.doPost(request,response);
     }
 }

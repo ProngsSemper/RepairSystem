@@ -15,6 +15,8 @@
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         request.getRequestDispatcher("index.do").forward(request,response);
+        out.clear();
+        out = pageContext.pushBody();
 
     %>
 

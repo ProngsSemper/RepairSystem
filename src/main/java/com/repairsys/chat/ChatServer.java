@@ -139,8 +139,16 @@ public class ChatServer {
         --onlineCount;
         if(isAdmin)
         {
+            Admin admin = (Admin) ADMIN_MAP.get(this.userName);
+            admin.broadCast(MAP);
             ADMIN_MAP.remove(userName);
         }else {
+            User u = MAP.get(userName);
+
+            Admin admin = (Admin) ADMIN_MAP.get(u.getTarget());
+            admin.remove(userName);
+            admin.receive(admin.getList());
+
             MAP.remove(userName);
         }
 

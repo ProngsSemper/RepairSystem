@@ -1,6 +1,7 @@
 package com.repairsys.chat.bean;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -21,5 +22,24 @@ public class Admin extends User {
     }
 
     private LinkedList<String> targetSet = new LinkedList<>();
+
+
+    public String getList()
+    {
+        return "{ 'list':"+this.targetSet+"}";
+    }
+    public void broadCast(Map<String,User> map)
+    {
+        for(String t: targetSet)
+        {
+            User tmp = map.get(t);
+            if(tmp!=null)
+            {
+                tmp.receive("{'msg': '管理员下线了'}");
+            }
+
+        }
+
+    }
 
 }
