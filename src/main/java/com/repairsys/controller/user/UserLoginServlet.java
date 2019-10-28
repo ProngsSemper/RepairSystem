@@ -28,8 +28,7 @@ import java.io.IOException;
 @WebServlet({"/user/login"})
 public class UserLoginServlet extends BaseServlet {
     private static final Logger logger = LoggerFactory.getLogger(UserLoginServlet.class);
-    private final AdminDaoImpl adminDao = (AdminDaoImpl) DaoFactory.getAdminDao();
-    private final WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
+
     private static final String STU = "1";
     private static final String ADMIN = "2";
 
@@ -37,28 +36,7 @@ public class UserLoginServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         logger.debug("接收到用户登录请求");
-        String adminToken = CookieUtil.getCookie("adminToken",request);
-        String adminId = CookieUtil.getCookie("adminId",request);
-        String wToken = CookieUtil.getCookie("wToken",request);
-        String workerId = CookieUtil.getCookie("workerId",request);
 
-        if ((!"".equals(adminId) )||(!"".equals(workerId))) {
-
-
-            if ((adminToken != null && adminId != null) || (wToken != null && workerId != null)) {
-                Admin admin = adminDao.getToken(adminId);
-                Worker worker = workerDao.getToken(workerId);
-                if (admin != null && admin.getAdminToken().equals(adminToken)) {
-                    request.getSession().setAttribute("adminId", adminId);
-                    request.getRequestDispatcher("../managerFirstPage.html").forward(request, response);
-                    return;
-                } else if (worker != null && worker.getwToken().equals(wToken)) {
-                    request.getSession().setAttribute("workerId", workerId);
-                    request.getRequestDispatcher("../workerPage.html").forward(request, response);
-                    return;
-                }
-            }
-        }
         boolean b = EasyTool.compareToCode(request);
         if (!b) {
             JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
