@@ -41,6 +41,7 @@ public class IndexHandler extends BaseServlet {
               boolean b=  admin.getAdminId().equals(adminId);
               if(b)
               {
+                  request.getSession().setAttribute("adminId",adminId);
                   request.getRequestDispatcher("managerFirstPage.html").forward(request,response);
                   return;
               }
@@ -49,9 +50,7 @@ public class IndexHandler extends BaseServlet {
 
         }else
         {
-            //不存在就查 workerId
-            response.sendRedirect("login.html");
-            return;
+            
         }
         response.sendRedirect("login.html");
 
