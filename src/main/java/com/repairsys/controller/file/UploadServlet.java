@@ -43,17 +43,13 @@ public class UploadServlet extends HttpServlet {
 
 
 
-        /*
-         *还没完成
-         * TODO: 这里先用假的formId 代替
-         *
-         * */
+
         int tmp = (Integer)request.getSession().getAttribute("formId");
-        // System.out.println(formId);
+
         String formId = tmp+"";
         logger.debug("正在提交图片信息");
         request.setCharacterEncoding("utf-8");
-        // response.setContentType("text/html;charset=utf-8");
+
         String path = request.getServletContext().getRealPath("/upload/img/");
         File f = new File(path);
         if(!f.exists())
@@ -65,17 +61,16 @@ public class UploadServlet extends HttpServlet {
 
         for(Part part: parts)
         {
-            // System.out.println();
 
-            //如果是文件类型才进行下一步判断
-
-
-            //判读是否为图片后缀
             if(!part.getContentType().startsWith("image"))
             {
+
+                logger.debug("不是图片类型");
                 continue;
             }
             String name = part.getSubmittedFileName();
+
+
             String fileName = path+"\\"+ UUID.randomUUID().toString();
             String finalFileName = fileName+name;
 
@@ -85,16 +80,21 @@ public class UploadServlet extends HttpServlet {
 
 
         }
-        //TODO:需要注释掉
 
+        if(imgPathList.isEmpty())
+        {
+            return;
+        }
         int primaryKey = FILE_DAO.addOne(imgPathList);
+
+
         logger.debug("key: {}",primaryKey);
         logger.debug("提交成功");
         boolean b = FORM_DAO.setPhotoId(primaryKey,formId);
         logger.trace("{}",b);
         // System.out.println(b);
         //TODO:应该可以了
-        // request.getRequestDispatcher("../m_sucess.jsp").forward(request,response);
+
 
     }
 

@@ -74,6 +74,10 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
 
     @Override
     public int addOne(LinkedList<String> paths) {
+        if(paths.isEmpty())
+        {
+            return -1;
+        }
         String[] pathList = new String[3];
         int i = 0;
         for (String t : paths) {
