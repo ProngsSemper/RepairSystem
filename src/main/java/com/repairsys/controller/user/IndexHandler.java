@@ -33,18 +33,20 @@ public class IndexHandler extends BaseServlet {
         EasyTool.debug(100,adminToken);
         if(adminToken!=null)
         {
-           boolean b=  AdminDaoImpl.getInstance().existsToken(adminToken)==null;
-           EasyTool.debug(100,adminToken);
-            System.out.println(b);
-           if(!b)
+           Admin admin =  AdminDaoImpl.getInstance().existsToken(adminToken);
+           // EasyTool.debug(100,adminToken);
+           String adminId = CookieUtil.getCookie("adminId",request);
+            // System.out.println(b);
+           if(admin!=null&&admin.getAdminId()!=null&&admin.getAdminId().equals(adminId))
            {
-               System.out.println("----------------转发-------------");
+
               response.sendRedirect("managerFirstPage.html");
                return;
            }
 
         }else
         {
+
             //不存在就查 workerId
             response.sendRedirect("login.html");
             return;

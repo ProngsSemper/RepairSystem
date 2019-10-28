@@ -21,7 +21,7 @@
       alert(str);
       if(str.indexOf("index.jsp")<0)
       {
-          window.location.href="http://localhost/index.jsp";
+          window.location.href=str+"/localhost/index.jsp";
 
       }else{
           <%

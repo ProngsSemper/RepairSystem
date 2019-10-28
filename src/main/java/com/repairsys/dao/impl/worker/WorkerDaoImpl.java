@@ -57,6 +57,13 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     public Worker getToken(String id){
         return super.selectOne(connection,GET_TOKEN,id);
     }
+
+    public Worker existToken(String token)
+    {
+        String sql = "select * from workers where wToken =?";
+        return super.selectOne(connection,sql,token);
+    }
+
     /**
      * 工人完成了修理任务
      *
