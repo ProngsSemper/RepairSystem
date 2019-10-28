@@ -52,13 +52,13 @@ public class ServerListener implements ServletContextListener,
                         Thread.sleep(3600000 * 2);
                     } catch (InterruptedException e) {
 
-                        logger.warn("关闭线程成功");
+                        logger.error("关闭线程成功");
 
                         break;
                     }
                 }
 
-                logger.warn("线程成功中断并结束 -- 时间： " + c.get(Calendar.YEAR) + "-" + (1 + c.get(Calendar.MONTH)) + "-" + c.get(Calendar.DATE) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND));
+                logger.error("线程成功中断并结束 -- 时间： " + c.get(Calendar.YEAR) + "-" + (1 + c.get(Calendar.MONTH)) + "-" + c.get(Calendar.DATE) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND));
 
             }
         };

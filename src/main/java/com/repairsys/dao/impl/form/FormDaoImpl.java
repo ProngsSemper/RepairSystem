@@ -53,10 +53,27 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform(queryCode,formMsg,formDate, room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level`) select queryCode,formMsg,formDate,room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level` from form where queryCode>=2 and appointDate<= date_sub(CURDATE(),interval 7 day)";
 
+
+    /**
+     * 如果工人已经和学生提交的 form表单匹配上了，但是工人可能不会上我们这个网来确认，因此可能要管理员来手动确认，或者这里14天内，如果工人未确认的话，也需要更新
+     * 因为学生那边是有一键再修的功能的，学生不满意，是可以再修的，而且正常的报修不会超过2个星期都没搞定，我们也有其他的方法来解决这个的问题
+     */
+    private static final String QUERY_MORE_THAN_DAY14 = "insert into oldform(queryCode,formMsg,formDate, room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level`) select queryCode,formMsg,formDate,room,stuName,stuId,stuPhone,stuMail,appointDate,adminKey,wType,wKey,photoId,endDate,`level` from form where queryCode=1 and appointDate<= date_sub(CURDATE(),interval 14 day)";
+
+
+
+
+
+
     /**
      * 删除超过7天的垃圾数据
      */
     private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and appointDate<= date_sub(CURDATE(),interval 7 day)";
+
+
+
+
+    private static final String DELETE_FORM_DAY_OVER14 = "delete FROM form where queryCode=1  and appointDate<= date_sub(CURDATE(),interval 14 day)";
     /**
      * 设置管理员的id
      */
@@ -317,10 +334,19 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean moveTo() {
         boolean b = super.updateOne(connection, QUERY_MORE_THAN_DAY7);
-        if (!b) {
-            return false;
+
+        if(b)
+        {
+            super.deleteOne(connection, DELETE_FORM_DAY_OVER7);
         }
-        return super.deleteOne(connection, DELETE_FORM_DAY_OVER7);
+
+        b = super.updateOne(connection, QUERY_MORE_THAN_DAY14);
+        if(b)
+        {
+            return super.deleteOne(connection, DELETE_FORM_DAY_OVER14);
+        }
+        return false;
+
     }
 
     /**
