@@ -39,13 +39,13 @@ public class AdminLoginServlet extends BaseServlet {
         Result<Boolean> result = adminService.login(adminId,
                 requestBody.getString("password"),
                 session);
-        String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
-        CookieUtil.setToken("adminToken", adminToken, response);
         logger.debug("管理员登录信息{}", result);
         request.setAttribute("result", result);
         //登录成功设置cookie
         if (result.getCode() == loginSuccess) {
             CookieUtil.setToken("adminId", adminId, response);
+            String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
+            CookieUtil.setToken("adminToken", adminToken, response);
             response.addHeader("identity", "admin");
             session.setAttribute("adminId", adminId);
         }
