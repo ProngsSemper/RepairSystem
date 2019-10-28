@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.repairsys.util.net.CookieUtil" %>
+
 <html>
 <head>
     <style>
@@ -13,24 +13,29 @@
 <h2>欢迎来到广金报修系统</h2>
 
 
-</body>
+
+
 <script>
+    window.onload=function () {
+        var str = window.location.href;
+        alert(str);
+        if(str.indexOf("index")<0)
+        {
+            alert(str+"index.do");
+            window.location.href = str+"index.do";
+        }else{
+            window.location.href = str+"index.jsp";
+        }
+    }
+</script>
 
-  window.onload=function () {
-      var str = window.location.href;
-      alert(str);
-      if(str.indexOf("index.jsp")<0)
-      {
-          window.location.href=str+"/localhost/index.jsp";
 
-      }else{
-          <%
 
-            request.getRequestDispatcher("index.do").forward(request,response);
+</body>
 
-          %>
-      }
-  }
+
+
+<script>
 
 
 
