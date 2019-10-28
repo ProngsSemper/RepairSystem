@@ -21,7 +21,8 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     private static final String WORKER_LOGIN = "select * from workers where wId = ? and wPassword = ?";
     private static final String SEARCH_WORKERS = "select * from workers where wName like '%";
     private static final String GET_WORKER = "select wKey from workers where wName = ?";
-    private static final String GET_WORKER_BY_ID = "select wKey from workers where wId = ?";
+    private static final String GET_WORKER_KEY_BY_ID = "select wKey from workers where wId = ?";
+    private static final String GET_WORKER_NAME_BY_ID = "select wName from workers where wId = ?";
     private static final String GET_WORKER_COUNT = "select count(*) from workers where wName = ?";
     private static final String GET_WORKER_TEL = "select wTel from workers where wKey = ?";
     private static final String UPDATE_QUERYCODE = "update form set queryCode = ? where formId = ?";
@@ -151,7 +152,11 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
 
     @Override
     public Worker getWorkerKeyById(String workerId) {
-        return super.selectOne(connection, GET_WORKER_BY_ID, workerId);
+        return super.selectOne(connection, GET_WORKER_KEY_BY_ID, workerId);
+    }
+
+    public Worker getWorkerNameById(String workerId) {
+        return super.selectOne(connection, GET_WORKER_NAME_BY_ID, workerId);
     }
 
     @Override

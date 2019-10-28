@@ -53,13 +53,11 @@ public final class CookieUtil {
     /**
      * 清空cookie的方法
      */
-    public static void cleanCookie(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-        }
+    public static void cleanCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
+        Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
+        ck.setPath("/");
+        ck.setMaxAge(0);
+        response.addCookie(ck);
     }
 
 }
