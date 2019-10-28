@@ -2,12 +2,13 @@ package com.repairsys.util.file;
 
 import com.repairsys.bean.vo.Excel;
 import com.repairsys.bean.vo.Result;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -21,72 +22,63 @@ public final class PrintUtil {
 
     /**
      * 深度优先搜索，遍历资源目录
+     *
      * @return 返回File 集合
      */
-    public static LinkedList<File> dfs(String path,String target)
-    {
+    public static LinkedList<File> dfs(String path, String target) {
 
         LinkedList<File> fileList = new LinkedList<>();
         File curPackage = new File(path);
-        if(!curPackage.exists())
-        {
+        if (!curPackage.exists()) {
             curPackage.mkdir();
-        //如果文件夹不存在，就创建文件夹
+            //如果文件夹不存在，就创建文件夹
         }
 
         File[] tmpList = curPackage.listFiles();
         //列出当前文件夹的 file 对象
-        for(File f: tmpList)
-        {
-            if(f.isDirectory())
-            {
+        for (File f : tmpList) {
+            if (f.isDirectory()) {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>=0)
-                {
+                if (p.lastIndexOf(target) >= 0) {
                     //减枝操作，加快算法的速度
                     //注意，这里是遍历Excel表的存储路径，因此其文件目录是按照天数来算的
-                    dfs(f.getAbsolutePath(),fileList,target);
+                    dfs(f.getAbsolutePath(), fileList, target);
                     break;
                 }
-            }else{
+            } else {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>=0)
-                {
+                if (p.lastIndexOf(target) >= 0) {
 
                     fileList.add(f.getAbsoluteFile());
                 }
             }
         }
 
-
         return fileList;
 
     }
 
     //搜索符合目标的文件
+
     /**
      * 深度优先搜索，相信你有能力看的懂
-     * @param path 路径
-     * @param ans 要把目标 文件路径记录在 answer 集合里面
+     *
+     * @param path   路径
+     * @param ans    要把目标 文件路径记录在 answer 集合里面
      * @param target 目标文件，可以是目标文件路径的一小段
      */
-    private static void dfs(String path,LinkedList<File> ans,String target)
-    {
+    private static void dfs(String path, LinkedList<File> ans, String target) {
         File[] tmpList = new File(path).listFiles();
-        for(File f:tmpList)
-        {
-            if(f.isDirectory())
-            {
+        for (File f : tmpList) {
+            if (f.isDirectory()) {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>=0)
-                {
-                    dfs(f.getAbsolutePath(),ans,target);
+                if (p.lastIndexOf(target) >= 0) {
+                    dfs(f.getAbsolutePath(), ans, target);
                 }
                 break;
-            }else{
+            } else {
                 String p = f.getAbsolutePath();
-                if(p.lastIndexOf(target)>=0)
-                {
+                if (p.lastIndexOf(target) >= 0) {
                     //查询到相关文件
                     ans.add(f.getAbsoluteFile());
                 }
@@ -96,14 +88,11 @@ public final class PrintUtil {
     }
 
     @SuppressWarnings("unchecked")
-    public static void export(Result result, String exportPath, LinkedList<File> list)
-    {
-
+    public static void export(Result result, String exportPath, LinkedList<File> list) {
 
         File zipFile = new File(exportPath);
         boolean b = zipFile.exists();
-        if(!b)
-        {
+        if (!b) {
             try {
                 logger.debug("尝试创建文件夹{}",zipFile.getAbsolutePath());
                 zipFile.createNewFile();
@@ -114,22 +103,19 @@ public final class PrintUtil {
         }
         // = null;
 
-        try(
+        try (
                 FileOutputStream fos = new FileOutputStream(zipFile);
                 ZipOutputStream zos = new ZipOutputStream(fos);
 
-
-        ){
-            for(File i:list)
-            {
-                ZipEntry zipEntry  = new ZipEntry(i.getName());
+        ) {
+            for (File i : list) {
+                ZipEntry zipEntry = new ZipEntry(i.getName());
                 zos.putNextEntry(zipEntry);
                 int len;
-                byte[] buffer = new byte[1024*4];
+                byte[] buffer = new byte[1024 * 4];
                 FileInputStream fis = new FileInputStream(i);
-                while (((len=fis.read(buffer))>0))
-                {
-                    zos.write(buffer,0,len);
+                while (((len = fis.read(buffer)) > 0)) {
+                    zos.write(buffer, 0, len);
                 }
                 fis.close();
 
@@ -139,36 +125,30 @@ public final class PrintUtil {
             e.printStackTrace();
         }
 
-        ((Excel) result).getPaths().put("压缩包",exportPath);
-
+        ((Excel) result).getPaths().put("压缩包", exportPath);
 
     }
+
     @SuppressWarnings("unchecked")
-    public static void findFile(Result<Integer> result,String target,String nextPath)
-    {
+    public static void findFile(Result<Integer> result, String target, String nextPath) {
         Integer cnt = (Integer) result.getData();
         String desc = result.getDesc();
         File pag = new File(nextPath);
-        if(!pag.exists())
-        {
+        if (!pag.exists()) {
             return;
         }
         File[] fList = pag.listFiles();
-        for(File f: fList)
-        {
+        for (File f : fList) {
 
             String p = f.getAbsolutePath();
-            if(p.lastIndexOf(target)<0)
-            {
+            if (p.lastIndexOf(target) < 0) {
                 continue;
             }
-            if(f.isDirectory())
-            {
-                findFile(result,target,p);
-            }else{
+            if (f.isDirectory()) {
+                findFile(result, target, p);
+            } else {
 
-
-                ((Excel)result).getPaths().put(desc+cnt,p);
+                ((Excel) result).getPaths().put(desc + cnt, p);
                 ++cnt;
                 result.setData(cnt);
 
@@ -176,8 +156,5 @@ public final class PrintUtil {
         }
 
     }
-
-
-
 
 }

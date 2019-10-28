@@ -32,8 +32,6 @@ public class DeveloperDao extends BaseDao<Developer> {
         String section = StringUtils.getStringMd5(password);
         String pwd = section + section;
 
-
-
         return super.selectOne(connection, LOGIN, id, pwd);
     }
 

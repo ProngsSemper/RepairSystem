@@ -51,5 +51,4 @@ public class Page<T> extends Result<T> {
         this.size = size;
     }
 
-
 }

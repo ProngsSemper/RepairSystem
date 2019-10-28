@@ -8,13 +8,11 @@ import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.CookieUtil;
-import com.repairsys.util.net.Postman;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,14 +40,14 @@ public class AdminLoginServlet extends BaseServlet {
                 requestBody.getString("password"),
                 session);
         String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
-        CookieUtil.setToken("adminToken",adminToken,response);
+        CookieUtil.setToken("adminToken", adminToken, response);
         logger.debug("管理员登录信息{}", result);
         request.setAttribute("result", result);
         //登录成功设置cookie
-        if (result.getCode()==loginSuccess){
+        if (result.getCode() == loginSuccess) {
             CookieUtil.setToken("adminId", adminId, response);
             response.addHeader("identity", "admin");
-            session.setAttribute("adminId",adminId);
+            session.setAttribute("adminId", adminId);
         }
         super.doPost(request, response);
     }

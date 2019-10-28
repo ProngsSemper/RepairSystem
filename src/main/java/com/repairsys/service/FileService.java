@@ -6,7 +6,4 @@ package com.repairsys.service;
  */
 public interface FileService {
 
-
-
-
 }

@@ -119,6 +119,4 @@ public interface WorkerDao {
      */
     String getEvaluation(int wKey);
 
-
-
 }

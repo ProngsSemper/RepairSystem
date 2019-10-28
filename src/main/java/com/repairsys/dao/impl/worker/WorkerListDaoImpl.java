@@ -39,7 +39,6 @@ public class WorkerListDaoImpl extends AbstractPageDao {
     private static final String GET_WORKER_LIST = "select * from workers limit ?,?";
     private static final String BASE_QUERY = "select * from workers ";
 
-
     protected WorkerListDaoImpl(Class clazz) {
         super(clazz);
     }

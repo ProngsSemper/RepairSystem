@@ -6,7 +6,8 @@ package com.repairsys.service.impl.file;
  */
 public final class ImgService {
     private static final ImgService imgService = new ImgService();
-    private ImgService()
-    {}
+
+    private ImgService() {
+    }
 
 }

@@ -16,15 +16,16 @@ public final class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
 
         Cookie[] cookies = request.getCookies();
-        if (cookies == null || cookies.length == 0) {
-            return "dd";
+        if (cookies == null) {
+            return null;
         }
         for (Cookie cookie : cookies) {
+
             if (name.equals(cookie.getName())) {
                 return cookie.getValue();
             }
         }
-        return "dd";
+        return null;
     }
 
     /**
@@ -45,19 +46,18 @@ public final class CookieUtil {
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
         ck.setMaxAge(5 * 365 * 24 * 60 * 60);
+
         response.addCookie(ck);
     }
 
     /**
      * 清空cookie的方法
      */
-    public static void cleanCookie(HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-        }
+    public static void cleanCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
+        Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
+        ck.setPath("/");
+        ck.setMaxAge(0);
+        response.addCookie(ck);
     }
 
 }

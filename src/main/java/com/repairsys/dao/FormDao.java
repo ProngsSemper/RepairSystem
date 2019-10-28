@@ -18,6 +18,7 @@ public interface FormDao {
      * @return 返回表单bean对象
      */
     List<Form> workerQueryIncompleteFormByFormId(String formId, int wKey);
+
     /**
      * 工人根据维修单号来查询已完成维修单的信息
      *
@@ -26,6 +27,7 @@ public interface FormDao {
      * @return 返回表单bean对象
      */
     List<Form> workerQueryCompleteFormByFormId(String formId, int wKey);
+
     /**
      * 管理员根据维修单号来查询未完成维修单的信息
      *
@@ -33,6 +35,7 @@ public interface FormDao {
      * @return 返回表单bean对象
      */
     List<Form> adminQueryIncompleteFormByFormId(String formId);
+
     /**
      * 管理员根据维修单号来查询已完成维修单的信息
      *
@@ -40,6 +43,7 @@ public interface FormDao {
      * @return 返回表单bean对象
      */
     List<Form> adminQueryCompleteFormByFormId(String formId);
+
     /**
      * 根据学生学号来查询维修单的信息
      *
