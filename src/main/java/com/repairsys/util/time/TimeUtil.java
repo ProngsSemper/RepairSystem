@@ -17,7 +17,6 @@ public final class TimeUtil {
     public static String getTime(int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, day);
-//        calendar.set(Calendar.HOUR_OF_DAY, hour);
         java.util.Date time = calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String format = df.format(time);
@@ -28,7 +27,6 @@ public final class TimeUtil {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.MONTH, month - 1);
-//        calendar.set(Calendar.HOUR_OF_DAY, hour);
         java.util.Date time = calendar.getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String format = df.format(time);

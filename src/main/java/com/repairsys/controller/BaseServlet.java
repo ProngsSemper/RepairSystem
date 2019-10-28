@@ -50,7 +50,6 @@ public abstract class BaseServlet extends HttpServlet {
         doPost(req, resp);
     }
 
-
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req, resp);

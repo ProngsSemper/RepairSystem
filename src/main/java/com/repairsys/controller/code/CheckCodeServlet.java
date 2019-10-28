@@ -30,6 +30,7 @@ import java.util.Random;
 public class CheckCodeServlet extends HttpServlet {
     private static final Random R = new Random();
     private static final String base = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
     @Override
     public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //服务器通知浏览器不要缓存
@@ -73,14 +74,13 @@ public class CheckCodeServlet extends HttpServlet {
         out.flush();
         out.close();
 
-
     }
 
     /**
      * 产生4位随机字符串
      */
     private String getCheckCode() {
-         String base = "0123456789ABCDEFGabcdefg";
+        String base = "0123456789ABCDEFGabcdefg";
         int size = base.length();
         Random r = new Random();
         StringBuffer sb = new StringBuffer();
@@ -99,6 +99,7 @@ public class CheckCodeServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doGet(request, response);
     }
+
     // 图片宽度
     private static final int IMG_HEIGHT = 80;
     // 图片搞度
@@ -122,8 +123,6 @@ public class CheckCodeServlet extends HttpServlet {
         ImageIO.write((RenderedImage) codeMap.get("codePic"), "png", sos);
         sos.close();
     }
-
-
 
     private static Color getRandomColor() {
 

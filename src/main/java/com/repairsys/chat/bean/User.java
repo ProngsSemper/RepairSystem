@@ -24,7 +24,6 @@ public class User implements Serializable {
 
     private String target;
 
-
     public Session getSession() {
         return session;
     }
@@ -41,17 +40,15 @@ public class User implements Serializable {
         this.userName = userName;
     }
 
-
-    public void receive(String msg)
-    {
+    public void receive(String msg) {
         try {
             this.session.getBasicRemote().sendText(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public void receive(JSONObject jsonObject)
-    {
+
+    public void receive(JSONObject jsonObject) {
         String text = jsonObject.toJSONString();
         try {
             this.session.getBasicRemote().sendText(text);

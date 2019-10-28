@@ -3,6 +3,8 @@ package com.repairsys.controller.worker;
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
 import com.repairsys.util.net.CookieUtil;
@@ -22,12 +24,15 @@ import java.io.IOException;
 @WebServlet("/worker/incomplete/form")
 public class WorkerIncompleteFormServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+    private final WorkerDaoImpl workerDao = (WorkerDaoImpl) DaoFactory.getWorkerDao();
     private static final Logger logger = LoggerFactory.getLogger(WorkerIncompleteFormServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        String workerId = CookieUtil.getCookie("workerId",request);
+        String workerId = CookieUtil.getCookie("workerId", request);
+        String wName = workerDao.getWorkerNameById(workerId).getwName();
+        CookieUtil.setCookie("workerName", wName, response);
         Result result = workerService.getIncompleteForm(workerId,
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));

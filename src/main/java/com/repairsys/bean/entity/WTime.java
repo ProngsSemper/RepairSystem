@@ -1,22 +1,19 @@
 package com.repairsys.bean.entity;
 
 import java.sql.Date;
-import java.util.Comparator;
 
 /**
  * @Author lyr
  * @create 2019/10/8 12:55
  */
-public class WTime implements Comparable<WTime>{
-
-
+public class WTime implements Comparable<WTime> {
 
     private int tId;
     private int wKey;
     private Date curTime;
-    private int t9,t10,t11,t14,t15,t16,t17,t18;
+    private int t9, t10, t11, t14, t15, t16, t17, t18;
     private int score = 0;
-    private String wType,wName,wMail,wTel;
+    private String wType, wName, wMail, wTel;
 
     public String getwMail() {
         return wMail;
@@ -56,10 +53,10 @@ public class WTime implements Comparable<WTime>{
 
     /**
      * 简单的记录分数，实现简单的推荐算法
+     *
      * @return 返回工人的任务总数
      */
-    public int getSum()
-    {
+    public int getSum() {
 
         return this.score;
     }
@@ -95,7 +92,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT9(int t9) {
         this.t9 = t9;
-        this.score+=t9;
+        this.score += t9;
     }
 
     public int getT10() {
@@ -104,7 +101,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT10(int t10) {
         this.t10 = t10;
-        this.score+=t10;
+        this.score += t10;
     }
 
     public int getT11() {
@@ -113,7 +110,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT11(int t11) {
         this.t11 = t11;
-        this.score+=t11;
+        this.score += t11;
     }
 
     public int getT14() {
@@ -122,7 +119,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT14(int t14) {
         this.t14 = t14;
-        this.score+=t14;
+        this.score += t14;
     }
 
     public int getT15() {
@@ -131,7 +128,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT15(int t15) {
         this.t15 = t15;
-        this.score+=t15;
+        this.score += t15;
     }
 
     public int getT16() {
@@ -140,7 +137,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT16(int t16) {
         this.t16 = t16;
-        this.score+=t16;
+        this.score += t16;
     }
 
     public int getT17() {
@@ -149,7 +146,7 @@ public class WTime implements Comparable<WTime>{
 
     public void setT17(int t17) {
         this.t17 = t17;
-        this.score+=t17;
+        this.score += t17;
     }
 
     public int getT18() {
@@ -158,10 +155,9 @@ public class WTime implements Comparable<WTime>{
 
     public void setT18(int t18) {
         this.t18 = t18;
-        this.score+=t18;
+        this.score += t18;
 
     }
-
 
     @Override
     public String toString() {
@@ -176,7 +172,7 @@ public class WTime implements Comparable<WTime>{
                 ", t15=" + t15 +
                 ", t16=" + t16 +
                 ", t17=" + t17 +
-                ", t18=" + t18 + this.wType+
+                ", t18=" + t18 + this.wType +
                 "}\r\n";
     }
 
@@ -221,81 +217,72 @@ public class WTime implements Comparable<WTime>{
     @Override
     public int compareTo(WTime o) {
 
-        return o.getwKey()-this.getwKey();
+        return o.getwKey() - this.getwKey();
     }
 
-    public int getTimeAt(int point)
-    {
+    public int getTimeAt(int point) {
         switch (point) {
-            case 0:{
+            case 0: {
                 return this.getT9();
             }
-            case 1:{
+            case 1: {
                 return this.getT10();
             }
-            case 2:{
+            case 2: {
                 return this.getT11();
             }
-            case 3:{
+            case 3: {
                 return this.getT14();
             }
-            case 4:{
+            case 4: {
                 return this.getT15();
             }
-            case 5:{
+            case 5: {
                 return this.getT16();
             }
-            case 6:{
+            case 6: {
                 return this.getT17();
             }
-            case 7:{
+            case 7: {
                 return this.getT18();
             }
-            default:
-            {
+            default: {
                 return 0;
             }
         }
 
     }
-    public int getHourAt(int hour)
-    {
-        switch (hour)
-        {
-            case 9:{
+
+    public int getHourAt(int hour) {
+        switch (hour) {
+            case 9: {
                 return t9;
             }
-            case 10:
-            {
+            case 10: {
                 return t10;
             }
-            case 11:{
+            case 11: {
                 return t11;
             }
-            case 14:{
+            case 14: {
                 return t14;
             }
-            case 15:{
+            case 15: {
                 return t15;
             }
-            case 16:{
+            case 16: {
                 return t16;
             }
-            case 17:{
+            case 17: {
                 return t17;
             }
-            case 18:{
+            case 18: {
                 return t18;
             }
-            default:{
+            default: {
                 return score;
             }
         }
     }
-
-
-
-
-
 
 }
