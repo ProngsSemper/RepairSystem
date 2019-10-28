@@ -27,7 +27,7 @@ public class WorkerIncompleteFormServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        String workerId = CookieUtil.getCookie("workerId",request);
+        String workerId = CookieUtil.getCookie("workerId", request);
         Result result = workerService.getIncompleteForm(workerId,
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));

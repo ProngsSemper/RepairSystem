@@ -502,13 +502,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     @Override
     public Boolean evaluate(String evaluation, int wKey, int formId) {
         if ("good".equals(evaluation)) {
-            super.updateOne(connection,FINISH_EVALUATE,formId);
+            super.updateOne(connection, FINISH_EVALUATE, formId);
             return super.updateOne(connection, GOOD, wKey);
         } else if ("mid".equals(evaluation)) {
-            super.updateOne(connection,FINISH_EVALUATE,formId);
+            super.updateOne(connection, FINISH_EVALUATE, formId);
             return super.updateOne(connection, MID, wKey);
         } else if ("bad".equals(evaluation)) {
-            super.updateOne(connection,FINISH_EVALUATE,formId);
+            super.updateOne(connection, FINISH_EVALUATE, formId);
             return super.updateOne(connection, BAD, wKey);
         } else {
             return false;

@@ -22,8 +22,8 @@ public class RequestBodyFilter implements Filter {
     /**
      * 默认需要放行的资源
      */
-    private static final String[] ARRAY = {"/",".png", ".jpg", ".css",".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"index","?","woff", "limit", ".html", ".jsp","img"};
+    private static final String[] ARRAY = {"/", ".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
+    private static final String[] UI = {"index", "?", "woff", "limit", ".html", ".jsp", "img"};
 
     @Override
     public void destroy() {
@@ -34,9 +34,8 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        if(t.lastIndexOf("/chat")>=0)
-        {
-            chain.doFilter(request,resp);
+        if (t.lastIndexOf("/chat") >= 0) {
+            chain.doFilter(request, resp);
             return;
         }
         logger.debug(t);
@@ -50,7 +49,7 @@ public class RequestBodyFilter implements Filter {
         }
         for (String i : UI) {
             if (t.lastIndexOf(i) >= 0) {
-                logger.debug("默认资源{}",i);
+                logger.debug("默认资源{}", i);
                 chain.doFilter(req, resp);
                 return;
             }

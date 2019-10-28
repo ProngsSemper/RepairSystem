@@ -1,4 +1,5 @@
 package com.repairsys.chat;
+
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.bean.Admin;
 import com.repairsys.chat.bean.User;
@@ -18,25 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Author lyr
  * @create 2019/10/26 14:35
  */
-@ServerEndpoint(value="/chat",configurator=GetHttpSessionConfigurator.class)
+@ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfigurator.class)
 public class ChatServer {
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     private static int onlineCount = 0;
     private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap<>();
-    private static final ConcurrentHashMap<String ,User> ADMIN_MAP = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, User> ADMIN_MAP = new ConcurrentHashMap<>();
     private static final Random R = new Random();
     private String userName;
     private String target;
-    private  boolean isAdmin = false;
-    private String getTarget()
-    {
+    private boolean isAdmin = false;
+
+    private String getTarget() {
         String target = null;
-        int i =ADMIN_MAP.size()<=0 ? 0: R.nextInt(ADMIN_MAP.size());
-        for(Map.Entry<String,User> t: ADMIN_MAP.entrySet())
-        {
+        int i = ADMIN_MAP.size() <= 0 ? 0 : R.nextInt(ADMIN_MAP.size());
+        for (Map.Entry<String, User> t : ADMIN_MAP.entrySet()) {
             --i;
-            if(i<=0)
-            {
+            if (i <= 0) {
                 target = t.getKey();
                 break;
             }
@@ -44,15 +43,12 @@ public class ChatServer {
         return target;
     }
 
-    private User getPersonToTalk()
-    {
+    private User getPersonToTalk() {
         User target = null;
-        int i = ADMIN_MAP.size()==0? 0: R.nextInt(ADMIN_MAP.size());
-        for(Map.Entry<String,User> t: ADMIN_MAP.entrySet())
-        {
+        int i = ADMIN_MAP.size() == 0 ? 0 : R.nextInt(ADMIN_MAP.size());
+        for (Map.Entry<String, User> t : ADMIN_MAP.entrySet()) {
             --i;
-            if(i<=0)
-            {
+            if (i <= 0) {
                 target = t.getValue();
                 break;
             }
@@ -61,64 +57,58 @@ public class ChatServer {
         return target;
     }
 
-
-
     @OnOpen
-    public synchronized void onOpen(Session session, EndpointConfig config)
-    {
+    public synchronized void onOpen(Session session, EndpointConfig config) {
 
         ++onlineCount;
         //TODO: 可以获取 httpsession了
-        HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
-        String name = (String)httpSession.getAttribute("adminId");
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+        String name = (String) httpSession.getAttribute("adminId");
         //todo: 测试阶段
         logger.info(name);
         logger.error(name);
 
-        if(name==null)
-        {
+        if (name == null) {
             //学生或者游客
             String tmp = (String) httpSession.getAttribute("stuId");
-            if(tmp==null)
-            {
-                String y =  UUID.randomUUID().toString().substring(0,5);
-                tmp = "游客"+y+onlineCount;
+            if (tmp == null) {
+                String y = UUID.randomUUID().toString().substring(0, 5);
+                tmp = "游客" + y + onlineCount;
             }
-            User u = MAP.getOrDefault(tmp,new User());
+            User u = MAP.getOrDefault(tmp, new User());
             u.setSession(session);
             u.setUserName(tmp);
-            MAP.put(tmp,u);
-            Admin admin = (Admin)getPersonToTalk();
+            MAP.put(tmp, u);
+            Admin admin = (Admin) getPersonToTalk();
             admin.append(tmp);
             this.userName = tmp;
 
             u.setTarget(this.target);
 
-            String text = "{ 'list':" +admin.getTargetSet()+"}";
+            String text = "{ 'list':" + admin.getTargetSet() + "}";
             admin.receive(text);
-            u.receive("{'target':'"+admin.getUserName()+"'}");
+            u.receive("{'target':'" + admin.getUserName() + "'}");
 
-
-        }else {
+        } else {
             this.userName = name;
             //管理员
-            User u = ADMIN_MAP.getOrDefault(name,new Admin());
+            User u = ADMIN_MAP.getOrDefault(name, new Admin());
             u.setSession(session);
             u.setUserName(name);
 
             this.isAdmin = true;
-            ADMIN_MAP.put(name,u);
+            ADMIN_MAP.put(name, u);
 
         }
 
         System.out.println("有新连接加入！当前在线人数为" + onlineCount);
     }
 
-
     /**
      * 如果对方已经下线，就无法收到
-     * @param message  对方发送回来的json格式的数据， 要有 target 来和对方讲话，target是屏幕显示的账号,identity 是自己的身份，是admin还是不同的管理员
-     * @param session  就是session
+     *
+     * @param message 对方发送回来的json格式的数据， 要有 target 来和对方讲话，target是屏幕显示的账号,identity 是自己的身份，是admin还是不同的管理员
+     * @param session 就是session
      * @throws IOException
      * @throws InterruptedException
      */
@@ -128,21 +118,18 @@ public class ChatServer {
 
         System.out.println("客户端说：" + message);
         JSONObject jsonObject = JSONObject.parseObject(message);
-        send(jsonObject,session);
-
+        send(jsonObject, session);
 
     }
 
     @OnClose
-    public synchronized void onClose()
-    {
+    public synchronized void onClose() {
         --onlineCount;
-        if(isAdmin)
-        {
+        if (isAdmin) {
             Admin admin = (Admin) ADMIN_MAP.get(this.userName);
             admin.broadCast(MAP);
             ADMIN_MAP.remove(userName);
-        }else {
+        } else {
             User u = MAP.get(userName);
 
             Admin admin = (Admin) ADMIN_MAP.get(u.getTarget());
@@ -154,53 +141,42 @@ public class ChatServer {
 
     }
 
-
-    public void send(JSONObject jsonObject,Session session) throws IOException {
+    public void send(JSONObject jsonObject, Session session) throws IOException {
         String target = jsonObject.getString("target");
 
-
-        if(!isAdmin)
-        {
-        //    如果没有 identity的标识，说明是游客或者学生
+        if (!isAdmin) {
+            //    如果没有 identity的标识，说明是游客或者学生
             //学生发送给管理员，需要查找管理员的''电话号码''
             System.out.println(3);
 
             User u = ADMIN_MAP.get(this.target);
 
             // boolean notNull = checkEmpty(u);
-            if(u==null)
-            {
+            if (u == null) {
 
                 offlineCall(session);
                 // return;
-            }else {
+            } else {
                 u.receive(jsonObject);
             }
 
-
-
-        }else{
+        } else {
             System.out.println(4);
-        //    如果有标记，说明是管理员,要对学生发信息
-            User u =  MAP.get(target);
+            //    如果有标记，说明是管理员,要对学生发信息
+            User u = MAP.get(target);
 
-            if(u!=null)
-            {
+            if (u != null) {
                 u.receive(jsonObject);
                 // return;
-            }else {
+            } else {
                 System.out.println(5);
                 offlineCall(session);
             }
         }
 
-
-
-
     }
 
-    public void offlineCall(Session session)
-    {
+    public void offlineCall(Session session) {
         try {
             System.out.println("找不到");
             session.getBasicRemote().sendText("{'tips':'对不起，对方已经下线'}");
@@ -229,16 +205,5 @@ public class ChatServer {
     //     System.out.println("找到了");
     //     return true;
     // }
-
-
-
-
-
-
-
-
-
-
-
 
 }

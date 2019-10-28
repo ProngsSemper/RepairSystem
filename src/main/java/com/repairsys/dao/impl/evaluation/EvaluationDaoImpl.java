@@ -33,14 +33,14 @@ public class EvaluationDaoImpl extends BaseDao<Evaluation> implements Evaluation
 
     @Override
     public Boolean addEvaluation(String msg, int wKey) {
-        if ("".equals(msg)||msg==null||wKey==0){
+        if ("".equals(msg) || msg == null || wKey == 0) {
             return false;
         }
-        return super.addOne(connection,ADD_EVALUATION,msg,wKey);
+        return super.addOne(connection, ADD_EVALUATION, msg, wKey);
     }
 
     @Override
-    public List<Evaluation> getMsg(int wKey){
-        return super.selectList(connection,GET_EVALUATION,wKey);
+    public List<Evaluation> getMsg(int wKey) {
+        return super.selectList(connection, GET_EVALUATION, wKey);
     }
 }

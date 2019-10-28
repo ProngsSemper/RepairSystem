@@ -13,7 +13,6 @@ public interface FileDao<T> {
      */
     String GET_IMG_ID = "select max(`photoId`)+1 from photo;";
 
-
     /**
      * @return 返回主键id
      */
@@ -21,22 +20,18 @@ public interface FileDao<T> {
 
     /**
      * 获取数据库中的一条记录
+     *
      * @param id 数据库表的id字段
      * @return 返回要查询的javabean
      */
     T getBeanInfo(String id);
 
-
     /**
      * 添加一条数据进入数据库
-     * @param id 数据库表中的主键名字
+     *
      * @param paths 存储的路径
      * @return 返回存储的主键
      */
     int addOne(LinkedList<String> paths);
-
-
-
-
 
 }

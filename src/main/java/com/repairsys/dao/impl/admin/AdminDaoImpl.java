@@ -98,15 +98,15 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     }
 
     @Override
-    public Admin getToken(String id){
-        return super.selectOne(connection,GET_TOKEN,id);
+    public Admin getToken(String id) {
+        return super.selectOne(connection, GET_TOKEN, id);
     }
+
     //todo: 要看看
-    public Admin existsToken(String token)
-    {
+    public Admin existsToken(String token) {
         String sql = "select * from administrators where `adminToken` = ?";
         System.out.println(sql);
-        return super.selectOne(connection,sql,token);
+        return super.selectOne(connection, sql, token);
 
     }
 

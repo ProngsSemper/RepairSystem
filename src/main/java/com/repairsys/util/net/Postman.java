@@ -88,13 +88,13 @@ public final class Postman {
 
     /**
      * 发送请求提醒服务器改更新一下数据库了
+     *
      * @param request 请求
      */
-    public static void call(HttpServletRequest request)
-    {
+    public static void call(HttpServletRequest request) {
 
-        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath();
-        logger.debug("内部发送请求"+basePath);
+        String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        logger.debug("内部发送请求" + basePath);
 
         HttpGet getHandler = new HttpGet(basePath + "/server/clock");
 

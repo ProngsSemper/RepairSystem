@@ -1,22 +1,15 @@
 package com.repairsys.controller.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.repairsys.bean.entity.Admin;
-import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
-import com.repairsys.dao.DaoFactory;
-import com.repairsys.dao.impl.admin.AdminDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.easy.EasyTool;
-import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

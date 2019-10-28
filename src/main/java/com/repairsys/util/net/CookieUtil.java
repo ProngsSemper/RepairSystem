@@ -1,7 +1,5 @@
 package com.repairsys.util.net;
 
-import com.repairsys.util.easy.EasyTool;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +16,12 @@ public final class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
 
         Cookie[] cookies = request.getCookies();
-        EasyTool.debug(100,cookies);
-        if (cookies == null ) {
+        if (cookies == null) {
             return null;
         }
         for (Cookie cookie : cookies) {
 
             if (name.equals(cookie.getName())) {
-                EasyTool.debug(34,cookie.getValue());
                 return cookie.getValue();
             }
         }
@@ -50,7 +46,6 @@ public final class CookieUtil {
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
         ck.setMaxAge(5 * 365 * 24 * 60 * 60);
-        EasyTool.debug(100,"设置 Cookie",cookieName,cookie);
 
         response.addCookie(ck);
     }
@@ -66,6 +61,5 @@ public final class CookieUtil {
             response.addCookie(cookie);
         }
     }
-
 
 }

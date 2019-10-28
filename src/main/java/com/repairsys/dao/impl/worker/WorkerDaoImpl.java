@@ -54,14 +54,13 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     }
 
     @Override
-    public Worker getToken(String id){
-        return super.selectOne(connection,GET_TOKEN,id);
+    public Worker getToken(String id) {
+        return super.selectOne(connection, GET_TOKEN, id);
     }
 
-    public Worker existToken(String token)
-    {
+    public Worker existToken(String token) {
         String sql = "select * from workers where wToken =?";
-        return super.selectOne(connection,sql,token);
+        return super.selectOne(connection, sql, token);
     }
 
     /**
@@ -168,7 +167,8 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
         return super.selectList(connection, GET_WORKER_LIST);
     }
 
-     private static final String CNT_SQL = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
+    private static final String CNT_SQL = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
+
     @Override
     public int getAllIncompleteCountBywKey(int wKey) {
         return super.getCount(connection, CNT_SQL, wKey);

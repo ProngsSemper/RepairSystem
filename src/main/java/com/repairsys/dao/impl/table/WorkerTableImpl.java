@@ -22,6 +22,6 @@ public class WorkerTableImpl extends TableDao {
 
     @Override
     public List<ExcelTable> getTable() {
-        return super.selectList(JdbcUtil.getConnection(),ExcelTable.sql);
+        return super.selectList(JdbcUtil.getConnection(), ExcelTable.sql);
     }
 }

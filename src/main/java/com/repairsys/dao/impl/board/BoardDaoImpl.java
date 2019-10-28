@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class BoardDaoImpl extends BaseDao<Board> implements BoardDao {
     private final Connection connection = JdbcUtil.getConnection();
-    
+
     private static final String HISTORY_BOARD = "select boardMsg,date from board limit ?,?";
-    private static final String BOARD  = "select boardMsg,date from board where queryCode = 1";
+    private static final String BOARD = "select boardMsg,date from board where queryCode = 1";
 
     private static final BoardDaoImpl BOARD_DAO;
 
@@ -40,8 +40,8 @@ public class BoardDaoImpl extends BaseDao<Board> implements BoardDao {
     }
 
     @Override
-    public List getBoard(){
-        return super.selectList(connection,BOARD);
+    public List getBoard() {
+        return super.selectList(connection, BOARD);
     }
 
     @Override

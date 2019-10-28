@@ -37,9 +37,9 @@ public class ExcelTable {
                 ", stuId='" + stuId + '\'' +
                 ", stuPhone='" + stuPhone + '\'' +
                 ", stuMail='" + stuMail + '\'' +
-                ", appointDate='" + appointDate.substring(0,10) + '\'' +
+                ", appointDate='" + appointDate.substring(0, 10) + '\'' +
                 ", appointment='" + appointment + '\'' +
-                '}'+"\r\n";
+                '}' + "\r\n";
     }
 
     public String getwName() {
@@ -73,8 +73,6 @@ public class ExcelTable {
     public void setFormMsg(String formMsg) {
         this.formMsg = formMsg;
     }
-
-
 
     public String getRoom() {
         return room;

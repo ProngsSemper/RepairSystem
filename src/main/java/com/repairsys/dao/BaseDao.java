@@ -23,9 +23,7 @@ public abstract class BaseDao<T> {
     private BeanListHandler<T> beanListHandler;
     private ScalarHandler<Long> numberHandler;
 
-
-    public QueryRunner getQueryRunner()
-    {
+    public QueryRunner getQueryRunner() {
         return queryRunner;
     }
 
