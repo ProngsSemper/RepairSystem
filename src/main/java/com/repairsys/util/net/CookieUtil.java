@@ -23,7 +23,7 @@ public final class CookieUtil {
             return null;
         }
         for (Cookie cookie : cookies) {
-            EasyTool.debug(34,cookies,"cookie 的值");
+
             if (name.equals(cookie.getName())) {
                 EasyTool.debug(34,cookie.getValue());
                 return cookie.getValue();

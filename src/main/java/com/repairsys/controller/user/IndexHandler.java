@@ -30,17 +30,21 @@ public class IndexHandler extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adminToken = CookieUtil.getCookie("adminToken",request);
-        EasyTool.debug(100,adminToken);
+        System.out.println(adminToken);
         if(adminToken!=null)
         {
-           boolean b=  AdminDaoImpl.getInstance().existsToken(adminToken)==null;
-           EasyTool.debug(100,adminToken);
-            System.out.println(b);
-           if(!b)
+           Admin admin =  AdminDaoImpl.getInstance().existsToken(adminToken);
+
+           if(admin!=null)
            {
-               System.out.println("----------------转发-------------");
-              request.getRequestDispatcher("managerFirstPage.html").forward(request,response);
-               return;
+               String adminId =  CookieUtil.getCookie("adminId",request);
+              boolean b=  admin.getAdminId().equals(adminId);
+              if(b)
+              {
+                  request.getRequestDispatcher("managerFirstPage.html").forward(request,response);
+                  return;
+              }
+
            }
 
         }else
@@ -49,6 +53,7 @@ public class IndexHandler extends BaseServlet {
             response.sendRedirect("login.html");
             return;
         }
+        response.sendRedirect("login.html");
 
 
     }

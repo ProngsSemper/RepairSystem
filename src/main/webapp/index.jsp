@@ -18,13 +18,16 @@
 <script>
     window.onload=function () {
         var str = window.location.href;
-        alert(str);
+        // alert(str);
         if(str.indexOf("index")<0)
         {
-            alert(str+"index.do");
+            // alert(str+"index.do");
             window.location.href = str+"index.do";
         }else{
-            window.location.href = str+"index.jsp";
+            var tmp=null;
+            tmp = str.replace("jsp","do");
+            // alert(str);
+            window.location.href = tmp;
         }
     }
 </script>
