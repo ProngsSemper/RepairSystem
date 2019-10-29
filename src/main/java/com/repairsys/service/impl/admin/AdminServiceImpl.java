@@ -285,11 +285,13 @@ public final class AdminServiceImpl implements AdminService {
     public Result getHistoryBoard() {
         BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
         List list = boardDao.getHistoryBoard();
-        Result res = new Result();
-        res.setData(list);
-        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        Page res = new Page();
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);
+        } else {
+            res.setData(list);
+            res.setSize(list.size());
+            res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         }
         return res;
     }
