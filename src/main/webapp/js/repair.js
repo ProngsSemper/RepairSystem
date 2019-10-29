@@ -22,7 +22,7 @@ $(document).ready(function () {
 $("body").delegate(".page>span", "click", function () {
     // alert(123);
     number = $(this).html();
-    if(rightBox[0].style.display=="block")
+    if(item[0].style.display=="block")
     {
         getMsg(number);
     }
@@ -334,7 +334,7 @@ function delOrder(formId){
     })
 }
 //点击左侧切换按钮
-var rightBox=document.getElementsByClassName("rightBox");
+var item=document.getElementsByClassName("item");
 var navlist=document.getElementsByClassName("list");
 // for(var i=0;i<rightBox.length;i++){
 //     navlist[i].index=i;
@@ -349,16 +349,16 @@ var navlist=document.getElementsByClassName("list");
 // }
 //
 navlist[0].onclick=function(){
-    rightBox[0].style.display="block";
-    rightBox[1].style.display="none";
+    item[0].style.display="block";
+    item[1].style.display="none";
     $(".list").eq(0).addClass("cur");
     $(".list").eq(1).removeClass("cur");
     $(".page").html("");
     getMsg(1);
 }
 navlist[1].onclick=function(){
-    rightBox[0].style.display="none";
-    rightBox[1].style.display="block";
+    item[0].style.display="none";
+    item[1].style.display="block";
     $(".list").eq(1).addClass("cur");
     $(".list").eq(0).removeClass("cur");
     $(".page").html("");

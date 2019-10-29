@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="topbg"></div>
+<div class="marginBox">
 <div class="nav">
     <img src="img/guanlizhongxin.png" alt="" class="icon">
     <span class="tit">管理后台</span>
@@ -47,11 +48,6 @@
                     <input type="text">
                     <button id = "m_query">查找</button>
                 </div>
-
-                <script src="js/m_send.js"></script>
-
-
-
                 <div class="category">
                     <div class="classify">
                         <span class="search-tit">分类：</span>
@@ -74,16 +70,67 @@
                     </div>
                 </div>
             </div>
-            <div class="item">
+            <div class="item" style="display: block;">
                 <div class="tableItem">
                     <table border="1" class="repairItem">
 
                     </table>
-                    <div class="page">
-                        <span class="page-number cur">1</span>
-                        <!-- <span class="page-number">2</span> -->
+                    
+                </div>
+
+            </div>
+            <div class="item" style="display: none;">
+                <div class="finishContant">
+                    <div class="tableBox">
+                        <div class="grid-content bg-purple-dark">
+                            <div class="formId">
+                                报修单号
+                            </div>
+                            <div class="formNumber">
+                                学号
+                            </div>
+                            <div class="adress">
+                                地址
+                            </div>
+                            <div class="listcontant">
+                                内容
+                            </div>
+                            <div class="operate">
+                                操作
+                            </div>
+                        </div>
+                            <div class="grid-content bg-purple">
+                                <div class="formId">
+                                    25
+                                </div>
+                                <div class="formNumber">
+                                    181543404
+                                </div>
+                                <div class="adress">
+                                    北苑20#a111
+                                </div>
+                                <div class="listcontant">
+                                    我宿舍的水管爆了，一直在漏水，快点来17栋 B513,急需您的支援
+                                </div>
+                                <div class="operate">
+                                    <a href="javascript:;" class="deal">详情</a>
+                                </div>
+                            </div>
+                            <div class="grid-content bg-purple-light"></div>
+                            <div class="grid-content bg-purple"></div>
+                            <div class="grid-content bg-purple-light"></div>
+                            
+                            <div class="grid-content bg-purple"></div>
+                            <div class="grid-content bg-purple-light"></div>
+                            <div class="grid-content bg-purple"></div>
+                            <div class="grid-content bg-purple-light"></div>
+                            
+                            <div class="grid-content bg-purple"></div>
+                            <div class="grid-content bg-purple-light"></div>
                     </div>
                 </div>
+            </div>
+            <div class="page">
 
             </div>
         </div>
@@ -279,57 +326,8 @@
 
         </div>
     </div>
-    <div class="rightBox" style="display: none;">
-        <div class="finishContant">
-            <div class="tableBox">
-                <div class="grid-content bg-purple-dark">
-                    <div class="formId">
-                        报修单号
-                    </div>
-                    <div class="formNumber">
-                        学号
-                    </div>
-                    <div class="adress">
-                        地址
-                    </div>
-                    <div class="listcontant">
-                        内容
-                    </div>
-                    <div class="operate">
-                        操作
-                    </div>
-                </div>
-                    <div class="grid-content bg-purple">
-                        <div class="formId">
-                            25
-                        </div>
-                        <div class="formNumber">
-                            181543404
-                        </div>
-                        <div class="adress">
-                            北苑20#a111
-                        </div>
-                        <div class="listcontant">
-                            我宿舍的水管爆了，一直在漏水，快点来17栋 B513,急需您的支援
-                        </div>
-                        <div class="operate">
-                            <a href="javascript:;" class="deal">详情</a>
-                        </div>
-                    </div>
-                    <div class="grid-content bg-purple-light"></div>
-                    <div class="grid-content bg-purple"></div>
-                    <div class="grid-content bg-purple-light"></div>
-                    
-                    <div class="grid-content bg-purple"></div>
-                    <div class="grid-content bg-purple-light"></div>
-                    <div class="grid-content bg-purple"></div>
-                    <div class="grid-content bg-purple-light"></div>
-                    
-                    <div class="grid-content bg-purple"></div>
-                    <div class="grid-content bg-purple-light"></div>
-            </div>
-        </div>
-    </div>
+    
+</div>
 </div>
 <script src="js/repair.js"></script>
 <script src="js/m_send.js"></script>

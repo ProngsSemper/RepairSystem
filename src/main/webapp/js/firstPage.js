@@ -97,6 +97,7 @@ $(document).ready(function () {
                         //todo: 快看这里
                         onloadFile();
                         alert("报修单提交成功");
+                        location.reload();
 
                     }else if(msg.code==405)
                     {
@@ -222,10 +223,11 @@ $("body").delegate(".finish", "click", function () {
     formId = $(this).parent().attr("formid");
     alert(formId);
     insureFinish(formId);
+    gerRepairOrder(page);
 });
 //监听点击页码
 $("body").delegate(".page>span","click",function(){
-    let page= $(this).html();
+    page= $(this).html();
     if(orderContant.style.display=="block"){
         gerRepairOrder(page);
     }
@@ -336,7 +338,7 @@ function gerfinishOrder(pageCount){
                     let span=document.createElement('span');
                     span.className="page-number";
                     span.innerText=i;
-                    page.append(span);
+                    $(".page").append(span);
                     if(i==1){
                         $(".page-number").eq(0).addClass("cur");
                     }
@@ -426,7 +428,7 @@ $("body").delegate(".evaluateSure","click",function () {
     massage=commentArea.value;
     stuEvaluation(evaluation,wKey,massage,formId);
     evaluate.style.display="none";
-    gerfinishOrder(1);
+    gerfinishOrder(page);
     // $(this).html("")
 })
 $("body").delegate(".bye","click",function () { 
