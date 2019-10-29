@@ -1,9 +1,7 @@
 package com.repairsys.controller.file;
 
-
 import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,12 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.Collection;
-
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -32,10 +27,6 @@ import java.util.UUID;
 public class UploadServlet extends HttpServlet {
     private static final FileDaoImpl FILE_DAO = FileDaoImpl.getInstance();
     private static final FormListDaoImpl FORM_DAO = FormListDaoImpl.getInstance();
-    private static final String[] ARR =
-    {
-            "jpg","jpeg","png","gif"
-    };
 
     private static final Logger logger = LoggerFactory.getLogger(UploadServlet.class);
     @Override

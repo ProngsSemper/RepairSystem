@@ -61,7 +61,7 @@ $(document).ready(function () {
         judege = confirm("确认提交");
         //不验证无法发送成功
         var bool = check(stuId.value)&&check(stuName.value)&&check(stuPhone.value)&&check(buliding.value)&&check(domiNumber.value)&&check(stuMail.value)&&check(formMsg.value)&&check(times.value)&&check(days.value)&&check(wType);
-        alert();
+        // alert();
         if(bool==false||bool===false)
         {
             alert("请填写正确的表单信息");
@@ -103,7 +103,7 @@ $(document).ready(function () {
                         alert("您已经提交过了,一分钟后再交");
                     }else if(msg.code==401)
                     {
-                        alert("检测到敏感词汇,无法提交");
+                        alert("检测到敏感词汇！"+msg.desc+"无法提交！");
                     }
                         commited = false;
                 },

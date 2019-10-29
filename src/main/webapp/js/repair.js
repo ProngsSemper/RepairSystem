@@ -14,26 +14,28 @@ $(document).ready(function () {
     var str1 = year + '年' + month + '月' + day + '日';
     data.innerText = str1 + str;
     getMsg(1);
-    // alert(1);
-    // getCookie(stuId);
 });
 
 
-$(document).ready(function () {
+
     //监听点击页码操作
-    $("body").delegate(".page>span", "click", function () {
-        // alert(123);
-        var number = $(this).html();
-        // alert(number);
+$("body").delegate(".page>span", "click", function () {
+    // alert(123);
+    number = $(this).html();
+    if(rightBox[0].style.display=="block")
+    {
         getMsg(number);
+    }
+    else{
+        getFinfishMsg(number);
+    }
 
-        $(this).addClass("cur");
-        $(this).siblings().removeClass("cur");
-        // alert("456");
-    });
-
-
+    $(this).addClass("cur");
+    $(this).siblings().removeClass("cur");
 });
+
+
+
 
 
 
@@ -291,9 +293,6 @@ function arrangeWorker(formid,workeNumber){
         }),
         success:function (msg) {
             if(msg.code==201){
-                // dealOrder.display="none";
-                // contant.display="none";
-                // success.display="block";
                 alert("排期成功");
                 location.reload();
             }
@@ -334,17 +333,79 @@ function delOrder(formId){
         }
     })
 }
+//点击左侧切换按钮
+var rightBox=document.getElementsByClassName("rightBox");
+var navlist=document.getElementsByClassName("list");
+// for(var i=0;i<rightBox.length;i++){
+//     navlist[i].index=i;
+//     navlist[i].onclick=function(){
+//         for (var i = 0; i < rightBox.length; i++) {
+//             rightBox[i].style.display = "none";
+//             navlist[i].className="list";
+//         }
+//         navlist[this.index].classList.add("cur");
+//         rightBox[this.index].style.display = "block";
+//     }
+// }
+//
+navlist[0].onclick=function(){
+    rightBox[0].style.display="block";
+    rightBox[1].style.display="none";
+    $(".list").eq(0).addClass("cur");
+    $(".list").eq(1).removeClass("cur");
+    $(".page").html("");
+    getMsg(1);
+}
+navlist[1].onclick=function(){
+    rightBox[0].style.display="none";
+    rightBox[1].style.display="block";
+    $(".list").eq(1).addClass("cur");
+    $(".list").eq(0).removeClass("cur");
+    $(".page").html("");
+    getFinfishMsg(1);
+}
+//管理员完成的报修
+function getFinfishMsg(pageCount) {
+    $.ajax({
+        type: "POST",
+        url: "/admin/complete/form",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "page": pageCount,
+            "limit": 10,
+        }),
+        success: function (msg) {
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
 
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+            }
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
