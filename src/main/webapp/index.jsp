@@ -35,12 +35,7 @@
 
 
 
-<script>
 
-
-
-
-</script>
 
 
 </html>
