@@ -392,13 +392,13 @@ public final class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result<Boolean> arrange(int wKey, String adminId, int formId) {
+    public Result<Boolean> arrange(int wKey, String adminId, String appointDate, int appointment, int formId) {
         Result<Boolean> result = new Result<>();
         if (adminDao.queryKey(adminId) == null) {
             return result.setResult(ResultEnum.UPDATE_QUERYCODE_FAILED);
         }
         int adminKey = adminDao.queryKey(adminId).getAdminKey();
-        if (formDao.arrange(wKey, adminKey, formId)) {
+        if (formDao.arrange(wKey, adminKey, appointDate, appointment, formId)) {
             result.setData(true);
             return result.setResult(ResultEnum.UPDATE_QUERYCODE_SUCCESSFULLY);
         }

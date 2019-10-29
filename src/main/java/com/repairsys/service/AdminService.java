@@ -160,8 +160,10 @@ public interface AdminService {
      *
      * @param wKey    工人 key
      * @param adminId 管理员key
+     * @param appointDate 最终确定日期
+     * @param appointment 最终确定点数
      * @param formId  报修单id
      * @return 返回相应状态码
      */
-    Result<Boolean> arrange(int wKey, String adminId, int formId);
+    Result<Boolean> arrange(int wKey, String adminId, String appointDate, int appointment, int formId);
 }

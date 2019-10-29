@@ -109,7 +109,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String STUDENT_CONFIRM = "INSERT INTO oldform SELECT * FROM `form` WHERE formId=?";
     private static final String DELETE_STUDENT_CONFIRM = "DELETE FROM form WHERE formId=?";
     private static final String DELETE_ONE = DELETE_STUDENT_CONFIRM;
-    private static final String ARRANGE = "UPDATE form SET queryCode=1,wKey=?,adminKey=? WHERE formId=?";
+    private static final String ARRANGE = "UPDATE form SET queryCode=1,wKey=?,adminKey=?,appointDate=DATE_FORMAT(?,'%y-%m-%d'),appointment=? WHERE formId=?";
 
     /**
      * 学生对工人评价
@@ -254,13 +254,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     /**
      * 学生如果提交图片，我需要获取formId ,发现接口 没定义，这里直接加了
+     *
      * @param stuId 学生输入的id号
      * @return 带有 formId 的 form
      */
-    public Form getNewFormId(String stuId)
-    {
+    public Form getNewFormId(String stuId) {
         String sql = "select formId from form where stuId = ? order by  formId DESC limit 0,1";
-        return super.selectOne(connection,sql,stuId);
+        return super.selectOne(connection, sql, stuId);
     }
 
     /**
@@ -529,11 +529,12 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     @Override
-    public Boolean arrange(int wKey, int adminKey, int formId) {
+    public Boolean arrange(int wKey, int adminKey, String appointDate, int appointment, int formId) {
         if (super.selectOne(connection, QUERY_BY_FORMID, formId) == null) {
             return false;
         }
-        return super.updateOne(connection, ARRANGE, wKey, adminKey, formId);
+        return super.updateOne(connection, ARRANGE, wKey, adminKey, appointDate
+                , appointment, formId);
     }
 
     @Override

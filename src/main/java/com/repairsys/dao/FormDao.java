@@ -306,10 +306,12 @@ public interface FormDao {
      *
      * @param wKey     工人 key
      * @param adminKey 管理员key
+     * @param appointDate 最终确定日期
+     * @param appointment 最终确定点数
      * @param formId   报修单id
      * @return 布尔值
      */
-    Boolean arrange(int wKey, int adminKey, int formId);
+    Boolean arrange(int wKey, int adminKey, String appointDate, int appointment, int formId);
 
     /**
      * 学生评价工人
