@@ -45,8 +45,8 @@ public final class ExcelServiceImpl implements ExcelService {
             "学生学号",
             "学生电话",
             "学生邮箱",
-            "预约时间",
-            "预约点数"
+            "维修时间"
+            // "预约点数"
     };
 
     /**
@@ -85,8 +85,8 @@ public final class ExcelServiceImpl implements ExcelService {
                         t.getStuId(),
                         t.getStuPhone(),
                         t.getStuMail(),
-                        t.getAppointDate(),
-                        t.getAppointment()
+                        t.getAppointDate().substring(0,11)+" "+t.getAppointment()+"点"
+                        // t.getAppointment()
 
                 );
             }
@@ -205,8 +205,8 @@ public final class ExcelServiceImpl implements ExcelService {
                         t.getStuId(),
                         t.getStuPhone(),
                         t.getStuMail(),
-                        t.getAppointDate(),
-                        t.getAppointment()
+                        t.getAppointDate().substring(0,11)+" "+t.getAppointment()+"点"
+                        // t.getAppointment()
 
                 );
             }
