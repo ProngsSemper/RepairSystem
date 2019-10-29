@@ -42,7 +42,7 @@ public class ExcelServlet extends BaseServlet {
         }
         logger.debug("初始化..");
 
-        Excel excel = new Excel();
+        Excel<Integer> excel = new Excel();
         String path = request.getServletContext().getRealPath("/upload/excel/").replaceAll("\\\\", "/") + TimeUtil.getCurTime() + "/";
         //设置一下路径
 
@@ -63,9 +63,12 @@ public class ExcelServlet extends BaseServlet {
 
         excel.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         request.setAttribute("result", excel);
-        this.result = excel;
-        this.time = tmp;
-        this.cnt = excel.getPaths().size();
+        synchronized (this)
+        {
+            this.result = excel;
+            this.time = tmp;
+            this.cnt = excel.getPaths().size();
+        }
         excel.setData(this.cnt);
 
         //TODO:顺便打印 压缩包，并把压缩包路径也返回
