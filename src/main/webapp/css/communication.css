@@ -1,0 +1,101 @@
+*{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-decoration: none;
+}
+.communicated{
+    width: 100%;
+    height: 100%;
+}
+.bigBox{
+    /* border: 1px solid #eee; */
+    margin: 0 auto;
+    width: 800px;
+    height: auto;
+    /* background: #000; */
+}
+.return{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url(../img/icon-fanhui.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.connent{
+    border: 1px solid #eee;
+    margin: 50px auto;
+    width: 700px;
+    height: 500px;
+    /* background: #fff; */
+}
+.contant{
+    position: relative;
+    width: 700px;
+    height: 350px;
+    background: #eee;
+    overflow: auto;
+}
+.send{
+    position: relative;
+    width: 700px;
+    height: 150px;
+    background: #eee;
+}
+.seatArea{
+    margin: 0px;
+    width: 700px;
+    border: none;
+    height: 110px;
+    resize: none;
+    font-size: 18px;
+}
+.stuSend{
+    position: absolute;
+    right: 10px;
+    border: none;
+    border-radius: 10px;
+    width: 70px;
+    height: 30px;
+    background: palevioletred;
+    text-align: center;
+    cursor: pointer;
+}
+.stuSend:focus{
+    outline: none;
+}
+.own{
+    float: right;
+    overflow: auto;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    background: chartreuse;
+    max-width: 300px;
+    height: auto;
+    margin: 10px 0;
+}
+.bg-green{
+   
+    background: chartreuse;
+    
+}
+.bg-white{
+
+    background: #fff;
+}
+.other{
+    float: left;
+    overflow: auto;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    max-width: 300px;
+    height: auto;
+    margin: 10px 0;
+}
+.line{
+    float: left;
+    width: 680px;
+}

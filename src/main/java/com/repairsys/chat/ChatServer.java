@@ -14,13 +14,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
+//todo:本聊天室已经完成了单聊功能，但是前段页面还需完善
 /**
  * @Author lyr
  * @create 2019/10/26 14:35
  */
 @ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfigurator.class)
 public class ChatServer {
+
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     private static int onlineCount = 0;
     private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap<>();
@@ -116,9 +117,13 @@ public class ChatServer {
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
 
-        System.out.println("客户端说：" + message);
+        // System.out.println("客户端说：" + message);
         JSONObject jsonObject = JSONObject.parseObject(message);
-        send(jsonObject, session);
+        // send(jsonObject, session);
+    //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
+        broadCast(jsonObject);
+
+
 
     }
 
@@ -185,25 +190,19 @@ public class ChatServer {
         }
     }
 
-    // public boolean checkEmpty(String text)
-    // {
-    //     if(text==null||text.length()<=3)
-    //     {
-    //         System.out.println("找不到");
-    //         return false;
-    //     }
-    //     return true;
-    // }
+    public void broadCast(JSONObject jsonObject)
+    {
+        if(isAdmin)
+        {
+            for(Map.Entry<String,User> entry:MAP.entrySet())
+            {
+                entry.getValue().receive(jsonObject);
+            }
+        }else{
+            ADMIN_MAP.get(this.target).receive(jsonObject);
 
-    // public boolean checkEmpty(Object text)
-    // {
-    //     if(text==null)
-    //     {
-    //         System.out.println("找不到");
-    //         return false;
-    //     }
-    //     System.out.println("找到了");
-    //     return true;
-    // }
+        }
+
+    }
 
 }

@@ -409,3 +409,53 @@ function getFinfishMsg(pageCount) {
         }
     })
 }
+//下载excel表
+$.ajax({
+    type: "POST",
+    url: "/file/excel",
+
+    async: false,
+
+    success:function(msg){
+
+
+        if(msg.code==200)
+        {
+            p = msg;
+            let str = '';
+            for(let key in p.paths){
+                var location = (window.location+'').split('/');
+                var basePath = location[0]+'//'+location[2]+'/';
+
+                var string = p.paths[key].substring(0,p.paths[key].indexOf("upload"));
+                // alert(p.paths[key].replace(string,"localhost/"));
+                let url = p.paths[key].replace(string,basePath);
+                // alert(url);
+
+                $(".excelBox").append('<a href="'+url+'" download="'+url+'">'+"文件："+key+'</a>');
+
+            }
+        }
+
+
+
+        // if(msg.code==200){
+        //     paths=msg.paths;
+        //     $(".excelBox").append('<a href="'+paths.木工3+'"download="'+paths.木工3.split("/")[9]+'">'+paths.木工3+'</a>');
+        //     $(".excelBox").append('<a href="'+paths.木工4+'"download="'+paths.木工4.split("/")[9]+'">'+paths.木工4+'</a>');
+        //     $(".excelBox").append('<a href="'+paths.水工1+'"download="'+paths.水工1.split("/")[9]+'">'+paths.水工1+'</a>');
+        //     $(".excelBox").append('<a href="'+paths.所有人+'"download="'+paths.所有人.split("/")[9]+'">'+paths.所有人+'</a>');
+        //     $(".excelBox").append('<a href="'+paths.压缩包+'"download="'+paths.压缩包.split("/")[8]+'">'+paths.压缩包+'</a>');
+        // }
+    },
+    error:function(xhr){
+        alert(xhr.status);
+    }
+});
+// var  paths={
+//     "木工3": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26木工3.xls",
+//     "木工4": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26木工4.xls",
+//     "水工1": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26水工1.xls",
+//     "所有人": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26_all_.xls",
+//     "压缩包": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/zip/2019-10-26.zip"
+// }

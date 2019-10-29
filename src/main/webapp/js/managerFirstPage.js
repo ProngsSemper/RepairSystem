@@ -14,5 +14,5 @@ transform[1].onclick=function(){
     window.location.href="../repair.html";
 }
 transform[2].onclick=function(){
-    window.location.href="/try.html";
+    window.location.href="/communication.html";
 }
