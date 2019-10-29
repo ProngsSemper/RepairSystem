@@ -20,10 +20,10 @@
         var str = window.location.href;
         if(str.indexOf("index")<0)
         {
-            window.location.href = str+"index.do";
+            window.location.href = str+"index.do?a=1";
         }else{
             var tmp=null;
-            tmp = str.replace("jsp","do");
+            tmp = str.replace("jsp","do?a=1");
             window.location.href = tmp;
         }
     }

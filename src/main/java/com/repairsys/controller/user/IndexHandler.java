@@ -6,6 +6,8 @@ import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.net.CookieUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +21,7 @@ import java.io.IOException;
  */
 @WebServlet("/index.do")
 public class IndexHandler extends BaseServlet {
+    private static final Logger logger = LoggerFactory.getLogger(IndexHandler.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,6 +35,8 @@ public class IndexHandler extends BaseServlet {
                 boolean b = admin.getAdminId().equals(adminId);
                 if (b) {
                     request.getSession().setAttribute("adminId", adminId);
+                    logger.debug(adminId);
+
                     request.getRequestDispatcher("managerFirstPage.html").forward(request, response);
                     return;
                 }
