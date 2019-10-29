@@ -438,3 +438,34 @@ $("body").delegate(".bye","click",function () {
 function onloadFile(){
     document.photo.submit();
 }
+
+//监听历史公告的叉
+var historyNotice=document.getElementsByClassName("historyNotice")[0];
+$("body").delegate(".history-cha", "click", function () {
+    historyNotice.style.display="none";
+});
+//监听公告点击
+$("body").delegate(".history", "click", function () {
+    historyNotice.style.display="block";
+});
+//获得所有历史公告
+var historyContant=document.getElementsByClassName("historyContant")[0];
+$.ajax({
+    type: "POST",
+    url: "/student/history/board",
+    dataType: "json",
+    async:true,
+    success:function(msg){
+        if(msg.code==200){
+            var data=msg.data;
+            for(var i=0;i<msg.size;i++){
+                $(".historyContant").append('<div class="historyInside"></div>');
+                $(".historyInside").eq(i).append('<div class="boardMsg">'+data[i].boardMsg+'</div>');
+                $(".historyInside").eq(i).append('<div class="his-date">'+data[i].date+'</div>');
+            }
+        }
+    },
+    error:function(xhr){
+        alert(xhr.status);
+    }
+})

@@ -705,3 +705,89 @@ body{
     bottom: 10px;
     right: 90px;
 }
+.history{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-image: url(../img/history.png);
+    background-size: contain;
+    cursor: pointer;
+}
+.historyNotice{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: 10;
+}
+.historyBox{
+    position: relative;
+    /* top: 50%; */
+    /* margin-top: -300px; */
+    margin: 50px auto;
+    width: 800px;
+    height: 570px;
+    background: #ffffffd9;
+}
+.history-cha{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/cha.png);
+    background-size: contain;
+    cursor: pointer;
+}
+.history-tit{
+    display: block;
+    /* position: absolute;
+    top: 20px; */
+    padding: 20px 0;
+    margin: 0px 0 0 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+.historyContant{
+    margin: 0 auto 20px;
+    width: 700px;
+    height: 420px;
+    /* background: #000; */
+    overflow: auto;
+}
+.history-page{
+    float: right;
+    margin-right: 100px;
+}
+.history-Number{
+    background: seagreen;
+    color: #fff;
+    padding: 0px 5px;
+    font-size: 20px;
+    margin: 5px;
+}
+.boardMsg{
+    display: inline-block;
+    width: 460px;
+    padding: 0 10px;
+    text-align: left;
+    line-height: 30px;
+    min-height: 30px;
+}
+.his-date{
+    display: inline-block;
+    width: 170px;
+    text-align: center;
+    line-height: 30px;
+    min-height: 30px;
+    /* height: 300px; */
+}
+.historyInside{
+    /* background: #eee; */
+    border-bottom: 1px solid #888;
+    margin: 10px 0;
+}
