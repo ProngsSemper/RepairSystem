@@ -122,11 +122,9 @@ public interface AdminService {
     /**
      * 查询所有历史公告
      *
-     * @param page  当前页
-     * @param limit 每页最多显示多少条数据
      * @return 返回相应状态码
      */
-    Result getHistoryBoard(int page, int limit);
+    Result getHistoryBoard();
 
     /**
      * 查询管理员未处理表单

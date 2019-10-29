@@ -10,11 +10,9 @@ public interface BoardDao {
     /**
      * 查询所有历史公告
      *
-     * @param page  当前页
-     * @param limit 每页最多显示多少条数据
      * @return 返回数据库中board表的数据
      */
-    List getHistoryBoard(int page, int limit);
+    List getHistoryBoard();
 
     /**
      * 获取board表中一共有多少条数据

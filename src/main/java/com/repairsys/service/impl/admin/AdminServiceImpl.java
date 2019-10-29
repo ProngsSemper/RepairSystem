@@ -282,26 +282,15 @@ public final class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Result getHistoryBoard(int page, int limit) {
-        if (page <= 0) {
-            page = 1;
-        }
+    public Result getHistoryBoard() {
         BoardDaoImpl boardDao = (BoardDaoImpl) DaoFactory.getBoardDao();
-        List list = boardDao.getHistoryBoard(page, limit);
-        Page res = new Page();
+        List list = boardDao.getHistoryBoard();
+        Result res = new Result();
         res.setData(list);
-        int cnt = boardDao.getAllCountInBoard();
-        res.setTotalCount(cnt);
-
-        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
         res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         if (list.size() == 0) {
             res.setResult(ResultEnum.QUERY_FAILED);
         }
-        res.setTargetPage(page);
-        res.setSize(list.size());
-        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
-        logger.debug("---------------");
         return res;
     }
 

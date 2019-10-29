@@ -23,11 +23,9 @@ public interface StudentService {
     /**
      * 查询所有历史公告
      *
-     * @param page  当前页
-     * @param limit 每页最多显示多少条数据
      * @return 返回数据库中board表的数据
      */
-    Result getHistoryBoard(int page, int limit);
+    Result getHistoryBoard();
 
     /**
      * 查询最新的学校公告 即queryCode=1的公告

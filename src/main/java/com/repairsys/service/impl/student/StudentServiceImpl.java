@@ -82,9 +82,9 @@ public final class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Result getHistoryBoard(int page, int limit) {
+    public Result getHistoryBoard() {
         AdminServiceImpl adminService = ServiceFactory.getAdminService();
-        return adminService.getHistoryBoard(page, limit);
+        return adminService.getHistoryBoard();
     }
 
     @SuppressWarnings("unchecked")

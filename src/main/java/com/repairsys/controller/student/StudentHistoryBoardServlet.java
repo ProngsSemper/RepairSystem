@@ -1,6 +1,5 @@
 package com.repairsys.controller.student;
 
-import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
@@ -25,10 +24,8 @@ public class StudentHistoryBoardServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
 
-        Result result = studentService.getHistoryBoard(requestBody.getInteger("page")
-                , requestBody.getInteger("limit"));
+        Result result = studentService.getHistoryBoard();
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);

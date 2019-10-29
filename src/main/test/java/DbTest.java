@@ -1,17 +1,13 @@
-import com.repairsys.bean.entity.Developer;
-import com.repairsys.bean.entity.ExcelTable;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
-import com.repairsys.dao.impl.agenda.TableDaoImpl;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
-import com.repairsys.dao.impl.table.WorkerTableImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.FormService;
@@ -19,7 +15,6 @@ import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.service.impl.table.ExcelServiceImpl;
 import com.repairsys.util.time.TimeUtil;
 import org.junit.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -122,7 +117,7 @@ public class DbTest {
 
     @Test
     public void historyBoard() {
-        List list = BoardDaoImpl.getInstance().getHistoryBoard(1, 1);
+        List list = BoardDaoImpl.getInstance().getHistoryBoard();
         System.out.println(list);
     }
 
