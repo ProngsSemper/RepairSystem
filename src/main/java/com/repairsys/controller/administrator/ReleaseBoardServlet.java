@@ -45,13 +45,18 @@ public class ReleaseBoardServlet extends BaseServlet {
             super.doPost(request, response);
             return;
         }
-        result = adminService.releaseBoard(boardMsg,
-                new Timestamp(System.currentTimeMillis()));
-        int flag = 200;
-        if (result.getCode() == flag) {
-            logger.debug("发布成功{}", result);
-        } else {
+        if ("".equals(boardMsg)) {
+            result.setResult(ResultEnum.RELEASE_FAILED);
             logger.debug("发布失败{}", result);
+        } else {
+            result = adminService.releaseBoard(boardMsg,
+                    new Timestamp(System.currentTimeMillis()));
+            int flag = 200;
+            if (result.getCode() == flag) {
+                logger.debug("发布成功{}", result);
+            } else {
+                logger.debug("发布失败{}", result);
+            }
         }
         request.setAttribute("result", result);
         super.doPost(request, response);

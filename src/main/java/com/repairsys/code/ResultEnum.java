@@ -174,6 +174,8 @@ public enum ResultEnum {
      */
     RELEASE_SUCCESSFULLY(200, "公告发布成功"),
 
+    RELEASE_FAILED(401, "公告发布失败"),
+
     RELEASE_SENSITIVELY(400, "公告中含有敏感词！公告发布失败！");
 
     /**
