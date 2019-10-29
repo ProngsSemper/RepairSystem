@@ -20,10 +20,11 @@
         var str = window.location.href;
         if(str.indexOf("index")<0)
         {
-            window.location.href = str+"index.jsp?a=1";
+            //刷新缓存
+            window.location.href = str+"index.do?date="+new Date();
         }else{
             var tmp=null;
-            tmp = str.replace("jsp","do?a=3&b=1");
+            tmp = str.replace("jsp","do?date="+new Date());
             window.location.href = tmp;
         }
     }
