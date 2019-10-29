@@ -38,7 +38,10 @@ public class ArrangeServlet extends BaseServlet {
         String adminId = CookieUtil.getCookie("adminId", request);
         Result result = adminService.arrange(requestBody.getInteger("wKey"),
                 adminId,
-                requestBody.getInteger("formId"));
+                TimeUtil.getTime(requestBody.getInteger("day")),
+                requestBody.getInteger("hour"),
+                requestBody.getInteger("formId")
+        );
         int flag = 201;
         if (result.getCode() == flag) {
 //            todo:可能有逻辑问题，到时检查
@@ -52,7 +55,8 @@ public class ArrangeServlet extends BaseServlet {
                 Result mailResult = adminService.senMail(stuMail,
                         mailRequestBody.getInteger("day"),
                         mailRequestBody.getInteger("hour"),
-                        mailRequestBody.getString("wTel"));
+                        mailRequestBody.getString("wTel")
+                );
                 int mailFlag = 200;
                 if (mailResult.getCode() == mailFlag) {
                     logger.debug("邮件发送成功{}", mailResult);
