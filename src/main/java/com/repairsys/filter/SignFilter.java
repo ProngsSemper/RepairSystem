@@ -26,10 +26,16 @@ public class SignFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
+
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
         // logger.error(p);
         logger.error(t);
+        if(t.contains("/chat"))
+        {
+            chain.doFilter(request,resp);
+            return;
+        }
         if (t.length() <= 1) {
             chain.doFilter(request, resp);
             return;
@@ -39,9 +45,6 @@ public class SignFilter implements Filter {
         } else if (t.contains("/index")) {
             chain.doFilter(request, resp);
             return;
-        }else if(t.indexOf("/chat")>=0)
-        {
-            chain.doFilter(request,resp);
         }
         // boolean bool = t.indexOf("index")>=0||t.indexOf("login.jsp")
 
@@ -75,10 +78,12 @@ public class SignFilter implements Filter {
         if (b) {
             chain.doFilter(req, resp);
 
+        }else{
+            logger.info("拦截请求");
+            request.getRequestDispatcher("login.html").forward(request,resp);
         }
 
-        logger.info("拦截请求");
-        request.getRequestDispatcher("login.html").forward(request,resp);
+
     }
 
     @Override
