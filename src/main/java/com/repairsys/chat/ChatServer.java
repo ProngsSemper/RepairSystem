@@ -124,19 +124,9 @@ public class ChatServer {
             throws IOException, InterruptedException {
         logger.info("聊天消息：{}", message);
 //        TODO:敏感词过滤
-//        String filePath = new File(ChatServer.class.getResource("/").getPath()).getParent() + "\\badWords.txt";
-//        System.out.println(filePath);
-//        SensitiveWordFilter filter = new SensitiveWordFilter(filePath);
-//        boolean b = filter.isContainSensitiveWord(message, 1);
-//        Set<String> set = filter.getSensitiveWord(message, 1);
-//        Result result = new Result<>();
-//        if (b) {
-//            result.setResult(ResultEnum.RELEASE_SENSITIVELY);
-//            result.setDesc("所含敏感词为：" + set);
-//            logger.debug("发布失败{}", result);
-//        }else {
-            // System.out.println("客户端说：" + message);
+
             JSONObject jsonObject = JSONObject.parseObject(message);
+
             // send(jsonObject, session);
             //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
             broadCast(jsonObject);
@@ -210,9 +200,12 @@ public class ChatServer {
     public void broadCast(JSONObject jsonObject) {
         if (isAdmin) {
             for (Map.Entry<String, User> entry : MAP.entrySet()) {
+                jsonObject.put("sender","管理员 --"+this.userName);
                 entry.getValue().receive(jsonObject);
             }
         } else {
+            jsonObject.put("sender",this.userName);
+
             ADMIN_MAP.get(this.target).receive(jsonObject);
 
         }

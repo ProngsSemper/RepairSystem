@@ -108,8 +108,10 @@ $(document).ready(function () {
         var tmp = event.data;
         var obj = eval('('+tmp+')');
         // let str = obj.msg.replace("script","***");
-        fillWhite(obj.msg);
-
+        if(obj.msg!=undefined)
+        {
+            fillWhite(obj.sender +":\r\n"+obj.msg);
+        }
     };
     ws.onclose=function () {
         alert("无管理员在线,socket 关闭");

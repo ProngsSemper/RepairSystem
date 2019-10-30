@@ -33,18 +33,21 @@ public class SignFilter implements Filter {
         if (t.length() <= 1) {
             chain.doFilter(request, resp);
             return;
-        } else if (t.indexOf("/login") >= 0) {
+        } else if (t.contains("/login")) {
             chain.doFilter(request, resp);
             return;
-        } else if (t.indexOf("/index") >= 0) {
+        } else if (t.contains("/index")) {
             chain.doFilter(request, resp);
             return;
+        }else if(t.indexOf("/chat")>=0)
+        {
+            chain.doFilter(request,resp);
         }
         // boolean bool = t.indexOf("index")>=0||t.indexOf("login.jsp")
 
         HttpSession session = ((HttpServletRequest) req).getSession();
         Object obj1 = session.getAttribute("stuId");
-        boolean talk = t.contains("/communication.html");
+        boolean talk = t.contains("/communication.html")||t.contains("/chat");
         boolean stuPage = t.contains("/firstPage.html")||talk;
         boolean adminPage = t.contains("/managerFirstPage.html")||talk||t.contains("/repair.html")||t.contains("/notice.html");
         boolean workerPage = t.contains("/workerPage.html");
