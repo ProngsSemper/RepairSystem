@@ -14,6 +14,10 @@
         <filter-name>RequestBodyFilter</filter-name>
         <filter-class>com.repairsys.filter.RequestBodyFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>SignFilter</filter-name>
+        <filter-class>com.repairsys.filter.SignFilter</filter-class>
+    </filter>
 
 
     <filter-mapping>
@@ -24,6 +28,16 @@
         <filter-name>RequestBodyFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+
+    <filter-mapping>
+        <filter-name>SignFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+
 
 
     <welcome-file-list>

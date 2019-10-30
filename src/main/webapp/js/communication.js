@@ -4,8 +4,7 @@ var button=document.getElementsByClassName("stuSend")[0]
 //监听发送按钮点击事件
 $("body").delegate(".stuSend","click",function(){
     sendMsg();
-    // launch();
-    // fillGreen("44ddddddddddddd44");
+
 });
 
 function launch() {
@@ -124,9 +123,6 @@ function sendMsg() {
         // "target":$("#target").val()
     };
 
-    // alert(msg.msg);
-    // fillGreen(123);
-    // fillGreen("dddddddddddddd");
     var pack = JSON.stringify(msg);
     ws.send(pack);
     fillGreen("我: "+msg.msg);
