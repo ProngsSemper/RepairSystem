@@ -3,7 +3,9 @@ var sectArea=document.getElementsByClassName("seatArea")[0];
 var button=document.getElementsByClassName("stuSend")[0]
 //监听发送按钮点击事件
 $("body").delegate(".stuSend","click",function(){
-    launch();
+    sendMsg();
+    // launch();
+    // fillGreen("44ddddddddddddd44");
 });
 
 function launch() {
@@ -11,13 +13,14 @@ function launch() {
     sectArea.value="";
 }
 
+
 function receiveMsg(msg) {
     $(".contant").append('<div class="line"><div class="bg-white other">'+html_encode(html_decode(sectArea.value))+'</div></div>');
 }
 function html_encode(str) 
 { 
     var s = ""; 
-    if (str.length == 0) return ""; 
+    if (str==undefined||str.length == 0) return "";
     s = str.replace(/&/g, "&amp;"); 
     s = s.replace(/</g, "&lt;"); 
     s = s.replace(/>/g, "&gt;"); 
@@ -31,7 +34,7 @@ function html_encode(str)
 function html_decode(str) 
 { 
     var s = ""; 
-    if (str.length == 0) return ""; 
+    if (str==undefined||str.length == 0) return "..";
     s = str.replace(/&amp;/g, "&"); 
     s = s.replace(/&lt;/g, "<"); 
     s = s.replace(/&gt;/g, ">"); 
@@ -40,12 +43,49 @@ function html_decode(str)
     s = s.replace(/&quot;/g, "\""); 
     s = s.replace(/<br\/>/g, "\n"); 
     return s; 
-} 
+}
 
 
- 
-    console.log(html_decode('&lt;div&gt;123&lt;/div&gt;')); 
-    console.log();
+
+
+/**
+ * @author lyr
+ *
+ * */
+function fillGreen(msg) {
+    var line = $(".line:eq(0)").clone();
+    var child =line.children();
+
+
+    child.html(to_string(msg));
+    line.append(child);
+
+
+    $(".contant").append(line);
+
+}
+
+function fillWhite(msg) {
+    // alert(msg);
+    // alert(msg.msg);
+    var line = $(".line:eq(1)").clone();
+    var child =line.children();
+
+    // var obj = eval('('+msg+')');
+    //转化 为 json字符串
+    child.html(to_string(msg));
+    line.append(child);
+
+
+    $(".contant").append(line);
+}
+
+
+function to_string(str)
+{
+    return html_encode(html_decode(str));
+}
+
 
 
 //开启webSocket
@@ -61,30 +101,39 @@ $(document).ready(function () {
     };
     ws.onopen=function () {
         alert("开启聊天");
+        fillGreen("欢迎来到聊天室");
     };
     ws.onmessage=function (event) {
-        alert("收到消息");
-        alert(event.data);
-        receiveMsg(event.data);
+        alert(event.data.msg);
+        var tmp = event.data;
+        var obj = eval('('+tmp+')');
+        // let str = obj.msg.replace("script","***");
+        fillWhite(obj.msg);
 
     };
     ws.onclose=function () {
-        alert("socket 关闭");
+        alert("无管理员在线,socket 关闭");
     };
 
-    $("#btn").click(function () {
-        var msg = {
-            "msg":$("#msg1").val(),//消息款的信息
-            "sender":$("#sender").val(),
-            "target":$("#target").val()
-        };
-        alert(msg.msg);
-        var pack = JSON.stringify(msg);
-        ws.send(pack);
-    });
+
 });
 
+function sendMsg() {
+    var msg = {
+        "msg":$("#msg1").val(),//消息款的信息
+        // "target":$("#target").val()
+    };
 
+    // alert(msg.msg);
+    // fillGreen(123);
+    // fillGreen("dddddddddddddd");
+    var pack = JSON.stringify(msg);
+    ws.send(pack);
+    fillGreen("我: "+msg.msg);
+    // fillWhite(msg);
+    sectArea.value="";
+
+}
 
 
 

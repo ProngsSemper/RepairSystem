@@ -7,9 +7,20 @@
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/m_test.js"></script>
 
-
 </head>
 <body>
+123
+<script>
+    window.onload=function () {
+        // alert(12);
+        var t = "{'msg':'123'}";
+        // alert(t);
+        var obj = eval('('+t+')');
+        alert(obj.msg);
+
+
+    }
+</script>
 
 </body>
 </html>
