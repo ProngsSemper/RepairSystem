@@ -104,6 +104,7 @@ $(document).ready(function () {
     };
     ws.onmessage=function (event) {
         // alert(event.data.msg);
+
         var tmp = event.data;
         var obj = eval('('+tmp+')');
         // let str = obj.msg.replace("script","***");
@@ -125,7 +126,7 @@ function sendMsg() {
 
     var pack = JSON.stringify(msg);
     ws.send(pack);
-    fillGreen("我: "+msg.msg);
+    fillGreen(""+msg.msg);
     // fillWhite(msg);
     sectArea.value="";
 

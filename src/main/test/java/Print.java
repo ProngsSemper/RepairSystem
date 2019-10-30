@@ -1,6 +1,7 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
+import com.repairsys.controller.administrator.AdminLoginServlet;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
@@ -12,6 +13,9 @@ import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +28,17 @@ import java.util.UUID;
  */
 
 public class Print {
+    @Test
+    public void getP() throws IOException {
+
+        String file_Path = new File(AdminLoginServlet.class.getResource("/").getPath()).getParent()+"\\WEB-INFO\\badWords.txt";
+        System.out.println(file_Path);
+
+    }
+
+
+
+
     @Test
     public void printSome() {
         Calendar c = Calendar.getInstance();

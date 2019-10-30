@@ -23,12 +23,16 @@ navImg[0].onclick = function () {
     bigBox.style.display = "block";
     finish.style.display = "none";
     search.style.display = "block";
+    $(".page").html("");
+    getMsg(1)
 }
 navImg[1].onclick = function () {
     bigBox.style.display = "none";
     finish.style.display = "block";
     operatrContant.style.display = "none";
     search.style.display = "block";
+    $(".page").html("");
+    gerfinishOrder(1)
 }
 //获得数据
 getMsg(1);
@@ -350,3 +354,61 @@ $.ajax({
         alert(xhr.status);
     }
 })
+//获得工人完成的数据
+getWorkerFinishOrder(1);
+function getWorkerFinishOrder(pageCount){
+    $.ajax({
+        type:"POST",
+        dataType:"json",
+        url:"/worker/complete/form",
+        data:JSON.stringify({
+            "page":pageCount,
+            "limit":10,
+        }),
+        success:function(msg){
+            if(msg.code==200){
+            var data=msg.data;
+            // alert(msg.size);
+            var page = $(".page");
+            // $(".page").html("");
+            $(".finishtableBox").html("");
+            var data = msg.data;
+            console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
+                '<div class="formId">报修单号</div>' +
+                '<div class="formNumber">学号</div>' +
+                '<div class="adress">地址</div>' +
+                '<div class="contant">内容</div>' +
+                '<div class="operate">状态</div>' +
+                '</div>')
+            // alert(2);
+            for (var i = 0; i < msg.size; i++) {
+                $(".finishtableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="contant">' + data[i].formMsg + '</div>' + '<div class="operate">已完成</div>')
+                if (i % 2 == 0) {
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
+            }
+
+            }
+        },    
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
