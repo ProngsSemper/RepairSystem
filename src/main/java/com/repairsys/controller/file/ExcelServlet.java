@@ -51,7 +51,7 @@ public class ExcelServlet extends BaseServlet {
 
         ExcelServiceImpl service = ExcelServiceImpl.getInstance();
         service.exportAll(excel);
-        if(excel.getPaths().size()>0)
+        if(excel.getPaths()!=null&&excel.getPaths().size()>0)
         {
             service.exportZipFile(request.getServletContext().getRealPath("/upload/zip/").replaceAll("\\\\", "/") + TimeUtil.getCurTime() + ".zip",
                     TimeUtil.getCurTime(),

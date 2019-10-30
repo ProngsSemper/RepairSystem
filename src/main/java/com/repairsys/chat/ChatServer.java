@@ -116,6 +116,7 @@ public class ChatServer {
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
+        logger.info("聊天消息：{}",message);
 
         // System.out.println("客户端说：" + message);
         JSONObject jsonObject = JSONObject.parseObject(message);

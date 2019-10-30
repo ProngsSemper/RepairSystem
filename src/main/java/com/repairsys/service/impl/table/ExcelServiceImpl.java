@@ -122,6 +122,11 @@ public final class ExcelServiceImpl implements ExcelService {
         }
         //注意，下面的代码，请不要调换上下位置，不然就是一堆bug
         exportOneByOne(result);
+        Excel e = (Excel) result;
+        if(e.getPaths()==null||e.getPaths().size()<=0)
+        {
+            return e;
+        }
         exportTable(result);
         return result;
     }

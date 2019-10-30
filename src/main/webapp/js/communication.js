@@ -7,11 +7,13 @@ $("body").delegate(".stuSend","click",function(){
 });
 
 function launch() {
-    $(".contant").append('<div class="line"><div class="bg-green own">'+html_encode(html_decode(sectArea.value))+'</div></div>')
+    $(".contant").append('<div class="line"><div class="bg-green own">'+html_encode(html_decode(sectArea.value))+'</div></div>');
     sectArea.value="";
 }
 
-
+function receiveMsg(msg) {
+    $(".contant").append('<div class="line"><div class="bg-white other">'+html_encode(html_decode(sectArea.value))+'</div></div>');
+}
 function html_encode(str) 
 { 
     var s = ""; 
@@ -50,7 +52,10 @@ function html_decode(str)
 
 
 $(document).ready(function () {
-    ws = new WebSocket("ws://localhost/chat");
+    var url_t = getBasePath2();
+    var url = "ws://"+url_t+"chat";
+    // alert(url);
+    ws = new WebSocket(url);
     ws.onerror = function () {
         alert("出现错误");
     };
@@ -60,6 +65,7 @@ $(document).ready(function () {
     ws.onmessage=function (event) {
         alert("收到消息");
         alert(event.data);
+        receiveMsg(event.data);
 
     };
     ws.onclose=function () {
@@ -72,6 +78,7 @@ $(document).ready(function () {
             "sender":$("#sender").val(),
             "target":$("#target").val()
         };
+        alert(msg.msg);
         var pack = JSON.stringify(msg);
         ws.send(pack);
     });
