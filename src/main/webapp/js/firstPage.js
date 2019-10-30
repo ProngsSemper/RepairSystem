@@ -147,7 +147,7 @@ function gerRepairOrder(pageCount){
         url: "/student/incomplete/history/form",
         dataType: "json",
         data: JSON.stringify({
-            "page":pageCount,
+            "page":parseInt(pageCount),
             "limit":3,
         }),
         success:function(msg){
@@ -221,7 +221,7 @@ function insureFinish(formId){
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
     formId = $(this).parent().attr("formid");
-    alert(formId);
+    // alert(formId);
     insureFinish(formId);
     gerRepairOrder(page);
 });
@@ -326,7 +326,7 @@ function gerfinishOrder(pageCount){
         url: "/student/complete/history",
         dataType: "json",
         data: JSON.stringify({
-            "page":pageCount,
+            "page":parseInt(pageCount),
             "limit":3,
         }),
         success:function(msg){

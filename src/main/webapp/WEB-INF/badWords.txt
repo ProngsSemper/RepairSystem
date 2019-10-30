@@ -10,7 +10,6 @@ update
 insert
 exec
 <>
-18禁
 rm
 rf
 sudo
