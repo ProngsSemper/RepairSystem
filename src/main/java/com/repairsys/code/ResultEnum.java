@@ -147,7 +147,7 @@ public enum ResultEnum {
     /**
      * 没有查询到相关表单
      */
-    GET_EVALUATION_FAILED(401, "暂无评价"),
+    GET_EVALUATION_FAILED(401, "暂无"),
 
     /**
      * @author Prongs
