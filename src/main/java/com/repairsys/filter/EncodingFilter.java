@@ -20,7 +20,7 @@ public class EncodingFilter implements Filter {
     /**
      * 默认需要放行的资源
      */
-    private static final String[] ARRAY = {"/", ".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
+    private static final String[] ARRAY = {"/", ".png", ".jpg", ".css", ".js", ".gif", ".ico"};
     private static final String[] UI = {"index", "?", "woff", "limit", ".html", ".jsp", "img"};
     private static final String HTML = "htm";
     private static final Logger logger = LoggerFactory.getLogger(EncodingFilter.class);
@@ -37,6 +37,7 @@ public class EncodingFilter implements Filter {
             if (t.endsWith(i)) {
                 logger.debug("放行静态资源 {}", t);
                 // req.setAttribute("pass",true);
+                request.setAttribute("pass",true);
                 chain.doFilter(req, resp);
                 return;
             }
