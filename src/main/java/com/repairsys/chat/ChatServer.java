@@ -1,20 +1,26 @@
 package com.repairsys.chat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.bean.vo.Result;
 import com.repairsys.chat.bean.Admin;
 import com.repairsys.chat.bean.User;
+import com.repairsys.code.ResultEnum;
+import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 //todo:本聊天室已经完成了单聊功能，但是前段页面还需完善
+
 /**
  * @Author lyr
  * @create 2019/10/26 14:35
@@ -116,15 +122,25 @@ public class ChatServer {
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
-        logger.info("聊天消息：{}",message);
-
-        // System.out.println("客户端说：" + message);
-        JSONObject jsonObject = JSONObject.parseObject(message);
-        // send(jsonObject, session);
-    //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
-        broadCast(jsonObject);
-
-
+        logger.info("聊天消息：{}", message);
+//        TODO:敏感词过滤
+//        String filePath = new File(ChatServer.class.getResource("/").getPath()).getParent() + "\\badWords.txt";
+//        System.out.println(filePath);
+//        SensitiveWordFilter filter = new SensitiveWordFilter(filePath);
+//        boolean b = filter.isContainSensitiveWord(message, 1);
+//        Set<String> set = filter.getSensitiveWord(message, 1);
+//        Result result = new Result<>();
+//        if (b) {
+//            result.setResult(ResultEnum.RELEASE_SENSITIVELY);
+//            result.setDesc("所含敏感词为：" + set);
+//            logger.debug("发布失败{}", result);
+//        }else {
+            // System.out.println("客户端说：" + message);
+            JSONObject jsonObject = JSONObject.parseObject(message);
+            // send(jsonObject, session);
+            //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
+            broadCast(jsonObject);
+//        }
 
     }
 
@@ -191,15 +207,12 @@ public class ChatServer {
         }
     }
 
-    public void broadCast(JSONObject jsonObject)
-    {
-        if(isAdmin)
-        {
-            for(Map.Entry<String,User> entry:MAP.entrySet())
-            {
+    public void broadCast(JSONObject jsonObject) {
+        if (isAdmin) {
+            for (Map.Entry<String, User> entry : MAP.entrySet()) {
                 entry.getValue().receive(jsonObject);
             }
-        }else{
+        } else {
             ADMIN_MAP.get(this.target).receive(jsonObject);
 
         }

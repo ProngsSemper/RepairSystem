@@ -25,6 +25,9 @@ $("body").delegate(".page>span", "click", function () {
     if(item[0].style.display=="block")
     {
         getMsg(number);
+        if(searchAdress!="全部"){
+            searchAdress(location,number);
+        }
     }
     else{
         getFinfishMsg(number);
@@ -43,7 +46,7 @@ $(document).ready(function () {
     //监听点击处理按钮
     $("body").delegate(".page>span", "click", function () {
         var number = $(this).html();
-        getData(number);
+        // getData(number);
         $(this).addClass("cur");
         $(this).siblings().removeClass("cur");
     });
@@ -310,7 +313,7 @@ $("body").delegate(".del","click",function () {
         delOrder(formId);
     }
 
-    getMsg(1);
+    getMsg(number);
 
 })
 //删除报修订单
@@ -418,7 +421,6 @@ $.ajax({
 
     success:function(msg){
 
-
         if(msg.code==200)
         {
             p = msg;
@@ -436,26 +438,81 @@ $.ajax({
 
             }
         }
-
-
-
-        // if(msg.code==200){
-        //     paths=msg.paths;
-        //     $(".excelBox").append('<a href="'+paths.木工3+'"download="'+paths.木工3.split("/")[9]+'">'+paths.木工3+'</a>');
-        //     $(".excelBox").append('<a href="'+paths.木工4+'"download="'+paths.木工4.split("/")[9]+'">'+paths.木工4+'</a>');
-        //     $(".excelBox").append('<a href="'+paths.水工1+'"download="'+paths.水工1.split("/")[9]+'">'+paths.水工1+'</a>');
-        //     $(".excelBox").append('<a href="'+paths.所有人+'"download="'+paths.所有人.split("/")[9]+'">'+paths.所有人+'</a>');
-        //     $(".excelBox").append('<a href="'+paths.压缩包+'"download="'+paths.压缩包.split("/")[8]+'">'+paths.压缩包+'</a>');
-        // }
     },
     error:function(xhr){
         alert(xhr.status);
     }
 });
-// var  paths={
-//     "木工3": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26木工3.xls",
-//     "木工4": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26木工4.xls",
-//     "水工1": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26水工1.xls",
-//     "所有人": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/excel/2019-10-26/2019-10-26_all_.xls",
-//     "压缩包": "F:/算法/我的团队项目/p1/target/RepairSystem/upload/zip/2019-10-26.zip"
-// }
+//南苑北苑全部的切换
+searchAdress="全部"
+$("body").delegate(".Bigadress>a","click",function(){
+    searchAdress=$(this).html();
+    $(".page").html("");
+    if(searchAdress=="北苑" ||searchAdress=="南苑"){
+        searchSouthOrNorth(searchAdress,1)
+    }
+    else{
+        getMsg(1);
+    }
+    $(this).addClass("chosen");
+    $(this).siblings().removeClass("chosen");
+})
+//根据南北苑查询
+function searchSouthOrNorth(location,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/incomplete/location",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "location": location,
+            "page": parseInt(page),
+            limit:"10"
+        }),
+        success:function(msg){
+            // alert(msg.size);
+            var page = $(".page");
+            var table = $(".repairItem");
+            // $(".page").html("");
+            $(".repairItem").html("");
+            var data = msg.data;
+            // console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
+            // alert(2);
+            for (var i = 0; i < msg.size; i++) {
+
+                var line = data[i];
+
+
+                var row = $('<tr class="row"></tr>');
+                var table = $(".repairItem");
+
+                var colNumber = $('<td class="col">' + data[i].stuId + '</td>');
+                var colAdress = $('<td class="col">' + line.room + '</td>');
+
+                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
+
+                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
+
+                //有bug,需要检查
+                table.append(row);
+
+                row.append(colNumber, colAdress, colContant, colOperate);
+                $(".row").eq(i+1).attr("formId", line.formId);
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+

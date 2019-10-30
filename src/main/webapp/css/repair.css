@@ -82,7 +82,7 @@ body{
     width: 250px;
     height: 700px;
     background: #8e0b02;
-    background-image: url(../img/Ã¥â€ºÂ¾Ã¥Â±â€š\ 9.png);
+    background-image: url(../img/图层\ 9.png);
     background-position: left bottom;
     background-repeat: no-repeat;
     background-size: 80%;
@@ -199,7 +199,7 @@ body{
     margin: 0 auto;
     width: 1010px;
     height: 500px;
-    background-image: url(../img/Ã¨Æ’Å’Ã¦â„¢Â¯Ã¥â€ºÂ¾-Ã¦Â³Â¢Ã¦ÂµÂª.png);
+    background-image: url(../img/背景图-波浪.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -540,6 +540,7 @@ select{
     background-image: url(../img/excel.png);
     background-size: contain;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 .excelBox{
     display: none;
@@ -551,11 +552,9 @@ select{
     height: 200px;
     background:#ffffffdb;
     z-index: 4;
-    transition: all 3s;
 }
 .excelBigbox:hover .excelBox{
     display: block;
-    /*transition: all 3s;*/
 }
 .excelBox a{
     display: block;
