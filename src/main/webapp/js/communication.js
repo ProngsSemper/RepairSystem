@@ -104,7 +104,7 @@ $(document).ready(function () {
         fillGreen("欢迎来到聊天室");
     };
     ws.onmessage=function (event) {
-        alert(event.data.msg);
+        // alert(event.data.msg);
         var tmp = event.data;
         var obj = eval('('+tmp+')');
         // let str = obj.msg.replace("script","***");
