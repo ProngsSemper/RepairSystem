@@ -470,23 +470,25 @@ $.ajax({
     }
 })
 //显示略所图
-function previewFile() {
-    // 通过标签选择器获取HTML元素
-    var preview = document.querySelector('.saveImg>img');
-    var file = document.querySelector('input[type=file]').files[0];
-    // Js内置文件流
-    var reader = new FileReader();
-
-    // 更新img标签的src属性为图片的本地路径，就可以显示了
-    reader.onloadend = function () {
-        preview.src = reader.result;
-    }
-
-    // 图片文件不空就显示
-    if (file) {
-        reader.readAsDataURL(file);
-    } else {
-        // 图片文件是空的
-        preview.src = "";
+var input=document.getElementById("inputphoto");
+	// 当用户上传时触发事件
+input.onchange=function(){
+    readFile(this);
+}
+//处理图片并添加都dom中的函数
+var readFile=function(obj){
+    // 获取input里面的文件组
+    var fileList=obj.files;
+    //对文件组进行遍历，可以到控制台打印出fileList去看看
+    for(var i=0;i<fileList.length;i++){
+        var reader= new FileReader();
+        reader.readAsDataURL(fileList[i]);
+            // 当文件读取成功时执行的函数
+        reader.onload=function(e){
+            img=document.createElement('img');
+            img.src=this.result;
+            $(".saveImg").append(img);
+        }
     }
 }
+
