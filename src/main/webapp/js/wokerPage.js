@@ -308,3 +308,45 @@ $("body").delegate(".returntable", "click", function () {
     getMsg(1);
     returntable.style.display="none";
 });
+//监听评价按钮里的×
+var historyNotice=document.getElementsByClassName("historyNotice")[0];
+$("body").delegate(".history-cha", "click", function () {
+    historyNotice.style.display="none";
+});
+//监听评价点击
+$("body").delegate(".percentage", "click", function () {
+    historyNotice.style.display="block";
+});
+//获得工人好评率
+$.ajax({
+    type:"POST",
+    dataType:"json",
+    url:"/worker/evaluation",
+    success:function(msg){
+        if(msg.code==200){
+            $(".percentage").html(msg.data);
+        }
+    },    
+    error:function(xhr){
+        alert(xhr.status);
+    }
+})
+//获得工人所有评价
+$.ajax({
+    type:"POST",
+    dataType:"json",
+    url:"/worker/evaluation/detail",
+    success:function(msg){
+        console.log(msg)
+        if(msg.code==200){
+            var data=msg.data;
+            for(var i=0;i<data.length;i++){
+                $(".historyContant").append('<div class="historyInside"></div>');
+                $(".historyInside").eq(i).append('<div class="boardMsg">'+data[i].msg+'</div>');
+            }
+        }
+    },    
+    error:function(xhr){
+        alert(xhr.status);
+    }
+})

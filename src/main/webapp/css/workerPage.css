@@ -125,7 +125,7 @@ option{
     border-color: transparent;
     background-color: rgba(128, 128, 128, .5);
     color: inherit;
-
+    cursor: pointer;
 }
 .searchBox button:focus{
     outline:none;
@@ -205,8 +205,10 @@ option{
 }
 .searchBox{
     position: relative;
+    display: inline-block;
     top: 20px;
     left: 100px;
+    width: 530px;
 }
 .tableBox{
     margin: 0 auto;
@@ -339,11 +341,118 @@ button:focus{
 .returntable{
     display: none;
     position: absolute;
-    bottom: 0;
-    right: 100px;
     width: 50px;
     height: 50px;
-    background-image: url(../img/icon-fanhui.png);
+    background-image: url(../img/fanhui.png);
     background-size: contain;
-    transform: rotate(180deg);
+}
+.bye{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/bye.png);
+    background-size: contain;
+    cursor: pointer;
+}
+.firstComment{
+    display: inline-block;
+    width: 150px;
+    height: 100px;
+    right: 166px;
+    position: absolute;
+    /* background: #000; */
+}
+.comment-tit{
+    display: block;
+    /* padding: 10px; */
+    margin: 5px;
+    color: #333;
+    font-size: 20px;
+}
+.percentage{
+    text-align: center;
+    font-size: 40px;
+    color: #ff0000;
+    cursor: pointer;
+}
+.historyNotice{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.54);
+    z-index: 10;
+}
+.historyBox{
+    position: relative;
+    /* top: 50%; */
+    /* margin-top: -300px; */
+    margin: 50px auto;
+    width: 800px;
+    height: 570px;
+    background: #ffffffd9;
+}
+.history-cha{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/cha.png);
+    background-size: contain;
+    cursor: pointer;
+}
+.history-tit{
+    display: block;
+    /* position: absolute;
+    top: 20px; */
+    padding: 20px 0;
+    margin: 0px 0 0 20px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #333;
+}
+.historyContant{
+    margin: 0 auto 20px;
+    width: 700px;
+    height: 420px;
+    /* background: #000; */
+    overflow: auto;
+    background-image: url(../img/excel.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.history-page{
+    float: right;
+    margin-right: 100px;
+}
+.history-Number{
+    background: seagreen;
+    color: #fff;
+    padding: 0px 5px;
+    font-size: 20px;
+    margin: 5px;
+}
+.boardMsg{
+    display: inline-block;
+    width: 680px;
+    padding: 0 10px;
+    text-align: center;
+    line-height: 30px;
+    min-height: 30px;
+}
+.his-date{
+    display: inline-block;
+    width: 170px;
+    text-align: center;
+    line-height: 30px;
+    min-height: 30px;
+    /* height: 300px; */
+}
+.historyInside{
+    /* background: #eee; */
+    border-bottom: 1px solid #888;
+    margin: 10px 0;
 }

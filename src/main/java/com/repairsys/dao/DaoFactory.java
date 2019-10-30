@@ -1,5 +1,6 @@
 package com.repairsys.dao;
 
+import com.repairsys.dao.feedback.FeedbackDaoImpl;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
@@ -34,6 +35,10 @@ public class DaoFactory {
      * 负责处理学生对工人详细评价的实现类
      */
     private static EvaluationDao Evaluation_DAO = EvaluationDaoImpl.getInstance();
+    /**
+     * 负责处理学留言反馈的实现类
+     */
+    private static FeedbackDao Feedback_DAO = FeedbackDaoImpl.getInstance();
 
     public static AdminDao getAdminDao() {
 
@@ -54,6 +59,10 @@ public class DaoFactory {
 
     public static EvaluationDao getEvaluationDao() {
         return Evaluation_DAO;
+    }
+
+    public static FeedbackDao getFeedbackDao() {
+        return Feedback_DAO;
     }
 
 }

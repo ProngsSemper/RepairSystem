@@ -176,8 +176,13 @@ public enum ResultEnum {
 
     RELEASE_FAILED(401, "公告发布失败"),
 
-    RELEASE_SENSITIVELY(400, "公告中含有敏感词！公告发布失败！");
+    RELEASE_SENSITIVELY(400, "公告中含有敏感词！公告发布失败！"),
 
+    FEEDBACK_SUCCESSFULLY(200, "留言反馈成功"),
+
+    FEEDBACK_FAILED(401, "留言反馈失败"),
+
+    FEEDBACK_SENSITIVELY(400, "留言反馈中含有敏感词！留言反馈失败！");
     /**
      * 状态码   code
      */

@@ -221,7 +221,7 @@ function insureFinish(formId){
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
     formId = $(this).parent().attr("formid");
-    // alert(formId);
+    alert(formId);
     insureFinish(formId);
     gerRepairOrder(page);
 });
@@ -469,3 +469,24 @@ $.ajax({
         alert(xhr.status);
     }
 })
+//显示略所图
+function previewFile() {
+    // 通过标签选择器获取HTML元素
+    var preview = document.querySelector('.saveImg>img');
+    var file = document.querySelector('input[type=file]').files[0];
+    // Js内置文件流
+    var reader = new FileReader();
+
+    // 更新img标签的src属性为图片的本地路径，就可以显示了
+    reader.onloadend = function () {
+        preview.src = reader.result;
+    }
+
+    // 图片文件不空就显示
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        // 图片文件是空的
+        preview.src = "";
+    }
+}

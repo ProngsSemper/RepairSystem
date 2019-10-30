@@ -691,7 +691,7 @@ body{
     position: absolute;
     bottom: 0px;
     /* right: 90px; */
-    /* opacity: 0; */
+    opacity: 0;
     left: 140px;
     width: 202px;
     height: 40px;
@@ -702,8 +702,9 @@ body{
     width: 50px;
     height: 50px;
     position: absolute;
-    bottom: 10px;
-    right: 90px;
+    bottom: 6px;
+    right: 300px;
+    cursor: pointer;
 }
 .history{
     position: absolute;
@@ -772,7 +773,7 @@ body{
 }
 .boardMsg{
     display: inline-block;
-    width: 460px;
+    width: 420px;
     padding: 0 10px;
     text-align: left;
     line-height: 30px;
@@ -790,4 +791,16 @@ body{
     /* background: #eee; */
     border-bottom: 1px solid #888;
     margin: 10px 0;
+}
+.saveImg{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    /* background: #000; */
+    z-index: 20;
+    bottom: 5px;
+    right: 90px;
+}
+.saveImg img{
+    height: 50px;
 }

@@ -59,4 +59,8 @@ public final class StringUtils {
         return wName != null && wName.length() >= 1;
     }
 
+    public static boolean getMsg(String msg) {
+        return msg != null && msg.length() >= 1;
+    }
+
 }

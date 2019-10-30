@@ -7,6 +7,7 @@ import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ExceptionEnum;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
+import com.repairsys.dao.feedback.FeedbackDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
@@ -17,6 +18,7 @@ import com.repairsys.service.StudentService;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
 import com.repairsys.util.net.Postman;
 import com.repairsys.util.string.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -280,6 +282,18 @@ public final class StudentServiceImpl implements StudentService {
         }
         result.setResult(ResultEnum.EVALUATE_SUCCESSFULLY);
         result.setData(true);
+        return result;
+    }
+
+    public Result createFeedback(String stuId, String stuName, String stuPhone, String msg) {
+        Result result = new Result();
+        if (!StringUtils.getMsg(msg)){
+            result.setResult(ResultEnum.FEEDBACK_FAILED);
+        }else {
+            FeedbackDaoImpl feedbackDao = (FeedbackDaoImpl) DaoFactory.getFeedbackDao();
+            feedbackDao.createFeedback(stuId, stuName, stuPhone, msg);
+            result.setResult(ResultEnum.FEEDBACK_SUCCESSFULLY);
+        }
         return result;
     }
 }
