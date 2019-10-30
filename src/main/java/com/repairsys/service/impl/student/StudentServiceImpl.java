@@ -285,8 +285,18 @@ public final class StudentServiceImpl implements StudentService {
         return result;
     }
 
+    @Override
     public Result createFeedback(String stuId, String stuName, String stuPhone, String msg) {
         Result result = new Result();
+        if (!StringUtils.getMsg(stuId)){
+            stuId="匿名";
+        }
+        if (!StringUtils.getMsg(stuName)){
+            stuName="匿名";
+        }
+        if (!StringUtils.getMsg(stuPhone)){
+            stuPhone="匿名";
+        }
         if (!StringUtils.getMsg(msg)){
             result.setResult(ResultEnum.FEEDBACK_FAILED);
         }else {

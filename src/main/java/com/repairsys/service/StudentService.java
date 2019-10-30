@@ -131,4 +131,14 @@ public interface StudentService {
      * @return 布尔值
      */
     Result<Boolean> addEvaluation(String msg, int wKey);
+
+    /**
+     *学生创建反馈
+     * @param stuId 记录学生id
+     * @param stuName 记录学生名字
+     * @param stuPhone 记录学生电话
+     * @param msg 记录学生反馈信息
+     * @return 相应状态码
+     */
+    Result createFeedback(String stuId, String stuName, String stuPhone, String msg);
 }
