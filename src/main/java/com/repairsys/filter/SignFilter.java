@@ -79,6 +79,7 @@ public class SignFilter implements Filter {
             chain.doFilter(req, resp);
 
         }else{
+            //这个代码很挫，别怪我
             logger.info("拦截请求");
             request.getRequestDispatcher("login.html").forward(request,resp);
         }
