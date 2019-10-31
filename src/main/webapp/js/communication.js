@@ -125,6 +125,10 @@ function sendMsg() {
         "msg":$("#msg1").val(),//消息款的信息
         // "target":$("#target").val()
     };
+    if(msg.msg.replace(/\s/g,"")==="")
+    {
+        return;
+    }
 
     var pack = JSON.stringify(msg);
     ws.send(pack);
