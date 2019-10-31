@@ -14,10 +14,6 @@ public abstract class TableDao extends BaseDao<ExcelTable> {
         super(ExcelTable.class);
     }
 
-    /**
-     * 管理员导出 工人工作任务的 Excel表
-     * @return 返回 Excel表的数据
-     */
     public abstract List<ExcelTable> getTable();
 
 }
