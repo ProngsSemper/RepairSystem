@@ -1,4 +1,4 @@
-package com.repairsys.dao.feedback;
+package com.repairsys.dao.impl.feedback;
 
 import com.repairsys.bean.entity.Feedback;
 import com.repairsys.dao.BaseDao;

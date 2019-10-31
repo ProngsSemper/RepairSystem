@@ -1,6 +1,6 @@
 package com.repairsys.dao;
 
-import com.repairsys.dao.feedback.FeedbackDaoImpl;
+import com.repairsys.dao.impl.feedback.FeedbackDaoImpl;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
