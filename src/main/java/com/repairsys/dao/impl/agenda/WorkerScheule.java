@@ -356,7 +356,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     /**
      * curday 从0 加到7，创建一个星期的记录
      */
-    private static final String UPDATE_OLD_PERSON_SERVEN_DAY = "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE()+?)";
+    private static final String UPDATE_OLD_PERSON_SERVEN_DAY = "insert into wtime(`wkey`,`curTime`) VALUES(?,DATE_FORMAT(DATE_ADD(NOW(),INTERVAL ? DAY),'%Y-%m-%d'))";
 
     /**
      * @param day
@@ -425,7 +425,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
     }
 
-    private static final String INSERT_NEW_WORKER_TABLE = "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE()+?)";
+    private static final String INSERT_NEW_WORKER_TABLE = "insert into wtime(`wkey`,`curTime`) VALUES(1,DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'))";
 
     private void updateAndInsert(int key, int day) {
         super.updateOne(connection, INSERT_NEW_WORKER_TABLE, key, day);
