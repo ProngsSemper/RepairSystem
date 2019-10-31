@@ -16,11 +16,18 @@
         <!--  不要去掉下面的 characterEncoding= utf-8, 不然数据库记录会乱码       -->
         <property name="jdbcUrl">jdbc:mysql://localhost:3306/repair?characterEncoding=utf8</property>
         <property name="user">root</property>
-        <property name="password">huxi913836</property>
+        <property name="password">422525</property>
         <property name="initialPoolSize">10</property>
         <property name="maxIdleTime">30</property>
         <property name="maxPoolSize">50</property>
         <property name="minPoolSize">10</property>
         <property name="maxStatements">100</property>
+
+        <!-- 自动超时回收，根据最大空闲时间设置，超过maxIdleTime则缓冲池自动清除链接  -->
+        <property name="unreturnedConnectionTimeout">80</property>
+        <!-- 跟踪泄露  -->
+        <property name="debugUnreturnedConnectionStackTraces">true</property>
+
+
     </named-config>
 </c3p0-config>

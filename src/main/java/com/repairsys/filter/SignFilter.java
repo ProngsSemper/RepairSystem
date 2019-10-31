@@ -64,7 +64,7 @@ public class SignFilter implements Filter {
         }
         Object obj2 = session.getAttribute("adminId");
         if (obj2 != null && !("".equals(obj2))) {
-            if (adminPage||t.contains("/admin") || t.contains("/file")) {
+            if (adminPage||t.contains("/admin") || t.contains("/file")||t.contains("/upload")) {
                 b = true;
             }
         }

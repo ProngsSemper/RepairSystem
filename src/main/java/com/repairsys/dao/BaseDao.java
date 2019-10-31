@@ -194,7 +194,7 @@ public abstract class BaseDao<T> {
      */
     protected int getCount(Connection con, String sql, Object... args) {
         try {
-            long count = queryRunner.query(JdbcUtil.getConnection(), sql, numberHandler, args);
+            long count = queryRunner.query(con, sql, numberHandler, args);
             return (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
