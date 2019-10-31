@@ -29,6 +29,7 @@ public final class JdbcUtil {
         Connection conn = null;
         try {
             conn = ds.getConnection();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

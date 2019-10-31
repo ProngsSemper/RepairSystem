@@ -13,7 +13,7 @@ import java.sql.Connection;
  */
 public class FeedbackDaoImpl extends BaseDao<Feedback> implements FeedbackDao {
     private static final FeedbackDaoImpl FEEDBACK_DAO;
-    private final Connection connection = JdbcUtil.getConnection();
+
 
     private static final String CREATE_FEEDBACK = "insert into feedback (stuId,stuName,stuPhone,msg)values(?,?,?,?)";
 
@@ -31,6 +31,6 @@ public class FeedbackDaoImpl extends BaseDao<Feedback> implements FeedbackDao {
 
     @Override
     public void createFeedback(String stuId, String stuName, String stuPhone, String msg) {
-        addOne(connection,CREATE_FEEDBACK,stuId,stuName,stuPhone,msg);
+        addOne(JdbcUtil.getConnection(),CREATE_FEEDBACK,stuId,stuName,stuPhone,msg);
     }
 }

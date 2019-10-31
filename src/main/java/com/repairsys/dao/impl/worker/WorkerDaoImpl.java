@@ -14,7 +14,7 @@ import java.util.List;
  * @create 2019/9/27 10:53
  */
 public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.WorkerDao {
-    private final Connection connection = JdbcUtil.getConnection();
+    // private final Connection com.repairsys.util.db.JdbcUtil.getConnection() = JdbcUtil.getConnection();
 
     private static final WorkerDaoImpl WORKER_DAO = new WorkerDaoImpl();
     private static final String WORKER_REGISTER = "insert into workers (wId,wName,wTel,wPassword,wMail)values(?,?,?,?,?)";
@@ -50,18 +50,18 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
     public Worker login(String wId, String wPassword) {
         String wToken = Md5Util.getMd5(String.valueOf(System.currentTimeMillis()));
-        super.updateOne(connection, TOKEN, wToken, wId);
-        return super.selectOne(connection, WORKER_LOGIN, wId, wPassword);
+        super.updateOne(com.repairsys.util.db.JdbcUtil.getConnection(), TOKEN, wToken, wId);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), WORKER_LOGIN, wId, wPassword);
     }
 
     @Override
     public Worker getToken(String id) {
-        return super.selectOne(connection, GET_TOKEN, id);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_TOKEN, id);
     }
 
     public Worker existToken(String token) {
         String sql = "select * from workers where wToken =?";
-        return super.selectOne(connection, sql, token);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), sql, token);
     }
 
     /**
@@ -73,7 +73,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public boolean updateQueryCode(int queryCode, int formId) {
-        return super.updateOne(connection, UPDATE_QUERYCODE, queryCode, formId);
+        return super.updateOne(com.repairsys.util.db.JdbcUtil.getConnection(), UPDATE_QUERYCODE, queryCode, formId);
     }
 
     /**
@@ -113,7 +113,7 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
      */
     @Override
     public boolean register(String wId, String wName, String wTel, String wPassword, String wMail) {
-        return super.addOne(connection, WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
+        return super.addOne(com.repairsys.util.db.JdbcUtil.getConnection(), WORKER_REGISTER, wId, wName, wTel, wPassword, wMail);
     }
 
     /**
@@ -125,17 +125,17 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
     public List<Worker> fuzzySearchWorkers(String name) {
         String finalSql = SEARCH_WORKERS + name + "%'";
-        return super.selectList(connection, finalSql);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), finalSql);
     }
 
     public List<Worker> fuzzySearchWorkers(String name, int targetPage, int size) {
         String finalSql = SEARCH_WORKERS + name + "%'" + " limit ?,?";
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
-        return super.selectList(connection, finalSql, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), finalSql, ans[0], ans[1]);
     }
 
     public int fuzzySearchWorkersCount(String name) {
-        return super.getCount(connection, GET_WORKER_COUNT);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER_COUNT);
     }
 
     /**
@@ -147,36 +147,36 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     @Override
 
     public Worker getWorkerKeyByName(String workerName) {
-        return super.selectOne(connection, GET_WORKER, workerName);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER, workerName);
     }
 
     @Override
     public Worker getWorkerKeyById(String workerId) {
-        return super.selectOne(connection, GET_WORKER_KEY_BY_ID, workerId);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER_KEY_BY_ID, workerId);
     }
 
     public Worker getWorkerNameById(String workerId) {
-        return super.selectOne(connection, GET_WORKER_NAME_BY_ID, workerId);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER_NAME_BY_ID, workerId);
     }
 
     @Override
     public Worker getWorkerTelByKey(int wKey) {
-        return super.selectOne(connection, GET_WORKER_TEL, wKey);
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER_TEL, wKey);
     }
 
     public int getTotalCount() {
-        return super.getCount(connection, GET_SUM);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), GET_SUM);
     }
 
     public List<Worker> getAllWorkerList() {
-        return super.selectList(connection, GET_WORKER_LIST);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), GET_WORKER_LIST);
     }
 
     private static final String CNT_SQL = "SELECT COUNT(*) FROM form WHERE wKey = ? AND queryCode=1";
 
     @Override
     public int getAllIncompleteCountBywKey(int wKey) {
-        return super.getCount(connection, CNT_SQL, wKey);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), CNT_SQL, wKey);
 
     }
 
@@ -184,17 +184,17 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     public int getAllCompleteCountBywKey(int wKey) {
         String cntSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = " where wKey=? AND queryCode>1";
-        return super.getCount(connection, cntSql.replaceAll("where", rex), wKey, wKey);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), cntSql.replaceAll("where", rex), wKey, wKey);
 
     }
 
     public List<Worker> getList(String sql, Object... obj) {
-        return super.selectList(connection, sql, obj);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, obj);
     }
 
     @Override
     public String getEvaluation(int wKey) {
-        Worker worker = super.selectOne(connection, SELECT_WORKER, wKey);
+        Worker worker = super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), SELECT_WORKER, wKey);
         double good = worker.getGood();
         double mid = worker.getMid();
         double bad = worker.getBad();

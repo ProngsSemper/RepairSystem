@@ -16,7 +16,7 @@ import java.sql.Connection;
 public class DeveloperDao extends BaseDao<Developer> {
     private static final String LOGIN = "select * from supers where `id` =? and `password` = ?";
     private static final String REGISTER = "insert into supers (`id`,`password`) values(?,?)";
-    private final Connection connection = JdbcUtil.getConnection();
+
 
     private DeveloperDao() {
         super(Developer.class);
@@ -32,13 +32,13 @@ public class DeveloperDao extends BaseDao<Developer> {
         String section = StringUtils.getStringMd5(password);
         String pwd = section + section;
 
-        return super.selectOne(connection, LOGIN, id, pwd);
+        return super.selectOne(JdbcUtil.getConnection(), LOGIN, id, pwd);
     }
 
     public boolean register(String id, String password) {
         String section = StringUtils.getStringMd5(password);
         String pwd = section + section;
-        return super.addOne(connection, REGISTER, id, pwd);
+        return super.addOne(JdbcUtil.getConnection(), REGISTER, id, pwd);
     }
 
 }

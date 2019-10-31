@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDao {
     private static final Logger logger = LoggerFactory.getLogger(TableDaoImpl.class);
-    private final Connection connection = JdbcUtil.getConnection();
+    // private final Connection JdbcUtil.getConnection() = JdbcUtil.getConnection();
 
     private static final String[] ASSIGN_NAME = {
             " t9 = ? "
@@ -41,11 +41,11 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
     private static final String GET_ALL_INFO = "select * from wtime";
 
     public List<WTime> getAllWorkerTimeList() {
-        return super.selectList(connection, GET_ALL_INFO);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), GET_ALL_INFO);
     }
 
     public List<WTime> getAllWorkerTimeList(String sql) {
-        return super.selectList(connection, sql);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
     @Deprecated
     @Override
     public List<WTime> getTableList() {
-        return super.selectList(connection, GET_ALL_WTIME);
+        return super.selectList(JdbcUtil.getConnection(), GET_ALL_WTIME);
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
      */
     @Deprecated
     public int[] getSumList() {
-        List<WTime> arr = super.selectList(connection, GET_ALL_WTIME);
+        List<WTime> arr = super.selectList(JdbcUtil.getConnection(), GET_ALL_WTIME);
         int[] res = new int[arr.size()];
         for (int i = 0; i < res.length; ++i) {
             res[i] = arr.get(i).getSum();
@@ -84,7 +84,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
      */
     @Deprecated
     public boolean algoMethod() {
-        List<WTime> arr = super.selectList(connection, GET_ALL_WTIME);
+        List<WTime> arr = super.selectList(JdbcUtil.getConnection(), GET_ALL_WTIME);
         int[] res = new int[arr.size()];
         for (int i = 0; i < res.length; ++i) {
             res[i] = arr.get(i).getSum();
@@ -112,7 +112,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
             }
             finalSql.append("where wKey = " + arr.get(i).getwKey() + " and `curTime`= CURDATE()");
             System.out.println(finalSql.toString());
-            super.updateOne(connection, finalSql.toString(), tmp.toArray());
+            super.updateOne(JdbcUtil.getConnection(), finalSql.toString(), tmp.toArray());
             logger.info(" {} ", tmp);
 
         }
@@ -130,9 +130,9 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
     public void algoMethod2() {
 
         //把昨天的数据库记录查出来
-        List<WTime> arr = super.selectList(connection, GET_YESTERDAY_RECORD_WORKERS);
+        List<WTime> arr = super.selectList(JdbcUtil.getConnection(), GET_YESTERDAY_RECORD_WORKERS);
         //把今天的数据库记录查出来
-        List<WTime> curDayTable = super.selectList(connection, SELECT_CURDAY_RECORD);
+        List<WTime> curDayTable = super.selectList(JdbcUtil.getConnection(), SELECT_CURDAY_RECORD);
         /*
          *
          * 两条记录合并在一起
@@ -171,7 +171,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
             }
             finalSql.append(" where wKey = " + arr.get(i).getwKey() + " and `curTime`= CURDATE() ");
             System.out.println(finalSql.toString());
-            super.updateOne(connection, finalSql.toString(), tmp.toArray());
+            super.updateOne(JdbcUtil.getConnection(), finalSql.toString(), tmp.toArray());
             logger.info(" {} ", tmp);
 
         }
@@ -189,7 +189,7 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
      * 如果检查到数据库的表已经没有更新了，要重新更新一遍
      */
     protected boolean deleteTable() {
-        return super.updateOne(connection, "delete from wtime");
+        return super.updateOne(JdbcUtil.getConnection(), "delete from wtime");
     }
 
     /**

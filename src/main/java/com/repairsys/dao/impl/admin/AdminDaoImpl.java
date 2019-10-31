@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Admin> {
     private static final Logger logger = LoggerFactory.getLogger(AdminDaoImpl.class);
-    private final Connection connection = JdbcUtil.getConnection();
+
 
     private static final AdminDaoImpl ADMIN_DAO;
 
@@ -65,7 +65,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public Admin getById(String id) {
 
-        Connection conn = connection;
+        Connection conn = JdbcUtil.getConnection();
         return super.selectOne(conn, QUERY_ONE);
     }
 
@@ -77,7 +77,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> getAdminInfoList() {
 
-        Connection conn = connection;
+        Connection conn = JdbcUtil.getConnection();
         return super.selectList(conn, QUERY_ALL_ADMIN);
     }
 
@@ -93,20 +93,20 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         String pwd = StringUtils.getStringMd5(password);
         logger.info(id + pwd);
         String adminToken = Md5Util.getMd5(String.valueOf(System.currentTimeMillis()));
-        super.updateOne(connection, TOKEN, adminToken, id);
-        return super.selectOne(connection, LOGIN_FOR_ADMIN, id, pwd);
+        super.updateOne(JdbcUtil.getConnection(), TOKEN, adminToken, id);
+        return super.selectOne(JdbcUtil.getConnection(), LOGIN_FOR_ADMIN, id, pwd);
     }
 
     @Override
     public Admin getToken(String id) {
-        return super.selectOne(connection, GET_TOKEN, id);
+        return super.selectOne(JdbcUtil.getConnection(), GET_TOKEN, id);
     }
 
     //todo: 要看看
     public Admin existsToken(String token) {
         String sql = "select * from administrators where `adminToken` = ?";
         System.out.println(sql);
-        return super.selectOne(connection, sql, token);
+        return super.selectOne(JdbcUtil.getConnection(), sql, token);
 
     }
 
@@ -152,7 +152,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public boolean register(Object... args) {
 
-        Connection conn = connection;
+        Connection conn = JdbcUtil.getConnection();
 
         boolean b = super.addOne(conn, REGISTER, args);
 
@@ -201,18 +201,18 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
 
     @Override
     public void releaseBoard(String board, Timestamp releaseDate) {
-        super.updateOne(connection, UPDATE_BOARD);
-        super.addOne(connection, RELEASE_BOARD, board, releaseDate);
+        super.updateOne(JdbcUtil.getConnection(), UPDATE_BOARD);
+        super.addOne(JdbcUtil.getConnection(), RELEASE_BOARD, board, releaseDate);
     }
 
     @Override
     public Admin queryKey(String adminId) {
-        return super.selectOne(connection, QUERY_KEY_BY_ID, adminId);
+        return super.selectOne(JdbcUtil.getConnection(), QUERY_KEY_BY_ID, adminId);
     }
 
     @Override
     public Admin queryName(String adminId) {
-        return super.selectOne(connection, QUERY_NAME_BY_ID, adminId);
+        return super.selectOne(JdbcUtil.getConnection(), QUERY_NAME_BY_ID, adminId);
     }
 
 
@@ -250,7 +250,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     @Override
     public List<Admin> selectPageList(int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
-        return super.selectList(connection, QUERY_ADMIN_LIST, ans[0], ans[1]);
+        return super.selectList(JdbcUtil.getConnection(), QUERY_ADMIN_LIST, ans[0], ans[1]);
     }
 
     /**
@@ -260,7 +260,7 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
      */
     @Override
     public int selectPageCount() {
-        return super.getCount(connection, QUERY_ADMIN_LIST_COUNT);
+        return super.getCount(JdbcUtil.getConnection(), QUERY_ADMIN_LIST_COUNT);
     }
 
     /**
@@ -302,14 +302,14 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     public int getAllCountByWorkerName(String wName) {
         String cntSql = "select (select count(*) as i from form f where f.wKey in (select w.wkey from workers w where w.wName like '%rep%'))+( select count(*) as j from oldform o where o.wKey in (select w.wkey from workers w where w.wName like '%rep%')) as total";
 
-        return super.getCount(connection, cntSql.replaceAll("rep", wName));
+        return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("rep", wName));
 
     }
 
     @Override
     public int getAllIncompleteCountByAdminKey() {
         String cntSql = "SELECT COUNT(*) FROM form WHERE queryCode=0";
-        return super.getCount(connection, cntSql);
+        return super.getCount(JdbcUtil.getConnection(), cntSql);
 
     }
 
@@ -317,14 +317,14 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
     public int getAllCompleteCount() {
         String cntSql = "select form1.cnt+form2.cnt from (select count(*) cnt from form where) form1,(select count(*) cnt from oldform where) form2";
         String rex = "where queryCode != 0";
-        return super.getCount(connection, cntSql.replaceAll("where", rex));
+        return super.getCount(JdbcUtil.getConnection(), cntSql.replaceAll("where", rex));
 
     }
 
     @Override
     public int getAllCountByWorkerType(String wType) {
         String cntSql = "select (select count(*) as i from form f where f.wType in (select w.wType from workers w where w.wType = ?))+( select count(*) as j from oldform o where o.wType in (select w.wType from workers w where w.wType = ?)) as total";
-        return super.getCount(connection, cntSql, wType, wType);
+        return super.getCount(JdbcUtil.getConnection(), cntSql, wType, wType);
 
     }
 

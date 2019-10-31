@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2019/10/23 19:41
  */
 public class EvaluationDaoImpl extends BaseDao<Evaluation> implements EvaluationDao {
-    private final Connection connection = JdbcUtil.getConnection();
+
     private static final String ADD_EVALUATION = "insert into evaluation (msg,wKey) values (?,?)";
     private static final String GET_EVALUATION = "SELECT msg FROM `evaluation` WHERE wKey = ?";
 
@@ -36,11 +36,11 @@ public class EvaluationDaoImpl extends BaseDao<Evaluation> implements Evaluation
         if ("".equals(msg) || msg == null || wKey == 0) {
             return false;
         }
-        return super.addOne(connection, ADD_EVALUATION, msg, wKey);
+        return super.addOne(JdbcUtil.getConnection(), ADD_EVALUATION, msg, wKey);
     }
 
     @Override
     public List<Evaluation> getMsg(int wKey) {
-        return super.selectList(connection, GET_EVALUATION, wKey);
+        return super.selectList(JdbcUtil.getConnection(), GET_EVALUATION, wKey);
     }
 }

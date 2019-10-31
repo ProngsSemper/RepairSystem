@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class AbstractPageDao<T> extends BaseDao<T> {
     private static final String SELECT_PAGE = "select * from ? limit ?,?";
-    private final Connection connection = JdbcUtil.getConnection();
+    // private final Connection com.repairsys.util.db.JdbcUtil.getConnection() = JdbcUtil.getConnection();
 
     protected AbstractPageDao(Class<T> clazz) {
         super(clazz);
@@ -29,7 +29,7 @@ public abstract class AbstractPageDao<T> extends BaseDao<T> {
      */
     public List<T> getPageList(String sql, Object... args) {
 
-        return super.selectList(connection, sql, args);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, args);
     }
 
     /**
@@ -41,7 +41,7 @@ public abstract class AbstractPageDao<T> extends BaseDao<T> {
     public List<T> getPageList(String sql, int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
 
-        return super.selectList(connection, sql, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, ans[0], ans[1]);
     }
 
     /**

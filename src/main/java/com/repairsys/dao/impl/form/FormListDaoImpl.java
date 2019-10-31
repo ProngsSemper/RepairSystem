@@ -13,7 +13,7 @@ import java.util.List;
  * @create 2019/9/30 18:50
  */
 public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<Form>> {
-    private final Connection connection = JdbcUtil.getConnection();
+    // private final Connection com.repairsys.util.db.JdbcUtil.getConnection() = JdbcUtil.getConnection();
     /**
      * 根据学生的id号码 和 需要查询的表单状态进行查询
      */
@@ -68,7 +68,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public final List<Form> getListById(String stuId, int queryCode, String... formId) {
         if (formId.length == 0) {
 
-            return super.selectList(connection, BASE_QUERY_BY_ID, queryCode, stuId);
+            return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), BASE_QUERY_BY_ID, queryCode, stuId);
         }
         StringBuffer sb = new StringBuffer(BASE_QUERY_BY_ID + " and formId = " + formId[0]);
 
@@ -78,11 +78,11 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
         System.out.println(sb.toString());
 
-        return super.selectList(connection, sb.toString(), queryCode, stuId);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sb.toString(), queryCode, stuId);
     }
 
     public final List<Form> getList(int queryCode) {
-        return super.selectList(connection, BASE_QUERY, queryCode);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), BASE_QUERY, queryCode);
     }
 
     /**
@@ -108,7 +108,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     @Override
     public int getTotalCount() {
         String sql = "select count(*) from form where queryCode<=0";
-        return super.getCount(connection, sql);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
     }
 
     /**
@@ -143,7 +143,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public List<Form> queryAllFormIdByWorkerKey(int wKey, int page, int size) {
         // WorkerDaoImpl.getInstance().
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, SEARCH_WKEY_FORM_LIST, wKey, wKey, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), SEARCH_WKEY_FORM_LIST, wKey, wKey, ans[0], ans[1]);
     }
 
     /**
@@ -194,7 +194,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     public List<Form> selectPageList(String sql, int targetPage, int size) {
         int[] ans = EasyTool.getLimitNumber(targetPage, size);
 
-        return super.selectList(connection, sql, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, ans[0], ans[1]);
         // return null;
     }
 
@@ -206,19 +206,19 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
      */
     @Override
     public int selectPageCount(String sql) {
-        return super.getCount(connection, sql);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
     }
 
     public List<Form> getPageByStudentId(String stuId, int page, int limit) {
         String finalSql = GET_FORM_BY_STUDENT_ID + stuId + "%'" + " limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, finalSql, stuId, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), finalSql, stuId, ans[0], ans[1]);
     }
 
     private static final String GET_STU_ID_COUNT = "select count(*) from form where stuId =?";
 
     public int getPageCountByStudentId(String studentId) {
-        return super.getCount(connection, GET_STU_ID_COUNT, studentId);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), GET_STU_ID_COUNT, studentId);
 
     }
 
@@ -226,17 +226,17 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
         String sql2 = SELECT_OLD_LIST_BY_STUID + studentId + "%' limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, sql2, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql2, ans[0], ans[1]);
     }
 
     public int getIncompleteCountByStudentId(String studentId) {
         String sql = "select form1.cnt from (select count(*) cnt from form where stuId=?) form1";
-        return super.getCount(connection, sql, studentId);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql, studentId);
     }
 
     public int getCompleteCountByStudentId(String studentId) {
         String sql = "select form1.cnt from (select count(*) cnt from oldform where stuId=?) form1";
-        return super.getCount(connection, sql, studentId);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql, studentId);
     }
 
     private static final String STUDENT_GET_INCOMPLETE_BY_STUDENT_ID = "select * from form where stuId =? limit ?,?";
@@ -244,72 +244,72 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
 
     public List<Form> getIncompleteListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, STUDENT_GET_INCOMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), STUDENT_GET_INCOMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
     }
 
     public List<Form> getCompleteListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, STUDENT_GET_COMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), STUDENT_GET_COMPLETE_BY_STUDENT_ID, studentId, ans[0], ans[1]);
     }
 
     public List<Form> workerGetAllIncompleteListByStudentName(String studentName, int wKey, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=1 and wKey=? limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, wKey, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), getAllByStudentName, wKey, ans[0], ans[1]);
     }
 
     public List<Form> adminGetAllIncompleteListByStudentName(String studentName, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode=0 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), getAllByStudentName, ans[0], ans[1]);
     }
 
     public List<Form> adminGetAllCompleteListByStudentName(String studentName, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and queryCode <> 0 UNION select * from oldform where stuName like '%" + studentName + "%' and queryCode <> 0 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), getAllByStudentName, ans[0], ans[1]);
     }
 
     public List<Form> adminGetInCompleteListByLocation(String location, int page, int limit) {
         String getAllByStudentName = "select * from form where room like '%" + location + "%' and queryCode=0  limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), getAllByStudentName, ans[0], ans[1]);
     }
 
     public List<Form> workerGetAllCompleteListByStudentName(String studentName, int wKey, int page, int limit) {
         String getAllByStudentName = "select * from form where stuName like '%" + studentName + "%' and wKey=? and queryCode <> 0 and queryCode <> 1 UNION select * from oldform where stuName like '%" + studentName + "%' and wKey=? and queryCode <> 0 and queryCode <> 1 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
-        return super.selectList(connection, getAllByStudentName, wKey, wKey, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), getAllByStudentName, wKey, wKey, ans[0], ans[1]);
     }
 
     public int getAllAdminIncompleteCountByStudentName(String studentName) {
         String sql = "select form1.cnt from (select count(*) cnt from form where stuName like '%" + studentName + "%' AND queryCode = 0) form1";
-        return super.getCount(connection, sql);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
     }
 
     public int getAllWorkerIncompleteCountByStudentName(String studentName, int wKey) {
         String sql = "select form1.cnt from (select count(*) cnt from form where stuName like '%" + studentName + "%' AND queryCode = 1 AND wKey=?) form1";
-        return super.getCount(connection, sql, wKey);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql, wKey);
     }
 
     public int getAllWorkerCompleteCountByStudentName(String studentName, int wKey) {
         String rex = " where stuName like '%" + studentName + "%' AND wKey=? AND queryCode <> 0 AND queryCode <> 1";
-        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex), wKey, wKey);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where", rex), wKey, wKey);
     }
 
     public int getAllAdminCompleteCountByStudentName(String studentName) {
         String rex = " where stuName like '%" + studentName + "%' AND queryCode <> 0";
-        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex));
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where", rex));
     }
 
     public int getAllAdminIncompleteCountByLocation(String location) {
         String sql = "select form1.cnt from (select count(*) cnt from form where room like '%" + location + "%' AND queryCode = 0) form1";
-        return super.getCount(connection, sql);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
     }
 
     public int getAllCountByStudentId(String studentId) {
         String rex = " where stuId = ?";
-        return super.getCount(connection, COUNT_SQL.replaceAll("where", rex), studentId);
+        return super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where", rex), studentId);
 
     }
 
@@ -317,61 +317,61 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         String sql = FUZZY_SEARCH_WORKER_FORM_LIST + workerName + "%' ) limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, size);
 
-        return super.selectList(connection, sql, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, ans[0], ans[1]);
     }
 
     public List<Form> batchSearchAllFormByWorkerName(String workerName, int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, FUZZY_ALL_FORM.replaceAll("rep", workerName), ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), FUZZY_ALL_FORM.replaceAll("rep", workerName), ans[0], ans[1]);
     }
 
     private static final String GET_BY_ADMIN_KEY = "select adminKey from administrators where adminId = ?";
 
     public int getAdminKeyById(String adminId) {
-        return super.selectOne(connection, GET_BY_ADMIN_KEY, adminId).getAdminKey();
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_BY_ADMIN_KEY, adminId).getAdminKey();
     }
 
     private static final String GET_BY_WID = "select wKey from workers where wId = ?";
 
     public int getWorkerKeyById(String wId) {
-        return super.selectOne(connection, GET_BY_WID, wId).getwKey();
+        return super.selectOne(com.repairsys.util.db.JdbcUtil.getConnection(), GET_BY_WID, wId).getwKey();
     }
 
     public List<Form> adminIncompleteForm(int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
         String sql = ADMIN_INCOMPLETE_FORM;
-        if (!(super.selectList(connection, QUERY_LEVEL).isEmpty())) {
+        if (!(super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), QUERY_LEVEL).isEmpty())) {
             String rex = "ORDER BY LEVEL limit";
             sql = sql.replaceAll("limit", rex);
         }
-        return super.selectList(connection, sql, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql, ans[0], ans[1]);
     }
 
     public List<Form> adminCompleteForm(int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, ADMIN_COMPLETE_FORM, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), ADMIN_COMPLETE_FORM, ans[0], ans[1]);
     }
 
     public List<Form> workerIncompleteForm(String wId, int page, int size) {
         int wKey = getWorkerKeyById(wId);
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, WORKER_INCOMPLETE_FORM, wKey, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), WORKER_INCOMPLETE_FORM, wKey, ans[0], ans[1]);
     }
 
     public List<Form> workerCompleteForm(String wId, int page, int size) {
         int wKey = getWorkerKeyById(wId);
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, WORKER_COMPLETE_FORM, wKey, wKey, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), WORKER_COMPLETE_FORM, wKey, wKey, ans[0], ans[1]);
     }
 
     public List<Form> adminQueryWorkerType(String wType, int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, ADMIN_QUERY_TYPE, wType, wType, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), ADMIN_QUERY_TYPE, wType, wType, ans[0], ans[1]);
     }
 
     public List<Form> studentUndoneForm(String stuId, int page, int size) {
         int[] ans = EasyTool.getLimitNumber(page, size);
-        return super.selectList(connection, STUDENT_UNDONE, stuId, ans[0], ans[1]);
+        return super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), STUDENT_UNDONE, stuId, ans[0], ans[1]);
     }
 
 }

@@ -18,6 +18,7 @@ import com.repairsys.util.time.TimeUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.junit.Test;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -30,6 +31,19 @@ import java.util.List;
  * @create 2019/9/27 10:13
  */
 public class DbTest {
+
+    @Test
+    public void printd()
+    {
+        Connection conn = JdbcUtil.getConnection();
+        System.out.println(conn);
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println(conn);
+    }
 
 
     @Test

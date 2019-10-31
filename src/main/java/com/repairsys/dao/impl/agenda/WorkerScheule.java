@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static Logger logger = LoggerFactory.getLogger(WorkerScheule.class);
-    private final Connection connection = JdbcUtil.getConnection();
+    // private final Connection com.repairsys.util.db.JdbcUtil.getConnection() = JdbcUtil.getConnection();
     private static final String UPDATE_BEGIN = "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
     private static final String DELETE_AFTER = "delete from wTime where `curTime` <> CURDATE()";
     private static final String GET_COUNT_OLD = "select count(*) from wTime where `curTime` <> CURDATE()";
@@ -100,7 +100,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
                     createTable2(7);
                     //由于之前清理表了，不可能小于0，而由于compareTo方法有比较毫秒，也不可能等于0
                     algoMethod2();
-                    super.updateOne(connection, DELETE_BEFORE);
+                    super.updateOne(com.repairsys.util.db.JdbcUtil.getConnection(), DELETE_BEFORE);
                 }
             }
         }
@@ -133,7 +133,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         boolean b = true;
         try {
-            queryRunner.batch(connection, UPDATE_BEGIN, obj);
+            queryRunner.batch(com.repairsys.util.db.JdbcUtil.getConnection(), UPDATE_BEGIN, obj);
             // queryRunner.batch
         } catch (SQLException e) {
             b = false;
@@ -154,7 +154,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         QueryRunner queryRunner = p.getQueryRunner();
         boolean b = true;
         try {
-            queryRunner.update(connection, DELETE_AFTER);
+            queryRunner.update(com.repairsys.util.db.JdbcUtil.getConnection(), DELETE_AFTER);
         } catch (SQLException e) {
             b = false;
             logger.error("严重错误，删除无用信息失败");
@@ -173,7 +173,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     @Override
     public boolean updateAll() {
 
-        int cnt = super.getCount(connection, GET_COUNT_OLD);
+        int cnt = super.getCount(com.repairsys.util.db.JdbcUtil.getConnection(), GET_COUNT_OLD);
         /*
          *
          * 这里是这样的，如果数据库表中发现了有不是当天时间的记录，那么就更新，返回true，更新成功，如果没发现不是当天的记录，说明更新过了，直接返回false
@@ -309,8 +309,8 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         String sql = "update wtime set " + thour + " = " + thour + "+1  where wKey " + " = " + wKey + " and curTime = '" + date + "'";
         System.out.println(sql);
         logger.debug(sql);
-        return super.addOne(connection, sql);
-//        return super.addOne(connection,sql);
+        return super.addOne(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
+//        return super.addOne(com.repairsys.util.db.JdbcUtil.getConnection(),sql);
     }
 
     /**
@@ -333,7 +333,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' and w.wType = '" + wType + "' ORDER BY t" + hour;
         // System.out.println(sql);
         System.out.println(sql);
-        List<WTime> table = super.selectList(connection, sql);
+        List<WTime> table = super.selectList(com.repairsys.util.db.JdbcUtil.getConnection(), sql);
         LinkedList<Worker> carryZero = new LinkedList<>();
         LinkedList<Worker> carry = new LinkedList<>();
         for (WTime i : table) {
@@ -404,7 +404,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         }
         boolean b = true;
         try {
-            queryRunner.batch(connection, UPDATE_OLD_PERSON_SERVEN_DAY, obj);
+            queryRunner.batch(com.repairsys.util.db.JdbcUtil.getConnection(), UPDATE_OLD_PERSON_SERVEN_DAY, obj);
 
         } catch (SQLException e) {
             b = false;
@@ -428,7 +428,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static final String INSERT_NEW_WORKER_TABLE = "insert into wtime(`wkey`,`curTime`) VALUES(1,DATE_FORMAT(DATE_ADD(NOW(),INTERVAL 1 DAY),'%Y-%m-%d'))";
 
     private void updateAndInsert(int key, int day) {
-        super.updateOne(connection, INSERT_NEW_WORKER_TABLE, key, day);
+        super.updateOne(com.repairsys.util.db.JdbcUtil.getConnection(), INSERT_NEW_WORKER_TABLE, key, day);
     }
 
 }
