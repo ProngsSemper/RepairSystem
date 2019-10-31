@@ -16,32 +16,6 @@ $(document).ready(function () {
     getMsg(1);
 });
 
-
-
-    //监听点击页码操作
-$("body").delegate(".page>span", "click", function () {
-    // alert(123);
-    number = $(this).html();
-    if(item[0].style.display=="block")
-    {
-        getMsg(number);
-        if(searchAdress!="全部"){
-            searchAdress(location,number);
-        }
-    }
-    else{
-        getFinfishMsg(number);
-    }
-
-    $(this).addClass("cur");
-    $(this).siblings().removeClass("cur");
-});
-
-
-
-
-
-
 $(document).ready(function () {
     //监听点击处理按钮
     $("body").delegate(".page>span", "click", function () {
@@ -54,6 +28,7 @@ $(document).ready(function () {
     var contant = document.getElementsByClassName("contant")[0];
     var dealOrder = document.getElementsByClassName("dealOrder")[0];
     var visited = false;
+    pageFlag=0;
     $("body").delegate(".col>.deal", "click", function () {
         formId = $(this).parent().parent().attr("formid");
 
@@ -121,7 +96,7 @@ function getMsg(pageCount) {
             // alert(msg.size);
             var page = $(".page");
             var table = $(".repairItem");
-            // $(".page").html("");
+            $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
             // console.log(data);
@@ -353,18 +328,28 @@ var navlist=document.getElementsByClassName("list");
 //
 navlist[0].onclick=function(){
     item[0].style.display="block";
+    pageFlag=0;
     item[1].style.display="none";
     $(".list").eq(0).addClass("cur");
     $(".list").eq(1).removeClass("cur");
     $(".page").html("");
+    $("#queryType").html("");
+    $("#queryType").append('<option value="3">报修单id</option>');
+    $("#queryType").append('<option value="4">学生姓名</option>');
     getMsg(1);
 }
 navlist[1].onclick=function(){
     item[0].style.display="none";
     item[1].style.display="block";
+    pageFlag=1;
     $(".list").eq(1).addClass("cur");
     $(".list").eq(0).removeClass("cur");
     $(".page").html("");
+    $("#queryType").html("");
+    $("#queryType").append('<option value="1">工人名字</option>');
+    $("#queryType").append('<option value="2">工种类型</option>');
+    $("#queryType").append('<option value="3">报修单id</option>');
+    $("#queryType").append('<option value="4">学生姓名</option>');
     getFinfishMsg(1);
 }
 //管理员完成的报修
@@ -420,6 +405,7 @@ $.ajax({
     async: false,
 
     success:function(msg){
+
 
         if(msg.code==200)
         {
@@ -516,3 +502,379 @@ function searchSouthOrNorth(location,page){
     })
 }
 
+//监听搜索
+var queryType=document.getElementById("queryType");
+var searchInput=document.getElementsByClassName("searchInput")[0]
+$("body").delegate("#m_query","click",function(){
+    if(item[0].style.display=="block"){
+        if(searchInput.value!=""){
+            if(queryType.value==3){
+                // alert("id")
+                
+                searchUnfinishId(searchInput.value);
+            }
+            else if(queryType.value==4){
+                alert("姓名")
+                pageFlag=2;
+                searchUnfinishStuName(searchInput.value,1);
+            }
+        }
+        else{
+            alert("请输入内容");
+        }
+    }
+    else{
+        if(searchInput.value!=""){
+            if(queryType.value==1){
+                alert("工人姓名")
+                pageFlag=3;
+                searchFinishwName(searchInput.value,1);
+            }
+            else if(queryType.value==2){
+                alert("工种类型")
+                pageFlag=4;
+                searchFinishwType(searchInput.value,1);
+            }
+            else if(queryType.value==3){
+                alert("报修单id")
+                searchFinishFormId(searchInput.value);
+            }
+            else if(queryType.value==4){
+                alert("学生姓名")
+                pageFlag=5;
+                searchFinishStudName(searchInput.value,1);
+            }
+        }
+        else{
+            alert("请输入内容");
+        }
+    }
+})
+//根据formId查询未完成任务
+function searchUnfinishId(formId){
+    $.ajax({
+        type: "POST",
+        url: "/admin/incomplete/formId",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "formId": formId,
+        }),
+        success:function(msg){
+            // alert(msg.size);
+            var page = $(".page");
+            var table = $(".repairItem");
+            $(".page").html("");
+            $(".repairItem").html("");
+            var data = msg.data;
+            // console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
+            // alert(2);
+
+                var line = data[0];
+
+
+                var row = $('<tr class="row"></tr>');
+                var table = $(".repairItem");
+
+                var colNumber = $('<td class="col">' + data[0].stuId + '</td>');
+                var colAdress = $('<td class="col">' + line.room + '</td>');
+
+                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
+
+                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
+
+                //有bug,需要检查
+                table.append(row);
+
+                row.append(colNumber, colAdress, colContant, colOperate);
+                $(".row").eq(1).attr("formId", line.formId);
+            
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//根据学生姓名查询未完成任务
+function searchUnfinishStuName(stuName,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/incomplete/stuName",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "stuName": stuName,
+            "page": parseInt(page),
+            limit:"10"
+        }),
+        success:function(msg){
+            // alert(msg.size);
+            var page = $(".page");
+            var table = $(".repairItem");
+            $(".page").html("");
+            $(".repairItem").html("");
+            var data = msg.data;
+            // console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
+            // alert(2);
+            for (var i = 0; i < msg.size; i++) {
+
+                var line = data[i];
+
+
+                var row = $('<tr class="row"></tr>');
+                var table = $(".repairItem");
+
+                var colNumber = $('<td class="col">' + data[i].stuId + '</td>');
+                var colAdress = $('<td class="col">' + line.room + '</td>');
+
+                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
+
+                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
+
+                //有bug,需要检查
+                table.append(row);
+
+                row.append(colNumber, colAdress, colContant, colOperate);
+                $(".row").eq(i+1).attr("formId", line.formId);
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//根据学生姓名查询已完成的任务
+function searchFinishStudName(stuName,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/complete/stuName",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "page": page,
+            "stuName": stuName,
+            "limit": 10,
+        }),
+        success: function (msg) {
+            $(".page").html("");
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+            }
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+//根据formId查询已完成任务
+function searchFinishFormId(formId){
+    $.ajax({
+        type: "POST",
+        url: "/admin/complete/formId",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "formId": formId,
+            // "limit": 10,
+        }),
+        success: function (msg) {
+            $(".page").html("");
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                // for (var i = 2; i <= msg.totalPage; i++) {
+                //     page.append('<span class="page-number">' + i + '</span>');
+                // }
+            }
+
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            // for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
+                    '<div class="formNumber">' + data[0].stuId + '</div>' +
+                    '<div class="adress">' + data[0].room + '</div>' +
+                    '<div class="listcontant">' + data[0].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                // if (i % 2 == 0) {
+                    $(".grid-content").eq(1).addClass("bg-purple");
+                // } else {
+                //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                // }
+                $(".grid-content").eq(1).attr("formid", data[i].formId);
+            // }
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+//根据工人名字查询已完成任务
+function searchFinishwName(wName,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/wName",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "wName": wName,
+            "limit": 10,
+            "page":parseInt(page) 
+        }),
+        success: function (msg) {
+            $(".page").html("");
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i+1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i+1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i+1).attr("formid", data[i].formId);
+            }
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+//根据工种查询已完成任务
+function searchFinishwType(wType,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/type/form",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "wType": wType,
+            "limit": 10,
+            "page":parseInt(page) 
+        }),
+        success: function (msg) {
+            $(".page").html("");
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i+1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i+1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i+1).attr("formid", data[i].formId);
+            }
+        },
+        error: function (xhr) {
+            alert(xhr.status);
+        }
+    })
+}
+//监听点击页码操作
+$("body").delegate(".page>span", "click", function () {
+    // alert(123);
+    number = $(this).html();
+   // alert(number);
+    
+    if(pageFlag==0){
+        getMsg(number);
+    }
+    else if(pageFlag==1){
+        getFinfishMsg(number);
+    }
+    else if(pageFlag==2){
+        searchUnfinishStuName(searchInput.value,number);
+    }
+    else if(pageFlag==3){
+        searchFinishwName(searchInput.value,number);
+    }
+    else if(pageFlag==4){
+        searchFinishwType(searchInput.value,number);
+    }
+    else if(pageFlag==5){
+        searchFinishStudName(searchInput.value,number);
+    }
+    $(this).addClass("cur");
+    $(this).siblings().removeClass("cur");
+});
+    
