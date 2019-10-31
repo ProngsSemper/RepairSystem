@@ -123,13 +123,23 @@ public class ChatServer {
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
         logger.info("聊天消息：{}", message);
-//        TODO:敏感词过滤
+        String path = Thread.currentThread().getContextClassLoader().getResource("").toString();
+        path = path.replace('/', '\\');
+        path = path.replace("file:", "");
+        path = path.replace("classes\\", "");
+        path = path.substring(1);
+        System.out.println("敏感词路径：" + path);
+        SensitiveWordFilter filter = new SensitiveWordFilter(path);
+        //检测是否含有敏感词
+        boolean isBadWords = filter.isContainSensitiveWord(message, 1);
+        if (isBadWords) {
+            message = filter.replaceSensitiveWord(message, 1, "*");
+        }
+        JSONObject jsonObject = JSONObject.parseObject(message);
 
-            JSONObject jsonObject = JSONObject.parseObject(message);
-
-            // send(jsonObject, session);
-            //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
-            broadCast(jsonObject);
+        // send(jsonObject, session);
+        //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
+        broadCast(jsonObject);
 //        }
 
     }
@@ -200,11 +210,11 @@ public class ChatServer {
     public void broadCast(JSONObject jsonObject) {
         if (isAdmin) {
             for (Map.Entry<String, User> entry : MAP.entrySet()) {
-                jsonObject.put("sender","管理员 --"+this.userName);
+                jsonObject.put("sender", "管理员 --" + this.userName);
                 entry.getValue().receive(jsonObject);
             }
         } else {
-            jsonObject.put("sender",this.userName);
+            jsonObject.put("sender", this.userName);
 
             ADMIN_MAP.get(this.target).receive(jsonObject);
 
