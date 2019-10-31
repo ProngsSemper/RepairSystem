@@ -222,4 +222,16 @@ public class ChatServer {
 
     }
 
+    @OnError
+    public void onError(Throwable e,Session session)
+    {
+        logger.info("检测到退出连接，关闭连接");
+        try {
+            session.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
 }
