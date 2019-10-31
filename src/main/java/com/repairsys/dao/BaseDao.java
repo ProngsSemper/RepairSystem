@@ -57,7 +57,7 @@ public abstract class BaseDao<T> {
         try {
             res = queryRunner.query(con, sql, this.beanHandler, args);
         } catch (SQLException e) {
-            System.err.println("异常出现了");
+
             e.printStackTrace();
         }
 
@@ -97,16 +97,28 @@ public abstract class BaseDao<T> {
         boolean res = false;
 
         try {
+            con.setAutoCommit(false);
             queryRunner.insert(con, sql, beanHandler, args);
             res = true;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }finally {
+            try {
+                con.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return res;
 
     }
-    // protected boolean updateOne
+
 
     /**
      * 删除一条为 T类型的数据，并回馈结果
@@ -117,11 +129,24 @@ public abstract class BaseDao<T> {
      */
     protected boolean deleteOne(Connection con, String sql) {
         boolean res = false;
+
         try {
+            con.setAutoCommit(false);
             queryRunner.update(con, sql);
             res = true;
         } catch (SQLException e) {
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
+        }finally {
+            try {
+                con.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return res;
     }
@@ -137,10 +162,23 @@ public abstract class BaseDao<T> {
     protected boolean updateOne(Connection con, String sql, Object... args) {
         boolean res = false;
         try {
+            con.setAutoCommit(false);
             queryRunner.update(con, sql, args);
             res = true;
         } catch (SQLException e) {
             e.printStackTrace();
+            try {
+                con.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }finally {
+            try {
+                con.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
         }
         return res;
 

@@ -13,10 +13,13 @@ import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.service.impl.table.ExcelServiceImpl;
+import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.time.TimeUtil;
+import org.apache.commons.dbutils.QueryRunner;
 import org.junit.Test;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -27,6 +30,17 @@ import java.util.List;
  * @create 2019/9/27 10:13
  */
 public class DbTest {
+
+
+    @Test
+    public void getQuery() throws SQLException {
+        QueryRunner r = new QueryRunner();
+        int row = r.update(JdbcUtil.getConnection(),
+                "insert into tes(`name`,`password`,`day`) values('dddtd','dd',CURDATE());");
+
+        System.out.printf("行数:"+row);
+
+    }
 
     @Test
     public void updateI()
