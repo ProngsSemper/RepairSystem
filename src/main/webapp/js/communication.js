@@ -97,6 +97,7 @@ $(document).ready(function () {
     ws = new WebSocket(url);
     ws.onerror = function () {
         alert("出现错误");
+        ws.close();
     };
     ws.onopen=function () {
         alert("开启聊天");
@@ -115,6 +116,7 @@ $(document).ready(function () {
     };
     ws.onclose=function () {
         alert("无管理员在线,socket 关闭");
+        ws.close();
     };
 
 
@@ -138,6 +140,10 @@ function sendMsg() {
 
 }
 
+
+function closeWebSocket() {
+    ws.close();
+}
 
 
 
