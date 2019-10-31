@@ -17,13 +17,15 @@ $("body").delegate('.deal', 'click', function () {
     getFormDetail(formId);
 });
 //监听左侧导航栏点击
+searchFlag=0;
 var navImg = document.getElementsByClassName("navImg");
 var finish = document.getElementsByClassName("finish")[0];
 navImg[0].onclick = function () {
     bigBox.style.display = "block";
     finish.style.display = "none";
     search.style.display = "block";
-    $(".page").html("");
+    // $(".page").html("");
+    searchFlag=0;
     getMsg(1)
 }
 navImg[1].onclick = function () {
@@ -31,7 +33,8 @@ navImg[1].onclick = function () {
     finish.style.display = "block";
     operatrContant.style.display = "none";
     search.style.display = "block";
-    $(".page").html("");
+    // $(".page").html("");
+    searchFlag=1;
     gerfinishOrder(1)
 }
 //获得数据
@@ -50,6 +53,7 @@ function getMsg(pageCount) {
         success: function (msg) {
             var page = $(".page");
             $(".tableBox").html("");
+            $(".page").html("");
             var data = msg.data;
             var b = $('.page').children().length == 0;
 
@@ -215,8 +219,8 @@ function searchFormId(formId) {
 }
 
 function searchStuName(page) {
-    $(".page").html("");
     var stuName = document.getElementsByClassName("searchInput")[0];
+    
     $.ajax({
         type: "POST",
         url: "/worker/incomplete/stuName",
@@ -231,7 +235,7 @@ function searchStuName(page) {
             console.log(msg);
             // alert(msg.size);
             var page = $(".page");
-            // $(".page").html("");
+            $(".page").html("");
             $(".tableBox").html("");
             var data = msg.data;
             // console.log(data);
@@ -279,30 +283,62 @@ var searchContant = document.getElementById("searchContant");
 var formIdInput = document.getElementsByClassName("searchInput")[0];
 var returntable=document.getElementsByClassName("returntable")[0];
 $("body").delegate('.iconSearch', 'click', function () {
-
-    // alert("按钮已点击");
-    if (searchContant.value == "报修单号") {
-        // alert("按报修单号搜索");
-        // alert(formIdInput.value);
-        searchFormId(formIdInput.value);
-        searchFlag = 1
-        returntable.style.display="block";
-    } else if (searchContant.value == "学生姓名") {
-        // alert("按学生姓名搜索");
-        searchStuName(1);
-        searchFlag = 1;
-        returntable.style.display="block";
-    } else {
-        alert("请选择搜索范围");
+    if(operatrContant.style.display=="block"){
+        // alert("按钮已点击");
+        if (searchContant.value == "报修单号") {
+            // alert("按报修单号搜索");
+            // alert(formIdInput.value);
+            searchFormId(formIdInput.value);
+            searchFlag = 2
+            returntable.style.display="block";
+        } else if (searchContant.value == "学生姓名") {
+            // alert("按学生姓名搜索");
+            searchStuName(1);
+            searchFlag = 3;
+            returntable.style.display="block";
+        } else {
+            alert("请选择搜索范围");
+        }
+    }
+    else{
+        if (searchContant.value == "报修单号") {
+            // alert("按报修单号搜索");
+            // alert(formIdInput.value);
+            searchFinishFormId(formIdInput.value);
+            searchFlag = 4
+            returntable.style.display="block";
+        } else if (searchContant.value == "学生姓名") {
+            // alert("按学生姓名搜索");
+            searchFinishstuName(formIdInput.value,1);
+            searchFlag = 5;
+            returntable.style.display="block";
+        } else {
+            alert("请选择搜索范围");
+        }
     }
 });
 //监听点击页码操作
 $("body").delegate(".page>span", "click", function () {
     var number = $(this).html();
-    if (searchFlag == 1) {
-        searchStuName(number);
-    } else {
+    if (searchFlag == 0) {
         getMsg(number);
+    } 
+    else if(searchFlag==1)
+    {
+        gerfinishOrder(number)
+    }
+    else if(searchFlag==2){
+        
+    }
+    else if(searchFlag==3){
+        searchStuName(number);
+    }
+    else if(searchFlag==4)
+    {
+
+    }
+    else if(searchFlag==5){
+        searchFinishstuName(formIdInput.value,number);
     }
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
@@ -404,6 +440,120 @@ function getWorkerFinishOrder(pageCount){
                 }
                 $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
+
+            }
+        },    
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//根据学生姓名查询已完成
+function searchFinishstuName(stuName,pageCount){
+    $.ajax({
+        type:"POST",
+        dataType:"json",
+        url:"/worker/complete/stuName",
+        data:JSON.stringify({
+            "page":pageCount,
+            "limit":10,
+            "stuName":stuName
+        }),
+        success:function(msg){
+            if(msg.code==200){
+            var data=msg.data;
+            // alert(msg.size);
+            var page = $(".page");
+            $(".page").html("");
+            $(".finishtableBox").html("");
+            var data = msg.data;
+            console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
+                '<div class="formId">报修单号</div>' +
+                '<div class="formNumber">学号</div>' +
+                '<div class="adress">地址</div>' +
+                '<div class="contant">内容</div>' +
+                '<div class="operate">状态</div>' +
+                '</div>')
+            // alert(2);
+            for (var i = 0; i < msg.size; i++) {
+                $(".finishtableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="contant">' + data[i].formMsg + '</div>' + '<div class="operate">已完成</div>')
+                if (i % 2 == 0) {
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
+            }
+
+            }
+        },    
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}
+//根据formId查询已完成
+function searchFinishFormId(formId){
+    $.ajax({
+        type:"POST",
+        dataType:"json",
+        url:"/worker/complete/formId",
+        data:JSON.stringify({
+            "formId":formId,
+        }),
+        success:function(msg){
+            if(msg.code==200){
+            var data=msg.data;
+            // alert(msg.size);
+            var page = $(".page");
+            $(".page").html("");
+            $(".finishtableBox").html("");
+            var data = msg.data;
+            // console.log(data);
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
+                '<div class="formId">报修单号</div>' +
+                '<div class="formNumber">学号</div>' +
+                '<div class="adress">地址</div>' +
+                '<div class="contant">内容</div>' +
+                '<div class="operate">状态</div>' +
+                '</div>')
+            // alert(2);
+            // for (var i = 0; i < msg.size; i++) {
+                $(".finishtableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
+                    '<div class="formNumber">' + data[0].stuId + '</div>' +
+                    '<div class="adress">' + data[0].room + '</div>' +
+                    '<div class="contant">' + data[0].formMsg + '</div>' + '<div class="operate">已完成</div>')
+                // if (i % 2 == 0) {
+                    $(".finishgrid-content").eq(1).addClass("bg-purple");
+                // } else {
+                //     $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
+                // }
+                $(".finishgrid-content").eq(1).attr("formid", data[0].formId);
+            // }
 
             }
         },    
