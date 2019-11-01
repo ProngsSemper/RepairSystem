@@ -49,9 +49,10 @@ public class UploadServlet extends HttpServlet {
         }
         Collection<Part> parts = request.getParts();
         LinkedList<String> imgPathList = new LinkedList<>();
-
+        int count=0;
         for(Part part: parts)
         {
+
 
             if(!part.getContentType().startsWith("image"))
             {
@@ -59,6 +60,11 @@ public class UploadServlet extends HttpServlet {
                 logger.debug("不是图片类型");
                 continue;
             }
+            if(count>3)
+            {
+                break;
+            }
+            ++count;
             String name = part.getSubmittedFileName();
 
 
