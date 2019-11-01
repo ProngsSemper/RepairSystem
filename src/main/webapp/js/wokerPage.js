@@ -1,3 +1,19 @@
+$(document).ready(function () {
+    var bodyWidth = window.screen.width;
+    var body = document.getElementsByTagName("body")[0];
+    body.style.width = window.screen.width;
+    var data = document.getElementsByClassName("dateTime")[0];
+    var a = new Date();
+    var day = a.getDate();
+    var month = a.getMonth() + 1;
+    var year = a.getFullYear();
+    var b = new Array("日", "一", "二", "三", "四", "五", "六");
+    var week = new Date().getDay();
+    var str = " 星期" + b[week];
+    var str1 = year + '年' + month + '月' + day + '日';
+    data.innerText = str1 + str;
+    // getMsg(1);
+});
 //监听返回按钮
 var bigBox = document.getElementsByClassName("bigBox")[0];
 var operatrContant = document.getElementsByClassName("operatrContant")[0];

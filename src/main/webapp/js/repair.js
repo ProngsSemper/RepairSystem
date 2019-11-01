@@ -153,7 +153,7 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
-            // let img=document.createElement('img');
+            // let img=document.createElement('img'
             // $(img).attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
@@ -413,8 +413,6 @@ $.ajax({
             p = msg;
             let str = '';
             for(let key in p.paths){
-                alert(key);
-                alert(p.paths[key]);
                 var location = (window.location+'').split('/');
                 var basePath = location[0]+'//'+location[2]+'/';
                 var string = p.paths[key].substring(0,p.paths[key].indexOf("upload"));
@@ -517,7 +515,7 @@ $("body").delegate("#m_query","click",function(){
                 searchUnfinishId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("姓名")
+                // alert("姓名")
                 returntable[0].style.display="block";
                 pageFlag=2;
                 searchUnfinishStuName(searchInput.value,1);
@@ -530,24 +528,24 @@ $("body").delegate("#m_query","click",function(){
     else{
         if(searchInput.value!=""){
             if(queryType.value==1){
-                alert("工人姓名")
+                // alert("工人姓名")
                 returntable[1].style.display="block";
                 pageFlag=3;
                 searchFinishwName(searchInput.value,1);
             }
             else if(queryType.value==2){
-                alert("工种类型")
+                // alert("工种类型")
                 returntable[1].style.display="block";
                 pageFlag=4;
                 searchFinishwType(searchInput.value,1);
             }
             else if(queryType.value==3){
-                alert("报修单id")
+                // alert("报修单id")
                 returntable[1].style.display="block";
                 searchFinishFormId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("学生姓名")
+                // alert("学生姓名")
                 returntable[1].style.display="block";
                 pageFlag=5;
                 searchFinishStudName(searchInput.value,1);
