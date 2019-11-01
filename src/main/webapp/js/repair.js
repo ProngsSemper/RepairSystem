@@ -96,7 +96,7 @@ function getMsg(pageCount) {
             // alert(msg.size);
             var page = $(".page");
             var table = $(".repairItem");
-            $(".page").html("");
+            // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
             // console.log(data);
@@ -153,7 +153,7 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
-            // let img=document.createElement('img');
+            // let img=document.createElement('img'
             // $(img).attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
@@ -413,11 +413,8 @@ $.ajax({
             p = msg;
             let str = '';
             for(let key in p.paths){
-                alert(key);
-                alert(p.paths[key]);
                 var location = (window.location+'').split('/');
                 var basePath = location[0]+'//'+location[2]+'/';
-
                 var string = p.paths[key].substring(0,p.paths[key].indexOf("upload"));
                 // alert(p.paths[key].replace(string,"localhost/"));
                 let url = p.paths[key].replace(string,basePath);
@@ -508,16 +505,18 @@ function searchSouthOrNorth(location,page){
 //监听搜索
 var queryType=document.getElementById("queryType");
 var searchInput=document.getElementsByClassName("searchInput")[0]
+var returntable=document.getElementsByClassName("returntable");
 $("body").delegate("#m_query","click",function(){
     if(item[0].style.display=="block"){
         if(searchInput.value!=""){
             if(queryType.value==3){
                 // alert("id")
-                
+                returntable[0].style.display="block";
                 searchUnfinishId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("姓名")
+                // alert("姓名")
+                returntable[0].style.display="block";
                 pageFlag=2;
                 searchUnfinishStuName(searchInput.value,1);
             }
@@ -529,21 +528,25 @@ $("body").delegate("#m_query","click",function(){
     else{
         if(searchInput.value!=""){
             if(queryType.value==1){
-                alert("工人姓名")
+                // alert("工人姓名")
+                returntable[1].style.display="block";
                 pageFlag=3;
                 searchFinishwName(searchInput.value,1);
             }
             else if(queryType.value==2){
-                alert("工种类型")
+                // alert("工种类型")
+                returntable[1].style.display="block";
                 pageFlag=4;
                 searchFinishwType(searchInput.value,1);
             }
             else if(queryType.value==3){
-                alert("报修单id")
+                // alert("报修单id")
+                returntable[1].style.display="block";
                 searchFinishFormId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("学生姓名")
+                // alert("学生姓名")
+                returntable[1].style.display="block";
                 pageFlag=5;
                 searchFinishStudName(searchInput.value,1);
             }
@@ -751,7 +754,7 @@ function searchFinishFormId(formId){
                 // } else {
                 //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
                 // }
-                $(".grid-content").eq(1).attr("formid", data[i].formId);
+                $(".grid-content").eq(1).attr("formid", data[0].formId);
             // }
         },
         error: function (xhr) {
@@ -899,3 +902,34 @@ function getPhoto(formId){
         }
     })
 }
+//注销方法
+function cancellation(){
+    $.ajax({
+        type:"post",
+        url:"/admin/logout",
+        success:function(msg){
+
+        },
+        error:function(error){
+
+        }
+    })
+}
+$("body").delegate(".bye","click",function(){
+    cancellation();
+    window.location.href="/login.html";
+})
+//监听搜索返回按钮
+var returntable=document.getElementsByClassName("returntable");
+$("body").delegate(".returntable","click",function(){
+    if(item[0].style.display=="block"){
+        returntable[0].style.display="none";
+        $(".page").html("");
+        getMsg(1)
+    }
+    else{
+        returntable[1].style.display="none";
+        $(".page").html("");
+        getFinfishMsg(1);
+    }
+})
