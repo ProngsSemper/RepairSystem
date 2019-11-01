@@ -33,9 +33,13 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        if(t.contains("/img")||t.contains("/excel")||t.contains("/.get"))
+        if(t.contains("/excel")||t.contains("/.get"))
         {
             resp.setContentType("application/json");
+            chain.doFilter(request,resp);
+            return;
+        }else if(t.contains("/img"))
+        {
             chain.doFilter(request,resp);
             return;
         }
