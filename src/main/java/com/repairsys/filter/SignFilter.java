@@ -22,6 +22,8 @@ public class SignFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         chain.doFilter(req,resp);
 
+
+
         // String p = req.getScheme()+"://"+req.getServerName()+":"+req.getServerPort()+"/";
         Boolean bool = (Boolean) req.getAttribute("pass");
         if (bool != null && bool) {
@@ -36,6 +38,14 @@ public class SignFilter implements Filter {
             chain.doFilter(request,resp);
             return;
         }
+        if(t.length()<=2||t.contains("index"))
+        {
+            chain.doFilter(request,resp);
+            return;
+        }
+
+
+
         // logger.error(p);
         logger.error(t);
         if(t.contains("/chat"))
