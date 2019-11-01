@@ -26,7 +26,7 @@ public class SignFilter implements Filter {
         String t = request.getRequestURI();
 
         logger.info(t);
-        boolean talk = (t.contains("/commu"));
+        // boolean talk = (t.contains("/commu"));
         //聊天室
 
         HttpSession session = ((HttpServletRequest) req).getSession();
@@ -58,7 +58,7 @@ public class SignFilter implements Filter {
 
 
         boolean b = t.contains("login.html")||t.contains(".do")||t.contains(".jsp");
-        if((!talk)&&b)
+        if(b)
         {
             chain.doFilter(request,resp);
 
