@@ -31,6 +31,7 @@ public class AdminFilter implements Filter {
 
         if(!b)
         {
+            resp.setContentType("application/json");
             chain.doFilter(req, resp);
 
         }

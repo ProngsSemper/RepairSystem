@@ -26,8 +26,7 @@ public class SignFilter implements Filter {
         String t = request.getRequestURI();
 
         logger.info(t);
-        // boolean talk = (t.contains("/commu"));
-        //聊天室
+
 
         HttpSession session = ((HttpServletRequest) req).getSession();
         if(t.contains("manager")||t.contains("repair"))

@@ -11,10 +11,10 @@ import java.util.List;
  * @create 2019/10/22 18:37
  */
 public class WorkerTableImpl extends TableDao {
-    private static final TableDao dao = new WorkerTableImpl();
+    private static final TableDao DAO = new WorkerTableImpl();
 
     public static TableDao getInstance() {
-        return dao;
+        return DAO;
     }
 
     private WorkerTableImpl() {

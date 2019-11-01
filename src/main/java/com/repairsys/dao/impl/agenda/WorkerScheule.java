@@ -310,7 +310,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         System.out.println(sql);
         logger.debug(sql);
         return super.addOne(JdbcUtil.getConnection(), sql);
-//        return super.addOne(JdbcUtil.getConnection(),sql);
+
     }
 
     /**
