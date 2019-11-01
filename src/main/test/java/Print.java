@@ -16,6 +16,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLDecoder;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +29,13 @@ import java.util.UUID;
  */
 
 public class Print {
+
+    @Test
+    public void decode()
+    {
+        String str = URLDecoder.decode("%E7%AE%A1%E7%90%86%E5%91%98");
+        System.out.println(str);
+    }
 
     @Test
     public void print11()

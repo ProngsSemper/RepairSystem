@@ -10,20 +10,25 @@ public class Photo {
     private String photoPath3;
     private int photoId;
     private int size;
+    private String[] arr = new String[3];
 
     public int getSize() {
         return size;
     }
 
-
-
-    public String getPhotoPath1() {
-        if(photoPath1==null)
-        {
-            return "";
-        }
-        return photoPath1.replaceAll("\\\\","/");
+    public String[] getArr() {
+        arr[0] = photoPath1;
+        arr[1] = photoPath2;
+        arr[2] = photoPath3;
+        return arr;
     }
+
+    public void setArr(String[] arr) {
+        this.arr = arr;
+    }
+
+
+
 
     public void setPhotoPath1(String photoPath1) {
         if(photoPath1==null)
@@ -34,13 +39,13 @@ public class Photo {
         this.photoPath1 = photoPath1.replaceAll("\\\\","/");
     }
 
-    public String getPhotoPath2() {
-        if(photoPath2==null)
-        {
-            return "";
-        }
-        return photoPath2;
-    }
+    // public String getPhotoPath2() {
+    //     if(photoPath2==null)
+    //     {
+    //         return "";
+    //     }
+    //     return photoPath2;
+    // }
 
     public void setPhotoPath2(String photoPath2) {
         if(photoPath2==null)
@@ -51,13 +56,13 @@ public class Photo {
         this.photoPath2 = photoPath2.replaceAll("\\\\","/");;
     }
 
-    public String getPhotoPath3() {
-        if(photoPath3==null)
-        {
-            return "";
-        }
-        return photoPath3;
-    }
+    // public String getPhotoPath3() {
+    //     if(photoPath3==null)
+    //     {
+    //         return "";
+    //     }
+    //     return photoPath3;
+    // }
 
     public void setPhotoPath3(String photoPath3) {
         if(photoPath3==null)
@@ -94,12 +99,7 @@ public class Photo {
 
     }
 
-    public void emptyPath()
-    {
-        this.photoPath3="";
-        this.photoPath2="";
-        this.photoPath1="";
-    }
+
 
 
     @Override

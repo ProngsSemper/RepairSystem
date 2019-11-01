@@ -33,13 +33,15 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        if(t.contains("/excel")||t.contains("/.get"))
+
+        if(t.contains("/excel"))
         {
             resp.setContentType("application/json");
             chain.doFilter(request,resp);
             return;
         }else if(t.contains("/img"))
         {
+
             chain.doFilter(request,resp);
             return;
         }
@@ -67,14 +69,16 @@ public class RequestBodyFilter implements Filter {
 
             JSONObject json = JSONObject.parseObject(jsonBuilder.toString());
 
-            System.out.println(json);
+            // System.out.println(json);
 
             logger.debug("json转化成功 {}", jsonBuilder.toString());
 
             request.setAttribute("requestBody", json);
 
+
         }
-        System.out.printf("放行");
+
+        resp.setContentType("application/json");
 
         chain.doFilter(req, resp);
 
