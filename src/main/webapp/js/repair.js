@@ -148,7 +148,7 @@ function getFormDetail(formId) {
         dataType: "json",
         async:false,
         data: JSON.stringify({
-            "formId": d,
+            "formId": formId,
         }),
         success: function (msg) {
             $(".information").html("");
