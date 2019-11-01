@@ -37,7 +37,7 @@ public class EncodingFilter implements Filter {
             if (t.endsWith(i)) {
                 logger.debug("放行静态资源 {}", t);
                 // req.setAttribute("pass",true);
-                request.setAttribute("pass",true);
+                // request.setAttribute("pass",true);
                 chain.doFilter(req, resp);
                 return;
             }

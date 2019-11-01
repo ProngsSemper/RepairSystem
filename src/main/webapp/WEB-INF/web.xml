@@ -18,6 +18,22 @@
         <filter-name>SignFilter</filter-name>
         <filter-class>com.repairsys.filter.SignFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>WorkerFilter</filter-name>
+        <filter-class>com.repairsys.filter.WorkerFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>StuFilter</filter-name>
+        <filter-class>com.repairsys.filter.StuFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>AdminFilter</filter-name>
+        <filter-class>com.repairsys.filter.AdminFilter</filter-class>
+    </filter>
+
+
 
 
     <filter-mapping>
@@ -32,7 +48,31 @@
 
     <filter-mapping>
         <filter-name>SignFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>WorkerFilter</filter-name>
+        <url-pattern>/worker/*</url-pattern>
+    </filter-mapping>
+
+
+
+    <filter-mapping>
+        <filter-name>AdminFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter-mapping>
+        <filter-name>WorkerFilter</filter-name>
+        <url-pattern>/worker/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter-mapping>
+        <filter-name>StuFilter</filter-name>
+        <url-pattern>/student/*</url-pattern>
     </filter-mapping>
 
 
@@ -42,6 +82,7 @@
 
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
 

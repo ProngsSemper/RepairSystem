@@ -28,6 +28,16 @@ import java.util.UUID;
  */
 
 public class Print {
+
+    @Test
+    public void print11()
+    {
+        String tmp = "index.do";
+        int i = tmp.lastIndexOf(".");
+        System.out.println(tmp.substring(i,tmp.length()));
+    }
+
+
     @Test
     public void getP() throws IOException {
 

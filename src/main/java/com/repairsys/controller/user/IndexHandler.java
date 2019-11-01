@@ -26,8 +26,11 @@ public class IndexHandler extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adminToken = CookieUtil.getCookie("adminToken", request);
-        String workerToken = CookieUtil.getCookie("wToken", request);
+        String workerToken = null;
+        workerToken = CookieUtil.getCookie("wToken", request);
         System.out.println(adminToken);
+
+        request.setAttribute("pass","1");
         if (adminToken != null) {
             Admin admin = AdminDaoImpl.getInstance().existsToken(adminToken);
             if (admin != null) {
@@ -58,7 +61,13 @@ public class IndexHandler extends BaseServlet {
             }
 
         }
-        response.sendRedirect("login.html");
+
+        request.setAttribute("pass","1");
+
+        request.getRequestDispatcher("login.html").forward(request,response);
+        return;
+
+
 
     }
 
