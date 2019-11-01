@@ -3,6 +3,8 @@ $(document).ready(function () {
     var body = document.getElementsByTagName("body")[0];
     body.style.width = window.screen.width;
     var data = document.getElementsByClassName("dateTime")[0];
+    var workerName=document.getElementsByClassName("left-tit")[0];
+    workerName.innerText=getCookie("workerName");
     var a = new Date();
     var day = a.getDate();
     var month = a.getMonth() + 1;

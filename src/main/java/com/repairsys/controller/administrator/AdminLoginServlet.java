@@ -44,6 +44,8 @@ public class AdminLoginServlet extends BaseServlet {
         //登录成功设置cookie
         if (result.getCode() == loginSuccess) {
             CookieUtil.setToken("adminId", adminId, response);
+            String adminName = adminService.getNameById(adminId);
+            CookieUtil.setCookie("adminName", adminName, response);
             String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
             CookieUtil.setToken("adminToken", adminToken, response);
             response.addHeader("identity", "admin");

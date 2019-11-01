@@ -29,9 +29,9 @@ public class AdminIncompleteFormServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         logger.debug("requestBody{}", requestBody);
         //进入此页面时从cookie获取管理员id 查询对应name后再把管理员name设置到cookie
-        String adminId = CookieUtil.getCookie("adminId", request);
-        String adminName = adminService.getNameById(adminId);
-        CookieUtil.setCookie("adminName", adminName, response);
+//        String adminId = CookieUtil.getCookie("adminId", request);
+//        String adminName = adminService.getNameById(adminId);
+//        CookieUtil.setCookie("adminName", adminName, response);
         Result result = adminService.getIncompleteForm(
                 requestBody.getInteger("page"),
                 requestBody.getInteger("limit"));

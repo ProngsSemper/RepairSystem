@@ -23,7 +23,7 @@ function getCookie(key){
     var res=document.cookie.split(";");
     for(var i=0;i<res.length;i++){
         var temp=res[i].split("=");
-        if(temp[0].trim()===key){
+        if(temp[0].trim()==key){
             return temp[1];
         }
     }
