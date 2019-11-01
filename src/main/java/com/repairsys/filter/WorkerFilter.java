@@ -37,9 +37,6 @@ public class WorkerFilter implements Filter {
         if(!b)
         {
             chain.doFilter(req, resp);
-        }else{
-            HttpServletResponse response = (HttpServletResponse)resp;
-            response.sendRedirect("login.html");
         }
     }
 
