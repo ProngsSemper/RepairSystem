@@ -35,7 +35,7 @@ navImg[1].onclick = function () {
     search.style.display = "block";
     // $(".page").html("");
     searchFlag=1;
-    gerfinishOrder(1)
+    getWorkerFinishOrder(1)
 }
 //获得数据
 getMsg(1);
@@ -53,7 +53,7 @@ function getMsg(pageCount) {
         success: function (msg) {
             var page = $(".page");
             $(".tableBox").html("");
-            $(".page").html("");
+            // $(".page").html("");
             var data = msg.data;
             var b = $('.page').children().length == 0;
 
@@ -230,7 +230,7 @@ function searchStuName(page) {
         data: JSON.stringify({
             "stuName": stuName.value,
             "page": parseInt(page),
-            limit: 10,
+            "limit": 10,
         }),
         success: function (msg) {
             console.log(msg);
@@ -284,7 +284,7 @@ var searchContant = document.getElementById("searchContant");
 var formIdInput = document.getElementsByClassName("searchInput")[0];
 var returntable=document.getElementsByClassName("returntable")[0];
 $("body").delegate('.iconSearch', 'click', function () {
-    if(operatrContant.style.display=="block"){
+    if(bigBox.style.display=="block"){
         // alert("按钮已点击");
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
@@ -321,12 +321,13 @@ $("body").delegate('.iconSearch', 'click', function () {
 //监听点击页码操作
 $("body").delegate(".page>span", "click", function () {
     var number = $(this).html();
+
     if (searchFlag == 0) {
         getMsg(number);
     } 
     else if(searchFlag==1)
     {
-        gerfinishOrder(number)
+        getWorkerFinishOrder(number)
     }
     else if(searchFlag==2){
         
@@ -454,7 +455,7 @@ function searchFinishstuName(stuName,pageCount){
     $.ajax({
         type:"POST",
         dataType:"json",
-        url:"",
+        url:"/worker/complete/stuName",
         data:JSON.stringify({
             "page":pageCount,
             "limit":10,
@@ -512,7 +513,7 @@ function searchFinishFormId(formId){
     $.ajax({
         type:"POST",
         dataType:"json",
-        url:"/worker/complete/form",
+        url:"/worker/complete/formId",
         data:JSON.stringify({
             "formId":formId,
         }),

@@ -94,18 +94,16 @@ function getMsg(pageCount) {
         success: function (msg) {
 
             // alert(msg.size);
-            var page = $(".page");
+            // var page = $(".page");
             var table = $(".repairItem");
-            $(".page").html("");
+            // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
             // console.log(data);
-            var b = $('.page').children().length == 0;
-
-            if (b) {
-                page.append('<span class="page-number cur">' + 1 + '</span>');
+            if ($(".page").children().length == 0) {
+                $(".page").append('<span class="page-number cur">' + 1 + '</span>');
                 for (var i = 2; i <= msg.totalPage; i++) {
-                    page.append('<span class="page-number">' + i + '</span>');
+                    $(".page").append('<span class="page-number">' + i + '</span>');
                 }
             }
 
@@ -723,21 +721,22 @@ function searchFinishFormId(formId){
             // "limit": 10,
         }),
         success: function (msg) {
-            $(".page").html("");
-            var page = $(".page");
-            $(".tableBox").html("");
-            var data = msg.data;
-            var b = $('.page').children().length == 0;
+            if(msg.code==200) {
+                $(".page").html("");
+                var page = $(".page");
+                $(".tableBox").html("");
+                var data = msg.data;
+                var b = $('.page').children().length == 0;
 
-            if (b) {
-                page.append('<span class="page-number cur">' + 1 + '</span>');
-                // for (var i = 2; i <= msg.totalPage; i++) {
-                //     page.append('<span class="page-number">' + i + '</span>');
-                // }
-            }
+                if (b) {
+                    page.append('<span class="page-number cur">' + 1 + '</span>');
+                    // for (var i = 2; i <= msg.totalPage; i++) {
+                    //     page.append('<span class="page-number">' + i + '</span>');
+                    // }
+                }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
-            // for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+                // for (var i = 0; i < msg.size; i++) {
                 $(".tableBox").append('<div class="grid-content"></div>');
                 $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
                     '<div class="formNumber">' + data[0].stuId + '</div>' +
@@ -745,12 +744,13 @@ function searchFinishFormId(formId){
                     '<div class="listcontant">' + data[0].formMsg + '</div>' +
                     '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
                 // if (i % 2 == 0) {
-                    $(".grid-content").eq(1).addClass("bg-purple");
+                $(".grid-content").eq(1).addClass("bg-purple");
                 // } else {
                 //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
                 // }
                 $(".grid-content").eq(1).attr("formid", data[i].formId);
-            // }
+                // }
+            }
         },
         error: function (xhr) {
             alert(xhr.status);
