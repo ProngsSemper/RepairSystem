@@ -36,15 +36,14 @@ public class EncodingFilter implements Filter {
         for (String i : ARRAY) {
             if (t.endsWith(i)) {
                 logger.debug("放行静态资源 {}", t);
-                // req.setAttribute("pass",true);
-                // request.setAttribute("pass",true);
+
                 chain.doFilter(req, resp);
                 return;
             }
         }
         for (String i : UI) {
             if (t.lastIndexOf(i) >= 0) {
-                // req.setAttribute("pass",true);
+
                 chain.doFilter(req, resp);
                 return;
             }

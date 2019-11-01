@@ -29,106 +29,34 @@ public class SignFilter implements Filter {
             return;
         }
         HttpSession session = ((HttpServletRequest) req).getSession();
-        if(session.getAttribute("adminId")!=null||session.getAttribute("workerId")!=null||session.getAttribute("adminId")!=null)
+        if(t.contains("manager")||t.contains("repair")||t.contains("commun"))
         {
-            chain.doFilter(request,resp);
+            Object admin = session.getAttribute("adminId");
+            if(admin!=null)
+            {
+                chain.doFilter(request,resp);
+                return;
+            }
+        }else if(t.contains("worker"))
+        {
+            Object worker = session.getAttribute("workerId");
+            if(worker!=null)
+            {
+                chain.doFilter(req,resp);
+                return;
+            }
         }else{
-            request.getRequestDispatcher("login.html").forward(request,resp);
+            Object stu = session.getAttribute("stuId");
+            if(stu!=null)
+            {
+                chain.doFilter(request,resp);
+                return;
+            }
         }
 
+        ((HttpServletResponse)resp).sendRedirect("login.html");
+        return;
 
-
-        // Object pass = req.getAttribute("pass");
-        // if(pass!=null)
-        // {
-        //     logger.error("{}",pass);
-        //     chain.doFilter(req,resp);
-        //     return;
-        // }
-        //
-        //
-        //
-        //
-        //
-        // HttpServletRequest request = (HttpServletRequest) req;
-        // String t = request.getRequestURI();
-        // int i = t.lastIndexOf(".");
-        // if(t.contains("login"))
-        // {
-        //     chain.doFilter(request,resp);
-        //     return;
-        // }
-        // boolean bool = false;
-        // if(i>=0)
-        // {
-        //     bool = (t.substring(i,t.length()).length()<=3);
-        // }
-        // if(bool||t.length()<=2||t.contains("index"))
-        // {
-        //     chain.doFilter(request,resp);
-        //     return;
-        // }
-        //
-        //
-        //
-        // // logger.error(p);
-        // logger.error(t);
-        // if(t.contains("/chat"))
-        // {
-        //     chain.doFilter(request,resp);
-        //     return;
-        // }
-        // if (t.length() <= 1) {
-        //     chain.doFilter(request, resp);
-        //     return;
-        // } else if (t.contains("/login")) {
-        //     chain.doFilter(request, resp);
-        //     return;
-        // } else if (t.contains("/index")) {
-        //     chain.doFilter(request, resp);
-        //     return;
-        // }
-        // // boolean bool = t.indexOf("index")>=0||t.indexOf("login.jsp")
-        //
-        // HttpSession session = ((HttpServletRequest) req).getSession();
-        // Object obj1 = session.getAttribute("stuId");
-        // boolean talk = t.contains("/communication.html")||t.contains("/chat");
-        // boolean stuPage = t.contains("/firstPage.html")||talk;
-        // boolean adminPage = t.contains("/managerFirstPage.html")||talk||t.contains("/repair.html")||t.contains("/notice.html");
-        // boolean workerPage = t.contains("/workerPage.html");
-        // boolean b = false;
-        // if (obj1 != null && !("".equals(obj1))) {
-        //     if (stuPage||t.contains("/student") || t.contains("/upload")) {
-        //         logger.info("学生登录测试{}",obj1);
-        //         b = true;
-        //
-        //     }
-        // }
-        // Object obj2 = session.getAttribute("adminId");
-        // if (obj2 != null && !("".equals(obj2))) {
-        //     if (adminPage||t.contains("/admin") || t.contains("/file")||t.contains("/upload")) {
-        //         b = true;
-        //     }
-        // }
-        // Object obj3 = session.getAttribute("workerId");
-        // if (obj3 != null && !("".equals(obj3))) {
-        //     if (workerPage||t.contains("/worker")) {
-        //         b = true;
-        //     }
-        // }
-        //
-        // if (b) {
-        //     chain.doFilter(req, resp);
-        //
-        // }else{
-        //     //这个代码很挫，别怪我
-        //     logger.info("拦截请求");
-        //     logger.error(t);
-        //     req.setAttribute("pass","1");
-        //
-        //     request.getRequestDispatcher("login.html").forward(request,resp);
-        //     return;
-        // }
 
 
     }
