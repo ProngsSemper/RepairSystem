@@ -26,22 +26,13 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)req;
 
         // HttpServletRequest request = (HttpServletRequest)req;
-        Object obj = request.getAttribute("static");
-        if(obj!=null)
-        {
-            logger.info("放行静态资源");
-            chain.doFilter(request,resp);
-            return;
-        }
+
         boolean b = request.getSession().getAttribute("adminId")==null;
 
         if(!b)
         {
             chain.doFilter(req, resp);
 
-        }else{
-            HttpServletResponse response = (HttpServletResponse)resp;
-            response.sendRedirect("login.html");
         }
 
     }

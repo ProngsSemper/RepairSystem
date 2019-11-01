@@ -34,13 +34,7 @@ public class RequestBodyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
         //判断是不是 静态资源，如果是就要放行
-        if(t.contains("login.")||t.contains("/js")||t.contains("/css")||t.contains("/img")||t.contains("/upload")||t.contains("/chat"))
-        {
-            request.setAttribute("static","1");
-            chain.doFilter(request,resp);
-            return;
-        }
-
+        logger.debug(t);
         logger.debug("进行过滤处理2");
 
         // HttpServletRequest request = (HttpServletRequest) req;

@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -23,21 +24,11 @@ public class SignFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+
         logger.info(t);
-        Object obj = request.getAttribute("static");
-        if(obj!=null)
-        {
-            logger.info("放行静态资源");
-            chain.doFilter(request,resp);
-            return;
-        }
-        logger.info(t);
-        if(t.contains("/communication"))
-        {
-            logger.info("发行");
-            chain.doFilter(request,resp);
-            return;
-        }
+        boolean talk = (t.contains("/commu"));
+        //聊天室
+
         HttpSession session = ((HttpServletRequest) req).getSession();
         if(t.contains("manager")||t.contains("repair"))
         {
@@ -64,6 +55,19 @@ public class SignFilter implements Filter {
                 return;
             }
         }
+
+
+        boolean b = t.contains("login.html")||t.contains(".do")||t.contains(".jsp");
+        if((!talk)&&b)
+        {
+            chain.doFilter(request,resp);
+
+        }else{
+            ((HttpServletResponse)resp).sendRedirect("login.html");
+        }
+
+
+
 
 
 
