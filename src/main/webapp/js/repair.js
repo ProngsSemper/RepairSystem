@@ -153,8 +153,8 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
-            let img=document.createElement('img');
-            $(img).attr("src","img/jindutiao.png");
+            // let img=document.createElement('img');
+            // $(img).attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
             $(".information").append('<p>学号：' + data[0].stuId);
@@ -163,7 +163,8 @@ function getFormDetail(formId) {
             $(".information").append('<p>报修类型：' + data[0].wType);
             $(".information").append('<p>预约时间：' + data[0].appointDate+data[0].appointment+'点');
             $(".information").append('<p>报修内容：' + data[0].formMsg);
-            $(".information").append('<p>图片：'+img.src+'</p >');
+            $(".information").append('<p>图片：</p >');
+            getPhoto(formId);
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -877,4 +878,22 @@ $("body").delegate(".page>span", "click", function () {
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
 });
-    
+//获得图片地址
+function getPhoto(formId){
+    $.ajax({
+        data:JSON.stringify({
+            "formId":formId
+        }),
+        type:"POST",
+        dataType:"json",
+        async:false,
+        url:"/path.get",
+        success:function(msg){
+            data=msg.data;
+            $(".information").append('<img src="'+data.photoPath1+'">');
+        },
+        error:function(xhr){
+            // alert(xhr.status);
+        }
+    })
+}

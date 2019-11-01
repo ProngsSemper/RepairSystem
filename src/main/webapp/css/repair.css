@@ -311,14 +311,16 @@ body{
     margin: 25px auto;
     width: 400px;
     height: 500px;
+    overflow: auto;
     /* background: #000; */
 }
 .repairContant .information p{
     margin:15px 0 15px 20px;
 }
 .information img{
+    margin-left: 20px;
     vertical-align: top;
-    width: 150px;
+    width: 300px;
 }
 .returnBack{
     position: relative;

@@ -52,7 +52,7 @@ body{
 .navLi .index{
     display: inline-block;
     /* float: left; */
-    padding: 0 100px;
+    /* padding: 0 100px; */
     border: none;
     line-height: 50px;
     font-size: 20px;
@@ -61,18 +61,19 @@ body{
     cursor: pointer;
 }
 .navLi li:hover{
-    background: rgba(255, 255, 255, .5);
+    /* background: rgba(255, 255, 255, .5); */
 }
 .navLi .current{
-    background: rgba(255, 255, 255, .5);
+    /* background: rgba(255, 255, 255, .5); */
 }
 
 .contant{
-    margin: 40px auto;
+    margin: 40px auto 0px;
     width: 1260px;
     height: auto;
     /* background: #000; */
-    /* overflow: auto; */
+    /* overflow: auto;
+    background-image: url(../img/bg-gonggao.png); */
 }
 .contant .notice{
     float: left;
@@ -131,14 +132,14 @@ body{
 .worker{
     position: absolute;
     height: 93px;
-    right: 300px;
+    right: 210px;
     bottom: 0;
 }
 .toolCase{
     position: absolute;
-    height: 80px;
-    right: 180px;
-    bottom: 0;
+    height: 105px;
+    right: 275px;
+    bottom: -7px;
 }
 .date{
     float: left;
@@ -156,6 +157,7 @@ body{
     height: 500px;
     width: 900px;
     background: #fff;
+    background-image: url(../img/form.png);
 }
 .hide{
     display: none;;
@@ -803,4 +805,71 @@ body{
 }
 .saveImg img{
     height: 50px;
+}
+.progressBat{
+    position: absolute;
+    bottom: 5px;
+    left: 145px;
+    width: 200px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.progressFirst{
+    background-image: url(../img/jindu1.png);
+}
+.progressSecond{
+    background-image: url(../img/jindu2.png);
+}
+.progressThird{
+    background-image: url(../img/jindu3.png);
+}
+.progressWrong{
+    width: 250px;
+    background-image: url(../img/yichang.png);
+}
+.mynav {
+	width:800px;
+	margin:50px auto;
+	display:inline-block;
+}
+.item {
+	width:200px;
+	height:50px;
+	float:left;
+	perspective:4000px;
+	-webkit-perspective:4000px;
+	margin-right:8px;
+}
+ .item a {
+	text-decoration:none;
+	display:block;
+	height:50px;
+	transform-style:preserve-3d;
+	-webkit-transform-style:preserve-3d;
+	transition:all 1s;
+	-webkit-transition:all 1s;
+}
+.item a:hover {
+	transform:rotateX(90deg);
+	-webkit-rotateX:(90deg);
+}
+.item a p {
+	text-align:center;
+	line-height:50px;
+	height:50px;
+	/* font-family:"微软雅黑"; */
+	color:white;
+	font-size:20px;
+	margin:0px;
+	border-radius:3px;
+}
+.item a p:first-child {
+	background-color:#8e0b02;
+	transform:translateZ(25px);
+}
+.item a p:last-child {
+	background-color:#d655ff;
+	transform:rotateX(-90deg) translateZ(-25px);
+	-webkit-transform:rotateX(-90deg) translateZ(-25px);
 }

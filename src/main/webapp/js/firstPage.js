@@ -372,7 +372,7 @@ function gerfinishOrder(pageCount){
             }
         },
         error:function(xhr){
-            alert(xhr.status);
+            // alert(xhr.status);
         }
     })
 }
@@ -421,7 +421,7 @@ function stuEvaluation(evaluation,wKey,massage,formId){
             }
         },
         error:function(xhr){
-            alert(xhr.status);
+            // alert(xhr.status);
         }
     })
 }
@@ -473,7 +473,7 @@ $.ajax({
         }
     },
     error:function(xhr){
-        alert(xhr.status);
+        // alert(xhr.status);
     }
 })
 //显示略所图
@@ -507,13 +507,13 @@ function getPhoto(formId,position){
         type:"POST",
         dataType:"json",
         async:false,
-        url:"",
+        url:"/path.get",
         success:function(msg){
             data=msg.data;
             $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
         },
         error:function(xhr){
-            alert(xhr.status);
+            // alert(xhr.status);
         }
     })
 }

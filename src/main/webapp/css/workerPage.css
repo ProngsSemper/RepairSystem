@@ -284,7 +284,8 @@ option{
     top: 25px;
     margin: 0px auto;
     width: 400px;
-    height: 350px;
+    height: 500px;
+    overflow: hidden;
     /* background: #000; */
 }
 .orderInsideBox p{
@@ -292,7 +293,8 @@ option{
     max-width: 400px;
 }
 .orderInsideBox img{
-    height: 100px;
+    margin: 20px;
+    width: 300px;
     vertical-align: top;
 }
 .footButton{

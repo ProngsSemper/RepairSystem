@@ -155,8 +155,8 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".orderInsideBox").html("");
             var data = msg.data;
-            let img = document.createElement('img');
-            $(img).attr("src", "img/jindutiao.png");
+            // let img = document.createElement('img');
+            // $(img).attr("src", "img/jindutiao.png");
             $(".orderInsideBox").append('<p>报修人：' + data[0].stuName);
             $(".orderInsideBox").append('<p>报修电话：' + data[0].stuPhone);
             $(".orderInsideBox").append('<p>学号：' + data[0].stuId);
@@ -165,7 +165,8 @@ function getFormDetail(formId) {
             $(".orderInsideBox").append('<p>报修类型：' + data[0].wType);
             $(".orderInsideBox").append('<p>维修时间：' + data[0].appointDate + data[0].appointment + '点');
             $(".orderInsideBox").append('<p>报修内容：' + data[0].formMsg);
-            $(".orderInsideBox").append('<p>图片：' + img.src + '</p >');
+            $(".orderInsideBox").append('<p>图片：</p >');
+            getPhoto(formId)
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -453,7 +454,7 @@ function searchFinishstuName(stuName,pageCount){
     $.ajax({
         type:"POST",
         dataType:"json",
-        url:"/worker/complete/stuName",
+        url:"",
         data:JSON.stringify({
             "page":pageCount,
             "limit":10,
@@ -511,7 +512,7 @@ function searchFinishFormId(formId){
     $.ajax({
         type:"POST",
         dataType:"json",
-        url:"/worker/complete/formId",
+        url:"/worker/complete/form",
         data:JSON.stringify({
             "formId":formId,
         }),
@@ -559,6 +560,25 @@ function searchFinishFormId(formId){
         },    
         error:function(xhr){
             alert(xhr.status);
+        }
+    })
+}
+//获得图片地址
+function getPhoto(formId){
+    $.ajax({
+        data:JSON.stringify({
+            "formId":formId
+        }),
+        type:"POST",
+        dataType:"json",
+        async:false,
+        url:"/path.get",
+        success:function(msg){
+            data=msg.data;
+            $(".orderInsideBox").append('<img src="'+data.photoPath1+'">');
+        },
+        error:function(xhr){
+            // alert(xhr.status);
         }
     })
 }

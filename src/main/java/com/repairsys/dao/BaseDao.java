@@ -59,6 +59,15 @@ public abstract class BaseDao<T> {
         } catch (SQLException e) {
 
             e.printStackTrace();
+        }finally {
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return res;
@@ -80,6 +89,15 @@ public abstract class BaseDao<T> {
             res = queryRunner.query(con, sql, beanListHandler, args);
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return res;
@@ -114,6 +132,15 @@ public abstract class BaseDao<T> {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return res;
 
@@ -147,6 +174,14 @@ public abstract class BaseDao<T> {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return res;
     }
@@ -179,6 +214,15 @@ public abstract class BaseDao<T> {
                 e.printStackTrace();
             }
 
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         return res;
 
@@ -198,6 +242,15 @@ public abstract class BaseDao<T> {
             return (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            if(con!=null)
+            {
+                try {
+                    con.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return 0;
     }
