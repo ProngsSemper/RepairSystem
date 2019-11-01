@@ -18,6 +18,10 @@ public class Photo {
 
 
     public String getPhotoPath1() {
+        if(photoPath1==null)
+        {
+            return "";
+        }
         return photoPath1.replaceAll("\\\\","/");
     }
 
@@ -31,6 +35,10 @@ public class Photo {
     }
 
     public String getPhotoPath2() {
+        if(photoPath2==null)
+        {
+            return "";
+        }
         return photoPath2;
     }
 
@@ -44,6 +52,10 @@ public class Photo {
     }
 
     public String getPhotoPath3() {
+        if(photoPath3==null)
+        {
+            return "";
+        }
         return photoPath3;
     }
 
