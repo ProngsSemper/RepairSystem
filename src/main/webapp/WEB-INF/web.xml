@@ -26,6 +26,13 @@
     <filter>
         <filter-name>StuFilter</filter-name>
         <filter-class>com.repairsys.filter.StuFilter</filter-class>
+        <init-param>
+            <param-name>ignores</param-name>
+            <param-value>/student/*,/admin/*,/worker/*,/file/*,/upload/*,/path*</param-value>
+        </init-param>
+
+
+
     </filter>
 
     <filter>
@@ -35,28 +42,29 @@
 
 
 
-
+<!--第一步-->
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+<!--    第二步-->
     <filter-mapping>
         <filter-name>RequestBodyFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
+<!-- 第三步 -->
     <filter-mapping>
         <filter-name>SignFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-
+<!-- 第4步 -->
     <filter-mapping>
         <filter-name>WorkerFilter</filter-name>
         <url-pattern>/worker/*</url-pattern>
     </filter-mapping>
 
-
+<!-- 第5步 -->
 
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
@@ -64,10 +72,7 @@
     </filter-mapping>
 
 
-    <filter-mapping>
-        <filter-name>WorkerFilter</filter-name>
-        <url-pattern>/worker/*</url-pattern>
-    </filter-mapping>
+<!-- 第6步 -->
 
 
     <filter-mapping>
