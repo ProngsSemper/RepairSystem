@@ -165,17 +165,22 @@ function gerRepairOrder(pageCount){
                 }
             }
             for(var i=0;i<msg.size;i++){
+                $(".order").eq(i).append('<i class="progressBat"></i>');
                 if(data[i].queryCode=="0"){
                     condition="待排期"
+                    $(".progressBat").eq(i).addClass("progressFirst");
                 }
                 else if(data[i].queryCode=="1"){
                     condition="已排期"
+                    $(".progressBat").eq(i).addClass("progressSecond");
                 }
                 else if(data[i].queryCode=="2"){
                     condition="待确认"
+                    $(".progressBat").eq(i).addClass("progressThird");
                 }
                 else{
                     condition="异常"
+                    $(".progressBat").eq(i).addClass("progressWrong");
                 }
                 $(".orderContant").append('<div class="order"></div>');
                 $(".order").eq(i).append('<i class="yellowLabel"></i><span class="state-tit">'+condition+'</span>');
@@ -186,7 +191,8 @@ function gerRepairOrder(pageCount){
                     '<p class="order-tit">报修电话：'+data[i].stuPhone+'</p>'+
                     '<p class="order-tit">报修内容：'+data[i].formMsg+'</p>'+
                     '</div>')
-                $(".orderInformation").eq(i).append('<div class="orderImg"><img src="img/head1.jpg"></div>')
+                $(".orderInformation").eq(i).append('<div class="orderImg"></div>')
+                getPhoto(data[i].formId,i);
                 $(".orderInformation").eq(i).append('<button class="finish">确认完成</button>')
                 $(".orderInformation").eq(i).attr("formId", data[i].formId);
                 if(condition=="待确认"||condition=="异常"){
@@ -355,7 +361,8 @@ function gerfinishOrder(pageCount){
                     '<p class="finishorder-tit">报修电话：'+data[i].stuPhone+'</p>'+
                     '<p class="finishorder-tit">报修内容：'+data[i].formMsg+'</p>'+
                     '</div>')
-                $(".finishorderInformation").eq(i).append('<div class="finishorderImg"><img src="img/head1.jpg"></div>')
+                $(".finishorderInformation").eq(i).append('<div class="finishorderImg"></div>')
+                getPhoto(data[i].formId,i);
                 if(data[i].queryCode!=4){
                     $(".finishorderInformation").eq(i).append('<button class="comment">评价</button>')
                 }
@@ -491,4 +498,22 @@ var readFile=function(obj){
         }
     }
 }
-
+//获得图片地址
+function getPhoto(formId,position){
+    $.ajax({
+        data:JSON.stringify({
+            "formId":formId
+        }),
+        type:"POST",
+        dataType:"json",
+        async:false,
+        url:"",
+        success:function(msg){
+            data=msg.data;
+            $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}

@@ -31,9 +31,31 @@ import java.util.List;
  */
 public class DbTest {
 
+    @Test
+    public void printPath()
+    {
+        String p = "http://localhost:80/";
+        String p2 = "F:\\算法\\我的团队项目\\p1\\target\\RepairSystem\\upload\\img\\\\c9c7951d-8e9a-4e71-9ac4-507128d487df无标题.png";
+        String y = p+p2.substring(p2.indexOf("upload"),p2.length());
+        System.out.println(y);
+
+    }
+
+
+    @Test
+    public void  getpath()
+    {
+        Object t =  FileDaoImpl.getInstance().getImgPath("81");
+        System.out.println(t);
+    }
+
 
     @Test
     public void getQuery() throws SQLException {
+
+
+
+
         QueryRunner r = new QueryRunner();
         int row = r.update(JdbcUtil.getConnection(),
                 "insert into tes(`name`,`password`,`day`) values('dddtd','dd',CURDATE());");

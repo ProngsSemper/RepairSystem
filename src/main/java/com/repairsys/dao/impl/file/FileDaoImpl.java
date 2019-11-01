@@ -98,4 +98,17 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
 
     }
 
+
+    private static final String GET_PATH = "select distinct photoPath1,photoPath2,photoPath3 from photo p right join form f on p.photoId = f.photoId where f.formId= ?";
+
+
+    @Override
+    public Photo getImgPath(String formId)
+    {
+        System.out.println(formId);
+        Photo tmp = super.selectOne(JdbcUtil.getConnection(),GET_PATH,formId);
+        System.out.println(tmp);
+        return tmp;
+    }
+
 }

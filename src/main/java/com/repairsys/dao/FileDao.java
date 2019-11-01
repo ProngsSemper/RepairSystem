@@ -1,5 +1,7 @@
 package com.repairsys.dao;
 
+import com.repairsys.bean.entity.Photo;
+
 import java.util.LinkedList;
 
 /**
@@ -33,5 +35,13 @@ public interface FileDao<T> {
      * @return 返回存储的主键
      */
     int addOne(LinkedList<String> paths);
+
+
+    /**
+     * 获取上传的图片路径
+     * @param formId 工具学生的表单获取图片路径
+     * @return
+     */
+    public Photo getImgPath(String formId);
 
 }

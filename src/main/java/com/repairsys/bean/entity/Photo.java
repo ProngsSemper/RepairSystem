@@ -9,13 +9,25 @@ public class Photo {
     private String photoPath2;
     private String photoPath3;
     private int photoId;
+    private int size;
+
+    public int getSize() {
+        return size;
+    }
+
+
 
     public String getPhotoPath1() {
-        return photoPath1;
+        return photoPath1.replaceAll("\\\\","/");
     }
 
     public void setPhotoPath1(String photoPath1) {
-        this.photoPath1 = photoPath1;
+        if(photoPath1==null)
+        {
+            return;
+        }
+        ++size;
+        this.photoPath1 = photoPath1.replaceAll("\\\\","/");
     }
 
     public String getPhotoPath2() {
@@ -23,7 +35,12 @@ public class Photo {
     }
 
     public void setPhotoPath2(String photoPath2) {
-        this.photoPath2 = photoPath2;
+        if(photoPath2==null)
+        {
+            return;
+        }
+        ++size;
+        this.photoPath2 = photoPath2.replaceAll("\\\\","/");;
     }
 
     public String getPhotoPath3() {
@@ -31,7 +48,12 @@ public class Photo {
     }
 
     public void setPhotoPath3(String photoPath3) {
-        this.photoPath3 = photoPath3;
+        if(photoPath3==null)
+        {
+            return;
+        }
+        ++size;
+        this.photoPath3 = photoPath3.replaceAll("\\\\","/");;
     }
 
     public int getPhotoId() {
@@ -40,5 +62,41 @@ public class Photo {
 
     public void setPhotoId(int photoId) {
         this.photoId = photoId;
+    }
+
+    public void setPath(String basePath)
+    {
+
+        if(photoPath1!=null)
+        {
+            this.photoPath1 = basePath+photoPath1.substring(photoPath1.indexOf("upload"),photoPath1.length()).replaceAll("\\\\","/");
+        }
+        if(photoPath2!=null)
+        {
+            this.photoPath2 = basePath+photoPath2.substring(photoPath2.indexOf("upload"),photoPath2.length()).replaceAll("\\\\","/");
+        }
+        if(photoPath3!=null)
+        {
+            this.photoPath3 = basePath+photoPath3.substring(photoPath3.indexOf("upload"),photoPath3.length()).replaceAll("\\\\","/");
+        }
+
+    }
+
+    public void emptyPath()
+    {
+        this.photoPath3="";
+        this.photoPath2="";
+        this.photoPath1="";
+    }
+
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "photoPath1='" + photoPath1 + '\'' +
+                ", photoPath2='" + photoPath2 + '\'' +
+                ", photoPath3='" + photoPath3 + '\'' +
+                ", photoId=" + photoId +
+                '}';
     }
 }
