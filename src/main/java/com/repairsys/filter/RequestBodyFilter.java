@@ -33,6 +33,13 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        if(t.contains("/img")||t.contains("/excel")||t.contains("/.get"))
+        {
+            resp.setContentType("application/json");
+            chain.doFilter(request,resp);
+            return;
+        }
+
         //判断是不是 静态资源，如果是就要放行
         logger.debug(t);
         logger.debug("进行过滤处理2");

@@ -406,13 +406,15 @@ $.ajax({
     async: false,
 
     success:function(msg){
-
+        // alert(123);
 
         if(msg.code==200)
         {
             p = msg;
             let str = '';
             for(let key in p.paths){
+                alert(key);
+                alert(p.paths[key]);
                 var location = (window.location+'').split('/');
                 var basePath = location[0]+'//'+location[2]+'/';
 

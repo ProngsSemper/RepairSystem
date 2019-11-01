@@ -32,8 +32,6 @@ public class StuFilter implements Filter {
             return;
         }
 
-        // chain.doFilter(req,resp);
-        // return;
 
         boolean b = request.getSession().getAttribute("stuId")==null;
         String t = request.getRequestURI();
@@ -41,6 +39,7 @@ public class StuFilter implements Filter {
 
         if(!b)
         {
+            resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }
         logger.error(t);
