@@ -825,7 +825,7 @@ body{
     background-image: url(../img/jindu3.png);
 }
 .progressWrong{
-    width: 200px;
+    width: 250px;
     background-image: url(../img/yichang.png);
 }
 .mynav {
@@ -869,7 +869,7 @@ body{
 	transform:translateZ(25px);
 }
 .item a p:last-child {
-	background-color:#d655ff;
+	background-color:#ffffffd9;
 	transform:rotateX(-90deg) translateZ(-25px);
 	-webkit-transform:rotateX(-90deg) translateZ(-25px);
 }

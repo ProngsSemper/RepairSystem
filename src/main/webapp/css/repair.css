@@ -536,7 +536,7 @@ select{
 .excel{
     position: absolute;
     right: 180px;
-    top: 15px;
+    top: 18px;
     width: 40px;
     height: 40px;
     background-image: url(../img/excel.png);

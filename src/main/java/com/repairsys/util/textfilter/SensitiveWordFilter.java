@@ -134,7 +134,7 @@ public class SensitiveWordFilter {
         return matchFlag;
     }
 //以下为用法样例
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		SensitiveWordFilter filter = new SensitiveWordFilter();
 //		System.out.println("敏感词的数量：" + filter.sensitiveWordMap.size());
 //		String string = "<script>";
@@ -146,5 +146,5 @@ public class SensitiveWordFilter {
 //		System.out.println("是否包含敏感词："+b);
 //		System.out.println("语句中包含敏感词的个数为：" + set.size() + "。包含：" + set);
 //		System.out.println("总共消耗时间为：" + (endTime - beginTime));
-	}
+//	}
 }
