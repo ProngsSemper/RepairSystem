@@ -243,6 +243,29 @@ public final class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public Result getCompleteFormByLocation(String location, int page, int limit) {
+        if (page <= 0) {
+            page = 1;
+        }
+        FormListDaoImpl formListDao = (FormListDaoImpl) DaoFactory.getFormDao();
+        List list = formListDao.adminGetCompleteListByLocation(location, page, limit);
+        Page res = new Page();
+        res.setData(list);
+        int cnt = formListDao.getAllAdminCompleteCountByLocation(location);
+        res.setTotalCount(cnt);
+        res.setTotalPage(cnt / limit + (cnt % limit == 0 ? 0 : 1));
+        res.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        if (list.size() == 0) {
+            res.setResult(ResultEnum.QUERY_FAILED);
+        }
+        res.setTargetPage(page);
+        res.setSize(list.size());
+        logger.debug("{},{}，{}", list, cnt, res.getTotalPage());
+        logger.debug("---------------");
+        return res;
+    }
+
+    @Override
     public Result getFormListByWorkerName(String wName, int page, int limit) {
         if (page <= 0) {
             page = 1;

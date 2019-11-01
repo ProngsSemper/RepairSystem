@@ -43,6 +43,16 @@ public interface AdminService {
     Result getIncompleteFormByLocation(String location, int page, int limit);
 
     /**
+     * 根据南北苑查询管理员已处理报修单
+     *
+     * @param location 南/北苑
+     * @param page     当前页
+     * @param limit    页面大小
+     * @return 返回相应状态码
+     */
+    Result getCompleteFormByLocation(String location, int page, int limit);
+
+    /**
      * 管理员根据学生学号查询报修单
      *
      * @param stuId 学生学号
@@ -156,11 +166,11 @@ public interface AdminService {
      * 传入工人key和报修单id将某报修单变为已安排工人状态
      * 并记录是哪个管理员进行的操作
      *
-     * @param wKey    工人 key
-     * @param adminId 管理员key
+     * @param wKey        工人 key
+     * @param adminId     管理员key
      * @param appointDate 最终确定日期
      * @param appointment 最终确定点数
-     * @param formId  报修单id
+     * @param formId      报修单id
      * @return 返回相应状态码
      */
     Result<Boolean> arrange(int wKey, String adminId, String appointDate, int appointment, int formId);
