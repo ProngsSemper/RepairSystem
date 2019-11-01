@@ -289,11 +289,13 @@ $("body").delegate('.iconSearch', 'click', function () {
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
+            $(".page").html("");
             searchFormId(formIdInput.value);
             searchFlag = 2
             returntable.style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
+            $(".page").html("");
             searchStuName(1);
             searchFlag = 3;
             returntable.style.display="block";
@@ -305,11 +307,13 @@ $("body").delegate('.iconSearch', 'click', function () {
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
+            $(".page").html("");
             searchFinishFormId(formIdInput.value);
             searchFlag = 4
             returntable.style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
+            $(".page").html("");
             searchFinishstuName(formIdInput.value,1);
             searchFlag = 5;
             returntable.style.display="block";
@@ -347,6 +351,7 @@ $("body").delegate(".page>span", "click", function () {
 });
 //监听table内的返回按钮
 $("body").delegate(".returntable", "click", function () {
+    $(".page").html("");
     getMsg(1);
     returntable.style.display="none";
 });
