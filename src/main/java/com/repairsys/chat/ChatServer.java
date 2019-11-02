@@ -88,6 +88,11 @@ public class ChatServer {
             if(onlineCount==1)
             {
                 try {
+                    session.getBasicRemote().sendText(User.getMsgString("管理员已经下线,请过段时间再来","聊天小助手",tmp));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
                     if(session.isOpen())
                     {
                         session.close();
@@ -151,6 +156,7 @@ public class ChatServer {
         if (isBadWords) {
             message = filter.replaceSensitiveWord(message, 1, "*");
         }
+
         JSONObject jsonObject = JSONObject.parseObject(message);
 
         // send(jsonObject, session);

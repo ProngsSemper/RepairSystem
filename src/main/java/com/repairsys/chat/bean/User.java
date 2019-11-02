@@ -56,4 +56,33 @@ public class User implements Serializable {
             e.printStackTrace();
         }
     }
+
+    public void receiveJson(String msg)
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg",msg);
+        try {
+            this.session.getBasicRemote().sendText(jsonObject.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static String getMsgString(String msg)
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg",msg);
+        return jsonObject.toJSONString();
+
+    }
+
+    public static String getMsgString(String msg,String sender,String target)
+    {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("msg",msg);
+        jsonObject.put("sender",sender);
+        jsonObject.put("target",target);
+        return jsonObject.toJSONString();
+
+    }
 }
