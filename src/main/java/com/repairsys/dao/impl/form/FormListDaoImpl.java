@@ -47,7 +47,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     private static final String ADMIN_INCOMPLETE_FORM = "select * from form where queryCode = 0 limit ?,?";
     private static final String ADMIN_COMPLETE_FORM = "select * from form where queryCode <> 0 UNION select * from oldform where queryCode <>0 limit ?,?";
     private static final String WORKER_INCOMPLETE_FORM = "select * from form where wKey = ? and queryCode = 1 limit ?,?";
-    private static final String WORKER_COMPLETE_FORM = "SELECT * FROM form WHERE wKey = ? AND queryCode > 1 UNION SELECT * FROM oldform WHERE wKey = ? and queryCode > 1 limit ?,?";
+    private static final String WORKER_COMPLETE_FORM = "SELECT * FROM form WHERE wKey = ? AND queryCode > 1 OR queryCode = -1 UNION SELECT * FROM oldform WHERE wKey = ? and queryCode > 1 OR queryCode = -1 limit ?,?";
     private static final String ADMIN_QUERY_TYPE = "SELECT * FROM `form` WHERE wType=? UNION SELECT * FROM `oldform` WHERE wType=? limit ?,?";
     private static final String QUERY_LEVEL = "SELECT * FROM `form` WHERE LEVEL=\"A\"";
     private static final String STUDENT_UNDONE = "SELECT * FROM `form` WHERE stuId=? limit ?,?";

@@ -5,7 +5,7 @@ $(document).ready(function () {
     body.style.width = window.screen.width;
     var data = document.getElementsByClassName("date")[0];
     var managerName=document.getElementsByClassName("managerName")[0];
-    managerName.innerText=getCookie("adminName")+",欢迎你";
+    managerName.innerText=decodeURI(getCookie("adminName"))+",欢迎你";
     var a = new Date();
     var day = a.getDate();
     var month = a.getMonth() + 1;

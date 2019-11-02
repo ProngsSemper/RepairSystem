@@ -4,7 +4,7 @@ $(document).ready(function () {
     body.style.width = window.screen.width;
     var data = document.getElementsByClassName("dateTime")[0];
     var workerName=document.getElementsByClassName("left-tit")[0];
-    workerName.innerText=getCookie("workerName");
+    workerName.innerText=decodeURI(getCookie("workerName"));
     var a = new Date();
     var day = a.getDate();
     var month = a.getMonth() + 1;
