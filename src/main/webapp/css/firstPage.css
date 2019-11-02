@@ -60,12 +60,6 @@ body{
     text-align: center;
     cursor: pointer;
 }
-.navLi li:hover{
-    /* background: rgba(255, 255, 255, .5); */
-}
-.navLi .current{
-    /* background: rgba(255, 255, 255, .5); */
-}
 
 .contant{
     margin: 40px auto 0px;
@@ -157,7 +151,7 @@ body{
     height: 500px;
     width: 900px;
     background: #fff;
-    background-image: url(../img/form.png);
+    /* background-image: url(../img/form.png); */
 }
 .hide{
     display: none;;

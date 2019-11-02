@@ -20,6 +20,7 @@ body{
     background: #8e0b02;
 }
 .nav{
+    position: relative;
     width: 1440px;
     height: 65px;
     overflow: hidden;
@@ -569,4 +570,17 @@ select{
     height: 50px;
     background-image: url(../img/fanhui.png);
     background-size: contain;
+}
+.positionBox{
+    position: absolute;
+    display: inline-block;
+    top: 26px;
+    margin-left: 20px;
+}
+.inposition{
+    font-size: 18px;
+    cursor: pointer;
+}
+.current{
+    color: #f99b3f;
 }

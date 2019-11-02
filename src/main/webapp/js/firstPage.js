@@ -17,6 +17,7 @@ $(document).ready(function () {
         }
     }
     page=1;
+
 //提交表单信息
     var stuId = document.getElementsByClassName("repair-information")[2];
     var stuName = document.getElementsByClassName("repair-information")[0];
@@ -39,6 +40,10 @@ $(document).ready(function () {
     var adress = document.getElementById("adress");
     var buliding = document.getElementById("buliding");
     var wType = "其他";
+//cookie自动填充表单信息
+    stuId.value=decodeURI(getCookie("stuId"));
+    stuName.value=decodeURI(getCookie("stuName"));
+//
     $("body").delegate(".radios", "click", function () {
         for (var i = 0; i < radio.length; i++) {
             if (radio[i].checked) {
@@ -538,3 +543,5 @@ function cancellation(){
         }
     })
 }
+//自动填充表单
+;

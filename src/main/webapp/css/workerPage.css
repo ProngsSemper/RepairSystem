@@ -285,7 +285,7 @@ option{
     margin: 0px auto;
     width: 400px;
     height: 500px;
-    overflow: hidden;
+    overflow: auto;
     /* background: #000; */
 }
 .orderInsideBox p{
