@@ -42,7 +42,7 @@ navImg[0].onclick = function () {
     bigBox.style.display = "block";
     finish.style.display = "none";
     search.style.display = "block";
-    // $(".page").html("");
+    $(".page").html("");
     searchFlag=0;
     getMsg(1)
 }
@@ -51,7 +51,7 @@ navImg[1].onclick = function () {
     finish.style.display = "block";
     operatrContant.style.display = "none";
     search.style.display = "block";
-    // $(".page").html("");
+    $(".page").html("");
     searchFlag=1;
     getWorkerFinishOrder(1)
 }
@@ -254,7 +254,7 @@ function searchStuName(page) {
             console.log(msg);
             // alert(msg.size);
             var page = $(".page");
-            $(".page").html("");
+            // $(".page").html("");
             $(".tableBox").html("");
             var data = msg.data;
             // console.log(data);
@@ -344,16 +344,19 @@ $("body").delegate('.iconSearch', 'click', function () {
 $("body").delegate(".page>span", "click", function () {
     var number = $(this).html();
     if (searchFlag == 0) {
+        // $(".page").html("");
         getMsg(number);
     } 
     else if(searchFlag==1)
     {
+        // $(".page").html("");
         getWorkerFinishOrder(number)
     }
     else if(searchFlag==2){
         
     }
     else if(searchFlag==3){
+        // $(".page").html("");
         searchStuName(number);
     }
     else if(searchFlag==4)
@@ -361,6 +364,7 @@ $("body").delegate(".page>span", "click", function () {
 
     }
     else if(searchFlag==5){
+        // $(".page").html("");
         searchFinishstuName(formIdInput.value,number);
     }
     $(this).addClass("cur");
@@ -483,7 +487,7 @@ function searchFinishstuName(stuName,pageCount){
             var data=msg.data;
             // alert(msg.size);
             var page = $(".page");
-            $(".page").html("");
+            // $(".page").html("");
             $(".finishtableBox").html("");
             var data = msg.data;
             console.log(data);
@@ -600,11 +604,13 @@ $("body").delegate(".returntable","click",function(){
     if(bigBox.style.display=="block"){
         returntable[0].style.display="none";
         $(".page").html("");
+        searchFlag=0;
         getMsg(1);
     }
     else{
         returntable[1].style.display="none";
         $(".page").html("");
+        searchFlag=1;
         getWorkerFinishOrder(1);
     }
 })
