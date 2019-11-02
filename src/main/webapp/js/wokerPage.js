@@ -32,6 +32,7 @@ $("body").delegate('.deal', 'click', function () {
     operatrContant.style.display = "block";
     search.style.display = "none";
     formId = $(this).parent().parent().attr("formid");
+    $(".page").html("")
     getFormDetail(formId);
 });
 //监听左侧导航栏点击
