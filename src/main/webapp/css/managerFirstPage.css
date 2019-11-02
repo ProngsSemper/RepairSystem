@@ -26,7 +26,7 @@ body{
     width: 200px;
 }
 .contant{
-    margin: 60px auto 150px;
+    margin: 80px auto 150px;
     overflow: hidden;
 }
 .insideBox{
@@ -56,10 +56,11 @@ body{
 }
 .category .inside-tit{
     margin: 10px auto 0;
-    color: #000;
+
     font-size: 30px;
     font-weight: bold;
     text-align: center;
+    color: #888;
 }
 .footer{
     position: relative;
