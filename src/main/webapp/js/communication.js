@@ -142,6 +142,7 @@ function sendMsg() {
 
 
 function closeWebSocket() {
+    fillWhite("对不起，管理员暂时不在线");
     ws.close();
 }
 

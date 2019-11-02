@@ -29,7 +29,7 @@ public class WorkerFilter implements Filter {
 
         if(!b)
         {
-            System.out.println("workerId--------------");
+            // System.out.println("workerId--------------");
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }

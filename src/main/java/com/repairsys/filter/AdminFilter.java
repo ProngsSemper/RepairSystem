@@ -25,7 +25,6 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest)req;
 
-        // HttpServletRequest request = (HttpServletRequest)req;
 
         boolean b = request.getSession().getAttribute("adminId")==null;
         logger.error(request.getRequestURI());
