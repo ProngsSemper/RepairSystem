@@ -142,6 +142,7 @@ $(document).ready(function () {
 gerRepairOrder(1);
 var page=document.getElementsByClassName("page")[0];
 function gerRepairOrder(pageCount){
+    console.log(pageCount)
     $.ajax({
         type: "POST",
         url: "/student/incomplete/history/form",
@@ -165,6 +166,7 @@ function gerRepairOrder(pageCount){
                 }
             }
             for(var i=0;i<msg.size;i++){
+                $(".orderContant").append('<div class="order"></div>');
                 $(".order").eq(i).append('<i class="progressBat"></i>');
                 if(data[i].queryCode=="0"){
                     condition="待排期"
@@ -182,7 +184,6 @@ function gerRepairOrder(pageCount){
                     condition="异常"
                     $(".progressBat").eq(i).addClass("progressWrong");
                 }
-                $(".orderContant").append('<div class="order"></div>');
                 $(".order").eq(i).append('<i class="yellowLabel"></i><span class="state-tit">'+condition+'</span>');
                 $(".order").eq(i).append('<div class="orderInformation"></div>');
                 $(".orderInformation").eq(i).append('<div class="orderInside">'+
@@ -439,6 +440,7 @@ $("body").delegate(".evaluateSure","click",function () {
     // $(this).html("")
 })
 $("body").delegate(".bye","click",function () { 
+    cancellation();
     window.location.href="/login.html"
 })
 //上传文件
@@ -509,11 +511,28 @@ function getPhoto(formId,position){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+            if (msg.code==400) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+                }
+            }     
         },
         error:function(xhr){
             // alert(xhr.status);
+        }
+    })
+}
+//注销方法
+function cancellation(){
+    $.ajax({
+        type:"post",
+        url:"/student/logout",
+        success:function(msg){
+
+        },
+        error:function(error){
+
         }
     })
 }

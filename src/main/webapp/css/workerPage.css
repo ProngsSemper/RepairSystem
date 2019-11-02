@@ -428,7 +428,8 @@ button:focus{
     height: 420px;
     /* background: #000; */
     overflow: auto;
-    background-image: url(../img/pingjiahua.png);
+    opacity: 1.5;
+    /*background-image: url(../img/pingjiahua.png);*/
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -451,6 +452,7 @@ button:focus{
     text-align: center;
     line-height: 30px;
     min-height: 30px;
+    color: #333;
 }
 .his-date{
     display: inline-block;

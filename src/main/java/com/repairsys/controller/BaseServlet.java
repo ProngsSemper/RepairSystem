@@ -27,7 +27,9 @@ public abstract class BaseServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
         Result res = (Result) request.getAttribute("result");
+
         //response把请求的数据响应给前台
         PrintWriter sender = response.getWriter();
 
@@ -37,6 +39,7 @@ public abstract class BaseServlet extends HttpServlet {
             sender.flush();
             sender.close();
         }
+        response.setContentType("application/json");
 
     }
 

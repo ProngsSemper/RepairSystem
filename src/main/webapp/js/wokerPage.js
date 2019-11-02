@@ -1,3 +1,21 @@
+$(document).ready(function () {
+    var bodyWidth = window.screen.width;
+    var body = document.getElementsByTagName("body")[0];
+    body.style.width = window.screen.width;
+    var data = document.getElementsByClassName("dateTime")[0];
+    var workerName=document.getElementsByClassName("left-tit")[0];
+    workerName.innerText=decodeURI(getCookie("workerName"));
+    var a = new Date();
+    var day = a.getDate();
+    var month = a.getMonth() + 1;
+    var year = a.getFullYear();
+    var b = new Array("日", "一", "二", "三", "四", "五", "六");
+    var week = new Date().getDay();
+    var str = " 星期" + b[week];
+    var str1 = year + '年' + month + '月' + day + '日';
+    data.innerText = str1 + str;
+    // getMsg(1);
+});
 //监听返回按钮
 var bigBox = document.getElementsByClassName("bigBox")[0];
 var operatrContant = document.getElementsByClassName("operatrContant")[0];
@@ -282,7 +300,7 @@ function searchStuName(page) {
 //监听搜索按钮
 var searchContant = document.getElementById("searchContant");
 var formIdInput = document.getElementsByClassName("searchInput")[0];
-var returntable=document.getElementsByClassName("returntable")[0];
+var returntable=document.getElementsByClassName("returntable");
 $("body").delegate('.iconSearch', 'click', function () {
     if(bigBox.style.display=="block"){
         // alert("按钮已点击");
@@ -292,13 +310,13 @@ $("body").delegate('.iconSearch', 'click', function () {
             $(".page").html("");
             searchFormId(formIdInput.value);
             searchFlag = 2
-            returntable.style.display="block";
+            returntable[0].style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
             $(".page").html("");
             searchStuName(1);
             searchFlag = 3;
-            returntable.style.display="block";
+            returntable[0].style.display="block";
         } else {
             alert("请选择搜索范围");
         }
@@ -310,13 +328,13 @@ $("body").delegate('.iconSearch', 'click', function () {
             $(".page").html("");
             searchFinishFormId(formIdInput.value);
             searchFlag = 4
-            returntable.style.display="block";
+            returntable[1].style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
             $(".page").html("");
             searchFinishstuName(formIdInput.value,1);
             searchFlag = 5;
-            returntable.style.display="block";
+            returntable[1].style.display="block";
         } else {
             alert("请选择搜索范围");
         }
@@ -325,7 +343,6 @@ $("body").delegate('.iconSearch', 'click', function () {
 //监听点击页码操作
 $("body").delegate(".page>span", "click", function () {
     var number = $(this).html();
-
     if (searchFlag == 0) {
         getMsg(number);
     } 
@@ -349,12 +366,7 @@ $("body").delegate(".page>span", "click", function () {
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
 });
-//监听table内的返回按钮
-$("body").delegate(".returntable", "click", function () {
-    $(".page").html("");
-    getMsg(1);
-    returntable.style.display="none";
-});
+
 //监听评价按钮里的×
 var historyNotice=document.getElementsByClassName("historyNotice")[0];
 $("body").delegate(".history-cha", "click", function () {
@@ -531,15 +543,6 @@ function searchFinishFormId(formId){
             $(".finishtableBox").html("");
             var data = msg.data;
             // console.log(data);
-            var b = $('.page').children().length == 0;
-
-            if (b) {
-                page.append('<span class="page-number cur">' + 1 + '</span>');
-                for (var i = 2; i <= msg.totalPage; i++) {
-                    page.append('<span class="page-number">' + i + '</span>');
-                }
-            }
-
             $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
                 '<div class="formId">报修单号</div>' +
                 '<div class="formNumber">学号</div>' +
@@ -580,11 +583,46 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".orderInsideBox").append('<img src="'+data.photoPath1+'">');
+            if (msg.code==200) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".orderInsideBox").append('<img src="'+data.arr[i]+'">');
+                }
+            }            
         },
         error:function(xhr){
             // alert(xhr.status);
         }
     })
 }
+//监听搜索页面的返回
+$("body").delegate(".returntable","click",function(){
+    if(bigBox.style.display=="block"){
+        returntable[0].style.display="none";
+        $(".page").html("");
+        getMsg(1);
+    }
+    else{
+        returntable[1].style.display="none";
+        $(".page").html("");
+        getWorkerFinishOrder(1);
+    }
+})
+//注销方法
+function cancellation(){
+    $.ajax({
+        type:"post",
+        url:"/worker/logout",
+        success:function(msg){
+
+        },
+        error:function(error){
+
+        }
+    })
+}
+//监听注销按钮
+$("body").delegate(".bye","click",function(){
+    cancellation();
+    window.location.href="/login.html";
+})

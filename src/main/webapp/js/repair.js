@@ -4,6 +4,8 @@ $(document).ready(function () {
     var body = document.getElementsByTagName("body")[0];
     body.style.width = window.screen.width;
     var data = document.getElementsByClassName("date")[0];
+    var managerName=document.getElementsByClassName("managerName")[0];
+    managerName.innerText=decodeURI(getCookie("adminName"))+",欢迎你";
     var a = new Date();
     var day = a.getDate();
     var month = a.getMonth() + 1;
@@ -94,16 +96,18 @@ function getMsg(pageCount) {
         success: function (msg) {
 
             // alert(msg.size);
-            // var page = $(".page");
+            var page = $(".page");
             var table = $(".repairItem");
             // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
             // console.log(data);
-            if ($(".page").children().length == 0) {
-                $(".page").append('<span class="page-number cur">' + 1 + '</span>');
+            var b = $('.page').children().length == 0;
+
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
                 for (var i = 2; i <= msg.totalPage; i++) {
-                    $(".page").append('<span class="page-number">' + i + '</span>');
+                    page.append('<span class="page-number">' + i + '</span>');
                 }
             }
 
@@ -151,7 +155,7 @@ function getFormDetail(formId) {
         success: function (msg) {
             $(".information").html("");
             var data = msg.data;
-            // let img=document.createElement('img');
+            // let img=document.createElement('img'
             // $(img).attr("src","img/jindutiao.png");
             $(".information").append('<p>报修人：' + data[0].stuName);
             $(".information").append('<p>报修电话：' + data[0].stuPhone);
@@ -404,7 +408,7 @@ $.ajax({
     async: false,
 
     success:function(msg){
-
+        // alert(123);
 
         if(msg.code==200)
         {
@@ -413,7 +417,6 @@ $.ajax({
             for(let key in p.paths){
                 var location = (window.location+'').split('/');
                 var basePath = location[0]+'//'+location[2]+'/';
-
                 var string = p.paths[key].substring(0,p.paths[key].indexOf("upload"));
                 // alert(p.paths[key].replace(string,"localhost/"));
                 let url = p.paths[key].replace(string,basePath);
@@ -504,16 +507,18 @@ function searchSouthOrNorth(location,page){
 //监听搜索
 var queryType=document.getElementById("queryType");
 var searchInput=document.getElementsByClassName("searchInput")[0]
+var returntable=document.getElementsByClassName("returntable");
 $("body").delegate("#m_query","click",function(){
     if(item[0].style.display=="block"){
         if(searchInput.value!=""){
             if(queryType.value==3){
                 // alert("id")
-                
+                returntable[0].style.display="block";
                 searchUnfinishId(searchInput.value);
             }
             else if(queryType.value==4){
                 alert("姓名")
+                returntable[0].style.display="block";
                 pageFlag=2;
                 searchUnfinishStuName(searchInput.value,1);
             }
@@ -526,20 +531,24 @@ $("body").delegate("#m_query","click",function(){
         if(searchInput.value!=""){
             if(queryType.value==1){
                 alert("工人姓名")
+                returntable[1].style.display="block";
                 pageFlag=3;
                 searchFinishwName(searchInput.value,1);
             }
             else if(queryType.value==2){
                 alert("工种类型")
+                returntable[1].style.display="block";
                 pageFlag=4;
                 searchFinishwType(searchInput.value,1);
             }
             else if(queryType.value==3){
                 alert("报修单id")
+                returntable[1].style.display="block";
                 searchFinishFormId(searchInput.value);
             }
             else if(queryType.value==4){
                 alert("学生姓名")
+                returntable[1].style.display="block";
                 pageFlag=5;
                 searchFinishStudName(searchInput.value,1);
             }
@@ -721,22 +730,21 @@ function searchFinishFormId(formId){
             // "limit": 10,
         }),
         success: function (msg) {
-            if(msg.code==200) {
-                $(".page").html("");
-                var page = $(".page");
-                $(".tableBox").html("");
-                var data = msg.data;
-                var b = $('.page').children().length == 0;
+            $(".page").html("");
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
 
-                if (b) {
-                    page.append('<span class="page-number cur">' + 1 + '</span>');
-                    // for (var i = 2; i <= msg.totalPage; i++) {
-                    //     page.append('<span class="page-number">' + i + '</span>');
-                    // }
-                }
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                // for (var i = 2; i <= msg.totalPage; i++) {
+                //     page.append('<span class="page-number">' + i + '</span>');
+                // }
+            }
 
-                $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
-                // for (var i = 0; i < msg.size; i++) {
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            // for (var i = 0; i < msg.size; i++) {
                 $(".tableBox").append('<div class="grid-content"></div>');
                 $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
                     '<div class="formNumber">' + data[0].stuId + '</div>' +
@@ -744,13 +752,12 @@ function searchFinishFormId(formId){
                     '<div class="listcontant">' + data[0].formMsg + '</div>' +
                     '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
                 // if (i % 2 == 0) {
-                $(".grid-content").eq(1).addClass("bg-purple");
+                    $(".grid-content").eq(1).addClass("bg-purple");
                 // } else {
                 //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
                 // }
-                $(".grid-content").eq(1).attr("formid", data[i].formId);
-                // }
-            }
+                $(".grid-content").eq(1).attr("formid", data[0].formId);
+            // }
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -889,11 +896,47 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".information").append('<img src="'+data.photoPath1+'">');
+            if (msg.code==200) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".information").append('<img src="'+data.arr[i]+'">');
+                }
+            }
         },
         error:function(xhr){
             // alert(xhr.status);
         }
     })
 }
+//注销方法
+function cancellation(){
+    $.ajax({
+        type:"post",
+        url:"/admin/logout",
+        success:function(msg){
+
+        },
+        error:function(error){
+
+        }
+    })
+}
+$("body").delegate(".bye","click",function(){
+    cancellation();
+    window.location.href="/login.html";
+})
+//监听搜索返回按钮
+var returntable=document.getElementsByClassName("returntable");
+$("body").delegate(".returntable","click",function(){
+    if(item[0].style.display=="block"){
+        returntable[0].style.display="none";
+        $(".page").html("");
+        getMsg(1)
+    }
+    else{
+        returntable[1].style.display="none";
+        $(".page").html("");
+        getFinfishMsg(1);
+    }
+})
+

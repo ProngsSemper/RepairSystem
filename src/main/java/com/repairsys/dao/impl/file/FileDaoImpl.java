@@ -14,10 +14,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * @create 2019/10/24 13:32
  */
 public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
-    private static final FileDaoImpl dao = new FileDaoImpl();
+    private static final FileDaoImpl DAO = new FileDaoImpl();
 
     public static FileDaoImpl getInstance() {
-        return FileDaoImpl.dao;
+        return FileDaoImpl.DAO;
     }
 
     private int cnt;

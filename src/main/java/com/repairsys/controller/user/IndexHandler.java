@@ -30,7 +30,7 @@ public class IndexHandler extends BaseServlet {
         workerToken = CookieUtil.getCookie("wToken", request);
         System.out.println(adminToken);
 
-        request.setAttribute("pass","1");
+        request.setAttribute("pass", "1");
         if (adminToken != null) {
             Admin admin = AdminDaoImpl.getInstance().existsToken(adminToken);
             if (admin != null) {
@@ -62,12 +62,10 @@ public class IndexHandler extends BaseServlet {
 
         }
 
-        request.setAttribute("pass","1");
+        request.setAttribute("pass", "1");
 
-        request.getRequestDispatcher("login.html").forward(request,response);
+        request.getRequestDispatcher("login.html").forward(request, response);
         return;
-
-
 
     }
 

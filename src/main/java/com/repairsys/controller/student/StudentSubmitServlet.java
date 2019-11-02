@@ -64,7 +64,7 @@ public class StudentSubmitServlet extends BaseServlet {
         //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String message = requestBody.getString("formMsg").trim();
-        //todo: 获取web-inf 目录下的敏感词文件
+        //获取web-inf 目录下的敏感词文件
         String path = request.getServletContext().getRealPath("/WEB-INF");
         SensitiveWordFilter filter = new SensitiveWordFilter(path);
         //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库

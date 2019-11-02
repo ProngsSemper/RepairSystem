@@ -22,8 +22,7 @@ public class RequestBodyFilter implements Filter {
     /**
      * 默认需要放行的资源
      */
-    private static final String[] ARRAY = {"/", ".png", ".jpg", ".css", ".js", ".gif", ".html", ".ico"};
-    private static final String[] UI = {"index", "?", "woff", "limit", ".html", ".jsp", "img"};
+
 
     @Override
     public void destroy() {
@@ -34,27 +33,21 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        if (t.lastIndexOf("/chat") >= 0) {
-            chain.doFilter(request, resp);
+
+        if(t.contains("/excel"))
+        {
+            resp.setContentType("application/json");
+            chain.doFilter(request,resp);
+            return;
+        }else if(t.contains("/img"))
+        {
+
+            chain.doFilter(request,resp);
             return;
         }
+
+        //判断是不是 静态资源，如果是就要放行
         logger.debug(t);
-        for (String i : ARRAY) {
-            if (t.endsWith(i)) {
-                logger.debug("放行静态资源 {}", t);
-
-                chain.doFilter(req, resp);
-                return;
-            }
-        }
-        for (String i : UI) {
-            if (t.lastIndexOf(i) >= 0) {
-                logger.debug("默认资源{}", i);
-                chain.doFilter(req, resp);
-                return;
-            }
-        }
-
         logger.debug("进行过滤处理2");
 
         // HttpServletRequest request = (HttpServletRequest) req;
@@ -76,14 +69,15 @@ public class RequestBodyFilter implements Filter {
 
             JSONObject json = JSONObject.parseObject(jsonBuilder.toString());
 
-            System.out.println(json);
+            // System.out.println(json);
 
             logger.debug("json转化成功 {}", jsonBuilder.toString());
 
             request.setAttribute("requestBody", json);
 
+
         }
-        System.out.printf("放行");
+
 
         chain.doFilter(req, resp);
 

@@ -43,11 +43,21 @@ public class AdminLoginServlet extends BaseServlet {
         request.setAttribute("result", result);
         //登录成功设置cookie
         if (result.getCode() == loginSuccess) {
-            CookieUtil.setToken("adminId", adminId, response);
-            String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
-            CookieUtil.setToken("adminToken", adminToken, response);
+            String adminName = adminService.getNameById(adminId);
+            String flag = "flag";
+            if (requestBody.getInteger(flag) == 1) {
+                CookieUtil.setToken("adminId", adminId, response);
+                String adminToken = adminDao.getToken(requestBody.getString("id")).getAdminToken();
+                CookieUtil.setToken("adminToken", adminToken, response);
+                CookieUtil.setToken("adminName", adminName, response);
+            } else {
+                CookieUtil.setCookie("adminId", adminId, response);
+                CookieUtil.setCookie("adminName", adminName, response);
+            }
             response.addHeader("identity", "admin");
             session.setAttribute("adminId", adminId);
+
+            CookieUtil.setCookie("adminNameTest","管理员",response);
         }
         super.doPost(request, response);
     }

@@ -1,18 +1,8 @@
-
-function bodyScale() {
-    var devicewidth = document.documentElement.clientWidth;
-    var scale = devicewidth / 1440;
-    document.body.style.zoom = scale;
-}
-
-window.onload = window.onresize = function () {
-    bodyScale();
-};
 var submit = document.getElementsByClassName("Submit")[0];
 var Name = document.getElementsByClassName("stuId")[0];
 var Password = document.getElementsByClassName("stuPassword")[0];
 var checkCode = document.getElementsByClassName("checkInput")[0];
-var remmber = document.getElementsByClassName('square')[0];
+var remmber = document.getElementsByClassName('remmber')[0];
 var cartoon = document.getElementsByClassName("cartoon")[0];
 //添加 radio是为了区分用户
 //添加验证码是为了给后台判断验证码
@@ -76,6 +66,14 @@ $(document).ready(function () {
             //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
             var radio = $("input[name='identity']:checked").val();
             var vcode = $('#myCode').val();
+            var flag;
+            var judge=remmber.checked;
+            if(judge){
+                flag=1;
+            }
+            else{
+                flag=0;
+            }
             // document.write(_LoadingHtml);
             // window.setTimeout(load,3000);
 
@@ -90,8 +88,8 @@ $(document).ready(function () {
                     "id": $('#id').val(),
                     "password": $('#password').val(),
                     'radio': radio,
-                    'vcode': vcode
-
+                    'vcode': vcode,
+                    'flag':parseInt(flag)
                 }),
                 success: function (data, status, jqXHR) {
                     // var rel = JSON.parse(msg);
