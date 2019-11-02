@@ -114,6 +114,7 @@ public class ChatServer {
             u.setTarget(this.target);
 
             String text = "{ 'list':" + admin.getTargetSet() + "}";
+            //TODO: 需要设置一个枚举类型，用来给前端反馈聊天类型
             admin.receive(text);
             u.receive("{'target':'" + admin.getUserName() + "'}");
 
@@ -158,6 +159,7 @@ public class ChatServer {
         }
 
         JSONObject jsonObject = JSONObject.parseObject(message);
+        //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
 
         // send(jsonObject, session);
         //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
