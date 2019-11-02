@@ -53,7 +53,7 @@ body{
 }
 .nav .managerName{
     float: left;
-    margin: 0 20px 0 40px;
+    margin: 0 20px 0 66px;
     line-height: 65px;
     font-size: 16px;
 }
@@ -71,7 +71,7 @@ body{
     background-repeat: no-repeat;
     height: 25px;
     top: 20px;
-    right: 118px;
+    right: 218px;
 }
 .box{
     margin: 10px 0 0 0;
@@ -267,19 +267,19 @@ body{
 }
 .dealOrder{
     float: left;
-    width: 1010px;
+    width: 1190px;
     height: 700px;
     background: #eeeeee;
 }
 .repairInformation{
     float: left;
-    width: 505px;
+    width: 595px;
     height: 600px;
     /* background: #000; */
 }
 .workInformation{
     float: left;
-    width: 505px;
+    width: 595px;
     height: 600px;
     /* background: #8e0b02; */
 }
@@ -326,6 +326,7 @@ body{
 .returnBack{
     position: relative;
     /* width: 40px; */
+    left: 20px;
     height: 70px;
     cursor: pointer;
 }
@@ -334,7 +335,7 @@ body{
 }
 .return-tit{
     position: absolute;
-    top: -10px;;
+    top: -10px;
 }
 .arrange{
     position: relative;
@@ -355,7 +356,7 @@ body{
 }
 .workerInside {
     margin: 0px auto;
-    width: 400px;
+    width: 450px;
     height: 500px;
     overflow: auto;
     /* background:#f99b3f; */

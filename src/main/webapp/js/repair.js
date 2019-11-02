@@ -533,6 +533,7 @@ $("body").delegate("#m_query","click",function(){
                 alert("姓名")
                 returntable[0].style.display="block";
                 pageFlag=2;
+                $(".page").html("");
                 searchUnfinishStuName(searchInput.value,1);
             }
         }
@@ -546,12 +547,14 @@ $("body").delegate("#m_query","click",function(){
                 alert("工人姓名")
                 returntable[1].style.display="block";
                 pageFlag=3;
+                $(".page").html("");
                 searchFinishwName(searchInput.value,1);
             }
             else if(queryType.value==2){
                 alert("工种类型")
                 returntable[1].style.display="block";
                 pageFlag=4;
+                $(".page").html("");
                 searchFinishwType(searchInput.value,1);
             }
             else if(queryType.value==3){
@@ -563,6 +566,7 @@ $("body").delegate("#m_query","click",function(){
                 alert("学生姓名")
                 returntable[1].style.display="block";
                 pageFlag=5;
+                $(".page").html("");
                 searchFinishStudName(searchInput.value,1);
             }
         }
@@ -642,7 +646,7 @@ function searchUnfinishStuName(stuName,page){
             // alert(msg.size);
             var page = $(".page");
             var table = $(".repairItem");
-            $(".page").html("");
+            // $(".page").html("");
             $(".repairItem").html("");
             var data = msg.data;
             // console.log(data);
@@ -697,7 +701,7 @@ function searchFinishStudName(stuName,page){
             "limit": 10,
         }),
         success: function (msg) {
-            $(".page").html("");
+            // $(".page").html("");
             var page = $(".page");
             $(".tableBox").html("");
             var data = msg.data;
@@ -790,7 +794,7 @@ function searchFinishwName(wName,page){
             "page":parseInt(page) 
         }),
         success: function (msg) {
-            $(".page").html("");
+            // $(".page").html("");
             var page = $(".page");
             $(".tableBox").html("");
             var data = msg.data;
@@ -837,7 +841,7 @@ function searchFinishwType(wType,page){
             "page":parseInt(page) 
         }),
         success: function (msg) {
-            $(".page").html("");
+            // $(".page").html("");
             var page = $(".page");
             $(".tableBox").html("");
             var data = msg.data;
