@@ -62,6 +62,13 @@ public class IndexHandler extends BaseServlet {
 
         }
 
+        boolean isStu = request.getSession().getAttribute("stuId")!=null;
+        if(isStu)
+        {
+            request.getRequestDispatcher("firstPage.html").forward(request, response);
+            return;
+        }
+
         request.setAttribute("pass", "1");
 
         request.getRequestDispatcher("login.html").forward(request, response);

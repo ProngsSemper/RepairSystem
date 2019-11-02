@@ -45,7 +45,7 @@ public class SignFilter implements Filter {
         }else if(t.contains("worker"))
         {
             Object worker = session.getAttribute("workerId");
-            System.out.println(worker+"    ---    ");
+            // System.out.println(worker+"    ---    ");
             if(worker!=null)
             {
 
@@ -76,7 +76,7 @@ public class SignFilter implements Filter {
         {
             chain.doFilter(request,resp);
 
-        }else if(!pass){
+        }else{
             ((HttpServletResponse)resp).sendRedirect("login.html");
         }
 

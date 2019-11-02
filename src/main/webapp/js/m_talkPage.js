@@ -3,6 +3,14 @@ $(document).ready(function () {
     $('#talk').click(function () {
         window.location.href = "communication.html";
     });
+
+    $("#back").click(
+        function () {
+            window.location.href ="index.do";
+        }
+    );
+
+
 });
 
 
