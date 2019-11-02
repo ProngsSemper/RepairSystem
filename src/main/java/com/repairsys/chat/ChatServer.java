@@ -67,6 +67,9 @@ public class ChatServer {
     @OnOpen
     public synchronized void onOpen(Session session, EndpointConfig config) {
 
+
+
+
         ++onlineCount;
         //TODO: 可以获取 httpsession了
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
@@ -82,6 +85,19 @@ public class ChatServer {
                 String y = UUID.randomUUID().toString().substring(0, 5);
                 tmp = "游客" + y + onlineCount;
             }
+            if(onlineCount==1)
+            {
+                try {
+                    if(session.isOpen())
+                    {
+                        session.close();
+                    }
+                } catch (IOException e) {
+                    logger.info("无管理员在线，关闭socket");
+                }
+                return;
+            }
+
             User u = MAP.getOrDefault(tmp, new User());
             u.setSession(session);
             u.setUserName(tmp);
@@ -108,7 +124,7 @@ public class ChatServer {
 
         }
 
-        System.out.println("有新连接加入！当前在线人数为" + onlineCount);
+        logger.info("有新连接加入！当前在线人数为" + onlineCount);
     }
 
     /**
@@ -128,7 +144,7 @@ public class ChatServer {
         path = path.replace("file:", "");
         path = path.replace("classes\\", "");
         path = path.substring(1);
-        System.out.println("敏感词路径：" + path);
+        logger.debug("敏感词路径：" + path);
         SensitiveWordFilter filter = new SensitiveWordFilter(path);
         //检测是否含有敏感词
         boolean isBadWords = filter.isContainSensitiveWord(message, 1);
@@ -145,14 +161,31 @@ public class ChatServer {
     }
 
     @OnClose
-    public synchronized void onClose() {
+    public synchronized void onClose(Session session) {
+        if(session.isOpen())
+        {
+            try {
+                session.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         --onlineCount;
         if (isAdmin) {
             Admin admin = (Admin) ADMIN_MAP.get(this.userName);
             admin.broadCast(MAP);
             ADMIN_MAP.remove(userName);
         } else {
+            if(this.userName==null)
+            {
+                return;
+            }
+            if(!MAP.contains(userName))
+            {
+                return;
+            }
             User u = MAP.get(userName);
+
 
             Admin admin = (Admin) ADMIN_MAP.get(u.getTarget());
             admin.remove(userName);
@@ -183,7 +216,7 @@ public class ChatServer {
             }
 
         } else {
-            System.out.println(4);
+
             //    如果有标记，说明是管理员,要对学生发信息
             User u = MAP.get(target);
 
@@ -200,7 +233,7 @@ public class ChatServer {
 
     public void offlineCall(Session session) {
         try {
-            System.out.println("找不到");
+            logger.debug("下线了");
             session.getBasicRemote().sendText("{'tips':'对不起，对方已经下线'}");
         } catch (IOException e) {
             e.printStackTrace();
@@ -227,7 +260,11 @@ public class ChatServer {
     {
         logger.info("检测到退出连接，关闭连接");
         try {
-            session.close();
+            if(session.isOpen())
+            {
+                session.close();
+
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
