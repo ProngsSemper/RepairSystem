@@ -437,10 +437,23 @@ $("body").delegate(".Bigadress>a","click",function(){
     searchAdress=$(this).html();
     $(".page").html("");
     if(searchAdress=="北苑" ||searchAdress=="南苑"){
-        searchSouthOrNorth(searchAdress,1)
+        if(item[0].style.display=="block"){
+            // $(".page").html("");
+            searchSouthOrNorth(searchAdress,1)
+        }
+        else{
+            // $(".page").html("");
+            searchFinishSouthOrNorth(searchAdress,1);
+        }
+        
     }
     else{
-        getMsg(1);
+        if(item[0].style.display=="block"){
+            getMsg(1);
+        }
+        else {
+            getFinfishMsg(1)
+        }
     }
     $(this).addClass("chosen");
     $(this).siblings().removeClass("chosen");
@@ -882,6 +895,12 @@ $("body").delegate(".page>span", "click", function () {
     else if(pageFlag==5){
         searchFinishStudName(searchInput.value,number);
     }
+    else if(pageFlag==6){
+        searchSouthOrNorth(searchAdress,number)
+    }
+    else if(pageFlag==7){
+        searchFinishSouthOrNorth(searchAdress,number)
+    }
     $(this).addClass("cur");
     $(this).siblings().removeClass("cur");
 });
@@ -896,7 +915,7 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            if (msg.code==200) {
+            if (msg.code==400) {
                 var data=msg.data;
                 for(var i=0;i<data.size;i++){
                     $(".information").append('<img src="'+data.arr[i]+'">');
@@ -939,4 +958,57 @@ $("body").delegate(".returntable","click",function(){
         getFinfishMsg(1);
     }
 })
+//返回管理员首页
+var inposition=document.getElementsByClassName("inposition")[0];
+inposition.onclick=function(){
+    window.location.href="managerFirstPage.html";
+}
+//根据南北苑查询已完成的订单
+function searchFinishSouthOrNorth(location,page){
+    $.ajax({
+        type: "POST",
+        url: "/admin/complete/location",
+        dataType: "json",
+        async: false,
+        data: JSON.stringify({
+            "location": location,
+            "page": parseInt(page),
+            limit:"10"
+        }),
+        success:function(msg){
+            // alert(msg.size);
+            // $(".page").html("");
+            console.log(msg)
+            var page = $(".page");
+            $(".tableBox").html("");
+            var data = msg.data;
+            var b = $('.page').children().length == 0;
 
+            if (b) {
+                page.append('<span class="page-number cur">' + 1 + '</span>');
+                for (var i = 2; i <= msg.totalPage; i++) {
+                    page.append('<span class="page-number">' + i + '</span>');
+                }
+            }
+
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            for (var i = 0; i < msg.size; i++) {
+                $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i+1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i+1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i+1).attr("formid", data[i].formId);
+            }
+        },
+        error:function(xhr){
+            alert(xhr.status);
+        }
+    })
+}

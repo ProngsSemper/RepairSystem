@@ -278,7 +278,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public List<Form> adminGetCompleteListByLocation(String location, int page, int limit) {
-        String getAllByLocation = "select * from form where room like '%" + location + "%' and queryCode<>0  limit ?,?";
+        String getAllByLocation = "select * from form where room like '%" + location + "%' and queryCode<>0 UNION select * from oldform where room like '%" + location + "%' and queryCode<>0 limit ?,?";
         int[] ans = EasyTool.getLimitNumber(page, limit);
         return super.selectList(JdbcUtil.getConnection(), getAllByLocation, ans[0], ans[1]);
     }
@@ -315,8 +315,8 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public int getAllAdminCompleteCountByLocation(String location) {
-        String sql = "select form1.cnt from (select count(*) cnt from form where room like '%" + location + "%' AND queryCode <> 0) form1";
-        return super.getCount(JdbcUtil.getConnection(), sql);
+        String rex= "where room like '%" + location + "%' AND queryCode <> 0";
+        return super.getCount(JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where",rex));
     }
 
     public int getAllCountByStudentId(String studentId) {

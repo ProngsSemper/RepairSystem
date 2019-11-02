@@ -16,6 +16,7 @@ $(document).ready(function () {
             contant[this.index].style.display = "block";
         }
     }
+    page=1;
 //提交表单信息
     var stuId = document.getElementsByClassName("repair-information")[2];
     var stuName = document.getElementsByClassName("repair-information")[0];
@@ -140,9 +141,8 @@ $(document).ready(function () {
 });
 //进度查询
 gerRepairOrder(1);
-var page=document.getElementsByClassName("page")[0];
+// var page=document.getElementsByClassName("page")[0];
 function gerRepairOrder(pageCount){
-    console.log(pageCount)
     $.ajax({
         type: "POST",
         url: "/student/incomplete/history/form",
@@ -154,7 +154,7 @@ function gerRepairOrder(pageCount){
         success:function(msg){
             var page=$(".page");
             // $(".page").html("");
-
+            console.log(msg)
             $(".orderContant").html("");
             var data=msg.data;
             if($(".page").children().length==0){
@@ -212,6 +212,7 @@ function insureFinish(formId){
         type: "POST",
         url: "/student/confirmation/form",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "formId":formId
         }),
@@ -511,10 +512,11 @@ function getPhoto(formId,position){
         async:false,
         url:"/path.get",
         success:function(msg){
-            if (msg.code==400) {
+            if (msg.code==200) {
                 var data=msg.data;
                 for(var i=0;i<data.size;i++){
-                    $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+                    $(".orderImg").eq(position).append('<img src="'+data.arr[i]+'">');
+                    break;
                 }
             }     
         },
