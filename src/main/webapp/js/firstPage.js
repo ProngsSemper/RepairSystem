@@ -244,7 +244,7 @@ function insureFinish(formId){
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
     formId = $(this).parent().attr("formid");
-    alert(formId);
+    // alert(formId);
     insureFinish(formId);
     gerRepairOrder(page);
 });
@@ -269,7 +269,7 @@ $("body").delegate(".again","click",function(){
         behavior:'smooth'//平滑的移过去
     })
     formId = $(this).parent().attr("formid");
-    alert(formId);
+    // alert(formId);
     var a=new Date();
     $("#againmonth").html("");
     $("#againday").html("");

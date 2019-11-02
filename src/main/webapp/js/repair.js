@@ -530,7 +530,7 @@ $("body").delegate("#m_query","click",function(){
                 searchUnfinishId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("姓名")
+                // alert("姓名")
                 returntable[0].style.display="block";
                 pageFlag=2;
                 $(".page").html("");
@@ -544,26 +544,26 @@ $("body").delegate("#m_query","click",function(){
     else{
         if(searchInput.value!=""){
             if(queryType.value==1){
-                alert("工人姓名")
+                // alert("工人姓名")
                 returntable[1].style.display="block";
                 pageFlag=3;
                 $(".page").html("");
                 searchFinishwName(searchInput.value,1);
             }
             else if(queryType.value==2){
-                alert("工种类型")
+                // alert("工种类型")
                 returntable[1].style.display="block";
                 pageFlag=4;
                 $(".page").html("");
                 searchFinishwType(searchInput.value,1);
             }
             else if(queryType.value==3){
-                alert("报修单id")
+                // alert("报修单id")
                 returntable[1].style.display="block";
                 searchFinishFormId(searchInput.value);
             }
             else if(queryType.value==4){
-                alert("学生姓名")
+                // alert("学生姓名")
                 returntable[1].style.display="block";
                 pageFlag=5;
                 $(".page").html("");
