@@ -60,7 +60,7 @@ body{
     font-size: 30px;
     font-weight: bold;
     text-align: center;
-    color: #888;
+
 }
 .footer{
     position: relative;
@@ -91,4 +91,5 @@ body{
     margin-left: -40px;
     font-weight: bold;
     font-size: 30px;
+    color: #888;
 }

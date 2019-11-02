@@ -81,7 +81,7 @@ body{
 .secondNav{
     float: left;
     width: 250px;
-    height: 700px;
+    height: 625px;
     background: #8e0b02;
     background-image: url(../img/图层\ 9.png);
     background-position: left bottom;
@@ -112,12 +112,12 @@ body{
     position: relative;
     float: left;
     width: 1190px;
-    height: 700px;
+    height: 625px;
     /* background: #eeeeee; */
 }
 .contant .search{
     width: 100%;
-    height: 200px;
+    height: 140px;
     background: #eeeeee;
 }
 .contant .search .insert{
@@ -135,7 +135,7 @@ body{
 }
 .insert button{
     font-size: 18px;
-    background: #f99b3f;
+    background: #8e0b02;
     border: none;
     border-radius: 5px;
     width: 60px;
@@ -158,7 +158,7 @@ body{
     position: relative;
     margin-top: 20px;
     /* width: 1010px; */
-    height: 110px;
+    height: 60px;
     background: #fff;
 }
 .classify{
@@ -172,6 +172,7 @@ body{
     float: left;
     margin-left: 50px;
     width: 400px;
+    line-height: 55px;
     height: 50px;
     /* background: #8e0b02; */
 }
@@ -193,13 +194,13 @@ body{
     margin:0 10px 0 20px;
 }
 .category .chosen{
-    color: #f99b3f;
+    color: #8e0b02;
 }
 .item{
     position: relative;
     margin: 0 auto;
     width: 1010px;
-    height: 500px;
+    height: 450px;
     background-image: url(../img/背景图-波浪.png);
     background-size: 100%;
     background-repeat: no-repeat;
@@ -269,13 +270,13 @@ body{
 .dealOrder{
     float: left;
     width: 1190px;
-    height: 700px;
+    height: 625px;
     background: #eeeeee;
 }
 .repairInformation{
     float: left;
     width: 595px;
-    height: 600px;
+    height: 525px;
     /* background: #000; */
 }
 .workInformation{
@@ -291,7 +292,7 @@ body{
 .tit{
     display: inline-block;
     margin-top: 5px;
-    color: #f99b3f;
+    color: #000;
     font-size: 20px;
     vertical-align: middle;
     font-weight: bold;
@@ -307,7 +308,7 @@ body{
     background: #fff;
 }
 .repairContant{
-    height: 550px;
+    height: 475px;
 }
 .repairContant .information{
     margin: 25px auto;
@@ -344,36 +345,39 @@ body{
     height: 100px;
 }
 .arrangeWroker{
-    margin: 0px auto 0;
-    border-radius: 10px;;
+    /* position: absolute; */
+    /* position: absolute; */
+    /* top: 65px; */
+    margin: 0 auto 0;
+    border-radius: 10px;
     width: 150px;
     height: 50px;
     background: #8e0b02;
     color: #fff;
     font-size: 20px;
-    line-height: 50px;;
+    line-height: 50px;
     text-align: center;
     cursor: pointer;
 }
 .workerInside {
     margin: 0px auto;
-    width: 450px;
-    height: 500px;
+    /* width: 450px; */
+    height: 450px;
     overflow: auto;
     /* background:#f99b3f; */
 }
 .workerContant{
     display: inline-block;
     border: 1px solid #888;
-    border-radius: 10px;;
-    /* margin: 10px 0 0 0 ; */
+    border-radius: 10px;
+    margin: 0px 0 0 10px;
     width: 350px;
     height: 150px;
     vertical-align: top;
 }
 .choseWorker{
     float: left;
-    margin: 15px auto 0;
+    margin: 15px 0 0 110px;
     width: 400px;
     overflow-x: hidden;
 }
@@ -463,7 +467,7 @@ select{
 .rightBox{
     float: left;
     width: 1100px;
-    height: 700px;
+    height: 625px;
 }
 .finishContant{
     float: left;
@@ -577,12 +581,15 @@ select{
     position: absolute;
     display: inline-block;
     top: 26px;
-    margin-left: 20px;
+    margin-left: 35px;
 }
 .inposition{
     font-size: 18px;
     cursor: pointer;
 }
 .current{
-    color: #f99b3f;
+    color: #8e0b02;
+}
+#m_query:focus{
+    outline: none;
 }

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+// $(document).ready(function () {
     var commited = false;
     var commitedCount=0;
 
@@ -43,7 +43,17 @@ $(document).ready(function () {
 //cookie自动填充表单信息
     stuId.value=decodeURI(getCookie("stuId"));
     stuName.value=decodeURI(getCookie("stuName"));
-//
+//自动生成南北苑宿舍
+    $("body").delegate("#adress","click",function () {
+        // alert("111111");
+       $("#buliding").html("");
+       if(adress.value=="南苑"){
+           $("#buliding").append('<option value="1栋">1栋</option><option value="2栋">2栋</option><option value="3栋">3栋</option><option value="4栋">4栋</option><option value="5栋">5栋</option><option value="6栋">6栋</option><option value="7栋">7栋</option><option value="8栋">8栋</option><option value="9栋">9栋</option><option value="10栋">10栋</option><option value="11栋">11栋</option><option value="11栋">12栋</option><option value="11栋">12栋</option><option value="13栋">13栋</option><option value="14栋">14栋</option><option value="15栋">15栋</option>')
+       }
+       else{
+           $("#buliding").append('<option value="16栋">16栋</option><option value="17栋">17栋</option><option value="18栋">18栋</option><option value="19栋">19栋</option><option value="20栋">20栋</option><option value="21栋">21栋</option><option value="22栋">22栋</option><option value="23栋">23栋</option><option value="24栋">24栋</option><option value="25栋">25栋')
+       }
+    });
     $("body").delegate(".radios", "click", function () {
         for (var i = 0; i < radio.length; i++) {
             if (radio[i].checked) {
@@ -143,7 +153,7 @@ $(document).ready(function () {
     }
 
 
-});
+// });
 //进度查询
 gerRepairOrder(1);
 // var page=document.getElementsByClassName("page")[0];

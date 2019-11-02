@@ -379,14 +379,14 @@ function getFinfishMsg(pageCount) {
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
                 $(".tableBox").append('<div class="grid-content"></div>');
                 $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                    '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
                     $(".grid-content").eq(i + 1).addClass("bg-purple");
                 } else {
