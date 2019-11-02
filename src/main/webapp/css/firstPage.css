@@ -10,7 +10,7 @@ body{
 }
 .head{
     position: relative;
-    width: 1260px;
+    width: 1519px;
     height: 95px;
     margin: 0 auto;
 }
@@ -18,23 +18,23 @@ body{
     position: absolute;
     width: 300px;
     top: 15px;
-    left: 145px;
+    left: 247px;
     z-index: 1;
     /* margin: 20px 0 0 20px; */
 }
 .head .name{
     position: absolute;
     top: 27px;
-    left: 440px;
+    left: 560px;
     width: 200px;
     z-index: 1;
 }
 .nav{
     /* position: relative; */
     /* float: left; */
-    
+
     background: #8e0b02;
-    
+
 }
 .navLi{
     width: 1260px;
@@ -70,6 +70,7 @@ body{
     background-image: url(../img/bg-gonggao.png); */
 }
 .contant .notice{
+    border-radius: 5px;
     float: left;
     position: relative;
     width: 350px;
@@ -84,12 +85,13 @@ body{
 }
 .contant .onlinerepair{
     float: left;
+    border-radius: 5px;
     border: #888 1px solid;
     width: 800px;
-    height: 450px;;
+    height: 450px;
     background: #fff;
     /* margin: 30px 0 0 20px; */
-    margin-left: 40px;;
+    margin-left: 40px;
     background-image: url(../img/ding.png),url(../img/ding.png),url(../img/ding.png),url(../img/ding.png);
     background-position: 20px 20px,765px 20px,20px 425px,765px 425px;
     background-size: 2%;
@@ -126,13 +128,14 @@ body{
 .worker{
     position: absolute;
     height: 93px;
-    right: 210px;
-    bottom: 0;
+    right: 331px;
+    bottom: 0px;
+    bottom: -7px;
 }
 .toolCase{
     position: absolute;
     height: 105px;
-    right: 275px;
+    right: 417px;
     bottom: -7px;
 }
 .date{
@@ -146,26 +149,27 @@ body{
 }
 .imformation{
     margin: 0 auto;
-    border: 1px solid #eeeeee;
+    border: 1px solid #888;
     border-radius: 5px;
     height: 500px;
     width: 900px;
     background: #fff;
-    /* background-image: url(../img/form.png); */
 }
 .hide{
     display: none;;
 }
 .imformation .bg{
+    margin-top: -1px;
+    border-radius: 5px 5px 0 0;
     height: 20px;
-    background: #eee;
+    background: #bbb;
 }
 .top-tit{
     width: 100%;
     margin-top: 10px;;
     height: 80px;
     /* background: #000; */
-    
+
 }
 .repair-tit{
     float: right;
@@ -191,7 +195,7 @@ body{
     border:1px solid #eee;
     border-radius: 5px;
     width: 800px;
-    height: 350px;  
+    height: 350px;
 }
 .repairName{
     display: block;
@@ -218,7 +222,7 @@ body{
     width: 250px;
     height: 25px;
     font-size: 18px;
-    text-indent: 1em;
+    text-indent: 4px;
 }
 .form .spanStyle{
     display: inline-block;
@@ -258,6 +262,7 @@ body{
     font-size: 18px;;
     vertical-align: top;
     resize: none;
+    text-indent: 4px;
 }
 .handIn{
     display: block;
@@ -282,22 +287,29 @@ body{
 }
 .handin-tit{
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 24px;
+    /* font-weight: bold; */
+    font-size: 16px;
+    color: #000;
+}
+.handIn:focus{
+    outline: none;
 }
 .findOrder{
     position: relative;
     margin: 0 auto;
-    border:1px solid #eeeeee;
+    border: 1px solid #888;
     width: 900px;
-    height: 1000px;
+    border-radius: 5px;
+    /* height: 1000px; */
     /* background: #000; */
 }
 .iconClip{
     position: absolute;
-    top: -20px;
+    top: -13px;
     right: 80px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-image: url(../img/clip.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -308,8 +320,7 @@ body{
 .iconLabel{
     width: 150px;
     height: 50px;
-    margin: 5px 0 0 -50px;
-    
+    margin: 10px 0 0 -83px;
     background-image: url(../img/biaoqian.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -339,6 +350,7 @@ body{
     /* border: 1px solid #eee; */
     width: 800px;
     height: 800px;
+    margin-top: -113px;
 }
 .order{
     position: relative;
@@ -379,7 +391,7 @@ body{
     font-size: 19px;
     line-height: 22px;
     text-align: center;
-    
+
 }
 .finishorder .finishstate-tit{
     position: absolute;
@@ -392,7 +404,7 @@ body{
     font-size: 19px;
     line-height: 22px;
     text-align: center;
-    
+
 }
 .order .orderInformation{
     width: 400px;
@@ -509,7 +521,7 @@ body{
 }
 .page-number{
     display: inline-block;
-    margin: 0 5px;
+    margin: 5px 5px;
     padding: 0 5px;
     border: 1px solid #373737;
     /* width: 10px;
@@ -586,6 +598,7 @@ body{
 }
 .finishOrderContant{
     margin: 0 auto;
+    margin-top: -113px;
     /* border: 1px solid #eee; */
     width: 800px;
     height: 800px;
@@ -685,10 +698,10 @@ body{
 }
 .bye{
     position: absolute;
-    top: 20px;
+    top: 8px;
     right: 10px;
-    width: 60px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     background-image: url(../img/bye.png);
     background-size: contain;
     cursor: pointer;
@@ -833,47 +846,47 @@ body{
     background-image: url(../img/yichang.png);
 }
 .mynav {
-	width:800px;
-	margin:50px auto;
-	display:inline-block;
+    width:800px;
+    margin:50px auto;
+    display:inline-block;
 }
 .item {
-	width:200px;
-	height:50px;
-	float:left;
-	perspective:4000px;
-	-webkit-perspective:4000px;
-	margin-right:8px;
+    width:200px;
+    height:50px;
+    float:left;
+    perspective:4000px;
+    -webkit-perspective:4000px;
+    margin-right:8px;
 }
- .item a {
-	text-decoration:none;
-	display:block;
-	height:50px;
-	transform-style:preserve-3d;
-	-webkit-transform-style:preserve-3d;
-	transition:all 1s;
-	-webkit-transition:all 1s;
+.item a {
+    text-decoration:none;
+    display:block;
+    height:50px;
+    transform-style:preserve-3d;
+    -webkit-transform-style:preserve-3d;
+    transition:all 1s;
+    -webkit-transition:all 1s;
 }
 .item a:hover {
-	transform:rotateX(90deg);
-	-webkit-rotateX:(90deg);
+    transform:rotateX(90deg);
+    -webkit-rotateX:(90deg);
 }
 .item a p {
-	text-align:center;
-	line-height:50px;
-	height:50px;
-	/* font-family:"微软雅黑"; */
-	color:white;
-	font-size:20px;
-	margin:0px;
-	border-radius:3px;
+    text-align:center;
+    line-height:50px;
+    height:50px;
+    /* font-family:"微软雅黑"; */
+    color:white;
+    font-size:20px;
+    margin:0px;
+    border-radius:3px;
 }
 .item a p:first-child {
-	background-color:#8e0b02;
-	transform:translateZ(25px);
+    background-color:#8e0b02;
+    transform:translateZ(25px);
 }
 .item a p:last-child {
-	background-color:#ffffffd9;
-	transform:rotateX(-90deg) translateZ(-25px);
-	-webkit-transform:rotateX(-90deg) translateZ(-25px);
+    background-color:#ffffffd9;
+    transform:rotateX(-90deg) translateZ(-25px);
+    -webkit-transform:rotateX(-90deg) translateZ(-25px);
 }
