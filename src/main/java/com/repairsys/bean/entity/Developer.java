@@ -11,6 +11,16 @@ import java.io.Serializable;
 public class Developer implements Serializable {
     private String id;
     private String password;
+    private String stuName;
+
+
+    public String getStuName() {
+        return stuName;
+    }
+
+    public void setStuName(String stuName) {
+        this.stuName = stuName;
+    }
 
     public String getId() {
         return id;
@@ -33,6 +43,7 @@ public class Developer implements Serializable {
         return "Developer{" +
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
+                ", stuName='" + stuName + '\'' +
                 '}';
     }
 }

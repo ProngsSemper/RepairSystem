@@ -24,7 +24,7 @@ public class ImgServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String p = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
- 
+
 
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         String formId = jsonObject.getString("formId");
