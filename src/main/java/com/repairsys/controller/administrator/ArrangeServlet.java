@@ -35,7 +35,8 @@ public class ArrangeServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         JSONObject mailRequestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = mailRequestBody.getString("stuMail");
-        String adminId = CookieUtil.getCookie("adminId", request);
+        //todo:在session里面获取就不怕清空了
+        String adminId = (String) request.getSession().getAttribute("adminId");
         Result result = adminService.arrange(requestBody.getInteger("wKey"),
                 adminId,
                 TimeUtil.getTime(requestBody.getInteger("day")),
