@@ -27,9 +27,9 @@ public class SignFilter implements Filter {
 
         logger.info(t);
 
-
+        boolean pass = t.contains("/comm");
         HttpSession session = ((HttpServletRequest) req).getSession();
-        if(t.contains("manager")||t.contains("repair"))
+        if(pass||t.contains("managerFirstPage.h")||t.contains("repair.h")||t.contains("notice.h")||t.contains("/board"))
         {
             Object admin = session.getAttribute("adminId");
             if(admin!=null)
@@ -48,11 +48,18 @@ public class SignFilter implements Filter {
         }else{
             Object stu = session.getAttribute("stuId");
             logger.info("{}",stu);
-            if(stu!=null)
+            boolean login = stu!=null;
+            if(login)
             {
                 chain.doFilter(request,resp);
                 return;
             }
+        }
+        if(pass&&session.getAttribute("stuId")!=null)
+        {
+            chain.doFilter(request,resp);
+            return;
+
         }
 
 
@@ -61,7 +68,7 @@ public class SignFilter implements Filter {
         {
             chain.doFilter(request,resp);
 
-        }else{
+        }else if(!pass){
             ((HttpServletResponse)resp).sendRedirect("login.html");
         }
 

@@ -78,7 +78,6 @@ public class RequestBodyFilter implements Filter {
 
         }
 
-        resp.setContentType("application/json");
 
         chain.doFilter(req, resp);
 

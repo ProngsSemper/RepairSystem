@@ -142,6 +142,7 @@ $(document).ready(function () {
 gerRepairOrder(1);
 var page=document.getElementsByClassName("page")[0];
 function gerRepairOrder(pageCount){
+    console.log(pageCount)
     $.ajax({
         type: "POST",
         url: "/student/incomplete/history/form",

@@ -28,6 +28,7 @@ public class AdminFilter implements Filter {
         // HttpServletRequest request = (HttpServletRequest)req;
 
         boolean b = request.getSession().getAttribute("adminId")==null;
+        logger.error(request.getRequestURI());
 
         if(!b)
         {
