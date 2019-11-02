@@ -241,7 +241,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     private static final String STUDENT_GET_INCOMPLETE_BY_STUDENT_ID = "select * from form where stuId =? limit ?,?";
-    private static final String STUDENT_GET_COMPLETE_BY_STUDENT_ID = "select * from oldform where stuId =? limit ?,?";
+    private static final String STUDENT_GET_COMPLETE_BY_STUDENT_ID = "select * from oldform where stuId =? ORDER BY endDate DESC limit ?,?";
 
     public List<Form> getIncompleteListByStudentId(String studentId, int page, int limit) {
         int[] ans = EasyTool.getLimitNumber(page, limit);
