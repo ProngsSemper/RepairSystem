@@ -27,6 +27,7 @@ public class Admin extends User {
     }
 
     public void broadCast(Map<String, User> map) {
+
         for (String t : targetSet) {
             User tmp = map.get(t);
             if (tmp != null) {
