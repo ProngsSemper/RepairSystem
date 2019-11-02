@@ -15,7 +15,7 @@ import java.util.List;
 public class EvaluationDaoImpl extends BaseDao<Evaluation> implements EvaluationDao {
     // private final Connection JdbcUtil.getConnection() = JdbcUtil.getConnection();
     private static final String ADD_EVALUATION = "insert into evaluation (msg,wKey) values (?,?)";
-    private static final String GET_EVALUATION = "SELECT msg FROM `evaluation` WHERE wKey = ?";
+    private static final String GET_EVALUATION = "SELECT msg FROM `evaluation` WHERE wKey = ?  ORDER BY id DESC";
 
     private static final EvaluationDaoImpl EVALUATION_DAO;
 

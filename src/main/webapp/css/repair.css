@@ -127,11 +127,11 @@ body{
     /* background: #fff; */
 }
 .insert input{
-    margin: 20px 10px 0 50px;
+    margin: 20px 10px 0 -5px;
     text-indent: 2em;
     font-size: 18px;
     width: 300px;
-    height: 30px;
+    height: 31px;
 }
 .insert button{
     font-size: 18px;
@@ -188,6 +188,7 @@ body{
     display: inline-block;
     line-height: 40px;
     color: #888898;
+    font-size: 17px;
 }
 .category .a-tit{
     color: #888898;
@@ -201,7 +202,6 @@ body{
     margin: 0 auto;
     width: 1010px;
     height: 450px;
-    background-image: url(../img/背景图-波浪.png);
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -458,11 +458,10 @@ select{
     display: inline-block;
     width: 100px;
     height: 35px;
-    margin-left: 20px;
+    margin-left: 49px;
 }
 .iconSearch{
-    left: 179px;;
-
+    left: 153px;
 }
 .rightBox{
     float: left;
@@ -542,10 +541,10 @@ select{
 }
 .excel{
     position: absolute;
-    right: 180px;
-    top: 18px;
-    width: 40px;
-    height: 40px;
+    right: 185px;
+    top: 15px;
+    width: 100px;
+    height: 50px;
     background-image: url(../img/excel.png);
     background-size: contain;
     background-repeat: no-repeat;
@@ -554,12 +553,12 @@ select{
 .excelBox{
     display: none;
     position: absolute;
-    right: 0;
+    right: 140px;
     top: 60px;
     border-radius: 10px;
-    width: 400px;
-    height: 200px;
-    background:#ffffffdb;
+    width: 200px;
+    /* height: 200px; */
+    background: #ffffff;
     z-index: 4;
 }
 .excelBigbox:hover .excelBox{
@@ -567,7 +566,12 @@ select{
 }
 .excelBox a{
     display: block;
-    font-size: 20px;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px;
+}
+.excelBox a:hover{
+    background: #eee;
 }
 .returntable{
     display: none;

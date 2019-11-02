@@ -23,7 +23,7 @@
 }
 .split{
     height: 20px;
-    background: #ff0000;
+    background: #8e0b02;
 }
 .order-tit{
     display: block;
@@ -114,7 +114,7 @@ option{
 }
 .iconSearch{
     position: relative;
-    top: 12px;
+    top: 13px;
     left: -10px;
     border: none;
     height: 40px;
@@ -432,7 +432,7 @@ button:focus{
     /* background: #000; */
     overflow: auto;
     opacity: 1.5;
-    /*background-image: url(../img/pingjiahua.png);*/
+    background-image: url(../img/haopinghua.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
