@@ -419,6 +419,7 @@ $("body").delegate(".evaluateRadio", "click", function () {
 //学生评价方法
 
 function stuEvaluation(evaluation,wKey,massage,formId){
+    // alert(123);
     $.ajax({
         type: "POST",
         url: "/student/evaluate/detail",
@@ -439,6 +440,7 @@ function stuEvaluation(evaluation,wKey,massage,formId){
             }
         },
         error:function(xhr){
+            // alert("死亡");
             // alert(xhr.status);
         }
     })

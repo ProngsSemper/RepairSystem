@@ -57,7 +57,6 @@ public class StudentLoginServlet extends BaseServlet {
             session.setAttribute("stuId", stuId);
             logger.debug("设置成功");
             result.setResult(ResultEnum.LOGIN_SUCCESS);
-
         }
         try {
             super.doPost(request, response);

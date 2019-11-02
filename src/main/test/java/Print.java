@@ -33,7 +33,7 @@ public class Print {
     @Test
     public void decode()
     {
-        String str = URLDecoder.decode("%E7%AE%A1%E7%90%86%E5%91%98");
+        String str = URLDecoder.decode("%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE");
         System.out.println(str);
     }
 

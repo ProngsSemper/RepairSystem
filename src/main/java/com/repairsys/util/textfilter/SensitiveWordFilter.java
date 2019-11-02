@@ -12,7 +12,7 @@ public class SensitiveWordFilter {
     @SuppressWarnings("rawtypes")
     private Map sensitiveWordMap;
     private static int minMatchTYpe = 1;
-//	public static int maxMatchType = 2;
+
 
     public SensitiveWordFilter(String path) {
         sensitiveWordMap = new SensitiveWordInit(path).initKeyWord();

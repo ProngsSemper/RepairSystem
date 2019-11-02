@@ -57,6 +57,8 @@ public final class StudentServiceImpl implements StudentService {
             if (bean != null) {
                 logger.debug("验证成功");
                 result.setResult(ResultEnum.LOGIN_SUCCESS);
+                stuName = bean.getStuName();
+                result.setDesc(stuName);
                 result.setData(true);
             } else {
                 logger.debug("验证失败");
@@ -287,18 +289,18 @@ public final class StudentServiceImpl implements StudentService {
     @Override
     public Result createFeedback(String stuId, String stuName, String stuPhone, String msg) {
         Result result = new Result();
-        if (!StringUtils.getMsg(stuId)){
-            stuId="匿名";
+        if (!StringUtils.getMsg(stuId)) {
+            stuId = "匿名";
         }
-        if (!StringUtils.getMsg(stuName)){
-            stuName="匿名";
+        if (!StringUtils.getMsg(stuName)) {
+            stuName = "匿名";
         }
-        if (!StringUtils.getMsg(stuPhone)){
-            stuPhone="匿名";
+        if (!StringUtils.getMsg(stuPhone)) {
+            stuPhone = "匿名";
         }
-        if (!StringUtils.getMsg(msg)){
+        if (!StringUtils.getMsg(msg)) {
             result.setResult(ResultEnum.FEEDBACK_FAILED);
-        }else {
+        } else {
             FeedbackDaoImpl feedbackDao = (FeedbackDaoImpl) DaoFactory.getFeedbackDao();
             feedbackDao.createFeedback(stuId, stuName, stuPhone, msg);
             result.setResult(ResultEnum.FEEDBACK_SUCCESSFULLY);
