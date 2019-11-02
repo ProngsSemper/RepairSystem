@@ -5,7 +5,7 @@ $(document).ready(function () {
     body.style.width = window.screen.width;
     var data = document.getElementsByClassName("date")[0];
     var managerName=document.getElementsByClassName("managerName")[0];
-    managerName.innerText=decodeURI(getCookie("adminName"))+",欢迎你";
+    managerName.innerText=getCookie("adminName")+",欢迎你";
     var a = new Date();
     var day = a.getDate();
     var month = a.getMonth() + 1;
@@ -896,8 +896,12 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".information").append('<img src="'+data.photoPath1+'">');
+            if (msg.code==400) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".information").append('<img src="'+data.arr[i]+'">');
+                }
+            }
         },
         error:function(xhr){
             // alert(xhr.status);
@@ -935,3 +939,4 @@ $("body").delegate(".returntable","click",function(){
         getFinfishMsg(1);
     }
 })
+

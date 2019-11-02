@@ -38,7 +38,7 @@ public final class CookieUtil {
     public static void setCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
-        ck.setMaxAge(60 * 60);
+//        ck.setMaxAge(60 * 60);
         response.addCookie(ck);
     }
 

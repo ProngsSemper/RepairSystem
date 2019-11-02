@@ -510,8 +510,12 @@ function getPhoto(formId,position){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+            if (msg.code==400) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".orderImg").eq(position).append('<img src="'+data.photoPath1+'">');
+                }
+            }     
         },
         error:function(xhr){
             // alert(xhr.status);

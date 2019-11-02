@@ -583,8 +583,12 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            data=msg.data;
-            $(".orderInsideBox").append('<img src="'+data.photoPath1+'">');
+            if (msg.code==400) {
+                var data=msg.data;
+                for(var i=0;i<data.size;i++){
+                    $(".orderInsideBox").append('<img src="'+data.photoPath1+'">');
+                }
+            }            
         },
         error:function(xhr){
             // alert(xhr.status);
