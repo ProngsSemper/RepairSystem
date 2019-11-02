@@ -104,12 +104,12 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
                         tmp.add(t);
                         ++r;
                     } else {
-                        finalSql.append(", " + ASSIGN_NAME[r++]);
+                        finalSql.append(", ").append(ASSIGN_NAME[r++]);
                         tmp.add(t);
                     }
                 }
             }
-            finalSql.append("where wKey = " + arr.get(i).getwKey() + " and `curTime`= CURDATE()");
+            finalSql.append("where wKey = ").append(arr.get(i).getwKey()).append(" and `curTime`= CURDATE()");
             System.out.println(finalSql.toString());
             super.updateOne(JdbcUtil.getConnection(), finalSql.toString(), tmp.toArray());
             logger.info(" {} ", tmp);
@@ -163,12 +163,12 @@ public abstract class TableDaoImpl extends BaseDao<WTime> implements TableListDa
                         tmp.add(t + todayTaskList.getTimeAt(r++));
 
                     } else {
-                        finalSql.append(", " + ASSIGN_NAME[r]);
+                        finalSql.append(", ").append(ASSIGN_NAME[r]);
                         tmp.add(t + todayTaskList.getTimeAt(r++));
                     }
                 }
             }
-            finalSql.append(" where wKey = " + arr.get(i).getwKey() + " and `curTime`= CURDATE() ");
+            finalSql.append(" where wKey = ").append(arr.get(i).getwKey()).append(" and `curTime`= CURDATE() ");
             System.out.println(finalSql.toString());
             super.updateOne(JdbcUtil.getConnection(), finalSql.toString(), tmp.toArray());
             logger.info(" {} ", tmp);

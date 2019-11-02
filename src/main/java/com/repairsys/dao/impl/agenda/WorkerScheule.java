@@ -217,7 +217,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         String tSql = "select wKey from wTime where t" + hour + " <1 and curTime = curdate()";
 
         String recommendSql = "select * from workers w where wType = null || wType ='" + wType + "' and w.wKey in ( " + tSql + " )";
-        System.out.println(recommendSql);
+        // System.out.println(recommendSql);
         List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
         List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
 
@@ -266,14 +266,14 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         String recommendSql = "select DISTINCT w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' and w.wType ='" + wType + "' order by wt.t" + hour;
         logger.debug(recommendSql);
         List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
-        System.out.println(list);
+        // System.out.println(list);
         if (list == null || list.isEmpty() || list.get(0) == null) {
             logger.debug("处理异常");
             return new LinkedList<>();
         }
         List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
-        System.out.println(timeList);
-
+        // System.out.println(timeList);
+        logger.trace("{}",timeList);
         list.sort(Comparator.comparingInt(Worker::getwKey));
         timeList.sort(Comparator.comparingInt(WTime::getwKey));
         Iterator<Worker> itL = list.iterator();
@@ -307,7 +307,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         String thour = "t" + hour;
         String sql = "update wtime set " + thour + " = " + thour + "+1  where wKey " + " = " + wKey + " and curTime = '" + date + "'";
-        System.out.println(sql);
+        // System.out.println(sql);
         logger.debug(sql);
         return super.addOne(JdbcUtil.getConnection(), sql);
 
@@ -332,7 +332,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         // String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '2019-10-19' and w.wType = '木工' ORDER BY t9" ;
         String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' and w.wType = '" + wType + "' ORDER BY t" + hour;
         // System.out.println(sql);
-        System.out.println(sql);
+        // System.out.println(sql);
         List<WTime> table = super.selectList(JdbcUtil.getConnection(), sql);
         LinkedList<Worker> carryZero = new LinkedList<>();
         LinkedList<Worker> carry = new LinkedList<>();
@@ -382,7 +382,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             );
             if (!diffSet.isEmpty()) {
                 logger.error("正在更新工人表单");
-                System.out.println("--dd--");
+                // System.out.println("--dd--");
                 //TODO: 还没完成
                 for (int i : diffSet) {
                     for (int j = 0; j <= 6; ++j) {
