@@ -21,15 +21,12 @@ public final class ImgService {
     }
 
 
-    public Result<Photo> getPath(String formId,boolean flag)
+    public Result<Photo> getPath(String formId)
     {
         Photo tmp=null;
-        if(flag)
-        {
-             tmp = FileDaoImpl.getInstance().getImgPath(formId);
-        }else {
-            tmp = FileDaoImpl.getInstance().getOldImgPath(formId);
-        }
+
+         tmp = FileDaoImpl.getInstance().getImgPath(formId);
+
         Result temp = new Result();
 
         temp.setData(tmp);

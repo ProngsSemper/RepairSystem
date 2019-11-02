@@ -24,12 +24,12 @@ public class ImgServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String p = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
-        // System.out.println(p);
+ 
 
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         String formId = jsonObject.getString("formId");
-        boolean b = jsonObject.getString("old")==null||jsonObject.getInteger("old").equals("0");
-        Result<Photo> res = ImgService.getInstance().getPath(formId,b);
+
+        Result<Photo> res = ImgService.getInstance().getPath(formId);
         // Photo.set
         Photo tmp = res.getData();
         if(tmp!=null)

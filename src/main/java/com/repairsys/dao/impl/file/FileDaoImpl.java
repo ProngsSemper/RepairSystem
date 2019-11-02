@@ -99,7 +99,7 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
     }
 
 
-    private static final String GET_PATH = "select distinct photoPath1,photoPath2,photoPath3 from photo p right join form f on p.photoId = f.photoId where f.formId= ?";
+    private static final String GET_PATH = "SELECT DISTINCT * FROM photo p  RIGHT JOIN (select * from form union select * from oldform ) as f on f.photoId=p.photoId WHERE f.formId = ?";
     private static final String GET_OLD_PATH = "select distinct photoPath1,photoPath2,photoPath3 from photo p right join oldform f on p.photoId = f.photoId where f.formId= ?";
 
 
@@ -108,7 +108,7 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
     {
 
         Photo tmp = super.selectOne(JdbcUtil.getConnection(),GET_PATH,formId);
-//        System.out.println(tmp);
+
         return tmp;
     }
 

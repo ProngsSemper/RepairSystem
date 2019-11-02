@@ -22,7 +22,7 @@ import java.util.*;
  */
 public class WorkerScheule extends TableDaoImpl implements Sortable {
     private static Logger logger = LoggerFactory.getLogger(WorkerScheule.class);
-    // private final Connection JdbcUtil.getConnection() = JdbcUtil.getConnection();
+
     private static final String UPDATE_BEGIN = "insert into wtime(`wkey`,`curTime`) VALUES(?,CURDATE());";
     private static final String DELETE_AFTER = "delete from wTime where `curTime` <> CURDATE()";
     private static final String GET_COUNT_OLD = "select count(*) from wTime where `curTime` <> CURDATE()";
