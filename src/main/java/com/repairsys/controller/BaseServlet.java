@@ -37,6 +37,7 @@ public abstract class BaseServlet extends HttpServlet {
             sender.flush();
             sender.close();
         }
+        response.setContentType("application/json");
 
     }
 

@@ -23,6 +23,8 @@ public class StuFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+
+
         HttpServletRequest request = (HttpServletRequest)req;
         Object obj = request.getAttribute("static");
         if(obj!=null)

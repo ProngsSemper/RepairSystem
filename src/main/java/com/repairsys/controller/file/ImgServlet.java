@@ -24,7 +24,7 @@ public class ImgServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String p = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
-        System.out.println(p);
+        // System.out.println(p);
 
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         String formId = jsonObject.getString("formId");
@@ -36,7 +36,7 @@ public class ImgServlet extends BaseServlet {
             tmp.setPath(p);
         }else{
             Photo t = new Photo();
-            t.emptyPath();
+
 
             res.setData(t);
         }

@@ -14,7 +14,11 @@ import java.net.URLEncoder;
  */
 public final class CookieUtil {
     public static String getCookie(String name, HttpServletRequest request) {
-
+        try {
+            request.setCharacterEncoding("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Cookie[] cookies = request.getCookies();
         if (cookies == null) {
             return null;
@@ -22,6 +26,7 @@ public final class CookieUtil {
         for (Cookie cookie : cookies) {
 
             if (name.equals(cookie.getName())) {
+                System.out.println(cookie.getValue());
                 return cookie.getValue();
             }
         }
@@ -36,6 +41,7 @@ public final class CookieUtil {
      * @param response   响应
      */
     public static void setCookie(String cookieName, String cookie, HttpServletResponse response) throws UnsupportedEncodingException {
+        response.setCharacterEncoding("utf-8");
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
 //        ck.setMaxAge(60 * 60);
@@ -46,7 +52,7 @@ public final class CookieUtil {
         Cookie ck = new Cookie(cookieName, URLEncoder.encode(cookie, "utf-8"));
         ck.setPath("/");
         ck.setMaxAge(5 * 365 * 24 * 60 * 60);
-
+        response.setCharacterEncoding("utf-8");
         response.addCookie(ck);
     }
 

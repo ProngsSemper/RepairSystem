@@ -56,6 +56,8 @@ public class AdminLoginServlet extends BaseServlet {
             }
             response.addHeader("identity", "admin");
             session.setAttribute("adminId", adminId);
+
+            CookieUtil.setCookie("adminNameTest","管理员",response);
         }
         super.doPost(request, response);
     }
