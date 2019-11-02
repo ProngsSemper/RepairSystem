@@ -115,7 +115,7 @@ $(document).ready(function () {
         }
     };
     ws.onclose=function () {
-        alert("无管理员在线,socket 关闭");
+        // alert("无管理员在线,socket 关闭");
         ws.close();
     };
 

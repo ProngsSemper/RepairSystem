@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
     $('#talk').click(function () {
-        window.location.href = "communication.html";
+        window.location.href = "communication.html?a=1";
     });
 
     $("#back").click(
         function () {
-            window.location.href ="index.do";
+            window.location.href ="index.do?a="+new Date();
         }
     );
 

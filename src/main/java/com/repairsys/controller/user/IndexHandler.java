@@ -67,6 +67,14 @@ public class IndexHandler extends BaseServlet {
         {
             request.getRequestDispatcher("firstPage.html").forward(request, response);
             return;
+        }else
+        {
+            boolean isAdmin = request.getSession().getAttribute("adminId")!=null;
+            if(isAdmin)
+            {
+                request.getRequestDispatcher("managerFirstPage.html").forward(request, response);
+                return;
+            }
         }
 
         request.setAttribute("pass", "1");
