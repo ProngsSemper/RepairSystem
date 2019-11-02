@@ -244,9 +244,13 @@ function insureFinish(formId){
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
     formId = $(this).parent().attr("formid");
+    var judge=confirm("是否确认已完成");
+    if(judge){
+        insureFinish(formId);
+        gerRepairOrder(page);
+    }
     // alert(formId);
-    insureFinish(formId);
-    gerRepairOrder(page);
+
 });
 //监听点击页码
 $("body").delegate(".page>span","click",function(){
@@ -288,10 +292,11 @@ var againmonth=document.getElementById("againmonth");
 var againday=document.getElementById("againday");
 var againtime=document.getElementById("againtime");
 $("body").delegate(".againInsure","click",function(){
-    var appointDate=againmonth.value+"="+againday.value;
+    var appointDate=againmonth.value+"-"+againday.value;
     var appointment=againtime.value;
     againRepair(formId,appointDate,appointment);
     againDiv.style.display="none";
+    gerRepairOrder(page);
 })
 //一键再修方法
 function againRepair(formId,appointDate,appointment){
@@ -299,6 +304,7 @@ function againRepair(formId,appointDate,appointment){
         type: "PUT",
         url: "/student/appoint",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "formId":parseInt(formId),
             "appointDate":appointDate,

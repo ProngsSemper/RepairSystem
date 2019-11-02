@@ -331,7 +331,7 @@ body{
 }
 .iconLabel:hover{
     margin-left: -70px;
-    transform: all .5s;
+    /*transform: all .5s;*/
 }
 .label-tit{
     margin-left: 10px;
@@ -451,6 +451,10 @@ body{
     margin: 5px;
     font-weight: bold;
     font-size: 16px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:1;
+    overflow: hidden;
 }
 .finishorder-tit
 {
@@ -871,7 +875,7 @@ body{
 }
 .item a:hover {
     transform:rotateX(90deg);
-    -webkit-rotateX:(90deg);
+    /*-webkit-rotateX:(90deg);*/
 }
 .item a p {
     text-align:center;
@@ -891,4 +895,10 @@ body{
     background-color:#ffffffd9;
     transform:rotateX(-90deg) translateZ(-25px);
     -webkit-transform:rotateX(-90deg) translateZ(-25px);
+}
+.finish:focus{
+    outline: none;
+}
+.again:focus{
+    outline: none;
 }

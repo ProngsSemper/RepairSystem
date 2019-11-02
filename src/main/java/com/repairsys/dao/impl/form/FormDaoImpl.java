@@ -24,9 +24,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
     private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
     private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
-    private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
+    private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and (queryCode>1 OR queryCode =-1)";
     private static final String ADMIN_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode=0";
-    private static final String WORKER_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and wKey = ? and queryCode<>1 and queryCode <> 0";
+    private static final String WORKER_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and wKey = ? and (queryCode>1 OR queryCode =-1)";
     private static final String ADMIN_QUERY_BY_FORMID_OLD = "select * from oldform where `formId` = ? and queryCode <> 0";
     /**
      * 根据学生的 id号查询

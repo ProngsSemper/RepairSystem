@@ -218,7 +218,7 @@ function searchFormId(formId) {
             "formId": formId,
         }),
         success: function (msg) {
-            // if (msg.code == 200) {
+            if (msg.code == 200) {
                 $(".tableBox").html("");
                 var data = msg.data;
             $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="contant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
@@ -230,7 +230,7 @@ function searchFormId(formId) {
                     '<div class="contant">' + data[0].formMsg + '</div>' +
                     '<div class="operate"><a href="javascript:;" class="deal">详情</a></div>')
                     $(".grid-content").eq( 1).attr("formid", data[0].formId);
-            // }
+            }
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -252,45 +252,48 @@ function searchStuName(page) {
             "limit": 10,
         }),
         success: function (msg) {
-            console.log(msg);
+            if(msg.code==200){
+
+
+            // console.log(msg);
             // alert(msg.size);
-            var page = $(".page");
-            // $(".page").html("");
-            $(".tableBox").html("");
-            var data = msg.data;
-            // console.log(data);
-            var b = $('.page').children().length == 0;
+                var page = $(".page");
+                // $(".page").html("");
+                $(".tableBox").html("");
+                var data = msg.data;
+                // console.log(data);
+                var b = $('.page').children().length == 0;
 
-            if (b) {
-                page.append('<span class="page-number cur">' + 1 + '</span>');
-                for (var i = 2; i <= msg.totalPage; i++) {
-                    page.append('<span class="page-number">' + i + '</span>');
+                if (b) {
+                    page.append('<span class="page-number cur">' + 1 + '</span>');
+                    for (var i = 2; i <= msg.totalPage; i++) {
+                        page.append('<span class="page-number">' + i + '</span>');
+                    }
                 }
-            }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' +
-                '<div class="formId">报修单号</div>' +
-                '<div class="formNumber">学号</div>' +
-                '<div class="adress">地址</div>' +
-                '<div class="contant">内容</div>' +
-                '<div class="operate">操作</div>' +
-                '</div>')
-            // alert(2);
-            for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
-                    '<div class="formNumber">' + data[i].stuId + '</div>' +
-                    '<div class="adress">' + data[i].room + '</div>' +
-                    '<div class="contant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">详情</a></div>')
-                if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
-                } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
-                }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".tableBox").append('<div class="grid-content bg-purple-dark">' +
+                    '<div class="formId">报修单号</div>' +
+                    '<div class="formNumber">学号</div>' +
+                    '<div class="adress">地址</div>' +
+                    '<div class="contant">内容</div>' +
+                    '<div class="operate">操作</div>' +
+                    '</div>')
+                // alert(2);
+                for (var i = 0; i < msg.size; i++) {
+                    $(".tableBox").append('<div class="grid-content"></div>');
+                    $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                        '<div class="formNumber">' + data[i].stuId + '</div>' +
+                        '<div class="adress">' + data[i].room + '</div>' +
+                        '<div class="contant">' + data[i].formMsg + '</div>' +
+                        '<div class="operate"><a href="javascript:;" class="deal">详情</a></div>')
+                    if (i % 2 == 0) {
+                        $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    } else {
+                        $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    }
+                    $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
             }
-
+            }
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -308,12 +311,14 @@ $("body").delegate('.iconSearch', 'click', function () {
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
+            $(".tableBox").html("");
             $(".page").html("");
             searchFormId(formIdInput.value);
             searchFlag = 2
             returntable[0].style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
+            $(".tableBox").html("");
             $(".page").html("");
             searchStuName(1);
             searchFlag = 3;
@@ -327,12 +332,14 @@ $("body").delegate('.iconSearch', 'click', function () {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
             $(".page").html("");
+            $(".finishtableBox").html("");
             searchFinishFormId(formIdInput.value);
             searchFlag = 4
             returntable[1].style.display="block";
         } else if (searchContant.value == "学生姓名") {
             // alert("按学生姓名搜索");
             $(".page").html("");
+            $(".finishtableBox").html("");
             searchFinishstuName(formIdInput.value,1);
             searchFlag = 5;
             returntable[1].style.display="block";
