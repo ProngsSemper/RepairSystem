@@ -28,7 +28,8 @@ public class ImgServlet extends BaseServlet {
 
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
         String formId = jsonObject.getString("formId");
-        Result<Photo> res = ImgService.getInstance().getPath(formId);
+        boolean b = jsonObject.getString("old")==null||jsonObject.getInteger("old").equals("0");
+        Result<Photo> res = ImgService.getInstance().getPath(formId,b);
         // Photo.set
         Photo tmp = res.getData();
         if(tmp!=null)

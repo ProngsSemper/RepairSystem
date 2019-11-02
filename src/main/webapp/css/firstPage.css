@@ -420,9 +420,19 @@ body{
 }
 .orderInformation .orderImg{
     display: inline-block;
+    width: 150px;
+    height: 120px;
+    background-image: url(../img/head1.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;;
 }
 .finishorderInformation .finishorderImg{
     display: inline-block;
+    width: 150px;
+    height: 120px;
+    background-image: url(../img/head1.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 .order-tit
 {

@@ -21,17 +21,20 @@ public final class ImgService {
     }
 
 
-    public Result<Photo> getPath(String formId)
+    public Result<Photo> getPath(String formId,boolean flag)
     {
-        Photo tmp = FileDaoImpl.getInstance().getImgPath(formId);
-        Result temp = new Result();
-        if(tmp==null)
+        Photo tmp=null;
+        if(flag)
         {
-            temp.setResult(ResultEnum.QUERY_EMPTY);
-        }else{
-            temp.setData(tmp);
-            temp.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+             tmp = FileDaoImpl.getInstance().getImgPath(formId);
+        }else {
+            tmp = FileDaoImpl.getInstance().getOldImgPath(formId);
         }
+        Result temp = new Result();
+
+        temp.setData(tmp);
+        temp.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+
 
         return temp;
     }

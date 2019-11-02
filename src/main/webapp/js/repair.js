@@ -915,7 +915,7 @@ function getPhoto(formId){
         async:false,
         url:"/path.get",
         success:function(msg){
-            if (msg.code==400) {
+            if (msg.code==200) {
                 var data=msg.data;
                 for(var i=0;i<data.size;i++){
                     $(".information").append('<img src="'+data.arr[i]+'">');

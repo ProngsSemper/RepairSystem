@@ -39,13 +39,7 @@ public class Photo {
         this.photoPath1 = photoPath1.replaceAll("\\\\","/");
     }
 
-    // public String getPhotoPath2() {
-    //     if(photoPath2==null)
-    //     {
-    //         return "";
-    //     }
-    //     return photoPath2;
-    // }
+
 
     public void setPhotoPath2(String photoPath2) {
         if(photoPath2==null)
@@ -56,13 +50,7 @@ public class Photo {
         this.photoPath2 = photoPath2.replaceAll("\\\\","/");;
     }
 
-    // public String getPhotoPath3() {
-    //     if(photoPath3==null)
-    //     {
-    //         return "";
-    //     }
-    //     return photoPath3;
-    // }
+
 
     public void setPhotoPath3(String photoPath3) {
         if(photoPath3==null)

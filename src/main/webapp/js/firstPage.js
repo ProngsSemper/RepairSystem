@@ -198,7 +198,7 @@ function gerRepairOrder(pageCount){
                     '<p class="order-tit">报修内容：'+data[i].formMsg+'</p>'+
                     '</div>')
                 $(".orderInformation").eq(i).append('<div class="orderImg"></div>')
-                getPhoto(data[i].formId,i);
+                getPhoto(data[i].formId,i,0);
                 $(".orderInformation").eq(i).append('<button class="finish">确认完成</button>')
                 $(".orderInformation").eq(i).attr("formId", data[i].formId);
                 if(condition=="待确认"||condition=="异常"){
@@ -343,7 +343,7 @@ function gerfinishOrder(pageCount){
             "limit":3,
         }),
         success:function(msg){
-            console.log(msg);
+
             $(".finishOrderContant").html("");
             var data=msg.data;
             if($(".page").children().length==0){
@@ -369,7 +369,8 @@ function gerfinishOrder(pageCount){
                     '<p class="finishorder-tit">报修内容：'+data[i].formMsg+'</p>'+
                     '</div>')
                 $(".finishorderInformation").eq(i).append('<div class="finishorderImg"></div>')
-                getPhoto(data[i].formId,i);
+                getPhoto(data[i].formId,i,1);
+                console.log(1);
                 if(data[i].queryCode!=4){
                     $(".finishorderInformation").eq(i).append('<button class="comment">评价</button>')
                 }
@@ -507,10 +508,11 @@ var readFile=function(obj){
     }
 }
 //获得图片地址
-function getPhoto(formId,position){
+function getPhoto(formId,position,element){
     $.ajax({
         data:JSON.stringify({
-            "formId":formId
+            "formId":formId,
+            "old":element
         }),
         type:"POST",
         dataType:"json",
@@ -519,8 +521,23 @@ function getPhoto(formId,position){
         success:function(msg){
             if (msg.code==200) {
                 var data=msg.data;
+                if(data.size==0){
+                    if(element==0){
+                        $(".orderImg").eq(position).append('<img src="img/head1.jpg">');
+                    }
+                    else{
+                        $(".finishorderImg").eq(position).append('<img src="img/head1.jpg">');
+                    }
+                   
+                }
                 for(var i=0;i<data.size;i++){
-                    $(".orderImg").eq(position).append('<img src="'+data.arr[i]+'">');
+                    if(element==0){
+                        $(".orderImg").eq(position).append('<img src="'+data.arr[i]+'">');
+                    }
+                    else{
+                        $(".finishorderImg").eq(position).append('<img src="'+data.arr[i]+'">');
+                    }
+                    
                     break;
                 }
             }     
@@ -543,5 +560,3 @@ function cancellation(){
         }
     })
 }
-//自动填充表单
-;
