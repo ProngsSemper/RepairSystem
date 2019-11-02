@@ -20,7 +20,7 @@ public class AdminLogOutServlet extends BaseServlet {
         CookieUtil.cleanCookie("adminId", "", response);
         CookieUtil.cleanCookie("adminName", "", response);
         CookieUtil.cleanCookie("adminToken", "", response);
-        response.sendRedirect("../index.jsp");
+        request.getSession().removeAttribute("adminId");
     }
 
     @Override

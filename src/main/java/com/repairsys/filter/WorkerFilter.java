@@ -25,17 +25,11 @@ public class WorkerFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest)req;
 
-        Object obj = request.getAttribute("static");
-        if(obj!=null)
-        {
-            logger.info("放行静态资源");
-            chain.doFilter(request,resp);
-            return;
-        }
         boolean b = request.getSession().getAttribute("workerId")==null;
 
         if(!b)
         {
+            System.out.println("workerId--------------");
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }

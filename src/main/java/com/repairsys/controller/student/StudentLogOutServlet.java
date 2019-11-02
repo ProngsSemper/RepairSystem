@@ -19,6 +19,7 @@ public class StudentLogOutServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CookieUtil.cleanCookie("stuId","",response);
         CookieUtil.cleanCookie("stuName","",response);
+        request.getSession().removeAttribute("stuId");
     }
 
     @Override

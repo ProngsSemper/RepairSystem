@@ -21,6 +21,7 @@ public class WorkerLogOutServlet extends BaseServlet {
         CookieUtil.cleanCookie("workerName", "", response);
         CookieUtil.cleanCookie("workerId", "", response);
         CookieUtil.cleanCookie("wToken", "", response);
+        request.getSession().removeAttribute("workerId");
     }
 
     @Override

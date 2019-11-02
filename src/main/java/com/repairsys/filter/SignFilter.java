@@ -24,6 +24,11 @@ public class SignFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        HttpServletResponse response = (HttpServletResponse)resp;
+
+        response.setDateHeader("Expires", -1);
+        response.setHeader("Cache_Control", "no-cache");
+        response.setHeader("Pragma", "no-cache");
 
         logger.info(t);
 
@@ -40,8 +45,11 @@ public class SignFilter implements Filter {
         }else if(t.contains("worker"))
         {
             Object worker = session.getAttribute("workerId");
+            System.out.println(worker+"    ---    ");
             if(worker!=null)
             {
+
+
                 chain.doFilter(req,resp);
                 return;
             }
