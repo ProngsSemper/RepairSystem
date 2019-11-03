@@ -123,8 +123,8 @@ function finishButton(formId, stuMail, appointDate, appointment) {
             "hour": appointment
         }),
         success: function (msg) {
-            alert(appointDate);
-            alert(appointment);
+            // alert(appointDate);
+            // alert(appointment);
             if (msg.code == 201) {
                 alert("报修单已完成！");
                 var bigBox = document.getElementsByClassName("bigBox")[0];
@@ -142,8 +142,8 @@ function finishButton(formId, stuMail, appointDate, appointment) {
 }
 
 function wrongButton(formId, stuMail, appointDate, appointment) {
-    alert(appointDate);
-    alert(appointment);
+    // alert(appointDate);
+    // alert(appointment);
     $.ajax({
         type: "POST",
         url: "/worker/queryCode",

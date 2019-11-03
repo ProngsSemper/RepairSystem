@@ -155,7 +155,7 @@
                     </div>
                 </div>
                 <div class="insideContant">
-                    <span class="repairName">Information</span>
+                    <span class="repairName">基本信息</span>
                     <div class="form">
                         <div class="formBlock">
                             <span class="spanStyle">报修人：</span><input type="text" class="repair-information" name="stuName">
@@ -195,7 +195,7 @@
             </div>
             <div class="imformation">
                 <div class="insideContant pos">
-                    <span class="repairName">Detail</span>
+                    <span class="repairName">详情信息</span>
                     <div class="form">
                         <div class="formBlock">
                             <span class="spanStyle">报修类型:</span>
@@ -226,7 +226,7 @@
                         </div>
                         <div class="formBlock">
                             <span class="spanStyle">报修内容:</span>
-                            <textarea rows="7" cols="40" class="textareaStyle" placeholder="请输入具体报修内容"  name="formMsg"></textarea>
+                            <textarea rows="7" cols="40" class="textareaStyle" placeholder="请输入具体报修内容"  name="formMsg" maxlength="100"></textarea>
                             <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro" target="nm_iframe" multiple="multiple">
                                 <input type="file" name="photo" id="inputphoto" value=" " onchange="previewFile()" multiple="multiple">
                                 <img src="img/photo.png" alt="" class="photo">

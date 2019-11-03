@@ -56,15 +56,17 @@
 }
 .seatArea{
     margin: 0px;
-    width: 599px;
+    width: 579px;
     border: none;
     height: 110px;
     resize: none;
     font-size: 18px;
+    padding: 10px;
 }
 .stuSend{
     position: absolute;
     right: 10px;
+    bottom: 6px;
     border: none;
     border-radius: 10px;
     width: 70px;

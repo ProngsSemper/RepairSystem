@@ -106,7 +106,7 @@ option{
 }
 .searchInput{
     position: relative;
-    /*top: -1px;*/
+    top: -1px;
     left: -5px;
     width: 300px;
     height: 36px;
@@ -472,4 +472,7 @@ button:focus{
 }
 .finishtableBox{
     margin: 50px auto 0;
+}
+#first:hover{
+    width: 900px;
 }

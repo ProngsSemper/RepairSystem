@@ -498,6 +498,9 @@ body{
     background: #fff;
     cursor: pointer;
 }
+.comment:focus{
+    outline: none;
+}
 .again{
     position: absolute;
     bottom: 10px;
@@ -823,6 +826,7 @@ body{
     z-index: 20;
     bottom: 5px;
     right: 90px;
+    overflow: hidden;
 }
 .saveImg img{
     height: 50px;
