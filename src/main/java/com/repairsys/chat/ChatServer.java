@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.chat.bean.Admin;
 import com.repairsys.chat.bean.User;
+import com.repairsys.chat.util.MsgSender;
+import com.repairsys.code.ChatEnum;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
@@ -19,6 +21,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 //todo:本聊天室已经完成了单聊功能，但是前段页面还需完善
 
 /**
@@ -29,14 +32,37 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ChatServer {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
+    /**
+     * 在线人数
+     */
     private static int onlineCount = 0;
+    /**
+     * 在线学生
+     */
     private static final ConcurrentHashMap<String, User> MAP = new ConcurrentHashMap<>();
+    /**
+     * 在线管理员
+     */
     private static final ConcurrentHashMap<String, User> ADMIN_MAP = new ConcurrentHashMap<>();
+
+
+    /**
+     * 存放离线消息
+     */
+    private static final ConcurrentLinkedQueue MSG_QUEUE = new ConcurrentLinkedQueue();
+
     private static final Random R = new Random();
+
+
+
     private String userName;
     private String target;
     private boolean isAdmin = false;
 
+    /**
+     * @return target的名字
+     */
+    @Deprecated
     private String getTarget() {
         String target = null;
         int i = ADMIN_MAP.size() <= 0 ? 0 : R.nextInt(ADMIN_MAP.size());
@@ -60,7 +86,10 @@ public class ChatServer {
                 break;
             }
         }
-        this.target = target.getUserName();
+        if(target!=null)
+        {
+            this.target = target.getUserName();
+        }
         return target;
     }
 
@@ -79,29 +108,21 @@ public class ChatServer {
         logger.error(name);
 
         if (name == null) {
-            //学生或者游客
+            //学生
             String tmp = (String) httpSession.getAttribute("stuId");
-            if (tmp == null) {
-                String y = UUID.randomUUID().toString().substring(0, 5);
-                tmp = "游客" + y + onlineCount;
-            }
+
             if(onlineCount==1)
             {
                 try {
-                    session.getBasicRemote().sendText(User.getMsgString("管理员已经下线,请过段时间再来","聊天小助手",tmp));
+                    session.getBasicRemote().sendText(User.getMsgString("管理员已经下线,看到立马回复","聊天小助手",tmp));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                try {
-                    if(session.isOpen())
-                    {
-                        session.close();
-                    }
-                } catch (IOException e) {
-                    logger.info("无管理员在线，关闭socket");
-                }
-                return;
+                //todo: 如果发现管理员不在线的话，那就不能关闭 webSocket 了
+
             }
+            //初始化代码
+            //============================================================================================
 
             User u = MAP.getOrDefault(tmp, new User());
             u.setSession(session);
@@ -112,11 +133,12 @@ public class ChatServer {
             this.userName = tmp;
 
             u.setTarget(this.target);
+            //========================================================================================
 
-            String text = "{ 'list':" + admin.getTargetSet() + "}";
+
             //TODO: 需要设置一个枚举类型，用来给前端反馈聊天类型
-            admin.receive(text);
-            u.receive("{'target':'" + admin.getUserName() + "'}");
+
+            admin.receive(MsgSender.jsonText("onlineList",admin.getTargetSet(),"type", ChatEnum.UPDATE_LIST));
 
         } else {
             this.userName = name;
@@ -210,7 +232,7 @@ public class ChatServer {
         if (!isAdmin) {
             //    如果没有 identity的标识，说明是游客或者学生
             //学生发送给管理员，需要查找管理员的''电话号码''
-            System.out.println(3);
+
 
             User u = ADMIN_MAP.get(this.target);
 

@@ -67,4 +67,11 @@ public enum  ChatEnum {
         return desc;
     }
 
+    @Override
+    public String toString() {
+        return "ChatEnum{" +
+                "code=" + code +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }
