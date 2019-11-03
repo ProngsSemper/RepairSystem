@@ -2,10 +2,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Admin;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.controller.administrator.AdminLoginServlet;
-import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
-import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.FormService;
 import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.easy.EasyTool;
@@ -15,10 +13,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -154,7 +150,7 @@ public class Print {
     @Test
     public void printPerson()
     {
-        com.repairsys.chat.bean.Admin admin = new com.repairsys.chat.bean.Admin();
+        com.repairsys.chat.domain.Admin admin = new com.repairsys.chat.domain.Admin();
         admin.append("123");
         admin.append("12222");
         admin.append("444");

@@ -1,4 +1,4 @@
-package com.repairsys.chat.bean;
+package com.repairsys.chat.domain;
 
 import java.util.LinkedList;
 import java.util.Map;

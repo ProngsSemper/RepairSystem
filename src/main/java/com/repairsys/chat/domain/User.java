@@ -1,4 +1,4 @@
-package com.repairsys.chat.bean;
+package com.repairsys.chat.domain;
 
 import com.alibaba.fastjson.JSONObject;
 

@@ -1,12 +1,10 @@
 package com.repairsys.chat;
 
 import com.alibaba.fastjson.JSONObject;
-import com.repairsys.bean.vo.Result;
-import com.repairsys.chat.bean.Admin;
-import com.repairsys.chat.bean.User;
+import com.repairsys.chat.domain.Admin;
+import com.repairsys.chat.domain.User;
 import com.repairsys.chat.util.MsgSender;
 import com.repairsys.code.ChatEnum;
-import com.repairsys.code.ResultEnum;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +12,9 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 //todo:本聊天室已经完成了单聊功能，但是前段页面还需完善
