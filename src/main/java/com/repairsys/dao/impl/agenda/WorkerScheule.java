@@ -10,7 +10,6 @@ import org.apache.commons.dbutils.QueryRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -273,7 +272,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         }
         List<WTime> timeList = WorkerScheule.getInstance().getAllWorkerTimeList(tSql);
         // System.out.println(timeList);
-        logger.trace("{}",timeList);
+        logger.trace("{}", timeList);
         list.sort(Comparator.comparingInt(Worker::getwKey));
         timeList.sort(Comparator.comparingInt(WTime::getwKey));
         Iterator<Worker> itL = list.iterator();
@@ -429,6 +428,14 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
     private void updateAndInsert(int key, int day) {
         super.updateOne(JdbcUtil.getConnection(), INSERT_NEW_WORKER_TABLE, key, day);
+    }
+
+    //todo:要写注释
+
+    public void updateWtime(String day, String hour, int key) {
+        String sql = "update wtime set t" + hour + " = t" + hour + "-1 where wkey = ? AND curTime = '" + day + "'";
+        super.updateOne(JdbcUtil.getConnection(), sql, key);
+
     }
 
 }

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
+import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
@@ -36,12 +37,17 @@ public class UpdateQueryCodeServlet extends BaseServlet {
         int flag = 201;
         int finishCode = 2;
         int errorCode = -1;
+        String day = requestBody.getString("day");
+        String hour = requestBody.getString("hour");
+
         Worker worker = WorkerDaoImpl.getInstance().getWorkerTelByKey(wKey);
         String wTel = worker.getwTel();
         Result result = workerService.updateQueryCode(queryCode
                 , requestBody.getInteger("formId"));
         //确认为维修完成时 发送维修完成邮件
         if (finishCode == queryCode) {
+            WorkerScheule.getInstance().updateWtime(day, hour, wKey);
+
             try {
                 MailUtil.sendFinishMail(stuMail);
             } catch (Exception e) {
@@ -49,6 +55,7 @@ public class UpdateQueryCodeServlet extends BaseServlet {
             }
             //维修有问题时 发送error邮件
         } else if (errorCode == queryCode) {
+            WorkerScheule.getInstance().updateWtime(day, hour, wKey);
             try {
                 MailUtil.sendErrorMail(stuMail, wTel);
             } catch (Exception e) {

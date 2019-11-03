@@ -7,7 +7,6 @@ import com.repairsys.util.db.JdbcUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
