@@ -239,15 +239,25 @@ public class ChatServer {
 
     }
 
+    /**
+     * 下线提示
+     * @param session 连接的session
+     */
     public void offlineCall(Session session) {
         try {
             logger.debug("下线了");
-            session.getBasicRemote().sendText("{'tips':'对不起，对方已经下线'}");
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("tips","对不起，对方已经下线");
+            session.getBasicRemote().sendText(jsonObject.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * 广播聊天消息
+     * @param jsonObject json的数据
+     */
     public void broadCast(JSONObject jsonObject) {
         if (isAdmin) {
             for (Map.Entry<String, User> entry : MAP.entrySet()) {
