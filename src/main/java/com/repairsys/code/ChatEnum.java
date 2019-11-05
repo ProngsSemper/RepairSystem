@@ -19,7 +19,7 @@ public enum  ChatEnum {
     /**
      * 对方下线了
      */
-    OFFLINE(404,"对方已经下线"),
+    OFFLINE(409,"对方已经下线"),
 
 
     /**
@@ -33,7 +33,12 @@ public enum  ChatEnum {
      * 服务器出现未知异常
      *
      */
-    ERROR_INFO(500,"出现异常");
+    ERROR_INFO(508,"出现异常"),
+
+    /**
+     * 心跳检测，判断是否连接成功
+     */
+    PING(0,"普通的心跳测试");
 
     //todo: 待定...
 

@@ -5,7 +5,9 @@ import com.repairsys.chat.domain.Admin;
 import com.repairsys.chat.domain.User;
 import com.repairsys.chat.util.MsgSender;
 import com.repairsys.code.ChatEnum;
+import com.repairsys.dao.DaoFactory;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
+import com.repairsys.util.textfilter.TextFilterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -90,6 +93,7 @@ public class ChatServer {
 
     @OnOpen
     public synchronized void onOpen(Session session, EndpointConfig config) {
+        
 
 
 
@@ -161,22 +165,25 @@ public class ChatServer {
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
+        JSONObject jsonObject = JSONObject.parseObject(message);
+        //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
+        //todo: 发给直接
+        boolean b = ChatEnum.PING.getCode().equals(jsonObject.getInteger("type"));
+        if(b)
+        {
+            session.getBasicRemote().sendText("123");
+            return;
+        }
         logger.info("聊天消息：{}", message);
-        String path = Thread.currentThread().getContextClassLoader().getResource("").toString();
-        path = path.replace('/', '\\');
-        path = path.replace("file:", "");
-        path = path.replace("classes\\", "");
-        path = path.substring(1);
-        logger.debug("敏感词路径：" + path);
-        SensitiveWordFilter filter = new SensitiveWordFilter(path);
+        SensitiveWordFilter filter = TextFilterFactory.getInstance().getChatPathFilter();
         //检测是否含有敏感词
         boolean isBadWords = filter.isContainSensitiveWord(message, 1);
         if (isBadWords) {
             message = filter.replaceSensitiveWord(message, 1, "*");
         }
 
-        JSONObject jsonObject = JSONObject.parseObject(message);
-        //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
+
+
 
         // send(jsonObject, session);
         //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
@@ -249,7 +256,7 @@ public class ChatServer {
                 u.receive(jsonObject);
                 // return;
             } else {
-                System.out.println(5);
+
                 offlineCall(session);
             }
         }

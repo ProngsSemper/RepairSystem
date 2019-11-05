@@ -9,6 +9,7 @@ import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.util.string.StringUtils;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
+import com.repairsys.util.textfilter.TextFilterFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +66,8 @@ public class StudentSubmitServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String message = requestBody.getString("formMsg").trim();
         //获取web-inf 目录下的敏感词文件
-        String path = request.getServletContext().getRealPath("/WEB-INF");
-        SensitiveWordFilter filter = new SensitiveWordFilter(path);
+
+        SensitiveWordFilter filter = TextFilterFactory.getInstance().getFilter(request);
         //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
         boolean isBadWords = filter.isContainSensitiveWord(message,1);
         Set<String> set = filter.getSensitiveWord(message, 1);

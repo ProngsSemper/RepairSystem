@@ -89,43 +89,46 @@ function to_string(str)
 
 //开启webSocket
 
-
-$(document).ready(function () {
-    var url_t = getBasePath2();
-    var url = "ws://"+url_t+"chat";
-    // alert(url);
-    ws = new WebSocket(url);
-    ws.onerror = function () {
-        alert("出现错误");
-        ws.close();
-    };
-    ws.onopen=function () {
-        alert("开启聊天");
-        fillGreen("欢迎来到聊天室");
-    };
-    ws.onmessage=function (event) {
-        // alert(event.data.msg);
-
-        var tmp = event.data;
-        var obj = eval('('+tmp+')');
-        // let str = obj.msg.replace("script","***");
-        if(obj.msg!=undefined)
-        {
-            fillWhite(obj.sender +":\r\n"+obj.msg);
-        }
-    };
-    ws.onclose=function () {
-        // alert("无管理员在线,socket 关闭");
-        ws.close();
-    };
-
-
-});
+//
+// $(document).ready(function () {
+//     var url_t = getBasePath2();
+//     var url = "ws://"+url_t+"chat";
+//     // alert(url);
+//     ws = new WebSocket(url);
+//     ws.onerror = function () {
+//         alert("出现错误");
+//         ws.close();
+//     };
+//     ws.onopen=function () {
+//         alert("开启聊天");
+//
+//         fillGreen("欢迎来到聊天室");
+//     };
+//     ws.onmessage=function (event) {
+//         console.log(event.data);
+//         // alert(event.data.msg);
+//
+//         var tmp = event.data;
+//         var obj = eval('('+tmp+')');
+//         // let str = obj.msg.replace("script","***");
+//         if(obj.msg!=undefined)
+//         {
+//             fillWhite(obj.sender +":\r\n"+obj.msg);
+//         }
+//     };
+//     ws.onclose=function () {
+//         // alert("无管理员在线,socket 关闭");
+//         ws.close();
+//     };
+//
+//
+// });
 
 function sendMsg() {
     var msg = {
         "msg":$("#msg1").val(),//消息款的信息
         // "target":$("#target").val()
+        "type":type.talk
     };
     if(msg.msg.replace(/\s/g,"")==="")
     {
