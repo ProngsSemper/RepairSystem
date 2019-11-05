@@ -19,10 +19,10 @@ import java.io.IOException;
 @WebFilter(filterName = "RequestBodyFilter")
 public class RequestBodyFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(RequestBodyFilter.class);
+
     /**
      * 默认需要放行的资源
      */
-
 
     @Override
     public void destroy() {
@@ -34,15 +34,18 @@ public class RequestBodyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
 
-        if(t.contains("/excel"))
-        {
-            resp.setContentType("application/json");
-            chain.doFilter(request,resp);
+        if (t.contains("/worker/multi/queryCode")) {
+            chain.doFilter(request, resp);
             return;
-        }else if(t.contains("/img"))
-        {
+        }
 
-            chain.doFilter(request,resp);
+        if (t.contains("/excel")) {
+            resp.setContentType("application/json");
+            chain.doFilter(request, resp);
+            return;
+        } else if (t.contains("/img")) {
+
+            chain.doFilter(request, resp);
             return;
         }
 
@@ -75,9 +78,7 @@ public class RequestBodyFilter implements Filter {
 
             request.setAttribute("requestBody", json);
 
-
         }
-
 
         chain.doFilter(req, resp);
 

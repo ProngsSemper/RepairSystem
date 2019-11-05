@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -24,23 +23,19 @@ public class StuFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
+        HttpServletRequest request = (HttpServletRequest) req;
+        Object obj = request.getAttribute("static");
+        if (obj != null) {
+            logger.info("放行静态资源");
+            chain.doFilter(request, resp);
+            return;
+        }
 
-        HttpServletRequest request = (HttpServletRequest)req;
-        // Object obj = request.getAttribute("static");
-        // if(obj!=null)
-        // {
-        //     logger.info("放行静态资源");
-        //     chain.doFilter(request,resp);
-        //     return;
-        // }
-
-
-        boolean b = request.getSession().getAttribute("stuId")==null;
+        boolean b = request.getSession().getAttribute("stuId") == null;
         String t = request.getRequestURI();
         logger.info(t);
 
-        if(!b)
-        {
+        if (!b) {
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }

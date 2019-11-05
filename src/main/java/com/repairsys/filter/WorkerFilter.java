@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -16,6 +15,7 @@ import java.io.IOException;
 @WebFilter(filterName = "WorkerFilter")
 public class WorkerFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(WorkerFilter.class);
+
     @Override
     public void destroy() {
     }
@@ -23,13 +23,11 @@ public class WorkerFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 
-        HttpServletRequest request = (HttpServletRequest)req;
+        HttpServletRequest request = (HttpServletRequest) req;
 
-        boolean b = request.getSession().getAttribute("workerId")==null;
+        boolean b = request.getSession().getAttribute("workerId") == null;
 
-        if(!b)
-        {
-            // System.out.println("workerId--------------");
+        if (!b) {
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }

@@ -24,7 +24,7 @@ public final class MailUtil {
     /**
      * qq邮箱的SMTP服务器地址
      */
-    final private static String MY_EMAILSMTP_HOST = "smtp.qq.com";
+    final private static String MY_EMAIL_SMTP_HOST = "smtp.qq.com";
 
     /**
      * 收件人邮箱
@@ -35,7 +35,7 @@ public final class MailUtil {
     public static boolean sendPrepareMail(String receiveMailAccount, String date, String tel) throws Exception {
         init();
         // 创建准备维修邮件
-        MimeMessage message = createPrepareMessage(session, MY_EMAIL_ACCOUNT, receiveMailAccount, date, tel);
+        MimeMessage message = createPrepareMessage(session, receiveMailAccount, date, tel);
         //根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
         transport.connect(MY_EMAIL_ACCOUNT, MY_EMAIL_PASSWORD);
@@ -46,7 +46,7 @@ public final class MailUtil {
         return true;
     }
 
-    public static boolean sendFinishMail(String receiveMailAccount) throws Exception {
+    public static void sendFinishMail(String receiveMailAccount) throws Exception {
         init();
         //确认报修完成时的时间
         Date date = new Date();
@@ -54,7 +54,7 @@ public final class MailUtil {
         //格式化为日期/时间字符串
         String simpleDate = sdf.format(date);
         // 创建维修完成邮件
-        MimeMessage message = createFinishMessage(session, MY_EMAIL_ACCOUNT, receiveMailAccount, simpleDate);
+        MimeMessage message = createFinishMessage(session, receiveMailAccount, simpleDate);
         //根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
         transport.connect(MY_EMAIL_ACCOUNT, MY_EMAIL_PASSWORD);
@@ -62,13 +62,12 @@ public final class MailUtil {
         transport.sendMessage(message, message.getAllRecipients());
         //关闭连接
         transport.close();
-        return true;
     }
 
-    public static boolean sendErrorMail(String receiveMailAccount, String tel) throws Exception {
+    public static void sendErrorMail(String receiveMailAccount, String tel) throws Exception {
         init();
         // 创建维修有问题邮件
-        MimeMessage message = createErrorMessage(session, MY_EMAIL_ACCOUNT, receiveMailAccount, tel);
+        MimeMessage message = createErrorMessage(session, receiveMailAccount, tel);
         //根据 Session 获取邮件传输对象
         Transport transport = session.getTransport();
         transport.connect(MY_EMAIL_ACCOUNT, MY_EMAIL_PASSWORD);
@@ -76,24 +75,22 @@ public final class MailUtil {
         transport.sendMessage(message, message.getAllRecipients());
         //关闭连接
         transport.close();
-        return true;
     }
 
     /**
      * 创建一封通知维修时间的邮件
      *
      * @param session     和服务器交互的会话
-     * @param sendMail    发件人邮箱
      * @param receiveMail 收件人邮箱
      * @param date        师傅上门的时间
      * @return
      * @throws Exception
      */
-    private static MimeMessage createPrepareMessage(Session session, String sendMail, String receiveMail, String date, String tel) throws Exception {
+    private static MimeMessage createPrepareMessage(Session session, String receiveMail, String date, String tel) throws Exception {
         //创建一封邮件
         MimeMessage message = new MimeMessage(session);
         //From: 发件人
-        message.setFrom(new InternetAddress(sendMail, "广金维修部", "UTF-8"));
+        message.setFrom(new InternetAddress(MailUtil.MY_EMAIL_ACCOUNT, "广金维修部", "UTF-8"));
         //收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX用户", "UTF-8"));
         //Subject: 邮件主题
@@ -111,17 +108,16 @@ public final class MailUtil {
      * 创建报修完成时的邮件
      *
      * @param session     和服务器交互的会话
-     * @param sendMail    发件人邮箱
      * @param receiveMail 收件人邮箱
      * @param date        保修单完成时的日期
      * @return
      * @throws Exception
      */
-    private static MimeMessage createFinishMessage(Session session, String sendMail, String receiveMail, String date) throws Exception {
+    private static MimeMessage createFinishMessage(Session session, String receiveMail, String date) throws Exception {
         //创建一封邮件
         MimeMessage message = new MimeMessage(session);
         //From: 发件人
-        message.setFrom(new InternetAddress(sendMail, "广金维修部", "UTF-8"));
+        message.setFrom(new InternetAddress(MailUtil.MY_EMAIL_ACCOUNT, "广金维修部", "UTF-8"));
         //收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX用户", "UTF-8"));
         //Subject: 邮件主题
@@ -139,17 +135,16 @@ public final class MailUtil {
      * 创建维修有问题时的邮件
      *
      * @param session     和服务器交互的会话
-     * @param sendMail    发件人邮箱
      * @param receiveMail 收件人邮箱
      * @param tel         工人电话
      * @return
      * @throws Exception
      */
-    private static MimeMessage createErrorMessage(Session session, String sendMail, String receiveMail, String tel) throws Exception {
+    private static MimeMessage createErrorMessage(Session session, String receiveMail, String tel) throws Exception {
         //创建一封邮件
         MimeMessage message = new MimeMessage(session);
         //From: 发件人
-        message.setFrom(new InternetAddress(sendMail, "广金维修部", "UTF-8"));
+        message.setFrom(new InternetAddress(MailUtil.MY_EMAIL_ACCOUNT, "广金维修部", "UTF-8"));
         //收件人（可以增加多个收件人、抄送、密送）
         message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX用户", "UTF-8"));
         //Subject: 邮件主题
@@ -171,9 +166,9 @@ public final class MailUtil {
         // 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();
         //设置使用的协议
-        props.setProperty("mail.transport.protocol", "smtp");
+        Object smtp = props.setProperty("mail.transport.protocol", "smtp");
         //设置发件人的邮箱的 SMTP 服务器地址
-        props.setProperty("mail.smtp.host", MY_EMAILSMTP_HOST);
+        props.setProperty("mail.smtp.host", MY_EMAIL_SMTP_HOST);
         //设置请求认证
         props.setProperty("mail.smtp.auth", "true");
         // 根据配置创建会话对象, 用于和邮件服务器交互

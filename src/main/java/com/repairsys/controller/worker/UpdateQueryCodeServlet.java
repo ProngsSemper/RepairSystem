@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * @author Prongs
@@ -32,7 +33,7 @@ public class UpdateQueryCodeServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = requestBody.getString("stuMail");
-        int wKey = Integer.parseInt(CookieUtil.getCookie("wKey", request));
+        int wKey = Integer.parseInt(Objects.requireNonNull(CookieUtil.getCookie("wKey", request)));
         int queryCode = requestBody.getInteger("queryCode");
         int flag = 201;
         int finishCode = 2;

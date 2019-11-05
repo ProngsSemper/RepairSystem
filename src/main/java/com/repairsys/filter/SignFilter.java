@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class SignFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        HttpServletResponse response = (HttpServletResponse)resp;
+        HttpServletResponse response = (HttpServletResponse) resp;
 
         response.setDateHeader("Expires", -1);
         response.setHeader("Cache_Control", "no-cache");
@@ -34,60 +33,41 @@ public class SignFilter implements Filter {
 
         boolean pass = t.contains("/comm");
         HttpSession session = ((HttpServletRequest) req).getSession();
-        if(pass||t.contains("managerFirstPage.h")||t.contains("repair.h")||t.contains("notice.h")||t.contains("/board"))
-        {
+        if (pass || t.contains("managerFirstPage.h") || t.contains("repair.h") || t.contains("notice.h") || t.contains("/board")) {
             Object admin = session.getAttribute("adminId");
-            if(admin!=null)
-            {
-                chain.doFilter(request,resp);
+            if (admin != null) {
+                chain.doFilter(request, resp);
                 return;
             }
-        }else if(t.contains("worker"))
-        {
+        } else if (t.contains("worker")) {
             Object worker = session.getAttribute("workerId");
-            // System.out.println(worker+"    ---    ");
-            if(worker!=null)
-            {
+            if (worker != null) {
 
-
-                chain.doFilter(req,resp);
+                chain.doFilter(req, resp);
                 return;
             }
-        }else{
+        } else {
             Object stu = session.getAttribute("stuId");
-            logger.info("{}",stu);
-            boolean login = stu!=null;
-            if(login)
-            {
-                chain.doFilter(request,resp);
+            logger.info("{}", stu);
+            boolean login = stu != null;
+            if (login) {
+                chain.doFilter(request, resp);
                 return;
             }
         }
-        if(pass&&session.getAttribute("stuId")!=null)
-        {
-            chain.doFilter(request,resp);
+        if (pass && session.getAttribute("stuId") != null) {
+            chain.doFilter(request, resp);
             return;
 
         }
 
+        boolean b = t.contains("login.html") || t.contains(".do") || t.contains(".jsp");
+        if (b) {
+            chain.doFilter(request, resp);
 
-        boolean b = t.contains("login.html")||t.contains(".do")||t.contains(".jsp");
-        if(b)
-        {
-            chain.doFilter(request,resp);
-
-        }else{
-            ((HttpServletResponse)resp).sendRedirect("login.html");
+        } else {
+            ((HttpServletResponse) resp).sendRedirect("login.html");
         }
-
-
-
-
-
-
-
-
-
 
     }
 
