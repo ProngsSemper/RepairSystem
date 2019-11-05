@@ -120,6 +120,16 @@ function closeWebSocket() {
     ws.close();
 }
 
+function test_send(sender,target,msg) {
+    var pack = {
+        "sender":sender,
+        "target":target,
+        "msg":msg
+    };
+    ws.send(JSON.stringify(pack));
+
+}
+
 
 
 

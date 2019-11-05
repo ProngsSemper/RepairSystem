@@ -173,6 +173,7 @@ public class ChatServer {
                     MsgSender.jsonString()
                     .add("type",ChatEnum.SELF_INFO.getCode())
                     .add("sender",name)
+                    .add("stuList",MAP.keySet().toArray())
                     .toString()
             );
 
@@ -192,6 +193,14 @@ public class ChatServer {
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
+        if(message.length()<=0)
+        {
+            logger.debug("心跳检测");
+            //普通的心跳检测不需要转 json，直接回复
+            session.getBasicRemote().sendText(message);
+            return;
+        }
+
         JSONObject jsonObject = JSONObject.parseObject(message);
         //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
         //todo: 发给直接
@@ -201,12 +210,7 @@ public class ChatServer {
         switch(ChatEnum.getByCode(code))
         {
             //心跳测试
-            case PING:
-            {
-                logger.debug("心跳检测{}",message);
-                session.getBasicRemote().sendText("");
-                break;
-            }
+
             //聊天
             case TALK:
             {
@@ -253,7 +257,8 @@ public class ChatServer {
         --onlineCount;
         if (isAdmin) {
             Admin admin = (Admin) ADMIN_MAP.get(this.userName);
-            admin.broadCast(MAP);
+            String jsonText = MsgSender.jsonText("聊天小助手",this.userName+" 管理员下线了","type",ChatEnum.OFFLINE);
+            admin.broadCast(MAP,jsonText);
             ADMIN_MAP.remove(userName);
         } else {
             if(this.userName==null)
@@ -269,6 +274,11 @@ public class ChatServer {
 
             Admin admin = (Admin) ADMIN_MAP.get(u.getTarget());
             admin.remove(userName);
+            String jsonText = MsgSender.jsonString()
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("stuList",admin.getTargetSet())
+                    .toString();
+
             admin.receive(admin.getList());
 
             MAP.remove(userName);

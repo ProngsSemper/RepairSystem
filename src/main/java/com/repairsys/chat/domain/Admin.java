@@ -1,5 +1,7 @@
 package com.repairsys.chat.domain;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -26,6 +28,11 @@ public class Admin extends User {
         return "{ 'list':" + this.targetSet + "}";
     }
 
+    /**
+     * @param map
+     * @deprecated
+     */
+    @Deprecated
     public void broadCast(Map<String, User> map) {
 
         for (String t : targetSet) {
@@ -37,5 +44,18 @@ public class Admin extends User {
         }
 
     }
+
+    public void broadCast(Map<String,User> map, String jsonText)
+    {
+        for (String t : targetSet) {
+            User tmp = map.get(t);
+            if (tmp != null) {
+                tmp.receive(jsonText);
+            }
+
+        }
+
+    }
+
 
 }

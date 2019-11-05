@@ -16,7 +16,7 @@ public final class MsgSender {
      */
     public static String jsonText(Object... arr)
     {
-        //只是一个工具类而已，规定 arr的长度必须是偶数，创建一个 json字符串
+        //只是一个工具类而已，规定 arr的长度必须是偶数，创建一个 json字符串,偶数为 key,奇数为 value
         if((arr.length&1)==1)
         {
             return "";

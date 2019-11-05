@@ -9,6 +9,26 @@
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/m_talkPage.js"></script>
 
+    <style>
+        #list {
+
+            position: absolute;
+            right: 80px;
+            bottom: 6px;
+            border: none;
+            border-radius: 10px;
+            width: 116px;
+            height: 30px;
+            text-align: center;
+            color:
+                    #333;
+            cursor: pointer;
+            border: 1px
+            black;
+
+        }
+    </style>
+
 </head>
 <body onbeforeunload="closeWebSocket()">
     <div class="communicated">
@@ -31,9 +51,16 @@
                 <div class="send">
                     <textarea name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"></textarea>
                     <button class="stuSend" id="btn">发送</button>
+                    <select name="" id="list">
+                        <option value="">181543430</option>
+                        <option value="">181543431</option>
+                    </select>
                 </div>
             </div>
         </div>
+
+
+
     </div>
     <script src="js/communication.js"></script>
 </body>

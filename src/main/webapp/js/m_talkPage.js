@@ -3,15 +3,14 @@ var ws = null;
 var sender = null;
 
 var type={
-    "ping":0,
+
     "talk":200,
     "updateList":202,
     "self_info":207,
     "OFFLINE":409
 };
-var ping = {
-    "type":type.ping
-};
+//心跳包：发送一个空串过去，尽量减少后台损耗
+var ping = "";
 
 $(document).ready(function () {
 
@@ -48,6 +47,7 @@ function createWebSocket() {
     try {
         if ('WebSocket' in window) {
             ws = new WebSocket(url);
+
         } else if ('MozWebSocket' in window) {
             ws = new MozWebSocket(url);
         } else {
@@ -95,6 +95,10 @@ function initEventHandle() {
                 console.log("sender: "+sender);
                 break;
             }
+            case type.updateList:{
+
+                break;
+            }
 
             default:{
                 console.log("其他事务");
@@ -130,6 +134,7 @@ function reconnect() {
     if(lockReconnect)return;
     lockReconnect = true;
     setTimeout(function () {
+        fillWhite("聊天小助手："+" 检测到断线，正在重新连接...");
         createWebSocket();
         lockReconnect = false;
     },2000);
@@ -147,7 +152,7 @@ var heartCheck = {
     go:function () {
         var self = this;
         this.timeOutObj = setTimeout(function () {
-            ws.send(JSON.stringify(ping));
+            ws.send(ping);
             //发送心跳包，然后倒计时检测是否有回复
             console.log("ping ! ");
             self.serverTimeOutObj = setTimeout(function () {
