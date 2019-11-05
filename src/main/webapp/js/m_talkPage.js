@@ -1,9 +1,13 @@
 var lockReconnect = false;
 var ws = null;
+var sender = null;
 
 var type={
     "ping":0,
-    "talk":200
+    "talk":200,
+    "updateList":202,
+    "self_info":207,
+    "OFFLINE":409
 };
 var ping = {
     "type":type.ping
@@ -68,12 +72,37 @@ function initEventHandle() {
     ws.onmessage = function (event) {
         heartCheck.reset().go();
         var tmp = event.data;
-        var obj = eval('('+tmp+')');
-        // let str = obj.msg.replace("script","***");
-        if(obj.msg!=undefined)
+        if(tmp==null||tmp.length<=2)
         {
-            fillWhite(obj.sender +":\r\n"+obj.msg);
+            return;
+            //发送的ping包，后台给回响应
         }
+        var obj = getJsonObject(tmp);
+        console.log(tmp);
+        // let str = obj.msg.replace("script","***");
+
+
+
+        let command = obj.type;
+        switch (command) {
+            case type.talk:{
+                console.log("聊天: ");
+                fillWhite(obj.sender+": "+obj.msg);
+                break;
+            }
+            case type.self_info:{
+                sender = obj.sender;
+                console.log("sender: "+sender);
+                break;
+            }
+
+            default:{
+                console.log("其他事务");
+            }
+
+
+        }
+
 
 
 
@@ -107,7 +136,7 @@ function reconnect() {
 }
 
 var heartCheck = {
-    timeOut:6000,  //每6心跳检测
+    timeOut:6000,  //每6秒心跳检测
     timeOutObj:null,
     serverTimeOutObj:null,
     reset:function () {

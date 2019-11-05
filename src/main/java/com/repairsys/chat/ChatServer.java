@@ -92,7 +92,7 @@ public class ChatServer {
     }
 
     @OnOpen
-    public synchronized void onOpen(Session session, EndpointConfig config) {
+    public synchronized void onOpen(Session session, EndpointConfig config) throws IOException {
         
 
 
@@ -109,14 +109,23 @@ public class ChatServer {
         if (name == null) {
             //学生
             String tmp = (String) httpSession.getAttribute("stuId");
+            session.getBasicRemote().sendText(MsgSender.jsonString()
+                    .add("type",ChatEnum.SELF_INFO.getCode())
+                    .add("sender",tmp)
+                    .toString()
+
+
+            );
 
             if(onlineCount==1)
             {
-                try {
-                    session.getBasicRemote().sendText(User.getMsgString("管理员已经下线,看到立马回复","聊天小助手",tmp));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
+                session.getBasicRemote().sendText(MsgSender.jsonString()
+                        .add("sender","聊天小助手")
+                        .add("msg","管理员已经下线了")
+                        .add("type",ChatEnum.OFFLINE.getCode())
+                        .toString());
+
                 //todo: 如果发现管理员不在线的话，那就不能关闭 webSocket 了
 
             }
@@ -126,9 +135,13 @@ public class ChatServer {
             User u = MAP.getOrDefault(tmp, new User());
             u.setSession(session);
             u.setUserName(tmp);
+            //登记聊天信息到后台
             MAP.put(tmp, u);
+            //随机获取一名管理员聊天
             Admin admin = (Admin) getPersonToTalk();
             admin.append(tmp);
+
+            //记住本连接的用户名
             this.userName = tmp;
 
             u.setTarget(this.target);
@@ -137,7 +150,14 @@ public class ChatServer {
 
             //TODO: 需要设置一个枚举类型，用来给前端反馈聊天类型
 
-            admin.receive(MsgSender.jsonText("onlineList",admin.getTargetSet(),"type", ChatEnum.UPDATE_LIST));
+            admin.receive(MsgSender.jsonText("onlineList",admin.getTargetSet(),"type", ChatEnum.UPDATE_LIST.getCode()));
+            session.getBasicRemote().sendText(
+                    MsgSender.jsonString()
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("onlineList",ADMIN_MAP.keySet().toArray())
+                    .toString()
+
+            );
 
         } else {
             this.userName = name;
@@ -148,6 +168,13 @@ public class ChatServer {
 
             this.isAdmin = true;
             ADMIN_MAP.put(name, u);
+            //将用户的信息回复给前端
+            session.getBasicRemote().sendText(
+                    MsgSender.jsonString()
+                    .add("type",ChatEnum.SELF_INFO.getCode())
+                    .add("sender",name)
+                    .toString()
+            );
 
         }
 
@@ -168,19 +195,40 @@ public class ChatServer {
         JSONObject jsonObject = JSONObject.parseObject(message);
         //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
         //todo: 发给直接
-        boolean b = ChatEnum.PING.getCode().equals(jsonObject.getInteger("type"));
-        if(b)
+        Integer code = jsonObject.getInteger("type");
+        // 根据code来判断响应的处理事务
+
+        switch(ChatEnum.getByCode(code))
         {
-            session.getBasicRemote().sendText("123");
-            return;
+            //心跳测试
+            case PING:
+            {
+                logger.debug("心跳检测{}",message);
+                session.getBasicRemote().sendText("");
+                break;
+            }
+            //聊天
+            case TALK:
+            {
+                logger.debug("聊天事务{}",message);
+                chatHandler(jsonObject);
+                break;
+
+            }
+            //
+
+
+
+
+            default:{
+                logger.error("出现 default事务");
+            }
         }
-        logger.info("聊天消息：{}", message);
-        SensitiveWordFilter filter = TextFilterFactory.getInstance().getChatPathFilter();
-        //检测是否含有敏感词
-        boolean isBadWords = filter.isContainSensitiveWord(message, 1);
-        if (isBadWords) {
-            message = filter.replaceSensitiveWord(message, 1, "*");
-        }
+
+
+        logger.info("网络消息：{}", message);
+
+
 
 
 
@@ -228,6 +276,14 @@ public class ChatServer {
 
     }
 
+    /**
+     * 根据 json中的 target，选择用户进行发送
+     * @param jsonObject json数据
+     * @param session 当前用户的 session
+     * @throws IOException
+     * @deprecated 内容扩展过少
+     */
+    @Deprecated
     public void send(JSONObject jsonObject, Session session) throws IOException {
         String target = jsonObject.getString("target");
 
@@ -266,7 +322,9 @@ public class ChatServer {
     /**
      * 下线提示
      * @param session 连接的session
+     * @deprecated 内容扩展太少了
      */
+    @Deprecated
     public void offlineCall(Session session) {
         try {
             logger.debug("下线了");
@@ -282,10 +340,11 @@ public class ChatServer {
      * 广播聊天消息
      * @param jsonObject json的数据
      */
-    public void broadCast(JSONObject jsonObject) {
+    private void broadCast(JSONObject jsonObject) {
         if (isAdmin) {
+            jsonObject.put("sender", "管理员 --" + this.userName);
             for (Map.Entry<String, User> entry : MAP.entrySet()) {
-                jsonObject.put("sender", "管理员 --" + this.userName);
+
                 entry.getValue().receive(jsonObject);
             }
         } else {
@@ -310,6 +369,47 @@ public class ChatServer {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+
+    /**
+     * 用来进行敏感词过滤
+     * @param message 用户发来的 message消息
+     * @return 返回处理后的字符串
+     */
+    private String filter(String message)
+    {
+        SensitiveWordFilter filter = TextFilterFactory.getInstance().getChatPathFilter();
+        //检测是否含有敏感词
+        boolean isBadWords = filter.isContainSensitiveWord(message, 1);
+        if (isBadWords) {
+            return filter.replaceSensitiveWord(message, 1, "*");
+
+        }
+        return message;
+    }
+
+    private void chatHandler(JSONObject jsonObject)
+    {
+        String target = jsonObject.getString("target");
+        if(target==null)
+        {
+            return;
+        }
+        if(isAdmin)
+        {
+            //todo:暂时用广播代替，后期使用 sender来指定聊天对象
+            if("所有人".equals(target))
+            {
+                broadCast(jsonObject);
+            }else{
+                MAP.get(jsonObject.getString("target")).receive(jsonObject);
+
+            }
+        }else{
+            ADMIN_MAP.get(this.target).receive(jsonObject);
+        }
+
     }
 
 

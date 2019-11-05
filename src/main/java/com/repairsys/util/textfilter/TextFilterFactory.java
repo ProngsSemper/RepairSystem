@@ -36,13 +36,11 @@ public class TextFilterFactory {
         if(this.filter==null)
         {
             String path = Thread.currentThread().getContextClassLoader().getResource("").toString();
-            path = path.replace('/', '\\');
-            path = path.replace("file:", "");
-            path = path.replace("classes\\", "");
-            path = path.substring(1);
-            System.out.println(path);
+            path = path.replace('/', '\\').replace("file:", "").replace("classes\\", "").substring(1);
 
-            this.filter = filter = new SensitiveWordFilter(path);
+
+
+            this.filter = new SensitiveWordFilter(path);
         }
 
         return filter;

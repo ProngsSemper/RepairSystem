@@ -8,7 +8,7 @@ package com.repairsys.code;
  * 后期完善
  *
  */
-public enum  ChatEnum {
+public  enum  ChatEnum {
 
     /**
      * 普通的聊天信息
@@ -38,20 +38,24 @@ public enum  ChatEnum {
     /**
      * 心跳检测，判断是否连接成功
      */
-    PING(0,"普通的心跳测试");
+    PING(0,"普通的心跳测试"),
+
+    SELF_INFO(207,"发送个人信息给前端页面"),
 
     //todo: 待定...
+
+    OTHER(-1,"未知的事务");
 
 
 
     /**
      * 状态码   code
      */
-    private Integer code;
+    private final int code;
     /**
      * 状态描述 description
      */
-    private String desc;
+    private final String desc;
 
     ChatEnum(Integer code, String desc) {
         this.code = code;
@@ -64,7 +68,7 @@ public enum  ChatEnum {
      *
      * */
 
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
@@ -74,9 +78,21 @@ public enum  ChatEnum {
 
     @Override
     public String toString() {
-        return "ChatEnum{" +
-                "code=" + code +
-                ", desc='" + desc + '\'' +
-                '}';
+        return String.valueOf(this.code);
     }
+
+    public static ChatEnum getByCode(Integer code)
+    {
+        for(ChatEnum v:values())
+        {
+            if(v.code==code)
+            {
+                return v;
+            }
+        }
+        return ChatEnum.OTHER;
+    }
+
+
+
 }

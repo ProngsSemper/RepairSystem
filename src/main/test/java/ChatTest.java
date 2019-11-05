@@ -27,8 +27,10 @@ public class ChatTest {
     @Test
     public void path()
     {
-        String p = TextFilterFactory.getPath();
-        System.out.println(p);
+
+
+
+        // System.out.println(p);
 
     }
 
