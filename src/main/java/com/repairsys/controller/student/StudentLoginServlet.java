@@ -40,13 +40,12 @@ public class StudentLoginServlet extends BaseServlet {
                 requestBody.getString("password"),
                 session
         );
-        String stuName = result.getDesc();
         logger.info("学生登录信息在这里  {}", result);
         request.setAttribute("result", result);
         logger.debug(" session 的id是： " + session.getId());
         // 登录成功设置cookie
         if (result.getCode() == loginSuccess) {
-
+            String stuName = result.getDesc();
             try {
                 CookieUtil.setCookie("stuName", stuName, response);
                 CookieUtil.setCookie("stuId", stuId, response);
