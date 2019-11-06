@@ -1,13 +1,14 @@
 var lockReconnect = false;
 var ws = null;
 var sender = null;
-
+var onlineList = null;
+var isAdmin = false;
 var type={
 
     "talk":200,
     "updateList":202,
     "self_info":207,
-    "OFFLINE":409
+    "offline":409
 };
 //心跳包：发送一个空串过去，尽量减少后台损耗
 var ping = "";
@@ -62,6 +63,8 @@ function createWebSocket() {
 
 }
 
+
+
 function initEventHandle() {
     ws.onopen = function () {
         heartCheck.reset().go();
@@ -86,17 +89,28 @@ function initEventHandle() {
         let command = obj.type;
         switch (command) {
             case type.talk:{
-                console.log("聊天: ");
+                console.log("聊天事务: ");
                 fillWhite(obj.sender+": "+obj.msg);
                 break;
             }
             case type.self_info:{
                 sender = obj.sender;
+                isAdmin = obj.isAdmin;
                 console.log("sender: "+sender);
                 break;
             }
             case type.updateList:{
+                //某人上线连接管理员通道，管理员前端页面展示学生在线人数，同时学生页面也要展示管理员在线人数
+                console.log("更新聊天列表"+obj.onlineList);
+                onlineList = obj.onlineList;
+                console.log(onlineList);
+                // alert(onlineList);
+                updateOnlineList(onlineList);
+                break;
+            }
 
+            case type.offline:{
+                console.log(obj);
                 break;
             }
 
@@ -137,11 +151,11 @@ function reconnect() {
         fillWhite("聊天小助手："+" 检测到断线，正在重新连接...");
         createWebSocket();
         lockReconnect = false;
-    },2000);
+    },4000);
 }
 
 var heartCheck = {
-    timeOut:6000,  //每6秒心跳检测
+    timeOut:8000,  //每8秒心跳检测
     timeOutObj:null,
     serverTimeOutObj:null,
     reset:function () {
@@ -167,8 +181,28 @@ var heartCheck = {
 
 
 
+$(document).ready(function () {
 
 
+});
+function updateOnlineList(arr) {
+    $("#list").find("option").remove();
+    var template = $("#list");
+    if(isAdmin)
+    {
+        //管理员可以通知所有人，学生不能通知所有管理员
+        template.append('<option>'+"所有人"+'</option>');
+    }
+    if(arr==null)
+    {
+        return;
+    }
+    for(var i in arr)
+    {
+        console.log(arr)
+        template.append('<option>'+arr[i]+'</option>');
+    }
+}
 
 
 

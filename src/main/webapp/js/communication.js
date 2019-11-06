@@ -62,6 +62,7 @@ function fillGreen(msg) {
 
 
     $(".contant").append(line);
+    down();
 
 }
 
@@ -78,6 +79,7 @@ function fillWhite(msg) {
 
 
     $(".contant").append(line);
+    down();
 }
 
 
@@ -99,7 +101,8 @@ function sendMsg() {
         "msg":$("#msg1").val(),//消息款的信息
         // "target":$("#target").val()
         "type":type.talk,
-        "sender":sender
+        "sender":sender,
+        "target":$("#list option:selected").html()
     };
     if(msg.msg.replace(/\s/g,"")==="")
     {
@@ -123,7 +126,7 @@ function closeWebSocket() {
 function test_send(sender,target,msg) {
     var pack = {
         "sender":sender,
-        "target":target,
+        "target":$("#list option:selected").html(),
         "msg":msg
     };
     ws.send(JSON.stringify(pack));
@@ -132,7 +135,10 @@ function test_send(sender,target,msg) {
 
 
 
-
+function down() {
+    var textarea = document.getElementById("window-talk");
+    textarea.scrollTop = textarea.scrollHeight;
+}
 
 
 

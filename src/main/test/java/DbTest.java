@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
@@ -30,6 +31,23 @@ import java.util.List;
  * @create 2019/9/27 10:13
  */
 public class DbTest {
+
+    @Test
+    public void printf()
+    {
+        String str = "[\n" +
+                " {\"stuMail\":\"798237844@qq.com\",\"queryCode\":2,\"formId\":146,\"day\":\"06\",\"hour\":\"16\"},\n" +
+                " {\"stuMail\":\"915147193@qq.com\",\"queryCode\":2,\"formId\":149,\"day\":\"05\",\"hour\":\"09\"}\n" +
+                "]";
+        System.out.println(str);
+        List<Form> list = JSONObject.parseArray(str,Form.class);
+        System.out.println(list);
+        for(Form i:list)
+        {
+            //queryRunner 批处理
+        }
+
+    }
 
     @Test
     public void printPath()

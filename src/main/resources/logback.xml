@@ -55,12 +55,10 @@
         </encoder>
     </appender>
     <!--默认输出级别-->
-    <root level="debug">
+    <root level="WARN">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="WARN_FILE"/>
     </root>
-    <logger name="druid.sql" level="DEBUG">
-        <appender-ref ref="STDOUT"/>
-    </logger>
+
 </configuration>

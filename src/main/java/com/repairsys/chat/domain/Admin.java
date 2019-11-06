@@ -24,6 +24,8 @@ public class Admin extends User {
 
     private LinkedList<String> targetSet = new LinkedList<>();
 
+
+    @Deprecated
     public String getList() {
         return "{ 'list':" + this.targetSet + "}";
     }
