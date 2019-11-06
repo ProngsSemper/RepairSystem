@@ -7,6 +7,7 @@ import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
+import com.repairsys.util.string.PhoneNumberUtil;
 import com.repairsys.util.string.StringUtils;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
 import com.repairsys.util.textfilter.TextFilterFactory;
@@ -37,65 +38,70 @@ public class StudentSubmitServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         logger.debug("收到申请表单请求");
         boolean commited = false;
-        if(request.getCookies()!=null)
-        {
-            for(Cookie cookie:request.getCookies())
-            {
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
                 boolean b = "commited".equals(cookie.getName());
-                if(b)
-                {
+                if (b) {
                     commited = true;
                     break;
                 }
             }
         }
         logger.info("处理中");
-        if(commited)
-        {
+        if (commited) {
             Result<Boolean> commitedRes = new Result<>();
             commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
             logger.debug("检测到提交过了，返回");
-            request.setAttribute("result",commitedRes);
+            request.setAttribute("result", commitedRes);
 
             super.doPost(request, response);
             return;
         }
         HttpSession session = request.getSession();
-
-        //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
-        String message = requestBody.getString("formMsg").trim();
-        //获取web-inf 目录下的敏感词文件
 
-        SensitiveWordFilter filter = TextFilterFactory.getInstance().getFilter(request);
-        //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
-        boolean isBadWords = filter.isContainSensitiveWord(message,1);
-        Set<String> set = filter.getSensitiveWord(message, 1);
-        if (isBadWords){
-            Result<Boolean> sensitive = new Result<>();
-            sensitive.setResult(ResultEnum.SUBMITTED_SENSITIVELY);
-            sensitive.setDesc("所含敏感词为：" + set);
-            logger.debug("检测到有敏感词！{}",sensitive);
-            request.setAttribute("result",sensitive);
+        //检测该手机号是否正确
+        String stuPhone = requestBody.getString("stuPhone");
+        if (!PhoneNumberUtil.isMobile(stuPhone)) {
+            Result<Boolean> phone = new Result<>();
+            phone.setResult(ResultEnum.PHONE_NUMBER_WRONG);
+            logger.debug("检测到手机号码错误！{}", phone);
+            request.setAttribute("result", phone);
             super.doPost(request, response);
             return;
         }
+
+        String message = requestBody.getString("formMsg").trim();
+        //获取web-inf 目录下的敏感词文件
+        SensitiveWordFilter filter = TextFilterFactory.getInstance().getFilter(request);
+        //检测是否含有敏感词，有敏感词则提示 且告知敏感词是什么便于修改 不写入数据库
+        boolean isBadWords = filter.isContainSensitiveWord(message, 1);
+        Set<String> set = filter.getSensitiveWord(message, 1);
+        if (isBadWords) {
+            Result<Boolean> sensitive = new Result<>();
+            sensitive.setResult(ResultEnum.SUBMITTED_SENSITIVELY);
+            sensitive.setDesc("所含敏感词为：" + set);
+            logger.debug("检测到有敏感词！{}", sensitive);
+            request.setAttribute("result", sensitive);
+            super.doPost(request, response);
+            return;
+        }
+        //检验token是否一样，如果有重复提交的话，token是一样的，就不写入数据库了
         String mdMessage = StringUtils.getStringMd5(message);
         String temp = (String) session.getAttribute("mdMessage");
-        boolean b = temp==null||(!temp.equals(mdMessage));
-        if(!b)
-        {
+        boolean b = temp == null || (!temp.equals(mdMessage));
+        if (!b) {
             Result<Boolean> commitedRes = new Result<>();
             commitedRes.setResult(ResultEnum.SUBMITTED_REPEATLY);
             logger.debug("检测到提交过了，返回");
-            request.setAttribute("result",commitedRes);
+            request.setAttribute("result", commitedRes);
             super.doPost(request, response);
             return;
-        }else{
+        } else {
             logger.info(temp);
             logger.info(mdMessage);
             logger.info("正在后台提交数据");
-            session.setAttribute("mdMessage",mdMessage);
+            session.setAttribute("mdMessage", mdMessage);
         }
         //经过检验，提交的不是重复记录，可以通过，写入数据库
         String photoId = requestBody.getString("photoId");
@@ -111,7 +117,7 @@ public class StudentSubmitServlet extends BaseServlet {
                 photoId,
                 requestBody.getString("room"),
                 requestBody.getString("stuName"),
-                requestBody.getString("stuPhone"),
+                stuPhone,
                 requestBody.getString("wType"),
                 requestBody.getInteger("appointment"),
                 requestBody.getString("appointDate"),
@@ -122,9 +128,9 @@ public class StudentSubmitServlet extends BaseServlet {
         if (res.getCode() == flag) {
             logger.debug("提交成功{}", res);
             Form form = FormListDaoImpl.getInstance().getNewFormId(requestBody.getString("stuId"));
-            request.getSession().setAttribute("formId",form.getFormId());
-            logger.debug("设置成功{}",form);
-            Cookie time = new Cookie("commited","1");
+            request.getSession().setAttribute("formId", form.getFormId());
+            logger.debug("设置成功{}", form);
+            Cookie time = new Cookie("commited", "1");
             time.setMaxAge(60);
             //一分钟内不准提交
             response.addCookie(time);

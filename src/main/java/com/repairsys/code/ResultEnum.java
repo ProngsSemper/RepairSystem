@@ -66,6 +66,8 @@ public enum ResultEnum {
     SUBMITTED_SENSITIVELY(401, "报修单中含有敏感词！请检查并修改！"),
 
     SUBMITTED_FAILED(400, "报修单提交失败"),
+
+    PHONE_NUMBER_WRONG(400, "报修单提交失败"),
     /**
      * 修改报修单状态成功
      */

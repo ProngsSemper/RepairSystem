@@ -9,6 +9,8 @@ import com.repairsys.service.impl.form.FormServiceImpl;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
+import com.repairsys.util.string.PhoneNumberUtil;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -17,6 +19,8 @@ import java.net.URLDecoder;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author lyr, Prongs
@@ -25,6 +29,12 @@ import java.util.UUID;
  */
 
 public class Print {
+
+
+    @Test
+    public void phone(){
+        System.out.println(PhoneNumberUtil.isMobile("110"));
+    }
 
     @Test
     public void decode()
