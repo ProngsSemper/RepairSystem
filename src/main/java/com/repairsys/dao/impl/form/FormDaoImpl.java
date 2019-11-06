@@ -137,6 +137,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     @Override
+    public Form queryByFormId(int formId){
+        return super.selectOne(JdbcUtil.getConnection(),QUERY_BY_FORMID,formId);
+    }
+
+    @Override
     public List<Form> adminQueryIncompleteFormByFormId(String formId) {
         return super.selectList(JdbcUtil.getConnection(), ADMIN_QUERY_INCOMPLETE_BY_FORMID, formId);
     }
@@ -525,6 +530,9 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public Boolean delete(int formId) {
+        if (super.selectOne(JdbcUtil.getConnection(), QUERY_BY_FORMID, formId) == null) {
+            return false;
+        }
         return super.updateOne(JdbcUtil.getConnection(), DELETE_ONE, formId);
     }
 

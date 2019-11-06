@@ -10,6 +10,13 @@ import java.util.List;
  * @date 2019/10/1 21:50
  */
 public interface FormDao {
+
+    /**
+     * 根据报修单号查找报修单
+     * @param formId 报修单号
+     * @return 报修单
+     */
+    Form queryByFormId(int formId);
     /**
      * 工人根据维修单号来查询未完成维修单的信息
      *

@@ -77,6 +77,19 @@ public final class MailUtil {
         transport.close();
     }
 
+    public static void sendDeleteMail(String receiveMailAccount, String formMsg, String adminName) throws Exception {
+        init();
+        // 创建维修有问题邮件
+        MimeMessage message = createDeleteMessage(session, receiveMailAccount, formMsg, adminName);
+        //根据 Session 获取邮件传输对象
+        Transport transport = session.getTransport();
+        transport.connect(MY_EMAIL_ACCOUNT, MY_EMAIL_PASSWORD);
+        // 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人
+        transport.sendMessage(message, message.getAllRecipients());
+        //关闭连接
+        transport.close();
+    }
+
     /**
      * 创建一封通知维修时间的邮件
      *
@@ -152,6 +165,25 @@ public final class MailUtil {
         //Content: 邮件正文（可以使用html标签）
         message.setContent("本次维修因缺少材料或其他问题请同学耐心等待维修师傅下次上门维修，" +
                 "或直接与维修师傅联系，师傅电话：" + tel, "text/html;charset=UTF-8");
+        //设置发件时间
+        message.setSentDate(new Date());
+        //保存设置
+        message.saveChanges();
+        return message;
+    }
+
+    private static MimeMessage createDeleteMessage(Session session, String receiveMail, String formMsg, String adminName) throws Exception {
+        //创建一封邮件
+        MimeMessage message = new MimeMessage(session);
+        //From: 发件人
+        message.setFrom(new InternetAddress(MailUtil.MY_EMAIL_ACCOUNT, "广金维修部", "UTF-8"));
+        //收件人（可以增加多个收件人、抄送、密送）
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "XX用户", "UTF-8"));
+        //Subject: 邮件主题
+        message.setSubject("维修进度", "UTF-8");
+        //Content: 邮件正文（可以使用html标签）
+        message.setContent("你的报修单 “" + formMsg + "” 已被管理员：" + adminName + " 删除" +
+                "，若有疑问，请到后勤报修系统上进行反馈。", "text/html;charset=UTF-8");
         //设置发件时间
         message.setSentDate(new Date());
         //保存设置

@@ -399,6 +399,7 @@ public final class AdminServiceImpl implements AdminService {
         Result<Boolean> result = new Result<>();
         if (formDao.delete(formId)) {
             result.setData(true);
+
             return result.setResult(ResultEnum.DELETE_SUCCESSFULLY);
         }
         result.setData(false);
