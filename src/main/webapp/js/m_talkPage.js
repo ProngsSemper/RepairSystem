@@ -90,12 +90,19 @@ function initEventHandle() {
         switch (command) {
             case type.talk:{
                 console.log("聊天事务: ");
-                fillWhite(obj.sender+": "+obj.msg);
+                fillWhite(obj.sender+": "+obj.msg+"\r\n"+getCurTime());
                 break;
             }
             case type.self_info:{
                 sender = obj.sender;
                 isAdmin = obj.isAdmin;
+                if(obj.onlineList!=null)
+                {
+                    console.log("聊天集合： "+onlineList);
+                    alert(onlineList);
+                    onlineList = obj.onlineList;
+                    updateOnlineList(onlineList);
+                }
                 console.log("sender: "+sender);
                 break;
             }
@@ -111,6 +118,11 @@ function initEventHandle() {
 
             case type.offline:{
                 console.log(obj);
+                if(obj.onlineList!=null)
+                {
+                    onlineList = obj.onlineList;
+                    updateOnlineList(onlineList);
+                }
                 break;
             }
 

@@ -1,7 +1,10 @@
 package com.repairsys.chat.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.chat.domain.User;
 import org.junit.Test;
+
+import java.util.Map;
 
 /**
  * @Author lyr
@@ -53,10 +56,33 @@ public final class MsgSender {
             return this;
         }
 
+        public MessagePack remove(String k)
+        {
+            jsonObject.remove(k);
+            return this;
+        }
+
+
         @Override
         public String toString() {
             return this.jsonObject.toJSONString();
         }
+    }
+
+
+    public static void broadCast(Map<String, User> phoneMap,String jsonMsg)
+    {
+        if(phoneMap.isEmpty())
+        {
+            return;
+        }
+
+        phoneMap.forEach((k,v)->{
+
+            v.receive(jsonMsg);
+
+        });
+
     }
 
 

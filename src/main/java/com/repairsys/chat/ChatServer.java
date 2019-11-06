@@ -110,8 +110,8 @@ public class ChatServer {
         HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
         String name = (String) httpSession.getAttribute("adminId");
         //todo: 测试阶段
-        logger.info(name);
-        logger.error(name);
+        logger.debug(name);
+        logger.debug(name);
 
         if (name == null) {
             //学生
@@ -125,73 +125,78 @@ public class ChatServer {
 
             );
 
-            if(onlineCount==1)
+            if(ADMIN_MAP.isEmpty())
             {
+                /*
+                *
+                * 如果学生登录，并且管理员不在线，要反馈给学生
+                *
+                * */
 
                 session.getBasicRemote().sendText(MsgSender.jsonString()
                         .add("sender","聊天小助手")
-                        .add("msg","管理员已经下线了")
-                        .add("type",ChatEnum.OFFLINE.getCode())
+                        .add("msg","对不起，目前没有管理员在线哦！有时请留言")
+                        .add("type",ChatEnum.TALK.getCode())
                         .toString());
 
-                //todo: 如果发现管理员不在线的话，那就不能关闭 webSocket 了
-                return;
 
             }
-            //初始化代码
-            //============================================================================================
+            //将学生的session ，联系方式，用户名字保存起来
 
             User u = MAP.getOrDefault(tmp, new User());
             u.setSession(session);
             u.setUserName(tmp);
             //登记聊天信息到后台
             MAP.put(tmp, u);
-            //随机获取一名管理员聊天
-            Admin admin = (Admin) getPersonToTalk();
-            admin.append(tmp);
-            admin.receive(MsgSender.jsonString()
-                    .add("onlineList",admin.getTargetSet())
-                    .add("type",ChatEnum.UPDATE_LIST.getCode())
-                    .toString());
 
-            //记住本连接的用户名
+
             this.userName = tmp;
+            logger.info("用户名："+this.userName);
 
-            u.setTarget(this.target);
-            //========================================================================================
-
-
-            //TODO: 需要设置一个枚举类型，用来给前端反馈聊天类型
-
+            MsgSender.MessagePack pack = MsgSender.jsonString()
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("onlineList",ADMIN_MAP.keySet());
 
             session.getBasicRemote().sendText(
-                    MsgSender.jsonString()
-                    .add("type",ChatEnum.UPDATE_LIST.getCode())
-                    .add("onlineList",ADMIN_MAP.keySet().toArray())
-                    .toString()
+
+                    pack.toString()
 
             );
             logger.warn("学生登录");
+            //todo: 广播给管理员
+            pack.add("onlineList",MAP.keySet()).add("type",ChatEnum.UPDATE_LIST.getCode());
+
+            MsgSender.broadCast(ADMIN_MAP,pack.toString());
+
 
         } else {
-            this.userName = name;
             //管理员 处理
+            this.userName = name;
             User u = ADMIN_MAP.getOrDefault(name, new Admin());
             u.setSession(session);
             u.setUserName(name);
 
             this.isAdmin = true;
             ADMIN_MAP.put(name, u);
-            //将用户的信息回复给前端
-            session.getBasicRemote().sendText(
+            System.out.println(MAP.keySet());
+            MsgSender.MessagePack pack =
                     MsgSender.jsonString()
                     .add("type",ChatEnum.SELF_INFO.getCode())
                     .add("sender",name)
                     .add("isAdmin",true)
-                    .add("onlineList",MAP.keySet().toArray())
-                    .toString()
+                    .add("onlineList",MAP.keySet());
+            //将用户的信息回复给前端
+            session.getBasicRemote().sendText(
+
+                    pack.toString()
             );
             logger.warn("管理员登录");
+            logger.error("学生聊天集合{}",MAP.keySet());
+            //todo:广播给学生
+            pack.add("onlineList",ADMIN_MAP.keySet()).add("type",ChatEnum.UPDATE_LIST.getCode());
+
+            MsgSender.broadCast(MAP,pack.toString());
+
 
         }
 
@@ -212,7 +217,7 @@ public class ChatServer {
         System.out.println(message);
         if(message.length()<=0)
         {
-            logger.error("心跳检测");
+            logger.debug("心跳检测");
             //普通的心跳检测不需要转 json，直接回复
             session.getBasicRemote().sendText(message);
             return;
@@ -233,18 +238,14 @@ public class ChatServer {
             {
                 logger.debug("聊天事务{}",message);
                 chatHandler(jsonObject);
-                logger.error("发送成功");
+                logger.info("发送成功");
 
                 break;
 
             }
-            //
-
-
-
 
             default:{
-                logger.error("出现 default事务");
+                logger.info("出现 default事务");
             }
         }
 
@@ -256,16 +257,39 @@ public class ChatServer {
 
 
 
-        // send(jsonObject, session);
-        //    todo:已经完成了单聊功能，但是目前先拿群聊代替，后期改回
-        // broadCast(jsonObject);
-//        }
 
     }
 
     @OnClose
     public synchronized void onClose(Session session) {
-        System.out.println("--- close ---");
+        logger.debug("--- close ---");
+
+        --onlineCount;
+        if (isAdmin) {
+            Admin admin = (Admin) ADMIN_MAP.get(this.userName);
+            ADMIN_MAP.remove(userName);
+            String jsonText = MsgSender.jsonText("聊天小助手",this.userName+" 管理员下线了","type",ChatEnum.OFFLINE.getCode(),"onlineList",ADMIN_MAP.keySet());
+            MsgSender.broadCast(MAP,jsonText);
+        } else {
+            if(this.userName==null)
+            {
+                return;
+            }
+
+            User u = MAP.get(userName);
+
+
+
+            MAP.remove(userName);
+            String jsonText = MsgSender.jsonString()
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("onlineList",MAP.keySet())
+                    .toString();
+            MsgSender.broadCast(ADMIN_MAP,jsonText);
+
+
+
+        }
         if(session.isOpen())
         {
             try {
@@ -274,35 +298,8 @@ public class ChatServer {
                 e.printStackTrace();
             }
         }
-        --onlineCount;
-        if (isAdmin) {
-            Admin admin = (Admin) ADMIN_MAP.get(this.userName);
-            String jsonText = MsgSender.jsonText("聊天小助手",this.userName+" 管理员下线了","type",ChatEnum.OFFLINE);
-            admin.broadCast(MAP,jsonText);
-            ADMIN_MAP.remove(userName);
-        } else {
-            if(this.userName==null)
-            {
-                return;
-            }
-            if(!MAP.contains(userName))
-            {
-                return;
-            }
-            User u = MAP.get(userName);
 
-
-            Admin admin = (Admin) ADMIN_MAP.get(u.getTarget());
-            admin.remove(userName);
-            String jsonText = MsgSender.jsonString()
-                    .add("type",ChatEnum.UPDATE_LIST.getCode())
-                    .add("onlineList",admin.getTargetSet())
-                    .toString();
-
-            admin.receive(jsonText);
-
-            MAP.remove(userName);
-        }
+        logger.info("当前在线人数: {}",onlineCount);
 
     }
 
@@ -389,15 +386,26 @@ public class ChatServer {
     @OnError
     public void onError(Throwable e,Session session)
     {
-        logger.error("检测到异常连接，关闭连接");
+        logger.info("检测到异常连接，关闭连接");
         try {
             if(session.isOpen())
             {
                 session.close();
 
+
             }
+            logger.info("当前在线人数:{}",onlineCount);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }finally {
+            if(isAdmin)
+            {
+                ADMIN_MAP.remove(this.userName);
+            }else{
+                MAP.remove(this.userName);
+
+            }
+
         }
     }
 
@@ -419,10 +427,14 @@ public class ChatServer {
         return message;
     }
 
+    /**
+     * 专门用来处理聊天事务的方法
+     * @param jsonObject 前端发来的 json聊天数据
+     */
     private void chatHandler(JSONObject jsonObject)
     {
         String target = jsonObject.getString("target");
-        System.out.println(target);
+
 
         if(target==null)
         {
@@ -430,9 +442,10 @@ public class ChatServer {
         }
         String completedMsg = filter(jsonObject.getString("msg"));
         jsonObject.put("msg",completedMsg);
+        
         if(isAdmin)
         {
-            //todo:暂时用广播代替，后期使用 sender来指定聊天对象
+            
             if(ALL.equals(target))
             {
                 broadCast(jsonObject);
@@ -440,19 +453,21 @@ public class ChatServer {
                 if(MAP.containsKey(target))
                 {
                     MAP.get(target).receive(jsonObject);
+                }else{
+                    //TODO: 消息队列写入数据库
                 }
 
             }
         }else{
 
-            if(target!=null&& ADMIN_MAP.containsKey(target))
+            if(ADMIN_MAP.containsKey(target))
             {
-                logger.error("发送消息");
+                logger.info("发送消息");
                 ADMIN_MAP.get(target).receive(jsonObject);
 
             }else{
-                logger.error("消息队列");
-                //todo: 消息队列
+                logger.info("消息队列");
+                //TODO: 消息队列写入数据库
             }
 
         }

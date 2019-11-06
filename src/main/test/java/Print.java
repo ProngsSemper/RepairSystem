@@ -151,12 +151,12 @@ public class Print {
     public void printPerson()
     {
         com.repairsys.chat.domain.Admin admin = new com.repairsys.chat.domain.Admin();
-        admin.append("123");
-        admin.append("12222");
-        admin.append("444");
-        System.out.println(admin.getTargetSet());
-        String text = "{ 'list':" +admin.getTargetSet()+"}";
-        System.out.println(text);
+        // admin.append("123");
+        // admin.append("12222");
+        // admin.append("444");
+        // System.out.println(admin.getTargetSet());
+        // String text = "{ 'list':" +admin.getTargetSet()+"}";
+        // System.out.println(text);
 
     }
 

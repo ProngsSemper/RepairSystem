@@ -7,6 +7,8 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * 专门用来测试 webSocket 聊天工作室的，请不要加别的业务的代码
@@ -27,6 +29,11 @@ public class ChatTest {
     @Test
     public void path()
     {
+        Set set = new LinkedHashSet();
+        set.add(1);
+        set.add(2);
+        System.out.println(set);
+
 
 
 
