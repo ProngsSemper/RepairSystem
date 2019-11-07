@@ -2,7 +2,6 @@ package com.repairsys.chat.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.domain.User;
-import org.junit.Test;
 
 import java.util.Map;
 
@@ -12,56 +11,46 @@ import java.util.Map;
  */
 public final class MsgSender {
 
-
     /**
      * @param arr 属性的 key 和 value ,偶数为 key,奇数为 value
      * @return
      */
-    public static String jsonText(Object... arr)
-    {
+    public static String jsonText(Object... arr) {
         //只是一个工具类而已，规定 arr的长度必须是偶数，创建一个 json字符串,偶数为 key,奇数为 value
-        if((arr.length&1)==1)
-        {
+        if ((arr.length & 1) == 1) {
             return "";
         }
         JSONObject jsonObject = new JSONObject();
 
-        for(int i=0;i<arr.length;i+=2)
-        {
-            jsonObject.put((String) arr[i],arr[i+1]);
+        for (int i = 0; i < arr.length; i += 2) {
+            jsonObject.put((String) arr[i], arr[i + 1]);
         }
         System.out.println(jsonObject.toJSONString());
-
 
         return jsonObject.toJSONString();
     }
 
-    public static MessagePack jsonString()
-    {
+    public static MessagePack jsonString() {
         return new MessagePack();
     }
 
-
     // public static JSONObject.
 
-    public static class MessagePack
-    {
+    public static class MessagePack {
         JSONObject jsonObject = new JSONObject();
 
         public MessagePack() {
         }
-        public MessagePack add(String k,Object v)
-        {
-            jsonObject.put(k,v);
+
+        public MessagePack add(String k, Object v) {
+            jsonObject.put(k, v);
             return this;
         }
 
-        public MessagePack remove(String k)
-        {
+        public MessagePack remove(String k) {
             jsonObject.remove(k);
             return this;
         }
-
 
         @Override
         public String toString() {
@@ -69,25 +58,17 @@ public final class MsgSender {
         }
     }
 
-
-    public static void broadCast(Map<String, User> phoneMap,String jsonMsg)
-    {
-        if(phoneMap.isEmpty())
-        {
+    public static void broadCast(Map<String, User> phoneMap, String jsonMsg) {
+        if (phoneMap.isEmpty()) {
             return;
         }
 
-        phoneMap.forEach((k,v)->{
+        phoneMap.forEach((k, v) -> {
 
             v.receive(jsonMsg);
 
         });
 
     }
-
-
-
-
-
 
 }

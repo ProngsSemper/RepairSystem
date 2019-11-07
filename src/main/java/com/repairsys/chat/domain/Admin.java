@@ -1,8 +1,5 @@
 package com.repairsys.chat.domain;
 
-import com.alibaba.fastjson.JSONObject;
-
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -23,7 +20,6 @@ public class Admin extends User {
     // }
 
     // private LinkedList<String> targetSet = new LinkedList<>();
-
 
     // @Deprecated
     // public String getList() {
@@ -48,12 +44,11 @@ public class Admin extends User {
     }
 
     /**
-     * @param map 聊天对象集合
+     * @param map      聊天对象集合
      * @param jsonText 发送的json 数据
      * @deprecated 使用工具类 MsgSender 提供的broadCast 方法
      */
-    public void broadCast(Map<String,User> map, String jsonText)
-    {
+    public void broadCast(Map<String, User> map, String jsonText) {
         // for (String t : targetSet) {
         //     User tmp = map.get(t);
         //     if (tmp != null) {
@@ -63,6 +58,5 @@ public class Admin extends User {
         // }
 
     }
-
 
 }

@@ -57,10 +57,9 @@ public class User implements Serializable {
         }
     }
 
-    public void receiveJson(String msg)
-    {
+    public void receiveJson(String msg) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg",msg);
+        jsonObject.put("msg", msg);
         try {
             this.session.getBasicRemote().sendText(jsonObject.toJSONString());
         } catch (IOException e) {
@@ -68,20 +67,19 @@ public class User implements Serializable {
         }
 
     }
-    public static String getMsgString(String msg)
-    {
+
+    public static String getMsgString(String msg) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg",msg);
+        jsonObject.put("msg", msg);
         return jsonObject.toJSONString();
 
     }
 
-    public static String getMsgString(String msg,String sender,String target)
-    {
+    public static String getMsgString(String msg, String sender, String target) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg",msg);
-        jsonObject.put("sender",sender);
-        jsonObject.put("target",target);
+        jsonObject.put("msg", msg);
+        jsonObject.put("sender", sender);
+        jsonObject.put("target", target);
         return jsonObject.toJSONString();
 
     }

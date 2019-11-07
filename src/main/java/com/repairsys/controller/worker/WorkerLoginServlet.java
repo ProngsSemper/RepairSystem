@@ -42,14 +42,19 @@ public class WorkerLoginServlet extends BaseServlet {
         //登录成功设置cookie
         if (result.getCode() == loginSuccess) {
             String wKey = String.valueOf(workerDao.getWorkerKeyById(workerId).getwKey());
-            if (requestBody.getInteger("flag") == 1) {
+            String flag = "flag";
+            if (requestBody.getInteger(flag) == 1) {
                 CookieUtil.setToken("workerId", workerId, response);
                 String wToken = workerDao.getToken(requestBody.getString("id")).getwToken();
                 CookieUtil.setToken("wToken", wToken, response);
                 CookieUtil.setToken("wKey", wKey, response);
+                String wName = workerDao.getWorkerNameById(workerId).getwName();
+                CookieUtil.setToken("workerName", wName, response);
             } else {
                 CookieUtil.setCookie("workerId", workerId, response);
                 CookieUtil.setCookie("wKey", wKey, response);
+                String wName = workerDao.getWorkerNameById(workerId).getwName();
+                CookieUtil.setCookie("workerName", wName, response);
             }
             request.getSession().setAttribute("workerId", workerId);
             response.addHeader("identity", "worker");
