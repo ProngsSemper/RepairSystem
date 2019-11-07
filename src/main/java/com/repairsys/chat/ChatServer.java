@@ -5,6 +5,7 @@ import com.repairsys.chat.domain.Admin;
 import com.repairsys.chat.domain.User;
 import com.repairsys.chat.util.MsgSender;
 import com.repairsys.code.ChatEnum;
+import com.repairsys.dao.DaoFactory;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
 import com.repairsys.util.textfilter.TextFilterFactory;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,12 +43,12 @@ public class ChatServer {
      */
     private static final ConcurrentHashMap<String, User> ADMIN_MAP = new ConcurrentHashMap<>();
 
-    /**
-     * 存放离线消息
-     */
-    private static final ConcurrentLinkedQueue MSG_QUEUE = new ConcurrentLinkedQueue();
+
+
 
     private static final Random R = new Random();
+
+
 
     private String userName;
     private String target;
@@ -72,9 +74,8 @@ public class ChatServer {
 
     /**
      * 为了方便，前端随机选择管理员进行聊天，不用后台随机选择
-     *
-     * @return
      * @deprecated 为了方便，让前端js随机选择管理员聊天
+     * @return
      */
     @Deprecated
     private User getPersonToTalk() {
@@ -87,7 +88,8 @@ public class ChatServer {
                 break;
             }
         }
-        if (target != null) {
+        if(target!=null)
+        {
             this.target = target.getUserName();
         }
         return target;
@@ -95,6 +97,10 @@ public class ChatServer {
 
     @OnOpen
     public synchronized void onOpen(Session session, EndpointConfig config) throws IOException {
+        
+
+
+
 
         ++onlineCount;
         //TODO: 可以获取 httpsession了
@@ -108,25 +114,28 @@ public class ChatServer {
             //学生
             String tmp = (String) httpSession.getAttribute("stuId");
             session.getBasicRemote().sendText(MsgSender.jsonString()
-                    .add("type", ChatEnum.SELF_INFO.getCode())
-                    .add("sender", tmp)
-                    .add("isAdmin", false)
+                    .add("type",ChatEnum.SELF_INFO.getCode())
+                    .add("sender",tmp)
+                    .add("isAdmin",false)
                     .toString()
+
 
             );
 
-            if (ADMIN_MAP.isEmpty()) {
+            if(ADMIN_MAP.isEmpty())
+            {
                 /*
-                 *
-                 * 如果学生登录，并且管理员不在线，要反馈给学生
-                 *
-                 * */
+                *
+                * 如果学生登录，并且管理员不在线，要反馈给学生
+                *
+                * */
 
                 session.getBasicRemote().sendText(MsgSender.jsonString()
-                        .add("sender", "聊天小助手")
-                        .add("msg", "对不起，目前没有管理员在线哦！有时请留言")
-                        .add("type", ChatEnum.TALK.getCode())
+                        .add("sender","聊天小助手")
+                        .add("msg","对不起，目前没有管理员在线哦！有时请留言")
+                        .add("type",ChatEnum.TALK.getCode())
                         .toString());
+
 
             }
             //将学生的session ，联系方式，用户名字保存起来
@@ -137,12 +146,13 @@ public class ChatServer {
             //登记聊天信息到后台
             MAP.put(tmp, u);
 
+
             this.userName = tmp;
-            logger.info("用户名：" + this.userName);
+            logger.info("用户名："+this.userName);
 
             MsgSender.MessagePack pack = MsgSender.jsonString()
-                    .add("type", ChatEnum.UPDATE_LIST.getCode())
-                    .add("onlineList", ADMIN_MAP.keySet());
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("onlineList",ADMIN_MAP.keySet());
 
             session.getBasicRemote().sendText(
 
@@ -151,9 +161,10 @@ public class ChatServer {
             );
             logger.warn("学生登录");
             //todo: 广播给管理员
-            pack.add("onlineList", MAP.keySet()).add("type", ChatEnum.UPDATE_LIST.getCode());
+            pack.add("onlineList",MAP.keySet()).add("type",ChatEnum.UPDATE_LIST.getCode());
 
-            MsgSender.broadCast(ADMIN_MAP, pack.toString());
+            MsgSender.broadCast(ADMIN_MAP,pack.toString());
+
 
         } else {
             //管理员 处理
@@ -167,21 +178,22 @@ public class ChatServer {
             System.out.println(MAP.keySet());
             MsgSender.MessagePack pack =
                     MsgSender.jsonString()
-                            .add("type", ChatEnum.SELF_INFO.getCode())
-                            .add("sender", name)
-                            .add("isAdmin", true)
-                            .add("onlineList", MAP.keySet());
+                    .add("type",ChatEnum.SELF_INFO.getCode())
+                    .add("sender",name)
+                    .add("isAdmin",true)
+                    .add("onlineList",MAP.keySet());
             //将用户的信息回复给前端
             session.getBasicRemote().sendText(
 
                     pack.toString()
             );
             logger.warn("管理员登录");
-            logger.error("学生聊天集合{}", MAP.keySet());
+            logger.error("学生聊天集合{}",MAP.keySet());
             //todo:广播给学生
-            pack.add("onlineList", ADMIN_MAP.keySet()).add("type", ChatEnum.UPDATE_LIST.getCode());
+            pack.add("onlineList",ADMIN_MAP.keySet()).add("type",ChatEnum.UPDATE_LIST.getCode());
 
-            MsgSender.broadCast(MAP, pack.toString());
+            MsgSender.broadCast(MAP,pack.toString());
+
 
         }
 
@@ -200,7 +212,8 @@ public class ChatServer {
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
         System.out.println(message);
-        if (message.length() <= 0) {
+        if(message.length()<=0)
+        {
             logger.debug("心跳检测");
             //普通的心跳检测不需要转 json，直接回复
             session.getBasicRemote().sendText(message);
@@ -213,12 +226,14 @@ public class ChatServer {
         Integer code = jsonObject.getInteger("type");
         // 根据code来判断响应的处理事务
 
-        switch (ChatEnum.getByCode(code)) {
+        switch(ChatEnum.getByCode(code))
+        {
             //心跳测试
 
             //聊天
-            case TALK: {
-                logger.debug("聊天事务{}", message);
+            case TALK:
+            {
+                logger.debug("聊天事务{}",message);
                 chatHandler(jsonObject);
                 logger.info("发送成功");
 
@@ -226,12 +241,19 @@ public class ChatServer {
 
             }
 
-            default: {
+            default:{
                 logger.info("出现 default事务");
             }
         }
 
+
         logger.info("网络消息：{}", message);
+
+
+
+
+
+
 
     }
 
@@ -243,24 +265,30 @@ public class ChatServer {
         if (isAdmin) {
             Admin admin = (Admin) ADMIN_MAP.get(this.userName);
             ADMIN_MAP.remove(userName);
-            String jsonText = MsgSender.jsonText("聊天小助手", this.userName + " 管理员下线了", "type", ChatEnum.OFFLINE.getCode(), "onlineList", ADMIN_MAP.keySet());
-            MsgSender.broadCast(MAP, jsonText);
+            String jsonText = MsgSender.jsonText("聊天小助手",this.userName+" 管理员下线了","type",ChatEnum.OFFLINE.getCode(),"onlineList",ADMIN_MAP.keySet());
+            MsgSender.broadCast(MAP,jsonText);
         } else {
-            if (this.userName == null) {
+            if(this.userName==null)
+            {
                 return;
             }
 
             User u = MAP.get(userName);
 
+
+
             MAP.remove(userName);
             String jsonText = MsgSender.jsonString()
-                    .add("type", ChatEnum.UPDATE_LIST.getCode())
-                    .add("onlineList", MAP.keySet())
+                    .add("type",ChatEnum.UPDATE_LIST.getCode())
+                    .add("onlineList",MAP.keySet())
                     .toString();
-            MsgSender.broadCast(ADMIN_MAP, jsonText);
+            MsgSender.broadCast(ADMIN_MAP,jsonText);
+
+
 
         }
-        if (session.isOpen()) {
+        if(session.isOpen())
+        {
             try {
                 session.close();
             } catch (IOException e) {
@@ -268,15 +296,14 @@ public class ChatServer {
             }
         }
 
-        logger.info("当前在线人数: {}", onlineCount);
+        logger.info("当前在线人数: {}",onlineCount);
 
     }
 
     /**
      * 根据 json中的 target，选择用户进行发送
-     *
      * @param jsonObject json数据
-     * @param session    当前用户的 session
+     * @param session 当前用户的 session
      * @throws IOException
      * @deprecated 内容扩展过少
      */
@@ -287,6 +314,7 @@ public class ChatServer {
         if (!isAdmin) {
             //    如果没有 identity的标识，说明是游客或者学生
             //学生发送给管理员，需要查找管理员的''电话号码''
+
 
             User u = ADMIN_MAP.get(this.target);
 
@@ -317,7 +345,6 @@ public class ChatServer {
 
     /**
      * 下线提示
-     *
      * @param session 连接的session
      * @deprecated 内容扩展太少了
      */
@@ -326,7 +353,7 @@ public class ChatServer {
         try {
             logger.debug("下线了");
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("tips", "对不起，对方已经下线");
+            jsonObject.put("tips","对不起，对方已经下线");
             session.getBasicRemote().sendText(jsonObject.toJSONString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -335,7 +362,6 @@ public class ChatServer {
 
     /**
      * 广播聊天消息
-     *
      * @param jsonObject json的数据
      */
     private void broadCast(JSONObject jsonObject) {
@@ -355,20 +381,24 @@ public class ChatServer {
     }
 
     @OnError
-    public void onError(Throwable e, Session session) {
+    public void onError(Throwable e,Session session)
+    {
         logger.info("检测到异常连接，关闭连接");
         try {
-            if (session.isOpen()) {
+            if(session.isOpen())
+            {
                 session.close();
 
+
             }
-            logger.info("当前在线人数:{}", onlineCount);
+            logger.info("当前在线人数:{}",onlineCount);
         } catch (IOException ex) {
             ex.printStackTrace();
-        } finally {
-            if (isAdmin) {
+        }finally {
+            if(isAdmin)
+            {
                 ADMIN_MAP.remove(this.userName);
-            } else {
+            }else{
                 MAP.remove(this.userName);
 
             }
@@ -376,13 +406,14 @@ public class ChatServer {
         }
     }
 
+
     /**
      * 用来进行敏感词过滤
-     *
      * @param message 用户发来的 message消息
      * @return 返回处理后的字符串
      */
-    private String filter(String message) {
+    private String filter(String message)
+    {
         SensitiveWordFilter filter = TextFilterFactory.getInstance().getChatPathFilter();
         //检测是否含有敏感词
         boolean isBadWords = filter.isContainSensitiveWord(message, 1);
@@ -395,37 +426,43 @@ public class ChatServer {
 
     /**
      * 专门用来处理聊天事务的方法
-     *
      * @param jsonObject 前端发来的 json聊天数据
      */
-    private void chatHandler(JSONObject jsonObject) {
+    private void chatHandler(JSONObject jsonObject)
+    {
         String target = jsonObject.getString("target");
 
-        if (target == null) {
+
+        if(target==null)
+        {
             return;
         }
         String completedMsg = filter(jsonObject.getString("msg"));
-        jsonObject.put("msg", completedMsg);
-
-        if (isAdmin) {
-
-            if (ALL.equals(target)) {
+        jsonObject.put("msg",completedMsg);
+        
+        if(isAdmin)
+        {
+            
+            if(ALL.equals(target))
+            {
                 broadCast(jsonObject);
-            } else {
-                if (MAP.containsKey(target)) {
+            }else{
+                if(MAP.containsKey(target))
+                {
                     MAP.get(target).receive(jsonObject);
-                } else {
+                }else{
                     //TODO: 消息队列写入数据库
                 }
 
             }
-        } else {
+        }else{
 
-            if (ADMIN_MAP.containsKey(target)) {
+            if(ADMIN_MAP.containsKey(target))
+            {
                 logger.info("发送消息");
                 ADMIN_MAP.get(target).receive(jsonObject);
 
-            } else {
+            }else{
                 logger.info("消息队列");
                 //TODO: 消息队列写入数据库
             }
@@ -433,5 +470,6 @@ public class ChatServer {
         }
 
     }
+
 
 }
