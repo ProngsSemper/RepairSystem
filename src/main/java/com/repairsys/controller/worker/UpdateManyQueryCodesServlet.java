@@ -48,7 +48,7 @@ public class UpdateManyQueryCodesServlet extends BaseServlet {
         while ((content = br.readLine()) != null) {
             jsonBuilder.append(content);
         }
-        List<Form> formList = JSONObject.parseArray(jsonBuilder.toString(), Form.class);
+        List<Form> formList = JSONObject.parseArray(jsonBuilder.toString().substring(0,jsonBuilder.length()), Form.class);
         for (Form form : formList) {
             String stuMail = form.getStuMail();
             int queryCode = form.getQueryCode();

@@ -88,6 +88,7 @@ function getMsg(pageCount) {
             $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="contant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
                 $(".tableBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i+1).append('<div class="checkbox"><input type="checkbox" name="finish" class="check"></div>')
                 $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
@@ -100,7 +101,8 @@ function getMsg(pageCount) {
                 }
                 $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
                 $(".grid-content").eq(i + 1).attr("appointment", data[i].appointment);
-                $(".grid-content").eq(i + 1).attr("appointDate", data[i].appointDate);
+                $(".grid-content").eq(i + 1).attr("appointDate", data[i].appointDate.split(" ")[0]);
+                $(".grid-content").eq(i + 1).attr("stuMail", data[i].stuMail);
             }
         },
         error: function (xhr) {
@@ -367,8 +369,9 @@ $("body").delegate('.iconSearch', 'click', function () {
     }
 });
 //监听点击页码操作
+number=1;
 $("body").delegate(".page>span", "click", function () {
-    var number = $(this).html();
+    number = $(this).html();
     if (searchFlag == 0) {
         // $(".page").html("");
         getMsg(number);
@@ -656,4 +659,57 @@ function cancellation() {
 $("body").delegate(".bye", "click", function () {
     cancellation();
     window.location.href = "/login.html";
+})
+//批量操作
+function Batch_processing(arr){
+    $.ajax({
+        type: "post",
+        url: "/worker/multi/queryCode",
+        data:JSON.stringify(arr),
+        async:false,
+        success: function (msg) {
+            if(msg.code==201){
+                alert("批量确认完成");
+            }
+        },
+        error: function (xhr) {
+            alert(xhr.status)
+        }
+    })
+}
+//监听全选按钮
+$(".selectAll").on('click',function() {  
+    $("input[name='finish']").prop("checked", this.checked);  
+});  
+//监听批量处理按钮
+var allInput=document.getElementsByClassName("check");
+$("body").delegate(".selectFinish","click",function(){
+    // var arr=[
+    //     {"stuMail":"798237844@qq.com","queryCode":2,"formId":146,"appointDate":"2019-11-08","appointment":"16"},
+    //     {"stuMail":"798237844@qq.com","queryCode":2,"formId":149,"appointDate":"2019-11-08","appointment":"9"}
+    // ];
+    var arr=[];
+    for(var i=0;i<allInput.length;i++){
+        if(allInput[i].checked){
+            var formId=$(".grid-content").eq(i+1).attr("formId");
+            var stuMail=$(".grid-content").eq(i+1).attr("stuMail");
+            var appointDate=$(".grid-content").eq(i+1).attr("appointDate");
+            var appointment=$(".grid-content").eq(i+1).attr("appointment");
+            var obj={
+                "stuMail":stuMail,
+                "queryCode":2,
+                "formId":formId,
+                "appointDate":appointDate,
+                "appointment":appointment
+            };
+            arr.push(obj);
+        }
+
+    }
+    console.log(arr);
+    var judge=confirm("确认批量处理报修单");
+    if(judge){
+        Batch_processing(arr);
+        getMsg(number);
+    }
 })

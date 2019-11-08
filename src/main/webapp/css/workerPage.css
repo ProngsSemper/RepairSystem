@@ -168,13 +168,21 @@ option{
     text-align: center;;
     /* background: #fff; */
     justify-content:center;
-    width: 400px;
+    width: 370px;
     flex-wrap:nowrap;
     line-height: 36px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
+}
+.checkDiv{
+    width: 30px;
+}
+.check{
+    width: 30px;
+    height: 20px;
+    margin: 8px;
 }
 .formId{
     width: 100px;
@@ -475,4 +483,16 @@ button:focus{
 }
 #first:hover{
     width: 900px;
+}
+.batchBox{
+    width: 900px;
+    margin: 0 auto;
+}
+.selectAll{
+    width: 30px;
+    height: 15px;
+}
+.selectFinish{
+    height: 25px;
+    margin: 0 0 0 5px;
 }
