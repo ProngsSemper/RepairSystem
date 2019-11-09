@@ -4,6 +4,7 @@ package com.repairsys.listener;
  * @create 2019/10/17 13:33
  */
 
+import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,8 @@ public class ServerListener implements ServletContextListener,
                     logger.warn("更新数据库时间：" + c.get(Calendar.YEAR) + "-" + (1 + c.get(Calendar.MONTH)) + "-" + c.get(Calendar.DATE) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND));
                     try {
                         //让线程睡两个小时
-                        Thread.sleep(3600000 * 2);
+
+                        TimeUnit.HOURS.sleep(2);
                     } catch (InterruptedException e) {
 
                         logger.error("关闭线程成功");
@@ -65,12 +67,17 @@ public class ServerListener implements ServletContextListener,
         pool.execute(r);
         pool.shutdown();
 
+        //开启聊天线程池
+        ServerHandler.getInstance().startService();
+
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
 
         this.pool.shutdownNow();
+        //关闭聊天线程池
+        ServerHandler.getInstance().shutDownService();
         System.out.println("线程关闭");
 
     }

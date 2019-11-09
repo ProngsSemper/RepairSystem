@@ -217,11 +217,13 @@ function updateOnlineList(arr) {
     }
     if(!isAdmin)
     {
-        if(arr.length>0)
+        if(arr!=null&&arr.length>0)
         {
-            $('#sender-name').val(arr[Math.floor((Math.random()*arr.length))]);
+            $('#receiver-name').val(arr[Math.floor((Math.random()*arr.length))]);
         }else{
-            $('#sender-name').val('离线留言');
+            $('#receiver-name').val('离线留言');
+            template.append('<option>'+"离线留言"+'</option>')
+
         }
 
     }

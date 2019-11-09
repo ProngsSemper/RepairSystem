@@ -14,7 +14,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>${LOG_PATTERN}</pattern>
-            <charset>gbk</charset>
+            <charset>GBK</charset>
         </encoder>
     </appender>
 

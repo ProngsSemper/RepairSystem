@@ -1,13 +1,16 @@
 package com.repairsys.chat.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.repairsys.chat.service.MessageServiceImpl;
+import com.repairsys.code.ChatEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.LinkedBlockingQueue;
+
+import java.io.IOException;
+import java.util.Queue;
+import java.util.concurrent.*;
 
 /**
  * @Author lyr
@@ -18,12 +21,22 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class ServerHandler {
     private static final ServerHandler SERVER = new ServerHandler();
+    private static final MessageServiceImpl dbService = MessageServiceImpl.getInstance();
 
-    private ServerHandler(){}
+    private ServerHandler(){
+
+    }
+
     public static ServerHandler getInstance(){return SERVER;}
+    private boolean running = false;
 
 
-    private final Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+
+    private static final ThreadFactory NAMED_THREAD_FACTORY = new ThreadFactoryBuilder().setNameFormat("thread-call-runner-%d").build();
+
+    private static final ExecutorService executorService = new ThreadPoolExecutor(2,2,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(),NAMED_THREAD_FACTORY);
+
 
     /**
      * 存放离线消息
@@ -36,16 +49,117 @@ public class ServerHandler {
     private  final LinkedBlockingQueue<JSONObject> ADMIN_MSG_QUEUE = new LinkedBlockingQueue<>();
 
 
+    /**
+     * @param jsonObject 学生客户端发送的json数据
+     */
     public void msgEnqueue(JSONObject jsonObject)
     {
         logger.info("学生消息入队 {}",jsonObject);
+
         MSG_QUEUE.offer(jsonObject);
     }
 
+    /**
+     * @param jsonObject 管理员客户端发送的 json数据
+     */
     public void adminMessageEnqueue(JSONObject jsonObject)
     {
         logger.info("管理员消息入队{}",jsonObject);
         ADMIN_MSG_QUEUE.offer(jsonObject);
+    }
+
+    public void startService()
+    {
+        if(this.running)
+        {
+            return;
+        }
+        this.running = true;
+        executorService.submit(new AdminTask());
+        executorService.submit(new StudentTask());
+    }
+
+
+    /**
+     * 关闭线程池
+     */
+    public void shutDownService()
+    {
+        if(!executorService.isShutdown())
+        {
+            executorService.shutdownNow();
+        }
+
+    }
+
+
+    /**
+     * 负责工人信息写进数据库
+     */
+    private static class AdminTask implements Runnable {
+
+        @Override
+        public void run() {
+
+            try {
+                Queue<JSONObject> queue = ServerHandler.SERVER.MSG_QUEUE;
+                while (!Thread.currentThread().isInterrupted())
+                {
+
+                    while (!queue.isEmpty())
+                    {
+                        dbService.saveAdminMessage(queue.poll());
+                    }
+                    logger.debug("进入睡眠");
+
+                    TimeUnit.SECONDS.sleep(7);
+                }
+                while (!queue.isEmpty())
+                {
+                    dbService.saveAdminMessage(queue.poll());
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+
+
+        }
+    }
+
+    /**
+     * 学生信息写进数据库
+     */
+    private static class StudentTask implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Queue<JSONObject> queue = ServerHandler.SERVER.MSG_QUEUE;
+                while (!Thread.currentThread().isInterrupted())
+                {
+                    while (!queue.isEmpty())
+                    {
+                        dbService.saveMessage(queue.poll());
+                    }
+                    logger.debug("进入睡眠");
+
+                    TimeUnit.SECONDS.sleep(7);
+                }
+
+                while (!queue.isEmpty())
+                {
+                    dbService.saveMessage(queue.poll());
+                }
+
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt();
+            }
+
+        }
     }
 
 
