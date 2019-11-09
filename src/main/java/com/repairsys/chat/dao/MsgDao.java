@@ -28,6 +28,11 @@ public class MsgDao extends BaseDao<Message> {
 
     public void saveStudentMsg(String sender,String receiver,String msg,int flag)
     {
-        super.addOne(JdbcUtil.getConnection(),SAVE_ADMIN_MSG,sender,receiver,msg,flag);
+        super.addOne(JdbcUtil.getConnection(),SAVE_MSG,sender,receiver,msg,flag);
+    }
+
+    public Message getMsg(String receiver)
+    {
+       return null;
     }
 }

@@ -102,7 +102,7 @@ public class ServerHandler {
         public void run() {
 
             try {
-                Queue<JSONObject> queue = ServerHandler.SERVER.MSG_QUEUE;
+                Queue<JSONObject> queue = ServerHandler.SERVER.ADMIN_MSG_QUEUE;
                 while (!Thread.currentThread().isInterrupted())
                 {
 
