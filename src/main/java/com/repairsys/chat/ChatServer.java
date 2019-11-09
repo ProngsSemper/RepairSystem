@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.domain.Admin;
 import com.repairsys.chat.domain.User;
 import com.repairsys.chat.util.MsgSender;
+import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.code.ChatEnum;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.util.textfilter.SensitiveWordFilter;
@@ -29,6 +30,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 @ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfigurator.class)
 public class ChatServer {
     private static final String ALL = "所有人";
+    private static final String OFFLINE_MSG = "离线留言";
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
     /**
      * 在线人数
@@ -42,6 +44,7 @@ public class ChatServer {
      * 在线管理员
      */
     private static final ConcurrentHashMap<String, User> ADMIN_MAP = new ConcurrentHashMap<>();
+    private static final ServerHandler SERVER_HANDLER = ServerHandler.getInstance();
 
 
 
@@ -432,18 +435,29 @@ public class ChatServer {
     {
         String target = jsonObject.getString("target");
 
-
-        if(target==null)
+        //
+        boolean b =target==null||target.length()<2 ;
+        if(b)
         {
+            logger.debug("空消息-直接返回");
             return;
         }
+
         String completedMsg = filter(jsonObject.getString("msg"));
         jsonObject.put("msg",completedMsg);
         
         if(isAdmin)
         {
-            
-            if(ALL.equals(target))
+            /*
+            * 如果是留言消息，或者对方已经下线，写入数据库
+            *
+            * */
+            if(MAP.isEmpty()|| OFFLINE_MSG.equals(target)){
+                //todo:管理员消息入队
+                SERVER_HANDLER.adminMessageEnqueue(jsonObject);
+
+            }
+            else if(ALL.equals(target))
             {
                 broadCast(jsonObject);
             }else{
@@ -451,21 +465,37 @@ public class ChatServer {
                 {
                     MAP.get(target).receive(jsonObject);
                 }else{
-                    //TODO: 消息队列写入数据库
+                    /*
+                    * 如果 map 中没有这个人，也写入数据库里面
+                    *
+                    * */
+                    SERVER_HANDLER.adminMessageEnqueue(jsonObject);
                 }
 
             }
         }else{
 
-            if(ADMIN_MAP.containsKey(target))
+            if(OFFLINE_MSG.equals(target))
+            {
+                /*
+                *
+                * 如果是离线留言，写入数据库
+                * */
+                SERVER_HANDLER.msgEnqueue(jsonObject);
+            }else if(ADMIN_MAP.containsKey(target))
             {
                 logger.info("发送消息");
                 ADMIN_MAP.get(target).receive(jsonObject);
 
             }else{
-                logger.info("消息队列");
-                //TODO: 消息队列写入数据库
+                /*
+                 *
+                 * 如果map中，没有这个对象，写入数据库里面
+                 *
+                 * */
+                SERVER_HANDLER.msgEnqueue(jsonObject);
             }
+
 
         }
 

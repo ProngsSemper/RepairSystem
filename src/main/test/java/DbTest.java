@@ -32,6 +32,16 @@ import java.util.List;
  */
 public class DbTest {
 
+    //注册管理员用户
+    @Test
+    public void register()
+    {
+        AdminDaoImpl.getInstance().registerPlus("lyr","lyr","lyr","1957476540@qq.com");
+        AdminDaoImpl.getInstance().registerPlus("LYR","LYR","LYR","1957476540@qq.com");
+        AdminDaoImpl.getInstance().registerPlus("123","123","123","1957476540@qq.com");
+
+    }
+
     @Test
     public void printf()
     {

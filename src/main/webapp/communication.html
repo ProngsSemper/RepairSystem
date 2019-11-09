@@ -10,7 +10,7 @@
     <script src="js/m_talkPage.js"></script>
 
     <style>
-        #list {
+        #data-list {
 
             position: absolute;
             right: 80px;
@@ -23,9 +23,14 @@
             color:
                     #333;
             cursor: pointer;
-            border: 1px
-            black;
+            border: 1px black;
+            display: block;
 
+
+        }
+        #data-list>*{
+            width: 98px;
+            height: 21px;
         }
     </style>
 
@@ -51,10 +56,14 @@
                 <div class="send">
                     <textarea name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  ></textarea>
                     <button class="stuSend" id="btn">发送</button>
-                    <select name="" id="list">
-                        <option value="">181543430</option>
-                        <option value="">181543431</option>
-                    </select>
+                    <aside id="data-list"  >
+                        <input type="text" list = "list" placeholder="请输入聊天对象" id="receiver-name">
+                        <datalist name="" id="list">
+
+                            <option>-</option>
+
+                        </datalist>
+                    </aside>
                 </div>
             </div>
         </div>

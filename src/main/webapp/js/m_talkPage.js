@@ -99,7 +99,7 @@ function initEventHandle() {
                 if(obj.onlineList!=null)
                 {
                     console.log("聊天集合： "+onlineList);
-                    alert(onlineList);
+                    // alert(onlineList);
                     onlineList = obj.onlineList;
                     updateOnlineList(onlineList);
                 }
@@ -204,6 +204,7 @@ function updateOnlineList(arr) {
     {
         //管理员可以通知所有人，学生不能通知所有管理员
         template.append('<option>'+"所有人"+'</option>');
+        // $('#sender-name').val('所有人');
     }
     if(arr==null)
     {
@@ -211,8 +212,18 @@ function updateOnlineList(arr) {
     }
     for(var i in arr)
     {
-        console.log(arr)
+        console.log(arr);
         template.append('<option>'+arr[i]+'</option>');
+    }
+    if(!isAdmin)
+    {
+        if(arr.length>0)
+        {
+            $('#sender-name').val(arr[Math.floor((Math.random()*arr.length))]);
+        }else{
+            $('#sender-name').val('离线留言');
+        }
+
     }
 }
 

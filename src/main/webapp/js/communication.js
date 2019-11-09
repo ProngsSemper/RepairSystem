@@ -72,8 +72,6 @@ function fillWhite(msg) {
     var line = $(".line:eq(1)").clone();
     var child =line.children();
 
-    // var obj = eval('('+msg+')');
-    //转化 为 json字符串
     child.html(to_string(msg));
     line.append(child);
 
@@ -97,12 +95,18 @@ function getJsonObject(rawText) {
 }
 
 function sendMsg() {
+    let receiver_name = $("#receiver-name").val();
+    if(receiver_name==null||receiver_name==''||receiver_name.length<2)
+    {
+        alert("请输入发送对象");
+        return;
+    }
     var msg = {
         "msg":$("#msg1").val(),//消息款的信息
         // "target":$("#target").val()
         "type":type.talk,
         "sender":sender,
-        "target":$("#list option:selected").html()
+        "target":receiver_name
     };
     if(msg.msg.replace(/\s/g,"")==="")
     {
@@ -126,7 +130,7 @@ function closeWebSocket() {
 function test_send(sender,target,msg) {
     var pack = {
         "sender":sender,
-        "target":$("#list option:selected").html(),
+        "target":$("#receiver-name").html(),
         "msg":msg
     };
     ws.send(JSON.stringify(pack));
@@ -159,12 +163,6 @@ function getCurTime() {
     if (minute<10) {
         minute='0'+minute;
     }
-    // if (second<10) {
-    //     second='0'+second;
-    // }
-
-
-    // var x=date.getDay();//获取星期
 
 
     var time=year+'/'+month+'/'+day+'/'+hour+':'+minute;
