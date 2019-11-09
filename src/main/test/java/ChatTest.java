@@ -1,9 +1,12 @@
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.chat.dao.MsgDao;
+import com.repairsys.chat.domain.Message;
 import com.repairsys.chat.service.MessageServiceImpl;
 import com.repairsys.chat.util.MsgSender;
 import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.code.ChatEnum;
 import com.repairsys.util.textfilter.TextFilterFactory;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import org.junit.Test;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -26,6 +30,16 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class ChatTest {
+
+    @Test
+    public void getMsg()
+    {
+        String adminId = "admin";
+        //我是管理员，要获取学生留言
+        List<Message> p = MsgDao.getInstance().getStudentMsg(adminId);
+        p.forEach(System.out::println);
+
+    }
 
     @Test
     public void db()
