@@ -8,7 +8,9 @@ var type={
     "talk":200,
     "updateList":202,
     "self_info":207,
-    "offline":409
+    "offline":409,
+    "count":1,
+    "page":0
 };
 //心跳包：发送一个空串过去，尽量减少后台损耗
 var ping = "";
@@ -125,6 +127,19 @@ function initEventHandle() {
                 }
                 break;
             }
+            case type.count:{
+                //获取分页数
+                let count = obj.pageCount;
+                alert(count);
+                break;
+
+            }
+            case type.page:{
+                alert(obj);
+                let list = obj.messageList;
+                alert(list);
+                break;
+            }
 
             default:{
                 console.log("其他事务");
@@ -176,6 +191,7 @@ var heartCheck = {
         return this;
     },
     go:function () {
+
         var self = this;
         this.timeOutObj = setTimeout(function () {
             ws.send(ping);
@@ -219,6 +235,7 @@ function updateOnlineList(arr) {
     {
         if(arr!=null&&arr.length>0)
         {
+            //随机获取一位管理员聊天
             $('#receiver-name').val(arr[Math.floor((Math.random()*arr.length))]);
         }else{
             $('#receiver-name').val('离线留言');
@@ -230,5 +247,20 @@ function updateOnlineList(arr) {
 }
 
 
+function getPageCount() {
+    //发送获取消息请求
+    var msgPacker = {"type":type.count};
+    ws.send(JSON.stringify(msgPacker));
 
+}
+function getPageMessage() {
+    //发送获取具体某一页的请求
+    var msgPacker = {
+        "type":type.page,
+        "page":1,
+        "size":10
+    };
+    //我要看第一页，10条数据
+    ws.send(JSON.stringify(msgPacker));
+}
 

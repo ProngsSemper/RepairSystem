@@ -2,6 +2,9 @@ package com.repairsys.chat.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.dao.MsgDao;
+import com.repairsys.chat.domain.Message;
+
+import java.util.List;
 
 
 /**
@@ -50,4 +53,21 @@ public class MessageServiceImpl implements MsgService {
                 0
         );
     }
+
+    public List<Message> getAdminPage(JSONObject jsonObject)
+    {
+        return msgDao.getAdminMsg(jsonObject.getString("target"),jsonObject.getInteger("page"),
+                jsonObject.getInteger("size"));
+    }
+
+    public List<Message> getStudentPage(JSONObject jsonObject)
+    {
+        return msgDao.getStudentMsg(
+                jsonObject.getString("target"),
+                jsonObject.getInteger("page"),
+                jsonObject.getInteger("size")
+        );
+    }
+
+
 }

@@ -2,22 +2,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.dao.MsgDao;
 import com.repairsys.chat.domain.Message;
 import com.repairsys.chat.service.MessageServiceImpl;
+
 import com.repairsys.chat.util.MsgSender;
 import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.code.ChatEnum;
-import com.repairsys.util.textfilter.TextFilterFactory;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import org.junit.Test;
-import org.omg.CORBA.PUBLIC_MEMBER;
-import org.slf4j.LoggerFactory;
 
-import javax.json.JsonObject;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.util.LinkedHashSet;
+import org.junit.Test;
+
 import java.util.List;
-import java.util.Set;
+
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -32,12 +25,45 @@ import java.util.concurrent.TimeUnit;
 public class ChatTest {
 
     @Test
+    public void geCnt()
+    {
+        //这是管理员，要获取学生表写入的信息
+        JSONObject jsonObject =
+                MsgSender.jsonString().add("target","admin")
+                .add("page",1)
+                .add("size",10).getJsonObject();
+
+        List<Message> l = MessageServiceImpl.getInstance().getStudentPage(jsonObject);
+        System.out.println(l);
+    }
+
+    @Test
+    public void getCnt()
+    {
+        //学生获取管理员留言
+        JSONObject jsonObject =
+                MsgSender.jsonString().add("target","181543430")
+                        .add("page",1)
+                        .add("size",10).getJsonObject();
+
+        List<Message> l = MessageServiceImpl.getInstance().getAdminPage(jsonObject);
+        System.out.println(l);
+    }
+
+    @Test
+    public void printCnt()
+    {
+        Object o = MsgDao.getInstance().countAdminMessage("181543430");
+        System.out.println(o);
+    }
+
+    @Test
     public void getMsg()
     {
         String adminId = "admin";
         //我是管理员，要获取学生留言
-        List<Message> p = MsgDao.getInstance().getStudentMsg(adminId);
-        p.forEach(System.out::println);
+        // List<Message> p = MsgDao.getInstance().getStudentMsg(adminId);
+        // p.forEach(System.out::println);
 
     }
 

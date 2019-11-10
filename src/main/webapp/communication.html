@@ -32,6 +32,12 @@
             width: 98px;
             height: 21px;
         }
+        #get-page{
+            width: 300px;
+            height: 100px;
+            display: block;
+            margin: auto;
+        }
     </style>
 
 </head>
@@ -71,6 +77,16 @@
 
 
     </div>
+    <button id="get-page">
+
+    </button>
     <script src="js/communication.js"></script>
 </body>
 </html>
+
+<script>
+    $("#get-page").click(function () {
+        getPageCount();
+        getPageMessage();
+    });
+</script>

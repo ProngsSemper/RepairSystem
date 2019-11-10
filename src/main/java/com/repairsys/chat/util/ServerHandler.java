@@ -2,6 +2,7 @@ package com.repairsys.chat.util;
 
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.repairsys.chat.domain.Message;
 import com.repairsys.chat.service.MessageServiceImpl;
 import com.repairsys.code.ChatEnum;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.*;
 
@@ -66,6 +68,22 @@ public class ServerHandler {
     {
         logger.info("管理员消息入队{}",jsonObject);
         ADMIN_MSG_QUEUE.offer(jsonObject);
+    }
+
+
+    public String getStudentMessage(JSONObject jsonObject)
+    {
+        //转 json对象
+        List<Message> list = dbService.getStudentPage(jsonObject);
+        jsonObject.put("messageList",jsonObject);
+        return JSONObject.toJSONString(jsonObject);
+    }
+    public String getAdminMessage(JSONObject jsonObject)
+    {
+        jsonObject.put("messageList",dbService.getAdminPage(jsonObject));
+        //转 json对象
+        return JSONObject.toJSONString(jsonObject);
+
     }
 
     public void startService()

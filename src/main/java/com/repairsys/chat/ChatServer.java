@@ -1,6 +1,7 @@
 package com.repairsys.chat;
 
 import com.alibaba.fastjson.JSONObject;
+import com.repairsys.chat.dao.MsgDao;
 import com.repairsys.chat.domain.Admin;
 import com.repairsys.chat.domain.User;
 import com.repairsys.chat.util.MsgSender;
@@ -214,7 +215,7 @@ public class ChatServer {
     @OnMessage
     public void onMessage(String message, Session session)
             throws IOException, InterruptedException {
-        System.out.println(message);
+
         if(message.length()<=0)
         {
             logger.debug("心跳检测");
@@ -222,6 +223,7 @@ public class ChatServer {
             session.getBasicRemote().sendText(message);
             return;
         }
+        System.out.println(message);
 
         JSONObject jsonObject = JSONObject.parseObject(message);
         //TODO:需要设置一个枚举类型，返回给前端，前端判断类型来展示页面
@@ -242,6 +244,38 @@ public class ChatServer {
 
                 break;
 
+            }
+            case COUNT_PAGE:
+            {
+                logger.info("获取分页总页数");
+                // jsonObject.put("")
+                //获取页码数
+                if(isAdmin)
+                {
+                //获取学生表里面的信息
+                    int cnt = MsgDao.getInstance().countStuMessage(this.userName);
+                    jsonObject.put("pageCount",cnt);
+                }else{
+                    //获取 admin表里面的信息
+                    int cnt = MsgDao.getInstance().countAdminMessage(this.userName);
+                    jsonObject.put("pageCount",cnt);
+                }
+                    session.getBasicRemote().sendText(jsonObject.toJSONString());
+                break;
+            }
+            case GET_PAGE:
+            {
+                logger.info("获取一页的信息");
+                jsonObject.put("target",this.userName);
+                if(isAdmin)
+                {
+                    SERVER_HANDLER.getStudentMessage(jsonObject);
+                }else{
+                    SERVER_HANDLER.getAdminMessage(jsonObject);
+                }
+                session.getBasicRemote().sendText(jsonObject.toJSONString());
+
+                break;
             }
 
             default:{

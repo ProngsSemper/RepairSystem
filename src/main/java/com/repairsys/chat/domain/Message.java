@@ -18,7 +18,7 @@ public class Message {
         return "Message{" +
                 "msg='" + msg + '\'' +
                 ", flag=" + flag +
-                ", timestamp=" + time +
+                ", time=" + time +
                 ", sender='" + sender + '\'' +
                 ", receiver='" + receiver + '\'' +
                 '}';
