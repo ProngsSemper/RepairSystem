@@ -254,11 +254,11 @@ public class ChatServer {
                 {
                 //获取学生表里面的信息
                     int cnt = MsgDao.getInstance().countStuMessage(this.userName);
-                    jsonObject.put("pageCount",cnt);
+                    jsonObject.put("totalCount",cnt);
                 }else{
                     //获取 admin表里面的信息
                     int cnt = MsgDao.getInstance().countAdminMessage(this.userName);
-                    jsonObject.put("pageCount",cnt);
+                    jsonObject.put("totalCount",cnt);
                 }
                     session.getBasicRemote().sendText(jsonObject.toJSONString());
                 break;

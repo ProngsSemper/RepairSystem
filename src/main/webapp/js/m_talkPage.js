@@ -129,7 +129,7 @@ function initEventHandle() {
             }
             case type.count:{
                 //获取分页数
-                let count = obj.pageCount;
+                let count = obj.totalCount;
                 alert(count);
                 break;
 
