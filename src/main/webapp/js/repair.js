@@ -604,7 +604,7 @@ function searchUnfinishId(formId){
 
             $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
             // alert(2);
-
+            if(msg.code==201){
                 var line = data[0];
 
 
@@ -623,6 +623,8 @@ function searchUnfinishId(formId){
 
                 row.append(colNumber, colAdress, colContant, colOperate);
                 $(".row").eq(1).attr("formId", line.formId);
+            }
+
             
         },
         error:function(xhr){

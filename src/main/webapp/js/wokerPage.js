@@ -710,6 +710,7 @@ $("body").delegate(".selectFinish","click",function(){
     var judge=confirm("确认批量处理报修单");
     if(judge){
         Batch_processing(arr);
+        $(".selectAll").attr("checked", false);
         getMsg(number);
     }
 })

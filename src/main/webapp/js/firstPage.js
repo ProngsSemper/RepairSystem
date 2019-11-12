@@ -580,3 +580,14 @@ function cancellation() {
         }
     })
 }
+/*校验电话码格式 */
+function isTelCode(str) {
+	var reg= /^[1](([3|5|8][\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\d]{8}$/;
+	return reg.test(str);
+}
+
+/*校验邮件地址是否合法 */
+function IsEmail(str) {
+	var reg=/^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
+	return reg.test(str);
+}

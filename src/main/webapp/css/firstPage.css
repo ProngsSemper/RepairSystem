@@ -78,12 +78,13 @@ body{
     background: #8e0b02;
     /* margin: 30px 0 0 20px; */
     /* margin-left: 54px; */
-    background-image: url(../img/yun.png);
+    background-image: url(../img/cloud.png);
     background-repeat: no-repeat;
     background-size: 60%;
     background-position: right bottom;
 }
 .contant .onlinerepair{
+    position: relative;
     float: left;
     border-radius: 5px;
     border: #888 1px solid;
@@ -92,13 +93,28 @@ body{
     background: #fff;
     /* margin: 30px 0 0 20px; */
     margin-left: 40px;
-    background-image: url(../img/ding.png),url(../img/ding.png),url(../img/ding.png),url(../img/ding.png);
-    background-position: 20px 20px,765px 20px,20px 425px,765px 425px;
-    background-size: 2%;
+    background-image: url(../img/blackboard.png);
+    background-size: contain;
     background-repeat: no-repeat;
 }
+.process{
+    float: left;
+    border-radius: 5px;
+
+    width: 240px;
+    height: 450px;
+    background-image: url(../img/tool.png);
+    background-position: 80px 349px;
+    background-repeat: no-repeat;
+    text-align: center;
+    background-size: 40%;
+}
+.process img{
+    margin-top: 40px;
+    height: 270px;
+}
 .tit{
-    margin-top: 5px;
+    margin-top: 25px;
     text-align: center;
     color: #fff;
     font-size: 25px;
@@ -108,22 +124,47 @@ body{
 .contant-tit{
     margin: 5px 7px 0;
     color: #fff;
-    text-indent: 2em;
+    /* text-indent: 2em; */
     font-size: 20px;
     line-height: 40px;
+    padding: 0 10px;
 }
 .inside-box{
+    float: left;
     /* background: yellow; */
-    margin: 25px auto 0 ;
-    background-image: url(../img/扳手.png),url(../img/锤子.png);
+    /* margin: 25px auto 0 ; */
+    margin: 55px 0 0 55px ;
+    border: 1px solid #eee;
+    width: 500px;
+    height: 350px;
+    background: #fff;
+}
+.icontie{
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 20px;
+    left: 255px;
+    background-image: url(../img/tiezhi.png);
     background-repeat: no-repeat;
-    background-position: 565px 288px,right bottom;
-    background-size: 8%,11%;
-    width: 700px;
-    height: 425px;
+    background-size: contain;
+}
+.pen{
+    position: absolute;
+    bottom: 12px;
+    right: 229px;
+    width: 100px;
+    height: 20px;
+    background-image: url(../img/pen.png);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .online-tit{
-    color: #000;
+    color: #333;
+}
+.changeNotice{
+    padding: 0 45px;
+    font-size: 20px;
 }
 .worker{
     position: absolute;
@@ -145,7 +186,7 @@ body{
     bottom: 20px;
     right: 25px;;
     font-size: 18px;
-    color: #fff;
+    color: #333;
 }
 .imformation{
     margin: 0 auto;
