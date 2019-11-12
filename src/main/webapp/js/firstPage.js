@@ -23,6 +23,7 @@ var stuId = document.getElementsByClassName("repair-information")[2];
 var stuName = document.getElementsByClassName("repair-information")[0];
 var stuPhone = document.getElementsByClassName("repair-information")[1];
 var stuMail = document.getElementsByClassName("repair-information")[3];
+var email=document.getElementById("email");
 var formMsg = document.getElementsByClassName("textareaStyle")[0];
 var photoId = "-1";
 var a = new Date();
@@ -39,6 +40,7 @@ var appointment = document.getElementsByClassName("appoint")[0];
 var domiNumber = document.getElementsByClassName("dormitoryNumber")[0];
 var adress = document.getElementById("adress");
 var buliding = document.getElementById("buliding");
+
 var wType = "其他";
 //cookie自动填充表单信息
 stuId.value = decodeURI(getCookie("stuId"));
@@ -97,7 +99,7 @@ $("body").delegate(".handin-tit", "click", function () {
                 "stuId": stuId.value,
                 "stuName": stuName.value,
                 "stuPhone": stuPhone.value,
-                "stuMail": stuMail.value,
+                "stuMail": stuMail.value+email.value,
                 "formMsg": formMsg.value,
                 "photoId": -1,
                 "wType": wType,
@@ -590,4 +592,14 @@ function isTelCode(str) {
 function IsEmail(str) {
 	var reg=/^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
 	return reg.test(str);
+}
+//给进度查询中的确认完成按钮添加节流
+var finishButton=document.getElementsByClassName("finish");
+for(var i=0;i<content.length;i++){
+    finishButton[i].onclick=throttle(insureFinish,5000,1);
+}
+//给进度查询中的一键再修中的确认按钮添加节流
+var againButton=document.getElementsByClassName("againInsure");
+for(var i=0;i<content.length;i++){
+    againButton[i].onclick=throttle(againRepair,5000,1);
 }

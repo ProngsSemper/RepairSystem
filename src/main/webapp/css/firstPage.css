@@ -265,6 +265,15 @@ body{
     font-size: 18px;
     text-indent: 4px;
 }
+.form .inputEmail{
+    width: 150px;
+}
+#email{
+    position: relative;
+    height: 30px;
+    top: -1px;
+    margin-left: -5px;
+}
 .form .spanStyle{
     display: inline-block;
     margin-right: 25px;
