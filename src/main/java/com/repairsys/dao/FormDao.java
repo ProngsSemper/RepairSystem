@@ -13,10 +13,20 @@ public interface FormDao {
 
     /**
      * 根据报修单号查找报修单
+     *
      * @param formId 报修单号
      * @return 报修单
      */
     Form queryByFormId(int formId);
+
+    /**
+     * 根据报修单号查找报修单(从两张表中)
+     *
+     * @param formId 报修单号
+     * @return 报修单
+     */
+    List<Form> queryAllByFormId(int formId);
+
     /**
      * 工人根据维修单号来查询未完成维修单的信息
      *
@@ -311,11 +321,11 @@ public interface FormDao {
      * 传入工人key和报修单id将某报修单变为已安排工人状态
      * 并记录是哪个管理员进行的操作
      *
-     * @param wKey     工人 key
-     * @param adminKey 管理员key
+     * @param wKey        工人 key
+     * @param adminKey    管理员key
      * @param appointDate 最终确定日期
      * @param appointment 最终确定点数
-     * @param formId   报修单id
+     * @param formId      报修单id
      * @return 布尔值
      */
     Boolean arrange(int wKey, int adminKey, String appointDate, int appointment, int formId);

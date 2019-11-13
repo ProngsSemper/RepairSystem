@@ -2,15 +2,16 @@ package com.repairsys.service.impl.student;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Developer;
+import com.repairsys.bean.entity.Form;
 import com.repairsys.bean.vo.Page;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ExceptionEnum;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.dao.DaoFactory;
-import com.repairsys.dao.impl.feedback.FeedbackDaoImpl;
 import com.repairsys.dao.impl.board.BoardDaoImpl;
 import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.evaluation.EvaluationDaoImpl;
+import com.repairsys.dao.impl.feedback.FeedbackDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import com.repairsys.service.ServiceFactory;
@@ -35,7 +36,6 @@ public final class StudentServiceImpl implements StudentService {
     private static Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private static String FLAG = "1";
     private static final String flag = "flag";
-    // public String stuName;
 
     @Override
     public Result<Boolean> login(String stuId, String stuPassword, HttpSession session) {
@@ -306,5 +306,18 @@ public final class StudentServiceImpl implements StudentService {
             result.setResult(ResultEnum.FEEDBACK_SUCCESSFULLY);
         }
         return result;
+    }
+
+    @Override
+    public Result queryByFormId(int formId) {
+        Result<List<Form>> result = new Result();
+        FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
+        List<Form> list = formDao.queryAllByFormId(formId);
+        if (list.isEmpty()) {
+            return result.setResult(ResultEnum.QUERY_FAILED);
+        } else {
+            result.setData(list);
+            return result.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        }
     }
 }

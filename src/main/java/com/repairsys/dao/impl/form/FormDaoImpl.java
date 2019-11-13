@@ -22,6 +22,7 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      * 查询表单的 id号
      */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
+    private static final String QUERY_ALL_BY_FORMID = "select * from form where `formId` = ?";
     private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
     private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
     private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and (queryCode>1 OR queryCode =-1)";
@@ -53,25 +54,16 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
      */
     private static final String QUERY_MORE_THAN_DAY7 = "insert into oldform( select *  from form where queryCode>=2 and appointDate<= date_sub(CURDATE(),interval 7 day))";
 
-
     /**
      * 如果工人已经和学生提交的 form表单匹配上了，但是工人可能不会上我们这个网来确认，因此可能要管理员来手动确认，或者这里14天内，如果工人未确认的话，也需要更新
      * 因为学生那边是有一键再修的功能的，学生不满意，是可以再修的，而且正常的报修不会超过2个星期都没搞定，我们也有其他的方法来解决这个的问题
      */
     private static final String QUERY_MORE_THAN_DAY14 = "insert into oldform (select * from form where queryCode=1 and appointDate<= date_sub(CURDATE(),interval 14 day))";
 
-
-
-
-
-
     /**
      * 删除超过7天的垃圾数据
      */
     private static final String DELETE_FORM_DAY_OVER7 = "delete FROM form where queryCode>=2  and appointDate<= date_sub(CURDATE(),interval 7 day)";
-
-
-
 
     private static final String DELETE_FORM_DAY_OVER14 = "delete FROM form where queryCode=1  and appointDate<= date_sub(CURDATE(),interval 14 day)";
     /**
@@ -137,8 +129,13 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     }
 
     @Override
-    public Form queryByFormId(int formId){
-        return super.selectOne(JdbcUtil.getConnection(),QUERY_BY_FORMID,formId);
+    public Form queryByFormId(int formId) {
+        return super.selectOne(JdbcUtil.getConnection(), QUERY_BY_FORMID, formId);
+    }
+
+    @Override
+    public List<Form> queryAllByFormId(int formId) {
+        return super.selectList(JdbcUtil.getConnection(), QUERY_ALL_BY_FORMID, formId);
     }
 
     @Override
@@ -340,14 +337,12 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     public Boolean moveTo() {
         boolean b = super.updateOne(JdbcUtil.getConnection(), QUERY_MORE_THAN_DAY7);
 
-        if(b)
-        {
+        if (b) {
             super.deleteOne(JdbcUtil.getConnection(), DELETE_FORM_DAY_OVER7);
         }
 
         b = super.updateOne(JdbcUtil.getConnection(), QUERY_MORE_THAN_DAY14);
-        if(b)
-        {
+        if (b) {
             return super.deleteOne(JdbcUtil.getConnection(), DELETE_FORM_DAY_OVER14);
         }
         return false;
