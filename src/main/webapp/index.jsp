@@ -2,6 +2,7 @@
 
 <html>
 <head>
+<%--    <meta http-equiv="refresh" content="0; url=index.do">--%>
     <style>
         h2 {
             text-align: center;

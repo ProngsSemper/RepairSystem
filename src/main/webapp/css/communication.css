@@ -119,3 +119,36 @@ background: #eee;
     color: #fff;
     background: #8e0b02;
 }
+#data-list {
+
+    position: absolute;
+    right: 80px;
+    bottom: 6px;
+    border: none;
+    border-radius: 10px;
+    width: 116px;
+    height: 30px;
+    text-align: center;
+    color:
+            #333;
+    cursor: pointer;
+    border: 1px black;
+    display: block;
+
+
+}
+#data-list>*{
+    width: 98px;
+    height: 21px;
+}
+#get-page{
+    width: 300px;
+    height: 100px;
+    display: block;
+    margin: auto;
+}
+.history{
+    display: block;
+    text-align: center;
+    font-size: 14px;
+}

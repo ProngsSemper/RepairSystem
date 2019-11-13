@@ -267,13 +267,16 @@ public class ChatServer {
             {
                 logger.info("获取一页的信息");
                 jsonObject.put("target",this.userName);
+                String str = null;
                 if(isAdmin)
                 {
-                    SERVER_HANDLER.getStudentMessage(jsonObject);
+                    str=SERVER_HANDLER.getStudentMessage(jsonObject);
+
                 }else{
-                    SERVER_HANDLER.getAdminMessage(jsonObject);
+                    str=SERVER_HANDLER.getAdminMessage(jsonObject);
                 }
-                session.getBasicRemote().sendText(jsonObject.toJSONString());
+                logger.debug(str);
+                session.getBasicRemote().sendText(str);
 
                 break;
             }

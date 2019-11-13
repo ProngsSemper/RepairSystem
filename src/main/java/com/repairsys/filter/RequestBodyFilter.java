@@ -33,6 +33,12 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+        logger.warn(t);
+        if(t.length()<=1)
+        {
+            chain.doFilter(request,resp);
+            return;
+        }
 
         if (t.contains("/worker/multi/queryCode")) {
             chain.doFilter(request, resp);

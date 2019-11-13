@@ -169,8 +169,57 @@ function getCurTime() {
     return time;
 
 }
+//历史聊天记录
+var page=1;
+//监听超链接点击
+$("body").delegate(".history","click",function () {
+    $(this).remove();
+    // $(".contant").prepend('<div class="line"><dic class="bg-green own">test</div></div>');
+    getHistory(page);
+    $(".contant").prepend('<a href="javascript:;" class="history">获取历史消息记录</a>');
+    page++;
+})
+
+function getHistory(page){
+    // $.ajax({
+    //     type: "POST",
+    //     url: "",
+    //     data: JSON.stringify({
+    //         "type":0,
+    //         "page":page,
+    //         "size":10,
+    //
+    //     }),
+    //     dataType: "json",
+    //     success: function (msg) {
+    //         data=msg.messageList;
+    //         for(var i=0;i<msg.size;i++){
+    //             $(".contant").prepend('<div class="line"><dic class="bg-white other">'+data[i].msg+'</div></div>');
+    //         }
+    //     },
+    //     error:function(xhr){
+    //         alert(xhr.status);
+    //     }
+    // });
+
+    var pack = JSON.stringify({
+                 "type":type.page,
+                 "page":page,
+                 "size":10
+    });
+    ws.send(pack);
 
 
 
-
-
+}
+//获取窗口高度并查找离线记录
+var contant=document.getElementById("window-talk");
+contant.onscroll=function(){
+    if(contant.scrollTop==0){
+        $(".history").remove();
+        // $(".contant").prepend('<div class="line"><dic class="bg-green own">test</div></div>');
+        getHistory(page);
+        $(".contant").prepend('<a href="javascript:;" class="history">获取历史消息记录</a>');
+        page++;
+    }
+}

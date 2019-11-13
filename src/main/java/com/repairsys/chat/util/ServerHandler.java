@@ -75,7 +75,7 @@ public class ServerHandler {
     {
         //转 json对象
         List<Message> list = dbService.getStudentPage(jsonObject);
-        jsonObject.put("messageList",jsonObject);
+        jsonObject.put("messageList",list);
         return JSONObject.toJSONString(jsonObject);
     }
     public String getAdminMessage(JSONObject jsonObject)

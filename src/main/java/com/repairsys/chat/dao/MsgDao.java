@@ -79,7 +79,7 @@ public class MsgDao extends BaseDao<Message> {
     }
 
     private static final String COUNT_ADMIN_MSG="select count(*) from adminmsg where receiver= ? or receiver=\"所有人\" and flag=0";
-    private static final String COUNT_STU_MSG="select count(*) from studentmsg where receiver= ? or receiver=\"离线留言\" and flag=0  ";
+    private static final String COUNT_STU_MSG="select count(*) from studentmsg where receiver= ? or receiver=\"离线留言\" and flag=0";
     public int countAdminMessage(String id)
     {
         return super.getCount(JdbcUtil.getConnection(),COUNT_ADMIN_MSG,id);

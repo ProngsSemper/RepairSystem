@@ -135,9 +135,16 @@ function initEventHandle() {
 
             }
             case type.page:{
-                alert(obj);
+                // alert(obj);
                 let list = obj.messageList;
-                alert(list);
+                // data=obj.messageList;
+                for(var i=0;i<list.length;i++){
+                    fillWhite(list[i].sender+": \r\n"+list[i].msg);
+                    // $(".contant").prepend('<div class="line"><dic class="bg-white other">'+list[i].msg+'</div></div>');
+                }
+
+
+                // alert(list);
                 break;
             }
 
