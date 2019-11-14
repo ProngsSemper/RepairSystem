@@ -47,6 +47,9 @@ public  enum  ChatEnum {
     OTHER(-1,"未知的事务"),
 
     GET_PAGE(0,"获取分页查询信息"),
+
+    COUNT_INFO_UNREAD(2,"获取未读取的的历史消息的总数"),
+
     COUNT_PAGE(1,"返回页码数");
 
 

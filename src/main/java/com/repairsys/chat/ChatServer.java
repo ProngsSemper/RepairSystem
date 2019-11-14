@@ -284,6 +284,18 @@ public class ChatServer {
                 break;
             }
 
+            case COUNT_INFO_UNREAD:{
+
+                System.out.println("获取分页信息");
+                int count = MsgDao.getInstance().getCountOfUnread(this.userName,isAdmin);
+                jsonObject.put("infoCount",count);
+                System.out.println(jsonObject);
+                session.getBasicRemote().sendText(jsonObject.toJSONString());
+
+
+                break;
+            }
+
             default:{
                 logger.info("出现 default事务");
             }

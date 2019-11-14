@@ -131,6 +131,28 @@ public class MsgDao extends BaseDao<Message> {
         }
     }
 
+    private static final String COUNT_ADMIN_INFO_UNREAD= "select count(*) from adminmsg " +
+            "where ( receiver ='所有人' or receiver =? ) and flag = ?";
+    private static final String COUNT_STU_INFO_UNREAD= "select count(*) from studentmsg " +
+            "where (receiver ='离线留言' or receiver =? ) and flag = ?";
+    public int getCountOfUnread(String user,boolean isAdmin)
+    {
+        int count=0;
+        if(isAdmin)
+        {
+            count = super.getCount(JdbcUtil.getConnection(),COUNT_STU_INFO_UNREAD,user,0);
+
+        }else{
+            //如果是学生，去查管理员的表
+            count = super.getCount(JdbcUtil.getConnection(),COUNT_ADMIN_INFO_UNREAD,user,0);
+            System.out.println(COUNT_ADMIN_INFO_UNREAD);
+        }
+        return count;
+
+
+    }
+
+
 
 
 

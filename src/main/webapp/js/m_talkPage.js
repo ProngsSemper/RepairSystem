@@ -12,7 +12,8 @@ var type={
     "self_info":207,
     "offline":409,
     "count":1,
-    "page":0
+    "page":0,
+    "count_info_unread":2
 };
 //心跳包：发送一个空串过去，尽量减少后台损耗
 var ping = "";
@@ -169,6 +170,12 @@ function initEventHandle() {
                 break;
             }
 
+            case type.count_info_unread:{
+                let count = obj.infoCount;
+                alert(count);
+                break;
+            }
+
             default:{
                 console.log("其他事务");
             }
@@ -295,3 +302,10 @@ function getPageMessage() {
     ws.send(JSON.stringify(msgPacker));
 }
 
+
+function test_get_unread_count() {
+    let request = {
+        type:type.count_info_unread
+    };
+    ws.send(JSON.stringify(request));
+}
