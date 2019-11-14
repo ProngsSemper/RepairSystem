@@ -4,6 +4,7 @@ var sender = null;
 var onlineList = null;
 var isAdmin = false;
 var wsCanOpen = true;
+// var userName = null;
 var type={
 
     "talk":200,
@@ -151,7 +152,14 @@ function initEventHandle() {
                 let list = obj.messageList;
                 // data=obj.messageList;
                 for(var i=0;i<list.length;i++){
+                    if(list[i].sender===sender)
+                    {
+                        fillGreen(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
+                        continue;
+                    }
+
                     fillWhite(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
+
 
                 }
 

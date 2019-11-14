@@ -25,6 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class ChatTest {
 
     @Test
+    public void getPage()
+    {
+        MsgDao p= MsgDao.getInstance();
+        p.getMessageOfBoth("admin",true,0,6).forEach(System.out::println);
+    }
+
+
+
+    @Test
     public void geCnt()
     {
         //这是管理员，要获取学生表写入的信息

@@ -86,6 +86,15 @@ public class ServerHandler {
         return JSONObject.toJSONStringWithDateFormat(jsonObject, "yyyy-MM-dd/hh:mm:ss ", SerializerFeature.WriteDateUseDateFormat);
 
     }
+    //FIXME: 预备方案
+    public String getMessageOfBoth(JSONObject jsonObject,boolean isAdmin)
+    {
+        jsonObject.put("messageList",dbService.getMessageOfBoth(jsonObject,isAdmin));
+        //转 json对象
+        return JSONObject.toJSONStringWithDateFormat(jsonObject, "yyyy-MM-dd/hh:mm:ss ", SerializerFeature.WriteDateUseDateFormat);
+
+    }
+
 
     public void startService()
     {

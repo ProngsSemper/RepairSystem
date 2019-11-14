@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.dao.MsgDao;
 import com.repairsys.chat.domain.Message;
 
+import javax.json.JsonObject;
 import java.util.List;
 
 
@@ -68,6 +69,18 @@ public class MessageServiceImpl implements MsgService {
                 jsonObject.getInteger("size")
         );
     }
+
+    public List<Message> getMessageOfBoth(JSONObject jsonObject,boolean isAdmin)
+    {
+        return msgDao.getMessageOfBoth(jsonObject.getString("target"),isAdmin,
+                jsonObject.getInteger("page"),
+                jsonObject.getInteger("size")
+
+
+        );
+    }
+
+
 
 
 }

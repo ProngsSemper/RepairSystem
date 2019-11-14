@@ -5,6 +5,7 @@ import com.repairsys.chat.domain.Message;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class MsgDao extends BaseDao<Message> {
             "union select * from studentmsg where receiver=? " +
             "or receiver= \"离线留言\" order by time limit ?,?";
 
-    private static final String GET_MESSAGE_OF_STUDENT="";
+    private static final String GET_MESSAGE_OF_STUDENT="select * from adminmsg where receiver= ? or receiver=\"所有人\" UNION SELECT * from studentmsg where sender= ? ORDER BY time LIMIT ?,?";
     /**
      * @return 获取双方的聊天记录
      */
@@ -107,10 +108,12 @@ public class MsgDao extends BaseDao<Message> {
         {
             return super.selectList(JdbcUtil.getConnection(),GET_MESSAGE_OF_ADMIN,userName,userName,pageRes[0],pageRes[1]);
         }else{
-
+            return super.selectList(JdbcUtil.getConnection(),GET_MESSAGE_OF_STUDENT,userName,userName,pageRes[0],pageRes[1]);
         }
-        return null;
+
     }
+
+
 
 
 

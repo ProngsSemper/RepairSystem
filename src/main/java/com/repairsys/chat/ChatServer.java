@@ -271,10 +271,12 @@ public class ChatServer {
                 String str = null;
                 if(isAdmin)
                 {
-                    str=SERVER_HANDLER.getStudentMessage(jsonObject);
+                    str=/*SERVER_HANDLER.getStudentMessage(jsonObject);*/
+                    SERVER_HANDLER.getMessageOfBoth(jsonObject, true);
 
                 }else{
-                    str=SERVER_HANDLER.getAdminMessage(jsonObject);
+                    str=/*SERVER_HANDLER.getAdminMessage(jsonObject);*/
+                    SERVER_HANDLER.getMessageOfBoth(jsonObject,false);
                 }
                 logger.debug(str);
                 session.getBasicRemote().sendText(str);
