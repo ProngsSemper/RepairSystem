@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -286,15 +287,7 @@ public class ChatServer {
             }
         }
 
-
         logger.info("网络消息：{}", message);
-
-
-
-
-
-
-
     }
 
     @OnClose
@@ -490,17 +483,21 @@ public class ChatServer {
             *
             * */
             if(MAP.isEmpty()|| OFFLINE_MSG.equals(target)){
-                //todo:管理员消息入队
+
                 SERVER_HANDLER.adminMessageEnqueue(jsonObject);
 
             }
             else if(ALL.equals(target))
             {
                 broadCast(jsonObject);
+                //FIXME:后期添加的，所有消息全部写入聊天室，可能有问题，正在测试
+                SERVER_HANDLER.adminMessageEnqueue(jsonObject);
             }else{
                 if(MAP.containsKey(target))
                 {
                     MAP.get(target).receive(jsonObject);
+                    //FIXME:后期添加的，所有消息全部写入聊天室，可能有问题，正在测试
+                    SERVER_HANDLER.adminMessageEnqueue(jsonObject);
                 }else{
                     /*
                     * 如果 map 中没有这个人，也写入数据库里面
@@ -523,6 +520,9 @@ public class ChatServer {
             {
                 logger.info("发送消息");
                 ADMIN_MAP.get(target).receive(jsonObject);
+                //fixme:可能有问题，因为要改成微信聊天形式
+                SERVER_HANDLER.msgEnqueue(jsonObject);
+
 
             }else{
                 /*

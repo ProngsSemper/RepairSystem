@@ -1,6 +1,7 @@
 package com.repairsys.chat.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.repairsys.chat.domain.Message;
 import com.repairsys.chat.service.MessageServiceImpl;
@@ -76,13 +77,13 @@ public class ServerHandler {
         //转 json对象
         List<Message> list = dbService.getStudentPage(jsonObject);
         jsonObject.put("messageList",list);
-        return JSONObject.toJSONString(jsonObject);
+        return JSONObject.toJSONStringWithDateFormat(jsonObject, "yyyy-MM-dd/hh:mm:ss ", SerializerFeature.WriteDateUseDateFormat);
     }
     public String getAdminMessage(JSONObject jsonObject)
     {
         jsonObject.put("messageList",dbService.getAdminPage(jsonObject));
         //转 json对象
-        return JSONObject.toJSONString(jsonObject);
+        return JSONObject.toJSONStringWithDateFormat(jsonObject, "yyyy-MM-dd/hh:mm:ss ", SerializerFeature.WriteDateUseDateFormat);
 
     }
 

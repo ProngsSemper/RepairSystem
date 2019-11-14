@@ -91,4 +91,28 @@ public class MsgDao extends BaseDao<Message> {
     }
 
 
+
+    private static final String GET_MESSAGE_OF_ADMIN = "select * from adminmsg where sender = ? " +
+            "union select * from studentmsg where receiver=? " +
+            "or receiver= \"离线留言\" order by time limit ?,?";
+
+    private static final String GET_MESSAGE_OF_STUDENT="";
+    /**
+     * @return 获取双方的聊天记录
+     */
+    public List<Message> getMessageOfBoth(String userName,boolean isAdmin,int page,int size)
+    {
+        int[] pageRes = EasyTool.getLimitNumber(page,size);
+        if(isAdmin)
+        {
+            return super.selectList(JdbcUtil.getConnection(),GET_MESSAGE_OF_ADMIN,userName,userName,pageRes[0],pageRes[1]);
+        }else{
+
+        }
+        return null;
+    }
+
+
+
+
 }

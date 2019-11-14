@@ -131,7 +131,7 @@ function test_send(sender,target,msg) {
     var pack = {
         "sender":sender,
         "target":$("#receiver-name").html(),
-        "msg":msg
+        "msg":$.trim(msg)
     };
     ws.send(JSON.stringify(pack));
 
@@ -178,7 +178,7 @@ $("body").delegate(".history","click",function () {
     getHistory(page);
     $(".contant").prepend('<a href="javascript:;" class="history">获取历史消息记录</a>');
     page++;
-})
+});
 
 function getHistory(page){
     // $.ajax({
@@ -205,7 +205,7 @@ function getHistory(page){
     var pack = JSON.stringify({
                  "type":type.page,
                  "page":page,
-                 "size":10
+                 "size":5
     });
     ws.send(pack);
 

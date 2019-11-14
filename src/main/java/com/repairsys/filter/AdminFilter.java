@@ -33,7 +33,6 @@ public class AdminFilter implements Filter {
         {
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
-
         }
 
     }

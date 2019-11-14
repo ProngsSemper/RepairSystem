@@ -3,6 +3,7 @@ var ws = null;
 var sender = null;
 var onlineList = null;
 var isAdmin = false;
+var wsCanOpen = true;
 var type={
 
     "talk":200,
@@ -36,7 +37,7 @@ function getBasePath() {
     let location = (window.location+'').split('/');
     return location[0] + '//' + location[2] + '/';
 }
-
+var connectCount=0;
 function getBasePath2() {
     let location = (window.location+'').split('/');
     return  location[2] + '/';
@@ -50,14 +51,25 @@ function createWebSocket() {
     try {
         if ('WebSocket' in window) {
             ws = new WebSocket(url);
+            if(++connectCount>20)
+            {
+                window.location.href="index.do?a="+new Date();
+            }
 
         } else if ('MozWebSocket' in window) {
             ws = new MozWebSocket(url);
         } else {
             alert("您的浏览器不支持websocket")
         }
+
         initEventHandle();
     } catch (e) {
+        if(connectCount>20)
+        {
+            wsCanOpen=false;
+            window.location.href="index.do?a="+new Date();
+            return;
+        }
         reconnect(url);
         console.log(e);
     }
@@ -139,8 +151,8 @@ function initEventHandle() {
                 let list = obj.messageList;
                 // data=obj.messageList;
                 for(var i=0;i<list.length;i++){
-                    fillWhite(list[i].sender+": \r\n"+list[i].msg);
-                    // $(".contant").prepend('<div class="line"><dic class="bg-white other">'+list[i].msg+'</div></div>');
+                    fillWhite(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
+
                 }
 
 
@@ -164,7 +176,9 @@ function initEventHandle() {
         console.log("重新连接聊天室");
     };
     ws.onerror = function () {
+
         reconnect();
+        wsCanOpen = false;
         console.log("连接出现错误，尝试重新连接");
     };
 
@@ -179,6 +193,7 @@ window.onbeforeunload = function () {
 };
 
 function reconnect() {
+    if(!wsCanOpen) return;//服务器检测到身份异常，需要用户重新登录
     if(lockReconnect)return;
     lockReconnect = true;
     setTimeout(function () {
