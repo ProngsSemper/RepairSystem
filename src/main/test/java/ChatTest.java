@@ -9,6 +9,7 @@ import com.repairsys.code.ChatEnum;
 
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -23,6 +24,16 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class ChatTest {
+
+    @Test
+    public void list()
+    {
+        JSONObject jsonObject = new JSONObject();
+        List<Integer> list = new LinkedList<>();
+        list.add(1);list.add(2);
+        jsonObject.put("list",list);
+        System.out.println(jsonObject.get("list"));
+    }
 
     @Test
     public void getPage()

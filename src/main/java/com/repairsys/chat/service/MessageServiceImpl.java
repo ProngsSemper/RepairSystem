@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.dao.MsgDao;
 import com.repairsys.chat.domain.Message;
 
-import javax.json.JsonObject;
 import java.util.List;
 
 
@@ -72,12 +71,41 @@ public class MessageServiceImpl implements MsgService {
 
     public List<Message> getMessageOfBoth(JSONObject jsonObject,boolean isAdmin)
     {
-        return msgDao.getMessageOfBoth(jsonObject.getString("target"),isAdmin,
+        List<Message> list = msgDao.getMessageOfBoth(jsonObject.getString("target"),isAdmin,
                 jsonObject.getInteger("page"),
                 jsonObject.getInteger("size")
-
-
         );
+        return list;
+    }
+
+
+    /**
+     * 将消息的状态改回数据库
+     * @param jsonObject 每一次请求发给前台的json消息
+     * @return
+     */
+    public void updateTalkInformation(JSONObject jsonObject)
+    {
+        //将已读的消息写回数据库
+        List<Message> list = (List<Message>) jsonObject.get("messageList");
+        list.forEach((m)->{
+            //adminMsg
+            //修改 adminmsg的表，因为这是管理员发的消息
+            String receiver = m.getReceiver();
+            if("所有人".equals(receiver)||receiver.length()==9)
+            {
+
+                msgDao.updateMessage(m.getId(),1,"admin");
+
+            }else{
+                msgDao.updateMessage(m.getId(),1,"stu");
+            }
+
+            //stuMessage
+
+        });
+
+
     }
 
 

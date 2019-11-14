@@ -1,11 +1,10 @@
 package com.repairsys.chat.dao;
 
-import com.alibaba.fastjson.JSONObject;
 import com.repairsys.chat.domain.Message;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
-import org.junit.Test;
+
 
 import java.util.List;
 
@@ -112,6 +111,28 @@ public class MsgDao extends BaseDao<Message> {
         }
 
     }
+
+    private static final String UPDATE_ADMIN_ID_FLAG="update adminmsg set flag = ? where id = ?";
+    private static final String UPDATE_STU_ID_FLAG="update studentmsg set flag = ? where id = ?";
+    public void updateMessage(int id,int flag,String table)
+    {
+        //admin表
+        if(table.startsWith("ad"))
+        {
+            System.out.println(123);
+            super.updateOne(JdbcUtil.getConnection()
+            ,UPDATE_ADMIN_ID_FLAG, flag,id);
+        }else{
+            super.updateOne(JdbcUtil.getConnection(),
+                    UPDATE_STU_ID_FLAG,
+                    flag,
+                    id
+                    );
+        }
+    }
+
+
+
 
 
 

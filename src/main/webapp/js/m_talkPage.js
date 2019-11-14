@@ -4,7 +4,7 @@ var sender = null;
 var onlineList = null;
 var isAdmin = false;
 var wsCanOpen = true;
-// var userName = null;
+var userName = null;
 var type={
 
     "talk":200,
@@ -110,6 +110,7 @@ function initEventHandle() {
             }
             case type.self_info:{
                 sender = obj.sender;
+                userName = sender;
                 isAdmin = obj.isAdmin;
                 if(obj.onlineList!=null)
                 {
@@ -212,7 +213,7 @@ function reconnect() {
 }
 
 var heartCheck = {
-    timeOut:8000,  //每8秒心跳检测
+    timeOut:60000,  //每8秒心跳检测
     timeOutObj:null,
     serverTimeOutObj:null,
     reset:function () {

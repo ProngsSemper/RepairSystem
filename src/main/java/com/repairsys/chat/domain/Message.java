@@ -12,6 +12,15 @@ public class Message {
     private java.sql.Timestamp time;
     private String sender;
     private String receiver;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
