@@ -8,6 +8,25 @@ $("body").delegate(".stuSend","click",function(){
 
 });
 
+document.onkeydown = function(event){        //在全局中绑定按下事件
+
+    var e  = event  ||  window.e;
+
+    var keyCode = e.keyCode || e.which;
+
+    switch(keyCode){
+
+        case 13:
+
+            sendMsg();
+
+            break;
+
+    }
+
+}
+
+
 function launch() {
     $(".contant").append('<div class="line"><div class="bg-green own">'+html_encode(html_decode(sectArea.value))+'</div></div>');
     sectArea.value="";

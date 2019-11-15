@@ -5,6 +5,7 @@ var onlineList = null;
 var isAdmin = false;
 var wsCanOpen = true;
 var userName = null;
+var unread_count=0;
 var type={
 
     "talk":200,
@@ -170,8 +171,13 @@ function initEventHandle() {
                 break;
             }
 
+            /*
+            *
+            * 您有新的 N 条记录，在这里获取数据
+            * */
             case type.count_info_unread:{
                 let count = obj.infoCount;
+                unread_count = count;
                 alert(count);
                 break;
             }
