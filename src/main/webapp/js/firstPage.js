@@ -166,16 +166,59 @@ function gerRepairOrder(pageCount) {
             "limit": 3,
         }),
         success: function (msg) {
+            pageCount=parseInt(pageCount);
             var page = $(".page");
             // $(".page").html("");
             console.log(msg)
             $(".orderContant").html("");
             var data = msg.data;
             if ($(".page").children().length == 0) {
-                for (var i = 1; i <= msg.totalPage; i++) {
-                    page.append('<span class="page-number">' + i + '</span>');
-                    if (i == 1) {
-                        $(".page-number").eq(0).addClass("cur");
+                if(msg.totalPage<=8){
+                    for (var i = 1; i <= msg.totalPage; i++) {
+                        page.append('<span class="page-number">' + i + '</span>');
+                        if (i == 1) {
+                            $(".page-number").eq(0).addClass("cur");
+                        }
+                    }
+                    $(".page-number").eq(0).addClass("cur");
+                }
+                else{
+                    if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                        for(var i=1;i<=3;i++){
+                            page.append('<span class="page-number">' + i + '</span>');
+                        }
+                        if(pageCount==3){
+                            page.append('<span class="page-number">4</span>')
+                        }
+                        page.append('<span>...</span>');
+                        for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                            page.append('<span class="page-number">' + i + '</span>');
+                        }
+                    }
+                    else if(pageCount>3 && pageCount<msg.totalPage-2){
+
+                        if(pageCount!=msg.totalPage-3){
+                            page.append('<span class="page-number">1</span><span>...</span>');
+                            for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                            page.append('<span>...</span>');
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                        }
+                        else{
+                            for(var i=1;i<=3;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                            page.append('<span>...</span>');
+                            for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                        }
+
+
+
                     }
                 }
             }
@@ -252,14 +295,25 @@ $("body").delegate(".finish", "click", function () {
 });
 //监听点击页码
 $("body").delegate(".page>span", "click", function () {
+
     page = $(this).html();
+    // $(".page").html("")
     if (orderContant.style.display == "block") {
         gerRepairOrder(page);
     } else {
         gerfinishOrder(page);
     }
-    $(this).addClass("cur");
-    $(this).siblings().removeClass("cur");
+    var pageNum=document.getElementsByClassName("page-number");
+    for(var i=0;i<pageNum.length;i++){
+        pageNum[i].className="page-number";
+    }
+    for(var i=0;i<pageNum.length;i++){
+        if($(".page-number").eq(i).html()==page){
+            $(".page-number").eq(i).addClass("cur")
+        }
+    }
+    // $(this).addClass("cur");
+    // $(this).siblings().removeClass("cur");
 })
 //监听一键再修按钮
 var againDiv = document.getElementsByClassName("againDiv")[0];
@@ -354,22 +408,64 @@ function gerfinishOrder(pageCount) {
         type: "POST",
         url: "/student/complete/history",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "page": parseInt(pageCount),
             "limit": 3,
         }),
         success: function (msg) {
-
+            pageCount=parseInt(pageCount);
+            var page=$(".page");
             $(".finishOrderContant").html("");
+            $(".page").html("");
             var data = msg.data;
             if ($(".page").children().length == 0) {
-                for (var i = 1; i <= msg.totalPage; i++) {
-                    let span = document.createElement('span');
-                    span.className = "page-number";
-                    span.innerText = i;
-                    $(".page").append(span);
-                    if (i == 1) {
+                if(msg.totalPage<=8){
+                    for (var i = 1; i <= msg.totalPage; i++) {
+                        page.append('<span class="page-number">' + i + '</span>');
+                        if (i == 1) {
+                            $(".page-number").eq(0).addClass("cur");
+                        }
+                    }
+                }
+                else{
+                    if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                        for(var i=1;i<=3;i++){
+                            page.append('<span class="page-number">' + i + '</span>');
+                        }
+                        if(pageCount==3){
+                            page.append('<span class="page-number">4</span>')
+                        }
+                        page.append('<span>...</span>');
+                        for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                            page.append('<span class="page-number">' + i + '</span>');
+                        }
                         $(".page-number").eq(0).addClass("cur");
+                    }
+                    else if(pageCount>3 && pageCount<msg.totalPage-2){
+
+                        if(pageCount!=msg.totalPage-3){
+                            page.append('<span class="page-number">1</span><span>...</span>');
+                            for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                            page.append('<span>...</span>');
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                        }
+                        else{
+                            for(var i=1;i<=3;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                            page.append('<span>...</span>');
+                            for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                        }
+
+
+
                     }
                 }
             }
@@ -595,11 +691,11 @@ function IsEmail(str) {
 }
 //给进度查询中的确认完成按钮添加节流
 var finishButton=document.getElementsByClassName("finish");
-for(var i=0;i<content.length;i++){
+for(var i=0;i<finishButton.length;i++){
     finishButton[i].onclick=throttle(insureFinish,5000,1);
 }
 //给进度查询中的一键再修中的确认按钮添加节流
 var againButton=document.getElementsByClassName("againInsure");
-for(var i=0;i<content.length;i++){
+for(var i=0;i<againButton.length;i++){
     againButton[i].onclick=throttle(againRepair,5000,1);
 }
