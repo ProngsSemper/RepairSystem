@@ -284,33 +284,31 @@ public final class WorkerServiceImpl implements WorkerService {
 
     /**
      * <code>
-     *
-     优先级：时间>工作量>位置
-
-     工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
-
-     报修单：17号9点 北苑
-
-     甲：17号9点有空 总任务5个 在北苑的任务有4个
-     乙：17号9点没空 总任务4个 在北苑的任务4个
-     丙：17号9点有空 总任务4个 在北苑的任务有3个
-
-     丙>甲>乙
+     * <p>
+     * 优先级：时间>工作量>位置
+     * <p>
+     * 工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
+     * <p>
+     * 报修单：17号9点 北苑
+     * <p>
+     * 甲：17号9点有空 总任务5个 在北苑的任务有4个
+     * 乙：17号9点没空 总任务4个 在北苑的任务4个
+     * 丙：17号9点有空 总任务4个 在北苑的任务有3个
+     * <p>
+     * 丙>甲>乙
      * </code>
      *
      * @param date
      * @param hour
      * @param workerType
-     * @param location 根据工人的地点排序
+     * @param location   根据工人的地点排序
      * @return
      */
-    //TODO:未完成，需要根据工人的地点任务排序
-    //FIXME:根据工人的地点排序
-    public Result<List<RecommendedWorker>> getSuitableWorkerListPlus(Date date, int hour, String workerType,String location) {
+    public Result<List<RecommendedWorker>> getSuitableWorkerListPlus(Date date, int hour, String workerType, String location) {
 
         Result<List<RecommendedWorker>> ans = new Result<>();
 
-        List<RecommendedWorker> res = workerScheule.recommendByAppointmemntPlusPlus(date, hour, workerType,location);
+        List<RecommendedWorker> res = workerScheule.recommendByAppointmemntPlusPlus(date, hour, workerType, location);
         ans.setData(res);
         if (res != null && !res.isEmpty()) {
             ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
@@ -321,14 +319,6 @@ public final class WorkerServiceImpl implements WorkerService {
 
         return ans;
     }
-
-
-
-
-
-
-
-
 
     @Override
     public Result getDetailEvaluation(int wKey) {

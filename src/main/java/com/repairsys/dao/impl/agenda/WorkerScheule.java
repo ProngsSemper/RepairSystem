@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -333,7 +332,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             return new LinkedList<>();
         }
 
-
         String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w" +
                 " left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' " +
                 "and w.wType = '" + wType + "' ORDER BY t" + hour;
@@ -357,31 +355,29 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         return carryZero;
     }
 
-
-    private static final String RECOMMENDSQL_WORKER="select DISTINCT  w.wType,w.wName,w.wMail,w.wTel,FLAG,( t9+t10+t11+t14+t15+t16+t17+t18) as total,(select count(*) from form where appointDate=? and left(room,1) =? and wkey = w.wkey) locationCount  from workers w \n" +
+    private static final String RECOMMENDSQL_WORKER = "select DISTINCT  w.wType,w.wName,w.wMail,w.wTel,FLAG,( t9+t10+t11+t14+t15+t16+t17+t18) as total,(select count(*) from form where appointDate=? and left(room,1) =? and wkey = w.wkey) locationCount  from workers w \n" +
             "left JOIN wtime wt on w.wKey = wt.wKey \n" +
             "left join form on form.wKey = w.wKey\n" +
             "\t\t\n" +
             "where wt.curTime = ? and w.wtype = ?";
+
     /**
      * <code>
-     *
-     优先级：时间>工作量>位置
-
-     工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
-
-     报修单：17号9点 北苑
-
-     甲：17号9点有空 总任务5个 在北苑的任务有4个
-     乙：17号9点没空 总任务4个 在北苑的任务4个
-     丙：17号9点有空 总任务4个 在北苑的任务有3个
-
-     丙>甲>乙
+     * <p>
+     * 优先级：时间>工作量>位置
+     * <p>
+     * 工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
+     * <p>
+     * 报修单：17号9点 北苑
+     * <p>
+     * 甲：17号9点有空 总任务5个 在北苑的任务有4个
+     * 乙：17号9点没空 总任务4个 在北苑的任务4个
+     * 丙：17号9点有空 总任务4个 在北苑的任务有3个
+     * <p>
+     * 丙>甲>乙
      * </code>
      *
-     *
      * @param hour
-     *
      * @param location 根据工人的地点排序
      * @return
      */
@@ -392,28 +388,24 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         if (!b) {
             return new LinkedList<>();
         }
-        String sql = RECOMMENDSQL_WORKER.replace("FLAG","t"+hour);
-
+        String sql = RECOMMENDSQL_WORKER.replace("FLAG", "t" + hour);
 
         List<RecommendedWorker> table = RecommendWorkerDaoImpl.getInstance().getList(sql,
-            appointDate,location,appointDate,wType
+                appointDate, location, appointDate, wType
         );
-        Stream<RecommendedWorker> first = table.parallelStream().filter(i->i.getTime(hour)==0).sorted(
-          Comparator.comparing(RecommendedWorker::getLocationCount)
-          .thenComparing(RecommendedWorker::getTotal)
+        Stream<RecommendedWorker> first = table.stream().filter(i -> i.getTime(hour) == 0).sorted(
+                Comparator.comparing(RecommendedWorker::getLocationCount).reversed()
+                        .thenComparing(RecommendedWorker::getTotal)
         );
 
-        Stream<RecommendedWorker> second = table.parallelStream().filter(i->i.getTime(hour)!=0).sorted(
-           Comparator.comparing(RecommendedWorker::getLocationCount,Comparator.comparingInt(i->i))
-                .thenComparing(RecommendedWorker::getTotal, Comparator.comparingInt(i -> i))
+        Stream<RecommendedWorker> second = table.stream().filter(i -> i.getTime(hour) != 0).sorted(
+                Comparator.comparing(RecommendedWorker::getLocationCount, Comparator.comparingInt(i -> i)).reversed()
+                        .thenComparing(RecommendedWorker::getTotal, Comparator.comparingInt(i -> i))
                 //RecommendedWorker::getTotal, Comparator.comparingInt(i -> i)
         );
 
-
-        return Stream.concat(first,second).collect(Collectors.toCollection(LinkedList::new));
+        return Stream.concat(first, second).collect(Collectors.toCollection(LinkedList::new));
     }
-
-
 
     //TODO:还需要调用，请注意
     /**

@@ -2,7 +2,6 @@ package com.repairsys.controller.administrator;
 
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.RecommendedWorker;
-import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.controller.BaseServlet;
 import com.repairsys.service.ServiceFactory;
@@ -26,8 +25,6 @@ public class RecommendWorkerServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
-        // System.out.println(jsonObject.getString("date").replace("月","-").replace("日","-"));
-        // String s = (jsonObject.getString("date").replace("月","-").replace("日","-"));
 
         Result<List<RecommendedWorker>> res = workerService.getSuitableWorkerListPlus(jsonObject.getSqlDate("date"),
                 jsonObject.getInteger("hour"),
@@ -43,7 +40,6 @@ public class RecommendWorkerServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
