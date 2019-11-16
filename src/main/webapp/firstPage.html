@@ -149,22 +149,17 @@
             
         </div>
         <div class="contant hide">
-            <div class="imformation">
-                <div class="bg"></div>
-                <div class="top-tit">
-                    <div class="repair-tit">
-                        <p class="chinaName">在线表单</p>
-                        <p class="englishName">Online service</p>
-                    </div>
-                </div>
-                <div class="insideContant">
-                    <span class="repairName">基本信息</span>
+            <div class="imformation formbg">
+
+                <div class="insideContant ">
+                    <i class="judgeWrong"></i>
+                    <span class="repairName">个人信息</span>
                     <div class="form">
                         <div class="formBlock">
                             <span class="spanStyle">报修人：</span><input type="text" class="repair-information" name="stuName">
                         </div>
                         <div class="formBlock">
-                            <span class="spanStyle">联系电话：</span><input type="text" class="repair-information" name="stuPhone">
+                            <span class="spanStyle">联系电话：</span><input type="text" class="repair-information" name="stuPhone" onblur="isTelCode()">
                         </div>
                         <div class="formBlock">
                             <span class="spanStyle">学号：</span><input type="text" class="repair-information" name="stuId">
@@ -207,10 +202,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="imformation">
+            
+            
                 <div class="insideContant pos">
-                    <span class="repairName">详情信息</span>
+                    <span class="repairName">报修信息</span>
                     <div class="form">
                         <div class="formBlock">
                             <span class="spanStyle">报修类型:</span>
@@ -346,7 +341,10 @@
                 </div>
             </div>
         <div class="page">
-
+            <span class="page-number">1</span>
+            <span class="page-number">1</span>
+            <span>...</span>
+            <span class="page-number">1</span>
         </div>
         </div>
     </div>

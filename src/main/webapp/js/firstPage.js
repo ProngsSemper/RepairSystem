@@ -679,9 +679,16 @@ function cancellation() {
     })
 }
 /*校验电话码格式 */
-function isTelCode(str) {
-	var reg= /^[1](([3|5|8][\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\d]{8}$/;
-	return reg.test(str);
+var judgeWrong=document.getElementsByClassName("judgeWrong")[0];
+function isTelCode() {
+    var str=stuPhone.value;
+    var reg= /^[1](([3|5|8][\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\d]{8}$/;
+	if(reg.test(str)){
+        judgeWrong.style.display="none";
+    }
+    else{
+        judgeWrong.style.display="block";
+    }
 }
 
 /*校验邮件地址是否合法 */
@@ -699,3 +706,4 @@ var againButton=document.getElementsByClassName("againInsure");
 for(var i=0;i<againButton.length;i++){
     againButton[i].onclick=throttle(againRepair,5000,1);
 }
+//根据电话判断是否正确

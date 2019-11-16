@@ -190,21 +190,16 @@ body{
 }
 .imformation{
     margin: 0 auto;
-    border: 1px solid #888;
+    /* border: 1px solid #888; */
     border-radius: 5px;
-    height: 500px;
+    height: 800px;
     width: 900px;
     background: #fff;
 }
 .hide{
     display: none;;
 }
-.imformation .bg{
-    margin-top: -1px;
-    border-radius: 5px 5px 0 0;
-    height: 20px;
-    background: #bbb;
-}
+
 .top-tit{
     width: 100%;
     margin-top: 10px;;
@@ -231,22 +226,20 @@ body{
     line-height: 25px;;
 }
 .insideContant{
+    float: left;
     position: relative;
-    margin: 0 auto;
-    border:1px solid #eee;
+    margin: 100px auto 0;
     border-radius: 5px;
-    width: 800px;
+    width: 900px;
     height: 350px;
 }
 .repairName{
     display: block;
-    position: absolute;
-    top: -15px;
-    left: 40px;;
+    border: 1px solid #373737;
+    margin: 0 auto;
     width: 150px;
     height: 30px;
-    background: #f99b3f;
-    color: #fff;
+    color: #333;
     font-size: 18px;
     text-align: center;
     line-height: 30px;
@@ -270,8 +263,8 @@ body{
 }
 #email{
     position: relative;
-    height: 30px;
-    top: -1px;
+    height: 29px;
+    top: -2px;
     margin-left: -5px;
 }
 .form .spanStyle{
@@ -298,7 +291,7 @@ body{
     text-indent: 1em;
 }
 .pos{
-    margin-top: 60px;;
+    margin-top: -40px;;
 }
 .radios{
     margin:0 10px 0 8px;
@@ -323,7 +316,7 @@ body{
     height: 35px;
     text-align: center;
     line-height: 35px;
-    background: #f99b3f;
+    background: #a33a32;
 }
 .iconHandin{
     position: absolute;
@@ -340,7 +333,7 @@ body{
     margin-left: 24px;
     /* font-weight: bold; */
     font-size: 16px;
-    color: #000;
+    color: #fff;
 }
 .handIn:focus{
     outline: none;
@@ -955,4 +948,17 @@ body{
 }
 .again:focus{
     outline: none;
+}
+.judgeWrong{
+    display: none;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 121px;
+    right: 296px;
+    background-image: url(../img/judgeWrong.png);
+    background-size: contain;
+}
+.formbg{
+    background-image: url(../img/background.png);
 }
