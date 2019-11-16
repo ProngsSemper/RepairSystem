@@ -6,7 +6,7 @@ import com.repairsys.controller.BaseServlet;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
-import com.repairsys.util.net.CookieUtil;
+import com.repairsys.util.mail.MailFactory;
 import com.repairsys.util.time.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Prongs
@@ -27,6 +30,7 @@ import java.io.IOException;
 @WebServlet("/admin/arrangement/form")
 public class ArrangeServlet extends BaseServlet {
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
+    private final LinkedBlockingQueue<Runnable> queue = MailFactory.getInstance().getQueue();
     private static final Logger logger = LoggerFactory.getLogger(ArrangeServlet.class);
 
     @Override
@@ -35,7 +39,7 @@ public class ArrangeServlet extends BaseServlet {
         JSONObject requestBody = (JSONObject) request.getAttribute("requestBody");
         JSONObject mailRequestBody = (JSONObject) request.getAttribute("requestBody");
         String stuMail = mailRequestBody.getString("stuMail");
-        String adminId = (String)request.getSession().getAttribute("adminId");
+        String adminId = (String) request.getSession().getAttribute("adminId");
         Result result = adminService.arrange(requestBody.getInteger("wKey"),
                 adminId,
                 TimeUtil.getTime(requestBody.getInteger("day")),
@@ -44,7 +48,6 @@ public class ArrangeServlet extends BaseServlet {
         );
         int flag = 201;
         if (result.getCode() == flag) {
-//            todo:可能有逻辑问题，到时检查
             String wKey = requestBody.getString("wKey");
             int hour = requestBody.getInteger("hour");
             String date = TimeUtil.getTime(requestBody.getInteger("day"));
@@ -52,11 +55,26 @@ public class ArrangeServlet extends BaseServlet {
             logger.debug("修改报修单状态成功{}", result);
             //发送通知邮件
             try {
-                Result mailResult = adminService.senMail(stuMail,
-                        mailRequestBody.getInteger("day"),
-                        mailRequestBody.getInteger("hour"),
-                        mailRequestBody.getString("wTel")
-                );
+
+                Callable<Result> t = () -> {
+                    Result<Boolean> mailResult = null;
+                    try {
+                        mailResult = adminService.senMail(stuMail,
+                                mailRequestBody.getInteger("day"),
+                                mailRequestBody.getInteger("hour"),
+                                mailRequestBody.getString("wTel")
+                        );
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return mailResult;
+
+                };
+                FutureTask<Result> task = new FutureTask<>(t);
+                queue.add(task);
+                MailFactory.getInstance().checkAndRun();
+                Result mailResult = task.get();
+
                 int mailFlag = 200;
                 if (mailResult.getCode() == mailFlag) {
                     logger.debug("邮件发送成功{}", mailResult);

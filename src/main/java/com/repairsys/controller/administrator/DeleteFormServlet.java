@@ -8,6 +8,7 @@ import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.admin.AdminServiceImpl;
+import com.repairsys.util.mail.MailFactory;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.net.CookieUtil;
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Prongs
@@ -27,6 +29,8 @@ import java.net.URLDecoder;
  */
 @WebServlet("/admin/delete/form")
 public class DeleteFormServlet extends BaseServlet {
+    private final LinkedBlockingQueue<Runnable> taskQueue = MailFactory.getInstance().getQueue();
+
     private final AdminServiceImpl adminService = ServiceFactory.getAdminService();
     private final FormDaoImpl formDao = (FormDaoImpl) DaoFactory.getFormDao();
     private static final Logger logger = LoggerFactory.getLogger(DeleteFormServlet.class);
@@ -39,15 +43,19 @@ public class DeleteFormServlet extends BaseServlet {
         String stuMail = form.getStuMail();
         String formMsg = form.getFormMsg();
         String adminName = URLDecoder.decode(CookieUtil.getCookie("adminName", request));
-        try {
-            MailUtil.sendDeleteMail(stuMail, formMsg, adminName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         Result result = adminService.deleteOne(formId);
         int flag = 201;
         if (result.getCode() == flag) {
             logger.debug("删除成功{}", result);
+            Runnable t = () -> {
+                try {
+                    MailUtil.sendDeleteMail(stuMail, formMsg, adminName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
+            taskQueue.add(t);
+            MailFactory.getInstance().checkAndRun();
         } else {
             logger.debug("删除失败{}", result);
         }

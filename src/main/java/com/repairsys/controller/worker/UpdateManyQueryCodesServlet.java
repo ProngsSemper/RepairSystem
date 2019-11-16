@@ -9,6 +9,7 @@ import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.worker.WorkerServiceImpl;
+import com.repairsys.util.mail.MailFactory;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.net.CookieUtil;
 import com.repairsys.util.time.TimeUtil;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author Prongs
@@ -33,6 +35,8 @@ import java.util.Objects;
 public class UpdateManyQueryCodesServlet extends BaseServlet {
     private final WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
     private static final Logger logger = LoggerFactory.getLogger(UpdateQueryCodeServlet.class);
+
+    private final LinkedBlockingQueue<Runnable> queue = MailFactory.getInstance().getQueue();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +52,8 @@ public class UpdateManyQueryCodesServlet extends BaseServlet {
         while ((content = br.readLine()) != null) {
             jsonBuilder.append(content);
         }
-        List<Form> formList = JSONObject.parseArray(jsonBuilder.toString().substring(0,jsonBuilder.length()), Form.class);
+        List<Form> formList = JSONObject.parseArray(jsonBuilder.toString().substring(0, jsonBuilder.length()), Form.class);
+        Result result = null;
         for (Form form : formList) {
             String stuMail = form.getStuMail();
             int queryCode = form.getQueryCode();
@@ -56,32 +61,41 @@ public class UpdateManyQueryCodesServlet extends BaseServlet {
             String fakeDay = df.format(form.getAppointDate());
             String day = TimeUtil.getTime(Integer.parseInt(fakeDay));
             String hour = String.valueOf(form.getAppointment());
-            Result result = workerService.updateQueryCode(queryCode
+            result = workerService.updateQueryCode(queryCode
                     , form.getFormId());
-            //确认为维修完成时 发送维修完成邮件
-            if (finishCode == queryCode) {
-                WorkerScheule.getInstance().updateWtime(day, hour, wKey);
-                try {
-                    MailUtil.sendFinishMail(stuMail);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                //维修有问题时 发送error邮件
-            } else if (errorCode == queryCode) {
-                WorkerScheule.getInstance().updateWtime(day, hour, wKey);
-                try {
-                    MailUtil.sendErrorMail(stuMail, wTel);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+            assert result != null;
             if (result.getCode() == flag) {
                 logger.debug("修改成功{}", result);
+                //确认为维修完成时 发送维修完成邮件
+                if (finishCode == queryCode) {
+                    WorkerScheule.getInstance().updateWtime(day, hour, wKey);
+                    Runnable t = () -> {
+
+                        try {
+                            MailUtil.sendFinishMail(stuMail);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    queue.add(t);
+                    //维修有问题时 发送error邮件
+                } else if (errorCode == queryCode) {
+                    WorkerScheule.getInstance().updateWtime(day, hour, wKey);
+                    Runnable t = () -> {
+                        try {
+                            MailUtil.sendErrorMail(stuMail, wTel);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    queue.add(t);
+                }
             } else {
                 logger.debug("修改失败{}", result);
             }
-            request.setAttribute("result", result);
         }
+        MailFactory.getInstance().checkAndRun();
+        request.setAttribute("result", result);
         super.doPost(request, response);
     }
 

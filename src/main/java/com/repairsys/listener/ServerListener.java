@@ -6,6 +6,7 @@ package com.repairsys.listener;
 
 import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
+import com.repairsys.util.mail.MailFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.Calendar;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -29,6 +31,8 @@ public class ServerListener implements ServletContextListener,
 
     private final ThreadPoolExecutor pool =
             new ThreadPoolExecutor(1, 2, 60, TimeUnit.SECONDS, new LinkedBlockingDeque<>(2));
+
+    private final LinkedBlockingQueue<Runnable> queue = MailFactory.getInstance().getQueue();
 
     public ServerListener() {
 
@@ -78,6 +82,7 @@ public class ServerListener implements ServletContextListener,
         this.pool.shutdownNow();
         //关闭聊天线程池
         ServerHandler.getInstance().shutDownService();
+        MailFactory.getInstance().shutDown();
         System.out.println("线程关闭");
 
     }
