@@ -78,8 +78,8 @@ public class MsgDao extends BaseDao<Message> {
         return super.selectList(JdbcUtil.getConnection(),GET_STUDENT_MSG,adminId,res[0],res[1]);
     }
 
-    private static final String COUNT_ADMIN_MSG="select count(*) from adminmsg where receiver= ? or receiver=\"所有人\" and flag=0";
-    private static final String COUNT_STU_MSG="select count(*) from studentmsg where receiver= ? or receiver=\"离线留言\" and flag=0";
+    private static final String COUNT_ADMIN_MSG="select count(*) from adminmsg where receiver= ? or receiver=\"所有人\" ";
+    private static final String COUNT_STU_MSG="select count(*) from studentmsg where receiver= ? or receiver=\"离线留言\" ";
     public int countAdminMessage(String id)
     {
         return super.getCount(JdbcUtil.getConnection(),COUNT_ADMIN_MSG,id);
@@ -94,9 +94,29 @@ public class MsgDao extends BaseDao<Message> {
 
     private static final String GET_MESSAGE_OF_ADMIN = "select * from adminmsg where sender = ? " +
             "union select * from studentmsg where receiver=? " +
-            "or receiver= \"离线留言\" order by time limit ?,?";
+            "or receiver= \"离线留言\" order by time DESC limit ?,?";
 
-    private static final String GET_MESSAGE_OF_STUDENT="select * from adminmsg where receiver= ? or receiver=\"所有人\" UNION SELECT * from studentmsg where sender= ? ORDER BY time LIMIT ?,?";
+
+    /**
+     * 获取学生的聊天记录
+     */
+    private static final String GET_MESSAGE_OF_STUDENT="select * from adminmsg where receiver= ? or receiver=\"所有人\" UNION SELECT * from studentmsg where sender= ? ORDER BY time DESC LIMIT ?,?";
+
+    //获取管理员的聊天记录
+    /**
+     * 获取管理员的聊天记录总数
+     *  ? -> admin
+     */
+    private static final String COUNT_OF_ADMIN_MSG = "select t1.cnt+t2.cnt FROM " +
+            " (select count(*) cnt from adminmsg where sender = ? ) t1, " +
+            "(select count(*) cnt  from studentmsg where receiver=? or receiver= \"离线留言\") t2";
+
+    private static final String COUNT_OF_STUDENT_MSG="select t1.cnt+t2.cnt FROM " +
+            " (select count(*) cnt from adminmsg  where receiver= ? or receiver= \"所有人\" ) t1," +
+            " (select count(*) cnt  from studentmsg where sender= ? ) t2\n";
+
+
+
     /**
      * @return 获取双方的聊天记录
      */
@@ -141,6 +161,7 @@ public class MsgDao extends BaseDao<Message> {
         if(isAdmin)
         {
             count = super.getCount(JdbcUtil.getConnection(),COUNT_STU_INFO_UNREAD,user,0);
+            System.out.println(COUNT_ADMIN_INFO_UNREAD);
 
         }else{
             //如果是学生，去查管理员的表
@@ -150,6 +171,25 @@ public class MsgDao extends BaseDao<Message> {
         return count;
 
 
+    }
+
+    /**
+     * 获取所有的聊天记录
+     * @param name
+     * @param isAdmin
+     * @return
+     */
+    public int getTotalCount(String name,boolean isAdmin)
+    {
+        int cnt = 0;
+        if(isAdmin)
+        {
+            cnt = super.getCount(JdbcUtil.getConnection(),COUNT_OF_ADMIN_MSG,name,name);
+        }else{
+            cnt = super.getCount(JdbcUtil.getConnection(),COUNT_OF_STUDENT_MSG,name,name);
+        }
+
+        return cnt;
     }
 
 

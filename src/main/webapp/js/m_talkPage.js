@@ -151,20 +151,26 @@ function initEventHandle() {
 
             }
             case type.page:{
+
                 // alert(obj);
                 let list = obj.messageList;
+                $(".contant").find(".history").remove();
                 // data=obj.messageList;
                 for(var i=0;i<list.length;i++){
                     if(list[i].sender===sender)
                     {
-                        fillGreen(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
+                        // alert(list[i].sender==sender);
+                        fillGreenBefore(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
                         continue;
                     }
+                    // alert(list[i].sender);
 
-                    fillWhite(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
+                    fillWhiteBefore(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
 
 
                 }
+
+                $(".contant").prepend('<a href="javascript:;" class="history">获取历史消息记录</a>');
 
 
                 // alert(list);

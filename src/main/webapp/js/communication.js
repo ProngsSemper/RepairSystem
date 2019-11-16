@@ -72,31 +72,70 @@ function html_decode(str)
  *
  * */
 function fillGreen(msg) {
-    var line = $(".line:eq(0)").clone();
-    var child =line.children();
+    let line = document.createElement("div");
+    line.classList.add("line");
+    var child = document.createElement("div");
+    child.classList.add("bg-green","own");
 
-
-    child.html(to_string(msg));
-    line.append(child);
+    child.innerHTML = to_string(msg);
+    line.appendChild(child);
 
 
     $(".contant").append(line);
     down();
 
 }
+function fillGreenBefore(msg) {
+    let line = document.createElement("div");
+    line.classList.add("line");
+    var child = document.createElement("div");
+    child.classList.add("bg-green","own");
+
+    child.innerHTML = to_string(msg);
+    line.appendChild(child);
+
+
+
+
+
+    $(".contant").prepend(line);
+    // down();
+
+}
+
+
 
 function fillWhite(msg) {
-    // alert(msg);
-    // alert(msg.msg);
-    var line = $(".line:eq(1)").clone();
-    var child =line.children();
 
-    child.html(to_string(msg));
-    line.append(child);
+    let line = document.createElement("div");
+    line.classList.add("line");
+    var child = document.createElement("div");
+    child.classList.add("bg-white","other");
+
+    child.innerHTML = to_string(msg);
+    line.appendChild(child);
 
 
     $(".contant").append(line);
     down();
+
+}
+function fillWhiteBefore(msg) {
+
+    let line = document.createElement("div");
+    line.classList.add("line");
+    var child = document.createElement("div");
+    child.classList.add("bg-white","other");
+
+    child.innerHTML = to_string(msg);
+    line.appendChild(child);
+
+
+
+
+
+    $(".contant").prepend(line);
+
 }
 
 
@@ -200,26 +239,6 @@ $("body").delegate(".history","click",function () {
 });
 
 function getHistory(page){
-    // $.ajax({
-    //     type: "POST",
-    //     url: "",
-    //     data: JSON.stringify({
-    //         "type":0,
-    //         "page":page,
-    //         "size":10,
-    //
-    //     }),
-    //     dataType: "json",
-    //     success: function (msg) {
-    //         data=msg.messageList;
-    //         for(var i=0;i<msg.size;i++){
-    //             $(".contant").prepend('<div class="line"><dic class="bg-white other">'+data[i].msg+'</div></div>');
-    //         }
-    //     },
-    //     error:function(xhr){
-    //         alert(xhr.status);
-    //     }
-    // });
 
     var pack = JSON.stringify({
                  "type":type.page,

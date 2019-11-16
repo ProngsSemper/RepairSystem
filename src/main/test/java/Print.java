@@ -29,6 +29,12 @@ import java.util.regex.Pattern;
  */
 
 public class Print {
+    @Test
+    public void ppp()
+    {
+        System.out.println(Math.ceil(21.0/5));
+
+    }
 
 
     @Test
