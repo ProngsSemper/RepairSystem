@@ -1,9 +1,6 @@
 package com.repairsys.service.impl.worker;
 
-import com.repairsys.bean.entity.Evaluation;
-import com.repairsys.bean.entity.Form;
-import com.repairsys.bean.entity.WTime;
-import com.repairsys.bean.entity.Worker;
+import com.repairsys.bean.entity.*;
 import com.repairsys.bean.vo.Page;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
@@ -309,11 +306,11 @@ public final class WorkerServiceImpl implements WorkerService {
      */
     //TODO:未完成，需要根据工人的地点任务排序
     //FIXME:根据工人的地点排序
-    public Result<List<Worker>> getSuitableWorkerListPlus(Date date, int hour, String workerType,String location) {
+    public Result<List<RecommendedWorker>> getSuitableWorkerListPlus(Date date, int hour, String workerType,String location) {
 
-        Result<List<Worker>> ans = new Result<>();
+        Result<List<RecommendedWorker>> ans = new Result<>();
 
-        List<Worker> res = workerScheule.recommendByAppointmemntPlus(date, hour, workerType);
+        List<RecommendedWorker> res = workerScheule.recommendByAppointmemntPlusPlus(date, hour, workerType,location);
         ans.setData(res);
         if (res != null && !res.isEmpty()) {
             ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);

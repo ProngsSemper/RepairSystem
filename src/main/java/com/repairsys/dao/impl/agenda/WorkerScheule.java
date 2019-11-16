@@ -81,7 +81,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
                 return true;
             } else {
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Calendar calendar = Calendar.getInstance();
 
                 calendar.setTime(dayList.get(0));
@@ -202,7 +202,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     @Deprecated
     @Override
     public List<Worker> recommendByAppointment(int... hours) {
-        return null;
+        throw new RuntimeException("该类方法已经过时");
     }
 
     /**
@@ -408,11 +408,9 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
                 .thenComparing(RecommendedWorker::getTotal, Comparator.comparingInt(i -> i))
                 //RecommendedWorker::getTotal, Comparator.comparingInt(i -> i)
         );
-        List<RecommendedWorker> ans = Stream.concat(first,second).collect(Collectors.toCollection(LinkedList::new));
 
 
-
-        return ans;
+        return Stream.concat(first,second).collect(Collectors.toCollection(LinkedList::new));
     }
 
 
