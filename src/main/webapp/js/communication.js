@@ -24,7 +24,7 @@ document.onkeydown = function(event){        //在全局中绑定按下事件
 
     }
 
-}
+};
 
 
 function launch() {

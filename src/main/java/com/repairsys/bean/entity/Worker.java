@@ -10,6 +10,8 @@ import java.util.Objects;
  */
 public class Worker implements Serializable, Comparable<Worker> {
 
+
+
     public static class CompareHandler implements Comparator<Worker> {
 
         @Override
@@ -217,4 +219,8 @@ public class Worker implements Serializable, Comparable<Worker> {
     public int hashCode() {
         return Objects.hash(wKey);
     }
+
+
+
+
 }

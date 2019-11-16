@@ -264,12 +264,13 @@ public final class WorkerServiceImpl implements WorkerService {
      * @param workerType 工人类型
      * @return 返回推荐的工人的表单集合
      * @date 2019/10/17
+     * @deprecated 新的需求是，根据工人类型，日期，时间，工作量，（地点任务数量） 排序
      */
     @Override
     public Result<List<Worker>> getSuitableWorkerList(Date date, int hour, String workerType) {
-        System.out.println(date);
-        System.out.println(hour);
-        System.out.println(workerType);
+        // System.out.println(date);
+        // System.out.println(hour);
+        // System.out.println(workerType);
         Result<List<Worker>> ans = new Result<>();
 
         List<Worker> res = workerScheule.recommendByAppointmemntPlus(date, hour, workerType);
@@ -283,6 +284,54 @@ public final class WorkerServiceImpl implements WorkerService {
 
         return ans;
     }
+
+    /**
+     * <code>
+     *
+     优先级：时间>工作量>位置
+
+     工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
+
+     报修单：17号9点 北苑
+
+     甲：17号9点有空 总任务5个 在北苑的任务有4个
+     乙：17号9点没空 总任务4个 在北苑的任务4个
+     丙：17号9点有空 总任务4个 在北苑的任务有3个
+
+     丙>甲>乙
+     * </code>
+     *
+     * @param date
+     * @param hour
+     * @param workerType
+     * @param location 根据工人的地点排序
+     * @return
+     */
+    //TODO:未完成，需要根据工人的地点任务排序
+    //FIXME:根据工人的地点排序
+    public Result<List<Worker>> getSuitableWorkerListPlus(Date date, int hour, String workerType,String location) {
+
+        Result<List<Worker>> ans = new Result<>();
+
+        List<Worker> res = workerScheule.recommendByAppointmemntPlus(date, hour, workerType);
+        ans.setData(res);
+        if (res != null && !res.isEmpty()) {
+            ans.setResult(ResultEnum.QUERY_SUCCESSFULLY);
+        } else {
+            ans.setResult(ResultEnum.QUERY_FAILED);
+        }
+        System.out.println(ans);
+
+        return ans;
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public Result getDetailEvaluation(int wKey) {

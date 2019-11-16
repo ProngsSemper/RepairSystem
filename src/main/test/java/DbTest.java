@@ -1,5 +1,6 @@
 import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.entity.Form;
+import com.repairsys.bean.entity.RecommendedWorker;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.dao.impl.admin.AdminDaoImpl;
@@ -9,6 +10,7 @@ import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
+import com.repairsys.dao.impl.worker.RecommendWorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.FormService;
@@ -31,6 +33,16 @@ import java.util.List;
  * @create 2019/9/27 10:13
  */
 public class DbTest {
+
+    @Test
+    public void getter(){
+        List<RecommendedWorker> list = WorkerScheule.getInstance().recommendByAppointmemntPlusPlus(new Date(System.currentTimeMillis())
+        ,9,"木工","北"
+        );
+        list.forEach(System.out::println);
+
+
+    }
 
     //注册管理员用户
     @Test

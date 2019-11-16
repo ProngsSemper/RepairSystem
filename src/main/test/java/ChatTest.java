@@ -28,11 +28,13 @@ public class ChatTest {
     @Test
     public void list()
     {
+
         JSONObject jsonObject = new JSONObject();
         List<Integer> list = new LinkedList<>();
         list.add(1);list.add(2);
         jsonObject.put("list",list);
         System.out.println(jsonObject.get("list"));
+        // Integer.MA
     }
 
     @Test

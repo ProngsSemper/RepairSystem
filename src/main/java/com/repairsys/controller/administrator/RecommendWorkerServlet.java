@@ -21,17 +21,20 @@ import java.util.List;
 @WebServlet("/admin/worker")
 public class RecommendWorkerServlet extends BaseServlet {
     private WorkerServiceImpl workerService = ServiceFactory.getWorkerService();
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         JSONObject jsonObject = (JSONObject) request.getAttribute("requestBody");
-        System.out.println(jsonObject.getString("date").replace("月","-").replace("日","-"));
-        String s = (jsonObject.getString("date").replace("月","-").replace("日","-"));
-        System.out.println(s);
-        Result<List<Worker>> res = workerService.getSuitableWorkerList(jsonObject.getSqlDate("date"),
+        // System.out.println(jsonObject.getString("date").replace("月","-").replace("日","-"));
+        // String s = (jsonObject.getString("date").replace("月","-").replace("日","-"));
+
+        Result<List<Worker>> res = workerService.getSuitableWorkerListPlus(jsonObject.getSqlDate("date"),
                 jsonObject.getInteger("hour"),
-                jsonObject.getString("wType"));
-        System.out.println(res);
-        request.setAttribute("result",res);
+                jsonObject.getString("wType"),
+                jsonObject.getString("location")
+
+        );
+        request.setAttribute("result", res);
         super.doPost(request, response);
     }
 
@@ -39,19 +42,6 @@ public class RecommendWorkerServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override

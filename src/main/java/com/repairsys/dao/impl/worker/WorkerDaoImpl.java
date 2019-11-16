@@ -5,6 +5,8 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.md5.Md5Util;
+import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.Connection;
 import java.util.List;
@@ -35,6 +37,9 @@ public class WorkerDaoImpl extends BaseDao<Worker> implements com.repairsys.dao.
     public static WorkerDaoImpl getInstance() {
         return WORKER_DAO;
     }
+    // private static final QueryRunner<>
+
+
 
     private WorkerDaoImpl() {
         super(Worker.class);

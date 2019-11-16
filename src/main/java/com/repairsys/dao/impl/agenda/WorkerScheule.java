@@ -1,9 +1,11 @@
 package com.repairsys.dao.impl.agenda;
 
+import com.repairsys.bean.entity.RecommendedWorker;
 import com.repairsys.bean.entity.WTime;
 import com.repairsys.bean.entity.Worker;
 import com.repairsys.dao.DaoFactory;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
+import com.repairsys.dao.impl.worker.RecommendWorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.util.db.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
@@ -14,6 +16,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author lyr
@@ -321,6 +325,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @param wType       工人类型
      * @return 返回工人表单集合
      * @date 2019/10/19
+     * @deprecated 还要根据工人的地点排序
      */
     public List<Worker> recommendByAppointmemntPlus(Date appointDate, int hour, String wType) {
         boolean b = hour >= 9 && hour <= 11 || hour >= 14 && hour <= 18;
@@ -328,10 +333,11 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             return new LinkedList<>();
         }
 
-        // String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '2019-10-19' and w.wType = '木工' ORDER BY t9" ;
-        String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' and w.wType = '" + wType + "' ORDER BY t" + hour;
-        // System.out.println(sql);
-        // System.out.println(sql);
+
+        String sql = "select wt.*,w.wType,w.wName,w.wMail,w.wTel from workers w" +
+                " left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' " +
+                "and w.wType = '" + wType + "' ORDER BY t" + hour;
+
         List<WTime> table = super.selectList(JdbcUtil.getConnection(), sql);
         LinkedList<Worker> carryZero = new LinkedList<>();
         LinkedList<Worker> carry = new LinkedList<>();
@@ -350,6 +356,66 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         return carryZero;
     }
+
+
+    private static final String RECOMMENDSQL_WORKER="select DISTINCT  w.wType,w.wName,w.wMail,w.wTel,FLAG,( t9+t10+t11+t14+t15+t16+t17+t18) as total,(select count(*) from form where appointDate=? and left(room,1) =? and wkey = w.wkey) locationCount  from workers w \n" +
+            "left JOIN wtime wt on w.wKey = wt.wKey \n" +
+            "left join form on form.wKey = w.wKey\n" +
+            "\t\t\n" +
+            "where wt.curTime = ? and w.wtype = ?";
+    /**
+     * <code>
+     *
+     优先级：时间>工作量>位置
+
+     工人在北苑的任务较多，管理员处理报修单页面 这个报修单是北苑的 则把在北苑工作量多的工人排在前面
+
+     报修单：17号9点 北苑
+
+     甲：17号9点有空 总任务5个 在北苑的任务有4个
+     乙：17号9点没空 总任务4个 在北苑的任务4个
+     丙：17号9点有空 总任务4个 在北苑的任务有3个
+
+     丙>甲>乙
+     * </code>
+     *
+     *
+     * @param hour
+     *
+     * @param location 根据工人的地点排序
+     * @return
+     */
+    //TODO:未完成
+    //FIXME: 需要根据工人的地点排序
+    public List<RecommendedWorker> recommendByAppointmemntPlusPlus(Date appointDate, int hour, String wType, String location) {
+        boolean b = hour >= 9 && hour <= 11 || hour >= 14 && hour <= 18;
+        if (!b) {
+            return new LinkedList<>();
+        }
+        String sql = RECOMMENDSQL_WORKER.replace("FLAG","t"+hour);
+
+
+        List<RecommendedWorker> table = RecommendWorkerDaoImpl.getInstance().getList(sql,
+            appointDate,location,appointDate,wType
+        );
+        Stream<RecommendedWorker> first = table.parallelStream().filter(i->i.getTime(hour)==0).sorted(
+          Comparator.comparing(RecommendedWorker::getLocationCount)
+          .thenComparing(RecommendedWorker::getTotal)
+        );
+
+        Stream<RecommendedWorker> second = table.parallelStream().filter(i->i.getTime(hour)!=0).sorted(
+           Comparator.comparing(RecommendedWorker::getLocationCount,Comparator.comparingInt(i->i))
+                .thenComparing(RecommendedWorker::getTotal, Comparator.comparingInt(i -> i))
+                //RecommendedWorker::getTotal, Comparator.comparingInt(i -> i)
+        );
+        List<RecommendedWorker> ans = Stream.concat(first,second).collect(Collectors.toCollection(LinkedList::new));
+
+
+
+        return ans;
+    }
+
+
 
     //TODO:还需要调用，请注意
     /**

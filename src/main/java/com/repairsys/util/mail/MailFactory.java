@@ -38,6 +38,7 @@ public class MailFactory {
     }
 
     private void consume() {
+
         int flag = 101;
         while (!taskQueue.isEmpty()) {
             int i = 0;
@@ -48,7 +49,7 @@ public class MailFactory {
 
             }
             try {
-                System.out.println("睡觉睡觉，发完了");
+
                 TimeUnit.SECONDS.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
