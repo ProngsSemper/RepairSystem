@@ -62,16 +62,13 @@ public class IndexHandler extends BaseServlet {
 
         }
 
-        boolean isStu = request.getSession().getAttribute("stuId")!=null;
-        if(isStu)
-        {
+        boolean isStu = request.getSession().getAttribute("stuId") != null;
+        if (isStu) {
             request.getRequestDispatcher("firstPage.html").forward(request, response);
             return;
-        }else
-        {
-            boolean isAdmin = request.getSession().getAttribute("adminId")!=null;
-            if(isAdmin)
-            {
+        } else {
+            boolean isAdmin = request.getSession().getAttribute("adminId") != null;
+            if (isAdmin) {
                 request.getRequestDispatcher("managerFirstPage.html").forward(request, response);
                 return;
             }
@@ -80,7 +77,6 @@ public class IndexHandler extends BaseServlet {
         request.setAttribute("pass", "1");
 
         request.getRequestDispatcher("login.html").forward(request, response);
-        return;
 
     }
 

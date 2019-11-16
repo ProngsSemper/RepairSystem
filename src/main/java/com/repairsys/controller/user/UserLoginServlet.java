@@ -50,8 +50,8 @@ public class UserLoginServlet extends BaseServlet {
             logger.debug("{}", value);
             if (STU.equals(value)) {
                 logger.debug("学生");
-                CookieUtil.setCookie("adminId","",response);
-                CookieUtil.setCookie("workerId","",response);
+                CookieUtil.setCookie("adminId", "", response);
+                CookieUtil.setCookie("workerId", "", response);
                 request.getRequestDispatcher("/student/login").forward(request, response);
 
             } else if (ADMIN.equals(value)) {
