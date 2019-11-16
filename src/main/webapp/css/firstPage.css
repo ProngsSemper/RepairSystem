@@ -263,8 +263,8 @@ body{
 }
 #email{
     position: relative;
-    height: 29px;
-    top: -2px;
+    height: 29.5px;
+    top: -1.5px;
     margin-left: -5px;
 }
 .form .spanStyle{
@@ -954,11 +954,41 @@ body{
     position: absolute;
     width: 20px;
     height: 20px;
-    top: 121px;
-    right: 296px;
+    top: 89px;
+    right: 245px;
     background-image: url(../img/judgeWrong.png);
     background-size: contain;
 }
 .formbg{
     background-image: url(../img/background.png);
+}
+.iconLight{
+    position: absolute;
+    top: -8px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../img/tips.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.light{
+    position: relative;
+}
+.tips{
+    display: none;
+    background: #eee;
+    position: absolute;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 5px;
+    width: 400px;
+    border: 1px solid;
+    top: -176px;
+    left: -166px;
+}
+.tips>p{
+    text-indent: 2em;
+}
+.light:hover .tips{
+    display: block;
 }
