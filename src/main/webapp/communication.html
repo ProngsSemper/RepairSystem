@@ -13,7 +13,12 @@
 <body onbeforeunload="closeWebSocket()">
     <div class="communicated">
         <i class="return" id="back"></i>
+        
         <div class="bigBox">
+                <i class="logo"></i>
+                <i class="book"></i>
+                <i class="plant"></i>
+                <i class="windows"></i>
             <div class="connent">
                 <div class="contant" id="window-talk">
                     
@@ -21,7 +26,11 @@
 
                 </div>
                 <div class="send">
-                    <textarea name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  ></textarea>
+                        <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro" target="nm_iframe" multiple="multiple">
+                            <input type="file" name="photo" id="inputphoto" value="" onchange="previewFile()" multiple="multiple">
+                            <img src="img/lo-photo.png" alt="" class="photo">
+                        </form>
+                    <div name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  contenteditable="true" style="overflow: auto;"></div>
                     <button class="stuSend" id="btn">发送</button>
                     <aside id="data-list"  >
                         <input type="text" list = "list" placeholder="请输入聊天对象" id="receiver-name">
@@ -49,32 +58,42 @@
 <br><br><br><br><br><br><br><br>
 <script type="text/javascript">
     function postData() {
-        let formData = new FormData(document.getElementById("img"));
+        let formData = new FormData(document.getElementById("selectPro"));
         formData.append("isAdmin",isAdmin);
-        formData.append("talk","1");
-        formData.append("sender","admin");
-        formData.append("target","181543430");
-        alert(formData);
+        let target = $('#receiver-name').val();
+        if(target==null||target==""||target.length<2)
+        {
+            alert("请输入接收人的名字");
+            return;
+        }
+        formData.append("sender",sender);
+        formData.append("target",target);
+        // alert(formData);
         $.ajax({
             url:'/upload/talk/img', /*接口域名地址*/
             type:'post',
+            async:false,
             data: formData,
             contentType: false,
             processData: false,
             success:function(res) {
-                console.log(res.data);
+                console.log("发送成功");
+                alert("发送成功");
+                addLastImg(recent_img_path);
+                recent_img_path = null;
 
-                alert(res);
-                alert("有在发送")
+                $("#inputphoto").val(' ');
+
+
             },
             error:function (res) {
-                alert(11);
+                alert("发送失败");
+                recent_img_path = null;
             }
 
 
         });
-        // alert(res);
-        alert(formData)
+
     }
 
 
@@ -82,8 +101,8 @@
 
     <br><br><br>
 <!--               -----------------------------------------       -->
-<form action="" id="img"  enctype="multipart/form-data">
-    <input type="file" name="photo" id="photo" value="" placeholder="免冠照片"  multiple="multiple"><br>
+<form action="" id="imgx"  enctype="multipart/form-data">
+    <input type="file" name="x" id="phoxtox" value="" placeholder="免冠照片"  multiple="multiple"><br>
     <input type="button" id="btn1" value="下一步" name="" style="width:100px;height:30px;">
 
 </form>

@@ -4,20 +4,22 @@
     list-style: none;
     text-decoration: none;
 }
+html{
+    background: #eee5e5;
+}
 .communicated{
     width: 100%;
     height: 100%;
 }
 .bigBox{
-    /* border: 1px solid #eee; */
+    position: relative;
     margin: 0 auto;
     width: 1260px;
     height: auto;
     background-image: url(../img/peo-left.png),url(../img/peo.png);
-    background-size: 20%;
-    background-position: 79px 60px,931px 101px;
+    background-size: 15%;
+    background-position: 142px 246px,931px 227px;
     background-repeat: no-repeat,no-repeat;
-    /* background: #000; */
 }
 .return{
     position: absolute;
@@ -44,6 +46,7 @@
     height: 350px;
     overflow: auto;
     border-radius: 10px 10px 0 0;
+    background: #fff;
 }
 .send{
     position: relative;
@@ -151,4 +154,83 @@ background: #eee;
     display: block;
     text-align: center;
     font-size: 14px;
+}
+.loadding{
+    /* display: none; */
+    margin: 0 auto;
+    width: 20px;
+}
+.windows{
+    position: absolute;
+    left: 100px;
+    top: 50px;
+    width: 315px;
+    height: 193px;
+    background-image: url(../img/window.png);
+    background-repeat: no-repeat;
+    background-size: 70%;
+}
+.plant{
+    position: absolute;
+    left: 254px;
+    top: 162px;
+    width: 100px;
+    height: 193px;
+    background-image: url(../img/plant.png);
+    background-repeat: no-repeat;
+    background-size: 35%;
+    z-index: 2;
+}
+.book{
+    position: absolute;
+    /* left: 254px; */
+    right: 0;
+    top: 87px;
+    width: 328px;
+    height: 193px;
+    background-image: url(../img/shelf.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.logo{
+    position: absolute;
+    /* left: 254px; */
+    right: 0;
+    top: -44px;
+    width: 100px;
+    height: 193px;
+    background-image: url(../img/flag.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.photo{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 116px;
+    right: 37px;
+    cursor: pointer;
+}
+#inputphoto{
+    position: absolute;
+    bottom: 103px;
+    right: 33px;
+    opacity: 0;
+    /* left: 140px; */
+    width: 40px;
+    height: 40px;
+    z-index: 3;
+    cursor: pointer;
+}
+.seatArea:empty:before{
+    content: attr(placeholder);   /* element attribute*/
+    /*content: 'this is content';*/
+    color: #888;
+}
+/*焦点时内容为空*/
+.seatArea:focus:before{
+    content:none;
+}
+.seatArea img{
+    height: 100px;
 }

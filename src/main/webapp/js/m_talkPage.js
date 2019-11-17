@@ -6,6 +6,8 @@ var isAdmin = false;
 var wsCanOpen = true;
 var userName = null;
 var unread_count=0;
+var recent_img_path = null;
+
 var type={
 
     "talk":200,
@@ -160,11 +162,41 @@ function initEventHandle() {
                 for(var i=0;i<list.length;i++){
                     if(list[i].sender===sender)
                     {
+                        if(list[i].msg.startsWith("http:/"))
+                        {
+                            let img = createImg(list[i].msg);
+                            img.style.width = '210px';
+                            let line = getElement("div","line");
+                            let p = document.createElement("p");
+                            p.innerHTML = list[i].sender+":";
+                            p.style.color = "rgb(25, 68, 235)";
+                            $(line).append(p);
+                            $(line).append(img);
+                            $(line).css("text-align","right")
+                            $(".contant").prepend(line);
+
+                            continue;
+                        }
+
                         // alert(list[i].sender==sender);
                         fillGreenBefore(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
                         continue;
                     }
                     // alert(list[i].sender);
+                    if(list[i].msg.startsWith("http:/"))
+                    {
+                        let img = createImg(list[i].msg);
+                        // alert(img);
+                        img.style.width="210px";
+                        let line = getElement("div","line");
+                        let p = document.createElement("p");
+                        p.innerHTML = list[i].sender+":";
+                        p.style.color = "#d07272";
+                        $(line).append(p);
+                        $(line).append(img);
+                        $(".contant").prepend(line);
+                        continue;
+                    }
 
                     fillWhiteBefore(list[i].sender+": \r\n"+$.trim(list[i].msg)+"\r\n"+list[i].time);
 
@@ -190,7 +222,19 @@ function initEventHandle() {
             }
 
             case type.img:{
-                alert("图片消息");
+                alert(123);
+                //接收到对方发来图片消息
+
+                let img = createImg(obj.msg);
+                img.style.width = '210px';
+                let line = getElement("div","line");
+                let p = document.createElement("p");
+                p.innerHTML = obj.sender+":";
+                p.style.color = "rgb(25, 68, 235)";
+                $(line).append(p);
+                $(line).append(img);
+                $(".contant").append(line);
+
             }
 
             default:{
@@ -326,3 +370,36 @@ function test_get_unread_count() {
     };
     ws.send(JSON.stringify(request));
 }
+
+
+//返回一个 js对象
+function createImg(path) {
+    let img = document.createElement("img");
+    img.src = path;
+    return img;
+}
+
+function getElement(name,className) {
+    let tag = document.createElement(name);
+    tag.classList.add(className);
+    return tag;
+}
+
+
+//在聊天框写入img图片
+function addLastImg(path) {
+    if(path==null)
+    {
+        return;
+    }
+    let img = createImg(path);
+    img.style.width = '210px';
+    $(img).css("float","right");
+    let line = getElement("div","line");
+
+    $(line).append(img);
+    $(".contant").append(line);
+
+}
+
+
