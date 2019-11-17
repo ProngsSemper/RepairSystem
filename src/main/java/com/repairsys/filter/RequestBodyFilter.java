@@ -33,6 +33,7 @@ public class RequestBodyFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
+
         if(t.length()<=1)
         {
             logger.warn(t);

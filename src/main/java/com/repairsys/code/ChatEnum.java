@@ -50,6 +50,8 @@ public  enum  ChatEnum {
 
     COUNT_INFO_UNREAD(2,"获取未读取的的历史消息的总数"),
 
+    IMG_TASK(3,"图片消息"),
+
     COUNT_PAGE(1,"返回页码数");
 
 

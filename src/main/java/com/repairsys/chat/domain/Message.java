@@ -14,6 +14,16 @@ public class Message {
     private String receiver;
     private int id;
 
+    public int getInfo() {
+        return info;
+    }
+
+    public void setInfo(int info) {
+        this.info = info;
+    }
+
+    private int info;
+
     public int getId() {
         return id;
     }

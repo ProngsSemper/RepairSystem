@@ -10,7 +10,7 @@ import javax.websocket.server.ServerEndpointConfig.Configurator;
  * @Author lyr
  * @create 2019/10/26 18:38
  */
-public class GetHttpSessionConfigurator extends Configurator {
+public final class GetHttpSessionConfigurator extends Configurator {
 
     @Override
     public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {

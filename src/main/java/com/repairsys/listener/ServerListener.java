@@ -5,6 +5,7 @@ package com.repairsys.listener;
  */
 
 import com.repairsys.chat.util.ServerHandler;
+import com.repairsys.chat.util.TaskUtil;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
 import com.repairsys.util.mail.MailFactory;
 import org.slf4j.Logger;
@@ -69,7 +70,7 @@ public class ServerListener implements ServletContextListener,
             }
         };
         pool.execute(r);
-        pool.shutdown();
+        // pool.shutdown();
 
         //开启聊天线程池
         ServerHandler.getInstance().startService();
@@ -83,6 +84,7 @@ public class ServerListener implements ServletContextListener,
         //关闭聊天线程池
         ServerHandler.getInstance().shutDownService();
         MailFactory.getInstance().shutDown();
+        TaskUtil.getInstance().shutDown();
         System.out.println("线程关闭");
 
     }

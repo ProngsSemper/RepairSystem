@@ -89,6 +89,7 @@ public class MessageServiceImpl implements MsgService {
         //将已读的消息写回数据库
         List<Message> list = (List<Message>) jsonObject.get("messageList");
         list.forEach((m)->{
+
             //adminMsg
             //修改 adminmsg的表，因为这是管理员发的消息
             String receiver = m.getReceiver();

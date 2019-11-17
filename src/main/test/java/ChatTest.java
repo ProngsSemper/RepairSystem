@@ -28,9 +28,9 @@ public class ChatTest {
     @Test
     public void list()
     {
+        String url = "F:\\算法\\我的团队项目\\p1\\target\\RepairSystem\\upload\\talk\\img\\4639c11b-4ceb-4ba7-a3b0-cd54e15f64d7无标题.png".replaceAll("\\\\","/");
+        System.out.println(url.replaceAll("(.*)(upload)", "localhost/upload"));
 
-        System.out.println(MsgDao.getInstance().countAdminMessage("181543430"));
-        System.out.println(MsgDao.getInstance().countStuMessage("admin"));
     }
 
     @Test
