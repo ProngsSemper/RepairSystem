@@ -42,7 +42,7 @@ public final class TaskUtil {
 
         @Override
         public void run() {
-            production.put("info", 1);
+            // production.put("info", 1);
             production.put("type",ChatEnum.IMG_TASK.getCode());
             String target = production.getString("target");
             boolean b = production.getBoolean("isAdmin");
