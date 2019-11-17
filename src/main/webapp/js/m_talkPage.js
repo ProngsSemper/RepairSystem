@@ -222,7 +222,7 @@ function initEventHandle() {
             }
 
             case type.img:{
-                alert(123);
+
                 //接收到对方发来图片消息
 
                 let img = createImg(obj.msg);

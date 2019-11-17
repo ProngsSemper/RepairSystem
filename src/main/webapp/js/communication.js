@@ -4,6 +4,7 @@ var button=document.getElementsByClassName("stuSend")[0];
 
 //监听发送按钮点击事件
 $("body").delegate(".stuSend","click",function(){
+    // alert(123);
     if(recent_img_path!=null)
     {
         $("#msg1").find("img").remove();
@@ -11,6 +12,7 @@ $("body").delegate(".stuSend","click",function(){
         recent_img_path = null;
 
     }else{
+        // alert(123);
         sendMsg();
 
     }
@@ -164,7 +166,7 @@ function sendMsg() {
         return;
     }
     var msg = {
-        "msg":$("#msg1").val(),//消息款的信息
+        "msg":$("#msg1").html(),//消息款的信息
         // "target":$("#target").val()
         "type":type.talk,
         "sender":sender,
@@ -172,14 +174,15 @@ function sendMsg() {
     };
     if(msg.msg.replace(/\s/g,"")==="")
     {
+        alert(msg.msg.replace(/\s/g,""));
         return;
     }
 
     var pack = JSON.stringify(msg);
     ws.send(pack);
     fillGreen(""+msg.msg);
-    // fillWhite(msg);
-    sectArea.value="";
+
+    $("#msg1").empty();
 
 }
 
