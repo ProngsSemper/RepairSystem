@@ -174,7 +174,7 @@ function sendMsg() {
     };
     if(msg.msg.replace(/\s/g,"")==="")
     {
-        alert(msg.msg.replace(/\s/g,""));
+        // alert(msg.msg.replace(/\s/g,""));
         return;
     }
 
