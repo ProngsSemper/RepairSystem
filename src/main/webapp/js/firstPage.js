@@ -502,6 +502,7 @@ $("body").delegate(".comment", "click", function () {
     })
     wKey = $(this).parent().attr("wKey");
     formId = $(this).parent().attr("formId");
+    return false;
 })
 //监听评价单选框
 var commentArea = document.getElementsByClassName("commentArea")[0];
@@ -716,16 +717,23 @@ var orderDetail = document.getElementsByClassName("orderDetail")[0];
 $("body").delegate(".orderDetail-cha", "click", function () {
 
     orderDetail.style.display = "none";
-})
-//监听点击详情信息
+});
+//监听点击未完成详情信息
 $("body").delegate(".orderInformation", "click", function () {
+    // alert($(this).attr("formId"));
+    getFormDetail($(this).attr("formId"), ".orderInformation");
+    orderDetail.style.display = "block";
+});
+//监听点击已完成详情信息
+$("body").delegate(".finishorderInformation", "click", function () {
     // alert($(this).attr("formId"));
 
     getFormDetail($(this).attr("formId"));
     orderDetail.style.display = "block";
-
-
-})
+    orderDetail.scrollIntoView({
+        behavior: 'smooth'//平滑的移过去
+    });
+});
 
 //获取详情信息
 function getFormDetail(formId) {
