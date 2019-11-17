@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
     private static final Logger logger = LoggerFactory.getLogger(FormDaoImpl.class);
-    // private final Connection JdbcUtil.getConnection() = JdbcUtil.getConnection();
+
     /**
      * 查询表单的 id号
      */
     private static final String QUERY_BY_FORMID = "select * from form where `formId` = ?";
-    private static final String QUERY_ALL_BY_FORMID = "select * from form where `formId` = ?";
+    private static final String QUERY_OLD_BY_FORMID = "select * oldform form where `formId` = ?";
     private static final String WORKER_QUERY_INCOMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and queryCode=1";
     private static final String ADMIN_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and queryCode <> 0";
     private static final String WORKER_QUERY_COMPLETE_BY_FORMID = "select * from form where `formId` = ? and wKey = ? and (queryCode>1 OR queryCode =-1)";
@@ -135,7 +135,11 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
 
     @Override
     public List<Form> queryAllByFormId(int formId) {
-        return super.selectList(JdbcUtil.getConnection(), QUERY_ALL_BY_FORMID, formId);
+        if (super.selectList(JdbcUtil.getConnection(), QUERY_BY_FORMID, formId).isEmpty()) {
+            return super.selectList(JdbcUtil.getConnection(), QUERY_OLD_BY_FORMID, formId);
+        } else {
+            return super.selectList(JdbcUtil.getConnection(), QUERY_BY_FORMID, formId);
+        }
     }
 
     @Override

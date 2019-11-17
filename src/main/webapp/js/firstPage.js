@@ -17,13 +17,13 @@ for (var i = 0; i < li.length; i++) {
     }
 }
 page = 1;
-
+orderFlag = 0;
 //提交表单信息
 var stuId = document.getElementsByClassName("repair-information")[2];
 var stuName = document.getElementsByClassName("repair-information")[0];
 var stuPhone = document.getElementsByClassName("repair-information")[1];
 var stuMail = document.getElementsByClassName("repair-information")[3];
-var email=document.getElementById("email");
+var email = document.getElementById("email");
 var formMsg = document.getElementsByClassName("textareaStyle")[0];
 var photoId = "-1";
 var a = new Date();
@@ -99,7 +99,7 @@ $("body").delegate(".handin-tit", "click", function () {
                 "stuId": stuId.value,
                 "stuName": stuName.value,
                 "stuPhone": stuPhone.value,
-                "stuMail": stuMail.value+email.value,
+                "stuMail": stuMail.value + email.value,
                 "formMsg": formMsg.value,
                 "photoId": -1,
                 "wType": wType,
@@ -166,14 +166,14 @@ function gerRepairOrder(pageCount) {
             "limit": 3,
         }),
         success: function (msg) {
-            pageCount=parseInt(pageCount);
+            pageCount = parseInt(pageCount);
             var page = $(".page");
             // $(".page").html("");
             console.log(msg)
             $(".orderContant").html("");
             var data = msg.data;
             if ($(".page").children().length == 0) {
-                if(msg.totalPage<=8){
+                if (msg.totalPage <= 8) {
                     for (var i = 1; i <= msg.totalPage; i++) {
                         page.append('<span class="page-number">' + i + '</span>');
                         if (i == 1) {
@@ -181,42 +181,38 @@ function gerRepairOrder(pageCount) {
                         }
                     }
                     $(".page-number").eq(0).addClass("cur");
-                }
-                else{
-                    if(pageCount<=3 || pageCount>=msg.totalPage-2){
-                        for(var i=1;i<=3;i++){
+                } else {
+                    if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
+                        for (var i = 1; i <= 3; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                         }
-                        if(pageCount==3){
+                        if (pageCount == 3) {
                             page.append('<span class="page-number">4</span>')
                         }
                         page.append('<span>...</span>');
-                        for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                        for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                         }
-                    }
-                    else if(pageCount>3 && pageCount<msg.totalPage-2){
+                    } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
 
-                        if(pageCount!=msg.totalPage-3){
+                        if (pageCount != msg.totalPage - 3) {
                             page.append('<span class="page-number">1</span><span>...</span>');
-                            for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
+                            for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             page.append('<span>...</span>');
-                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
-                        }
-                        else{
-                            for(var i=1;i<=3;i++){
+                        } else {
+                            for (var i = 1; i <= 3; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             page.append('<span>...</span>');
-                            for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                            for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                         }
-
 
 
                     }
@@ -284,6 +280,7 @@ function insureFinish(formId) {
 
 //监听学生点击确认按钮
 $("body").delegate(".finish", "click", function () {
+    orderFlag = 2;
     formId = $(this).parent().attr("formid");
     var judge = confirm("是否确认已完成");
     if (judge) {
@@ -291,7 +288,7 @@ $("body").delegate(".finish", "click", function () {
         gerRepairOrder(page);
     }
     // alert(formId);
-
+    return false;
 });
 //监听点击页码
 $("body").delegate(".page>span", "click", function () {
@@ -303,12 +300,12 @@ $("body").delegate(".page>span", "click", function () {
     } else {
         gerfinishOrder(page);
     }
-    var pageNum=document.getElementsByClassName("page-number");
-    for(var i=0;i<pageNum.length;i++){
-        pageNum[i].className="page-number";
+    var pageNum = document.getElementsByClassName("page-number");
+    for (var i = 0; i < pageNum.length; i++) {
+        pageNum[i].className = "page-number";
     }
-    for(var i=0;i<pageNum.length;i++){
-        if($(".page-number").eq(i).html()==page){
+    for (var i = 0; i < pageNum.length; i++) {
+        if ($(".page-number").eq(i).html() == page) {
             $(".page-number").eq(i).addClass("cur")
         }
     }
@@ -320,6 +317,7 @@ var againDiv = document.getElementsByClassName("againDiv")[0];
 $("body").delegate(".again", "click", function () {
     // alert("133");
     againDiv.style.display = "block";
+    orderDetail.style.display = "none";
     againDiv.scrollIntoView({
         behavior: 'smooth'//平滑的移过去
     })
@@ -337,6 +335,7 @@ $("body").delegate(".again", "click", function () {
     $("#againday").append('<option value="' + (a.getDate() + 4) + '" label="' + (a.getDate() + 4) + '日">');
     $("#againday").append('<option value="' + (a.getDate() + 5) + '" label="' + (a.getDate() + 5) + '日">');
     $("#againday").append('<option value="' + (a.getDate() + 6) + '" label="' + (a.getDate() + 6) + '日">');
+    return false;
 })
 //监听一键再修里的确认按钮
 var againmonth = document.getElementById("againmonth");
@@ -408,62 +407,58 @@ function gerfinishOrder(pageCount) {
         type: "POST",
         url: "/student/complete/history",
         dataType: "json",
-        async:false,
+        async: false,
         data: JSON.stringify({
             "page": parseInt(pageCount),
             "limit": 3,
         }),
         success: function (msg) {
-            pageCount=parseInt(pageCount);
-            var page=$(".page");
+            pageCount = parseInt(pageCount);
+            var page = $(".page");
             $(".finishOrderContant").html("");
             $(".page").html("");
             var data = msg.data;
             if ($(".page").children().length == 0) {
-                if(msg.totalPage<=8){
+                if (msg.totalPage <= 8) {
                     for (var i = 1; i <= msg.totalPage; i++) {
                         page.append('<span class="page-number">' + i + '</span>');
                         if (i == 1) {
                             $(".page-number").eq(0).addClass("cur");
                         }
                     }
-                }
-                else{
-                    if(pageCount<=3 || pageCount>=msg.totalPage-2){
-                        for(var i=1;i<=3;i++){
+                } else {
+                    if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
+                        for (var i = 1; i <= 3; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                         }
-                        if(pageCount==3){
+                        if (pageCount == 3) {
                             page.append('<span class="page-number">4</span>')
                         }
                         page.append('<span>...</span>');
-                        for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                        for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                         }
                         $(".page-number").eq(0).addClass("cur");
-                    }
-                    else if(pageCount>3 && pageCount<msg.totalPage-2){
+                    } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
 
-                        if(pageCount!=msg.totalPage-3){
+                        if (pageCount != msg.totalPage - 3) {
                             page.append('<span class="page-number">1</span><span>...</span>');
-                            for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
+                            for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             page.append('<span>...</span>');
-                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
+                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
-                        }
-                        else{
-                            for(var i=1;i<=3;i++){
+                        } else {
+                            for (var i = 1; i <= 3; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             page.append('<span>...</span>');
-                            for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                            for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                         }
-
 
 
                     }
@@ -501,6 +496,7 @@ function gerfinishOrder(pageCount) {
 var evaluate = document.getElementsByClassName("evaluate")[0];
 $("body").delegate(".comment", "click", function () {
     evaluate.style.display = "block";
+    orderContant.style.display = "none";
     evaluate.scrollIntoView({
         behavior: 'smooth'//平滑的移过去
     })
@@ -643,19 +639,26 @@ function getPhoto(formId, position, element) {
                 if (data.size == 0) {
                     if (element == 0) {
                         $(".orderImg").eq(position).append('<img src="img/head1.jpg">');
-                    } else {
+                    } else if (element == 1) {
                         $(".finishorderImg").eq(position).append('<img src="img/head1.jpg">');
+                    } else {
+
                     }
+
 
                 }
                 for (var i = 0; i < data.size; i++) {
                     if (element == 0) {
                         $(".orderImg").eq(position).append('<img src="' + data.arr[i] + '">');
-                    } else {
+                        break;
+                    } else if (element == 1) {
                         $(".finishorderImg").eq(position).append('<img src="' + data.arr[i] + '">');
+                        break;
+                    } else {
+                        $(".orderDetailContant").append('<img src="' + data.arr[i] + '">');
                     }
 
-                    break;
+
                 }
             }
         },
@@ -678,32 +681,77 @@ function cancellation() {
         }
     })
 }
+
 /*校验电话码格式 */
-var judgeWrong=document.getElementsByClassName("judgeWrong")[0];
+var judgeWrong = document.getElementsByClassName("judgeWrong")[0];
+
 function isTelCode() {
-    var str=stuPhone.value;
-    var reg= /^[1](([3|5|8][\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\d]{8}$/;
-	if(reg.test(str)){
-        judgeWrong.style.display="none";
-    }
-    else{
-        judgeWrong.style.display="block";
+    var str = stuPhone.value;
+    var reg = /^[1](([3|5|8][\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\d]{8}$/;
+    if (reg.test(str)) {
+        judgeWrong.style.display = "none";
+    } else {
+        judgeWrong.style.display = "block";
     }
 }
 
 /*校验邮件地址是否合法 */
 function IsEmail(str) {
-	var reg=/^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
-	return reg.test(str);
+    var reg = /^\w+@[a-zA-Z0-9]{2,10}(?:\.[a-z]{2,4}){1,3}$/;
+    return reg.test(str);
 }
+
 //给进度查询中的确认完成按钮添加节流
-var finishButton=document.getElementsByClassName("finish");
-for(var i=0;i<finishButton.length;i++){
-    finishButton[i].onclick=throttle(insureFinish,5000,1);
+var finishButton = document.getElementsByClassName("finish");
+for (var i = 0; i < finishButton.length; i++) {
+    finishButton[i].onclick = throttle(insureFinish, 5000, 1);
 }
 //给进度查询中的一键再修中的确认按钮添加节流
-var againButton=document.getElementsByClassName("againInsure");
-for(var i=0;i<againButton.length;i++){
-    againButton[i].onclick=throttle(againRepair,5000,1);
+var againButton = document.getElementsByClassName("againInsure");
+for (var i = 0; i < againButton.length; i++) {
+    againButton[i].onclick = throttle(againRepair, 5000, 1);
 }
-//根据电话判断是否正确
+//监听报修详情里的叉
+var orderDetail = document.getElementsByClassName("orderDetail")[0];
+$("body").delegate(".orderDetail-cha", "click", function () {
+
+    orderDetail.style.display = "none";
+})
+//监听点击详情信息
+$("body").delegate(".orderInformation", "click", function () {
+    // alert($(this).attr("formId"));
+
+    getFormDetail($(this).attr("formId"));
+    orderDetail.style.display = "block";
+
+
+})
+
+//获取详情信息
+function getFormDetail(formId) {
+    $.ajax({
+        type: "POST",
+        url: "/student/formId",
+        data: JSON.stringify({
+            "formId": formId
+        }),
+        dataType: "json",
+        success: function (msg) {
+            if (msg.code == 200) {
+                data = msg.data;
+                $(".orderDetailContant").html("");
+                $(".orderDetailContant").append('<p class="form-tit">报修单号：' + data[0].formId + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">姓名：' + data[0].stuName + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">学号：' + data[0].stuId + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">电话：' + data[0].stuPhone + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">邮箱：' + data[0].stuMail + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">地址：' + data[0].room + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">报修类型：' + data[0].wType + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">预约时间：' + data[0].appointDate + " " + data[0].appointment + '点</p>');
+                $(".orderDetailContant").append('<p class="form-tit">报修内容：' + data[0].formMsg + '</p>');
+                $(".orderDetailContant").append('<p class="form-tit">图片：</p>');
+                getPhoto(data[0].formId, 0, 2);
+            }
+        }
+    });
+}

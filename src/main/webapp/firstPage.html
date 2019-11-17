@@ -11,84 +11,94 @@
     <script src="js/debounce.js"></script>
 </head>
 <body>
-    <div class="againDiv" style="display: none;">
-    
-        <div class="againTime">
-            <span class="again-tit">重新预约</span>
-            <i class="icon-cha"></i>
-            <div class="againSelectTime">
-                <select name="againmonth" id="againmonth">
-                        <option value="10" label="10月"></option>
-                    </select>
-                    <select name="againday" id="againday">
-                        <option value="26">26日</option>
-                        <option value="26">27日</option>
-                        <option value="26">28日</option>
-                        <option value="26">29日</option>
-                        <option value="26">30日</option>
-                        <option value="26">31日</option>
-                        <option value="26">32日</option>
-                    </select>
-                    <select name="againtime" id="againtime">
-                        <option value="9" label="9点"></option>
-                        <option value="9" label="10点"></option>
-                        <option value="11" label="11点"></option>
-                        <option value="14" label="14点"></option>
-                        <option value="15" label="15点"></option>
-                        <option value="16" label="16点"></option>
-                        <option value="17" label="17点"></option>
-                        <option value="18" label="18点"></option>
-                    </select>
-            </div>
-            <button class="againInsure">确认</button>
-        </div>
-    </div>
-    <div class="evaluate" style="display: none;">
-        <div class="evaluateBox">
-            <i class="icon-chaa"></i>
-            <span class="evaluateBox-tit">评价</span>
-            <div class="flowerEvaluate">
-                <div class="attitudeRadio">
-                    <input type="radio" name="attitudeComment" value="good" class="evaluateRadio">
-                    <i class="iconattitude icon-good"></i>
-                    <span>好评</span>
-                </div>
-                <div class="attitudeRadio">
-                    <input type="radio" name="attitudeComment" value="mid" class="evaluateRadio">
-                    <i class="iconattitude icon-middle"></i>
-                    <span>中评</span>
-                </div>
-                <div class="attitudeRadio">
-                    <input type="radio" name="attitudeComment" value="bad" class="evaluateRadio">
-                    <i class="iconattitude icon-bad"></i>
-                    <span>差评</span>
-                </div>
-            </div>
-            <div class="textEvaluate">
-                <textarea name="tectComment" id="" cols="34" rows="9" placeholder="来点文字表述呗~(限100字)" class="commentArea" maxlength="100"></textarea>
-            </div>
-            <button class="evaluateSure">确认</button>
-        </div>
-    </div>
-    <div class="historyNotice" style="display: none;">
-        <div class="historyBox">
-            <i class="history-cha"></i>
-            <span class="history-tit">历史公告</span>
-            <div class="historyContant">
+<div class="againDiv" style="display: none;">
 
+    <div class="againTime">
+        <span class="again-tit">重新预约</span>
+        <i class="icon-cha"></i>
+        <div class="againSelectTime">
+            <select name="againmonth" id="againmonth">
+                <option value="10" label="10月"></option>
+            </select>
+            <select name="againday" id="againday">
+                <option value="26">26日</option>
+                <option value="26">27日</option>
+                <option value="26">28日</option>
+                <option value="26">29日</option>
+                <option value="26">30日</option>
+                <option value="26">31日</option>
+                <option value="26">32日</option>
+            </select>
+            <select name="againtime" id="againtime">
+                <option value="9" label="9点"></option>
+                <option value="9" label="10点"></option>
+                <option value="11" label="11点"></option>
+                <option value="14" label="14点"></option>
+                <option value="15" label="15点"></option>
+                <option value="16" label="16点"></option>
+                <option value="17" label="17点"></option>
+                <option value="18" label="18点"></option>
+            </select>
+        </div>
+        <button class="againInsure">确认</button>
+    </div>
+</div>
+<div class="evaluate" style="display: none;">
+    <div class="evaluateBox">
+        <i class="icon-chaa"></i>
+        <span class="evaluateBox-tit">评价</span>
+        <div class="flowerEvaluate">
+            <div class="attitudeRadio">
+                <input type="radio" name="attitudeComment" value="good" class="evaluateRadio">
+                <i class="iconattitude icon-good"></i>
+                <span>好评</span>
+            </div>
+            <div class="attitudeRadio">
+                <input type="radio" name="attitudeComment" value="mid" class="evaluateRadio">
+                <i class="iconattitude icon-middle"></i>
+                <span>中评</span>
+            </div>
+            <div class="attitudeRadio">
+                <input type="radio" name="attitudeComment" value="bad" class="evaluateRadio">
+                <i class="iconattitude icon-bad"></i>
+                <span>差评</span>
             </div>
         </div>
+        <div class="textEvaluate">
+            <textarea name="tectComment" id="" cols="34" rows="9" placeholder="来点文字表述呗~(限100字)" class="commentArea"
+                      maxlength="100"></textarea>
+        </div>
+        <button class="evaluateSure">确认</button>
     </div>
-    <div class="head">
-        <img src="img/logo.png" alt="" class="logo">
-        <img src="img/name.png" alt="" class="name">
-        
-        <img src="img/nvxuesheng.png" alt="" class="worker">
-        <img src="img/xuesheng.png" alt="" class="toolCase">
-        <i class="bye"></i>
+</div>
+<div class="historyNotice" style="display: none;">
+    <div class="historyBox">
+        <i class="history-cha"></i>
+        <span class="history-tit">历史公告</span>
+        <div class="historyContant">
+
+        </div>
     </div>
-    <div class="nav">
-        <div class="navLi">
+</div>
+<div class="orderDetail" style="display: none;">
+    <div class="orderDetailBox">
+        <i class="orderDetail-cha"></i>
+        <span class="orderDetail-tit">详情信息</span>
+        <div class="orderDetailContant">
+            <img src="img/head1.jpg" alt="">
+        </div>
+    </div>
+</div>
+<div class="head">
+    <img src="img/logo.png" alt="" class="logo">
+    <img src="img/name.png" alt="" class="name">
+
+    <img src="img/nvxuesheng.png" alt="" class="worker">
+    <img src="img/xuesheng.png" alt="" class="toolCase">
+    <i class="bye"></i>
+</div>
+<div class="nav">
+    <div class="navLi">
         <ul>
             <li class="index current">
                 <div class="item">
@@ -100,262 +110,271 @@
             </li>
             <li class="index">
                 <div class="item">
-                <a href="#">
-                    <p>报修申请</p>
-                    <p>报修申请</p>
+                    <a href="#">
+                        <p>报修申请</p>
+                        <p>报修申请</p>
 
-                </a>
-            </div>
+                    </a>
+                </div>
             </li>
-            <li class="index"><div class="item">
-                <a href="#">
-                    <p>进度查询</p>
-                    <p>进度查询</p>
+            <li class="index">
+                <div class="item">
+                    <a href="#">
+                        <p>进度查询</p>
+                        <p>进度查询</p>
 
-                </a>
-            </div></li>
-            <li class="index"><div class="item">
-                <a href="communication.html">
-                    <p>在线反馈</p>
-                    <p>在线反馈</p>
+                    </a>
+                </div>
+            </li>
+            <li class="index">
+                <div class="item">
+                    <a href="communication.html">
+                        <p>在线反馈</p>
+                        <p>在线反馈</p>
 
-                </a>
-            </div></li>
+                    </a>
+                </div>
+            </li>
         </ul>
     </div>
+</div>
+<div class="contant">
+    <div class="notice">
+        <i class="history"></i>
+        <h3 class="tit">网上报修</h3>
+        <p class="contant-tit">①后勤服务中心——地址：北苑20栋楼下 南苑面包坊旁边</p>
+        <p class="contant-tit">电话：88386835</p>
+        <p class="contant-tit">②维修范围：阳台漏水维修，主给排水管堵塞、爆管、漏水等维修。</p>
     </div>
-    <div class="contant">
-            <div class="notice">
-                <i class="history"></i>
-                <h3 class="tit">网上报修</h3>
-                <p class="contant-tit">①后勤服务中心——地址：北苑20栋楼下 南苑面包坊旁边</p>
-                <p class="contant-tit">电话：88386835</p>
-                <p class="contant-tit">②维修范围：阳台漏水维修，主给排水管堵塞、爆管、漏水等维修。</p>
-            </div>
-            <div class="onlinerepair">
-                <i class="pen"></i>
-                <i class="icontie"></i>
-                <div class="inside-box">
-                    <h3 class="tit online-tit">公告</h3>
-                    <p class="online-tit changeNotice" id="article">
-                        明天停水
-                    </p>
-                    <span class="date" id="date"></span>
-                </div>
-                <div class="process">
-                    <img src="img/step.png" alt="">
-                </div>
-            </div>
-            
+    <div class="onlinerepair">
+        <i class="pen"></i>
+        <i class="icontie"></i>
+        <div class="inside-box">
+            <h3 class="tit online-tit">公告</h3>
+            <p class="online-tit changeNotice" id="article">
+                明天停水
+            </p>
+            <span class="date" id="date"></span>
         </div>
-        <div class="contant hide">
-            <div class="imformation formbg">
+        <div class="process">
+            <img src="img/step.png" alt="">
+        </div>
+    </div>
 
-                <div class="insideContant ">
-                    <i class="judgeWrong"></i>
-                    <span class="repairName">个人信息</span>
-                    <div class="form">
-                        <div class="formBlock">
-                            <span class="spanStyle">报修人：</span><input type="text" class="repair-information" name="stuName">
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">联系电话：</span><input type="text" class="repair-information" name="stuPhone" onblur="isTelCode()">
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">学号：</span><input type="text" class="repair-information" name="stuId">
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">学生邮箱：</span><input type="text" class="repair-information inputEmail" name="stuMail">
-                            <select name="email" id="email">
-                                <option value="@qq.com" label="@qq.com"></option>
-                                <option value="@163.com" label="@163.com"></option>
-                                <option value="@gmail.com" label="@gmail.com"></option>
-                                <option value="@139.com" label="@139.com"></option>
-                                <option value="@126.com" label="@126.com"></option>
-                                <option value="@sina.com" label="@sina.com"></option>
-                                <option value="@yeah.net" label="@yeah.net"></option>
-                                <option value="@sohu.com" label="@sohu.com"></option>
-                                <option value="@hotmail.com" label="@hotmail.com"></option>
-                                <option value="@m.gduf.edu.cn" label="@m.gduf.edu.cn"></option>
-                            </select>
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">地址：</span>
-                            <select name="adress" id="adress">
-                                <option value="北苑" class="selectadress">北苑</option>
-                                <option value="南苑" class="selectadress">南苑</option>
-                            </select>
-                            <select name="building" id="buliding">
+</div>
+<div class="contant hide">
+    <div class="imformation formbg">
 
-                                <option value="16栋">16栋</option>
-                                <option value="17栋">17栋</option>
-                                <option value="18栋">18栋</option>
-                                <option value="19栋">19栋</option>
-                                <option value="20栋">20栋</option>
-                                <option value="21栋">21栋</option>
-                                <option value="22栋">22栋</option>
-                                <option value="23栋">23栋</option>
-                                <option value="24栋">24栋</option>
-                                <option value="25栋">25栋</option>
-                            </select>
-                            <input type="text" placeholder="宿舍号" name="dormitory" class="dormitoryNumber">
-                        </div>
-                    </div>
+        <div class="insideContant ">
+            <i class="judgeWrong"></i>
+            <span class="repairName">个人信息</span>
+            <div class="form">
+                <div class="formBlock">
+                    <span class="spanStyle">报修人：</span><input type="text" class="repair-information" name="stuName">
                 </div>
-            
-            
-                <div class="insideContant pos">
-                    <span class="repairName">报修信息</span>
-                    <div class="form">
-                        <div class="formBlock">
-                            <div class="light">
-                                <i class="iconLight"></i>
-                                <div class="tips">
-                                    <p>水工：排水系统管道、阀门及其辅件，空调系统的管道、阀门，水龙头，水表，水管，厕所冲水设备，浴室出水、热水、水卡设备，地漏。</p>
-                                    <p>电工：停电、供电、漏电问题，宿舍照明，电风扇，电闸。</p>
-                                    <p>木工：宿舍内家具，如：座椅、床板、书桌、柜子等。</p>
-                                </div>
-                            </div>
-                            <span class="spanStyle">报修类型:</span>
-                            <input type="radio" name="wType" class="radios" value="水工"><span>水工</span>
-                            <input type="radio" name="wType" class="radios" value="木工"><span>木工</span>
-                            <input type="radio" name="wType" class="radios" value="电工"><span>电工</span>
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">预约时间:</span>
-                            <!-- <input type="text" placeholder="例：10月11日12点" class="repair-information appoint" name="appointment"> (请输入整点时刻) -->
-                            <select name="" id="month">
-        
-                            </select>
-                            <select name="" id="days">
-        
-                            </select>
-                            <select name="" id="times">
-                                <option value="9">9点</option>
-                                <option value="9">10点</option>
-                                <option value="11">11点</option>
-                                <option value="14">14点</option>
-                                <option value="15">15点</option>
-                                <option value="16">16点</option>
-                                <option value="17">17点</option>
-                                <option value="18">18点</option>
-                            </select>
-                        </div>
-                        <div class="formBlock">
-                            <span class="spanStyle">报修内容:</span>
-                            <textarea rows="7" cols="40" class="textareaStyle" placeholder="请输入具体报修内容"  name="formMsg" maxlength="100"></textarea>
-                            <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro" target="nm_iframe" multiple="multiple">
-                                <input type="file" name="photo" id="inputphoto" value=" " onchange="previewFile()" multiple="multiple">
-                                <img src="img/photo.png" alt="" class="photo">
-                            </form>
-                            <div class="saveImg">
-                                <!-- <img src="" alt=""> -->
-                            </div>
-                            <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>  
+                <div class="formBlock">
+                    <span class="spanStyle">联系电话：</span><input type="text" class="repair-information" name="stuPhone"
+                                                               onblur="isTelCode()">
+                </div>
+                <div class="formBlock">
+                    <span class="spanStyle">学号：</span><input type="text" class="repair-information" name="stuId">
+                </div>
+                <div class="formBlock">
+                    <span class="spanStyle">学生邮箱：</span><input type="text" class="repair-information inputEmail"
+                                                               name="stuMail">
+                    <select name="email" id="email">
+                        <option value="@qq.com" label="@qq.com"></option>
+                        <option value="@163.com" label="@163.com"></option>
+                        <option value="@gmail.com" label="@gmail.com"></option>
+                        <option value="@139.com" label="@139.com"></option>
+                        <option value="@126.com" label="@126.com"></option>
+                        <option value="@sina.com" label="@sina.com"></option>
+                        <option value="@yeah.net" label="@yeah.net"></option>
+                        <option value="@sohu.com" label="@sohu.com"></option>
+                        <option value="@hotmail.com" label="@hotmail.com"></option>
+                        <option value="@m.gduf.edu.cn" label="@m.gduf.edu.cn"></option>
+                    </select>
+                </div>
+                <div class="formBlock">
+                    <span class="spanStyle">地址：</span>
+                    <select name="adress" id="adress">
+                        <option value="北苑" class="selectadress">北苑</option>
+                        <option value="南苑" class="selectadress">南苑</option>
+                    </select>
+                    <select name="building" id="buliding">
 
-                        </div>
-                        <div class="formBlock">
-                            <i class="iconHandin"></i>
-                            <button class="handIn"><span class="handin-tit">提交</span></button>
-                        </div>
-                    </div>
+                        <option value="16栋">16栋</option>
+                        <option value="17栋">17栋</option>
+                        <option value="18栋">18栋</option>
+                        <option value="19栋">19栋</option>
+                        <option value="20栋">20栋</option>
+                        <option value="21栋">21栋</option>
+                        <option value="22栋">22栋</option>
+                        <option value="23栋">23栋</option>
+                        <option value="24栋">24栋</option>
+                        <option value="25栋">25栋</option>
+                    </select>
+                    <input type="text" placeholder="宿舍号" name="dormitory" class="dormitoryNumber">
                 </div>
             </div>
         </div>
-    <div class="contant hide overChange">
-        <div class="findOrder">
-            <i class="iconClip"></i>
-            <!-- <i class="iconLabel"></i> -->
-            <div class="iconLabel curLabel">
-                <span class="label-tit cur-tit">未完成</span>
-            </div>
-            <div class="iconLabel">
-                <span class="label-tit">已完成</span>
-            </div>
-            <div class="orderContant" style="display: block">
-                <div class="order">
-                    <i class="yellowLabel"></i>
-                    <i class="progressBat progressFirst"></i>
-                    <span class="state-tit">未处理</span>
-                    <div class="orderInformation" formId="12">
-                        <div class="orderInside">
-                            <p class="order-tit">报修人：刘家旻</p>
-                            <p class="order-tit">报修地点：北苑17栋a111</p>
-                            <p class="order-tit">电话：12345678909986</p>
-                            <p class="order-tit">内容：灯泡坏了</p>
+
+
+        <div class="insideContant pos">
+            <span class="repairName">报修信息</span>
+            <div class="form">
+                <div class="formBlock">
+                    <div class="light">
+                        <i class="iconLight"></i>
+                        <div class="tips">
+                            <p>水工：排水系统管道、阀门及其辅件，空调系统的管道、阀门，水龙头，水表，水管，厕所冲水设备，浴室出水、热水、水卡设备，地漏。</p>
+                            <p>电工：停电、供电、漏电问题，宿舍照明，电风扇，电闸。</p>
+                            <p>木工：宿舍内家具，如：座椅、床板、书桌、柜子等。</p>
                         </div>
-                        <div class="orderImg">
-                            <img src="img/head1.jpg" alt="">
-                        </div>
-                        <button class="finish">确认完成</button>
                     </div>
+                    <span class="spanStyle">报修类型:</span>
+                    <input type="radio" name="wType" class="radios" value="水工"><span>水工</span>
+                    <input type="radio" name="wType" class="radios" value="木工"><span>木工</span>
+                    <input type="radio" name="wType" class="radios" value="电工"><span>电工</span>
                 </div>
-                <div class="order">
-                        <i class="yellowLabel"></i>
-                        
-                        <span class="state-tit">待确认</span>
-                        <div class="orderInformation" formId="42">
-                            <div class="orderInside">
-                                <p class="order-tit">报修人：刘家旻</p>
-                                <p class="order-tit">报修地点：北苑17栋a111</p>
-                                <p class="order-tit">电话：12345678909986</p>
-                                <p class="order-tit">内容：灯泡坏了</p>
-                            </div>
-                            <div class="orderImg">
-                                <img src="img/head1.jpg" alt="">
-                            </div>
-                            <button class="again">一键再修</button>
-                            <button class="finish">确认完成</button>
-                        <i class="progressBat progressWrong"></i>
-                        </div>
+                <div class="formBlock">
+                    <span class="spanStyle">预约时间:</span>
+                    <!-- <input type="text" placeholder="例：10月11日12点" class="repair-information appoint" name="appointment"> (请输入整点时刻) -->
+                    <select name="" id="month">
+
+                    </select>
+                    <select name="" id="days">
+
+                    </select>
+                    <select name="" id="times">
+                        <option value="9">9点</option>
+                        <option value="9">10点</option>
+                        <option value="11">11点</option>
+                        <option value="14">14点</option>
+                        <option value="15">15点</option>
+                        <option value="16">16点</option>
+                        <option value="17">17点</option>
+                        <option value="18">18点</option>
+                    </select>
                 </div>
-                <div class="order">
-                        <i class="yellowLabel"></i>
-                        <span class="state-tit">待确认</span>
-                        <div class="orderInformation" formId="42">
-                            <div class="orderInside">
-                                <p class="order-tit">报修人：刘家旻</p>
-                                <p class="order-tit">报修地点：北苑17栋a111</p>
-                                <p class="order-tit">电话：12345678909986</p>
-                                <p class="order-tit">内容：灯泡坏了</p>
-                            </div>
-                            <div class="orderImg">
-                                <img src="img/head1.jpg" alt="">
-                            </div>
-                            <button class="again">一键再修</button>
-                            <button class="finish">确认完成</button>
-                        </div>
+                <div class="formBlock">
+                    <span class="spanStyle">报修内容:</span>
+                    <textarea rows="7" cols="40" class="textareaStyle" placeholder="请输入具体报修内容" name="formMsg"
+                              maxlength="100"></textarea>
+                    <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro"
+                          target="nm_iframe" multiple="multiple">
+                        <input type="file" name="photo" id="inputphoto" value=" " onchange="previewFile()"
+                               multiple="multiple">
+                        <img src="img/photo.png" alt="" class="photo">
+                    </form>
+                    <div class="saveImg">
+                        <!-- <img src="" alt=""> -->
+                    </div>
+                    <iframe id="id_iframe" name="nm_iframe" style="display:none;"></iframe>
+
+                </div>
+                <div class="formBlock">
+                    <i class="iconHandin"></i>
+                    <button class="handIn"><span class="handin-tit">提交</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="contant hide overChange">
+    <div class="findOrder">
+        <i class="iconClip"></i>
+        <!-- <i class="iconLabel"></i> -->
+        <div class="iconLabel curLabel">
+            <span class="label-tit cur-tit">未完成</span>
+        </div>
+        <div class="iconLabel">
+            <span class="label-tit">已完成</span>
+        </div>
+        <div class="orderContant" style="display: block">
+            <div class="order">
+                <i class="yellowLabel"></i>
+                <i class="progressBat progressFirst"></i>
+                <span class="state-tit">未处理</span>
+                <div class="orderInformation" formId="12">
+                    <div class="orderInside">
+                        <p class="order-tit">报修人：刘家旻</p>
+                        <p class="order-tit">报修地点：北苑17栋a111</p>
+                        <p class="order-tit">电话：12345678909986</p>
+                        <p class="order-tit">内容：灯泡坏了</p>
+                    </div>
+                    <div class="orderImg">
+                        <img src="img/head1.jpg" alt="">
+                    </div>
+                    <button class="finish">确认完成</button>
+                </div>
+            </div>
+            <div class="order">
+                <i class="yellowLabel"></i>
+
+                <span class="state-tit">待确认</span>
+                <div class="orderInformation" formId="42">
+                    <div class="orderInside">
+                        <p class="order-tit">报修人：刘家旻</p>
+                        <p class="order-tit">报修地点：北苑17栋a111</p>
+                        <p class="order-tit">电话：12345678909986</p>
+                        <p class="order-tit">内容：灯泡坏了</p>
+                    </div>
+                    <div class="orderImg">
+                        <img src="img/head1.jpg" alt="">
+                    </div>
+                    <button class="again">一键再修</button>
+                    <button class="finish">确认完成</button>
+                    <i class="progressBat progressWrong"></i>
+                </div>
+            </div>
+            <div class="order">
+                <i class="yellowLabel"></i>
+                <span class="state-tit">待确认</span>
+                <div class="orderInformation" formId="42">
+                    <div class="orderInside">
+                        <p class="order-tit">报修人：刘家旻</p>
+                        <p class="order-tit">报修地点：北苑17栋a111</p>
+                        <p class="order-tit">电话：12345678909986</p>
+                        <p class="order-tit">内容：灯泡坏了</p>
+                    </div>
+                    <div class="orderImg">
+                        <img src="img/head1.jpg" alt="">
+                    </div>
+                    <button class="again">一键再修</button>
+                    <button class="finish">确认完成</button>
+                </div>
+            </div>
+
+        </div>
+        <div class="finishOrderContant" style="display: none">
+            <div class="finishorder">
+                <i class="yellowLabel"></i>
+                <span class="finishstate-tit">已完成</span>
+                <div class="finishorderInformation" formId="12">
+                    <div class="finishorderInside">
+                        <p class="finishorder-tit">报修人：刘家旻</p>
+                        <p class="finishorder-tit">报修地点：北苑17栋a111</p>
+                        <p class="finishorder-tit">电话：12345678909986</p>
+                        <p class="finishorder-tit">内容：灯泡坏了</p>
+                    </div>
+                    <div class="finishorderImg">
+                        <img src="img/head1.jpg" alt="">
+                    </div>
+                    <button class="comment">评价</button>
                 </div>
 
             </div>
-            <div class="finishOrderContant" style="display: none">
-                <div class="finishorder">
-                    <i class="yellowLabel"></i>
-                    <span class="finishstate-tit">已完成</span>
-                    <div class="finishorderInformation" formId="12">
-                        <div class="finishorderInside">
-                            <p class="finishorder-tit">报修人：刘家旻</p>
-                            <p class="finishorder-tit">报修地点：北苑17栋a111</p>
-                            <p class="finishorder-tit">电话：12345678909986</p>
-                            <p class="finishorder-tit">内容：灯泡坏了</p>
-                        </div>
-                        <div class="finishorderImg">
-                            <img src="img/head1.jpg" alt="">
-                        </div>
-                        <button class="comment">评价</button>
-                    </div>
-
-                </div>
-            </div>
+        </div>
         <div class="page">
 
         </div>
-        </div>
     </div>
-    
-    <div class="contant hide"></div>
-    <script src="js/firstPage.js"></script>
+</div>
+
+<div class="contant hide"></div>
+<script src="js/firstPage.js"></script>
 <!-- 用来发送 ajax请求 ，后端组同学编写    -->
-    <script src="js/m_firstPage.js"></script>
+<script src="js/m_firstPage.js"></script>
 </body>
 </html>
