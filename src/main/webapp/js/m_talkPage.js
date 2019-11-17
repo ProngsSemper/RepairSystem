@@ -14,7 +14,8 @@ var type={
     "offline":409,
     "count":1,
     "page":0,
-    "count_info_unread":2
+    "count_info_unread":2,
+    "img":3
 };
 //心跳包：发送一个空串过去，尽量减少后台损耗
 var ping = "";
@@ -186,6 +187,10 @@ function initEventHandle() {
                 unread_count = count;
                 alert(count);
                 break;
+            }
+
+            case type.img:{
+                alert("图片消息");
             }
 
             default:{

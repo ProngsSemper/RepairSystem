@@ -18,18 +18,7 @@
                 <div class="contant" id="window-talk">
                     
                         <a href="javascript:;" class="history">获取离线消息记录</a> 
-                    
-<!--                    <div class="line">-->
-<!--                        <div class="bg-green own">-->
-<!--&lt;!&ndash;                                &lt;h1&gt;ddd&lt;/h1&gt;&ndash;&gt;-->
 
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="line">-->
-<!--                        <div class="bg-white other">-->
-<!--&lt;!&ndash;                                &lt;h1&gt;ddd&lt;/h1&gt;&ndash;&gt;-->
-<!--                        </div>-->
-<!--                    </div>-->
                 </div>
                 <div class="send">
                     <textarea name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  ></textarea>
@@ -54,7 +43,70 @@
 <!--    </button>-->
     <script src="js/communication.js"></script>
     <!-- <script src="js/m_talkPage.js"></script> -->
+
+
+
+<br><br><br><br><br><br><br><br>
+<script type="text/javascript">
+    function postData() {
+        let formData = new FormData(document.getElementById("img"));
+        formData.append("isAdmin",isAdmin);
+        formData.append("talk","1");
+        formData.append("sender","admin");
+        formData.append("target","181543430");
+        alert(formData);
+        $.ajax({
+            url:'/upload/talk/img', /*接口域名地址*/
+            type:'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(res) {
+                console.log(res.data);
+
+                alert(res);
+                alert("有在发送")
+            },
+            error:function (res) {
+                alert(11);
+            }
+
+
+        });
+        // alert(res);
+        alert(formData)
+    }
+
+
+</script>
+
+    <br><br><br>
+<!--               -----------------------------------------       -->
+<form action="" id="img"  enctype="multipart/form-data">
+    <input type="file" name="photo" id="photo" value="" placeholder="免冠照片"  multiple="multiple"><br>
+    <input type="button" id="btn1" value="下一步" name="" style="width:100px;height:30px;">
+
+</form>
+
+
+
 </body>
+
+<script>
+    $("#btn1").click(
+        function () {
+            postData();
+        }
+    )
+
+</script>
+
+
+
+
+
+
+
 </html>
 
 <script>

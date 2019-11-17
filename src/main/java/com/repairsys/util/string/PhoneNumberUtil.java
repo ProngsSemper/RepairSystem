@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @date 2019/11/6 20:40
  * 验证手机号码是否正确的工具类
  */
-public class PhoneNumberUtil {
+public final class PhoneNumberUtil {
     public static boolean isMobile(String str) {
         Pattern p;
         Matcher m;

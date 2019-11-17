@@ -19,6 +19,7 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,7 +31,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @create 2019/10/26 14:35
  */
 @ServerEndpoint(value = "/chat", configurator = GetHttpSessionConfigurator.class)
-public class ChatServer {
+public final class ChatServer {
     private static final String ALL = "所有人";
     private static final String OFFLINE_MSG = "离线留言";
     private static final Logger logger = LoggerFactory.getLogger(ChatServer.class);
@@ -47,6 +48,14 @@ public class ChatServer {
      */
     private static final ConcurrentHashMap<String, User> ADMIN_MAP = new ConcurrentHashMap<>();
     private static final ServerHandler SERVER_HANDLER = ServerHandler.getInstance();
+    public static Map[] getChatServerMap()
+    {
+        Map[] p = new Map[2];
+        p[0] = ADMIN_MAP;
+        p[1] = MAP;
+        return p;
+
+    }
 
 
 

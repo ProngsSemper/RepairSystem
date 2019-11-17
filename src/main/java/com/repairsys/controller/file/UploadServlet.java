@@ -1,5 +1,6 @@
 package com.repairsys.controller.file;
 
+import com.alibaba.fastjson.JSONObject;
 import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
 import org.slf4j.Logger;
@@ -31,9 +32,6 @@ public class UploadServlet extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(UploadServlet.class);
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
 
         int tmp = (Integer)request.getSession().getAttribute("formId");
 
@@ -74,8 +72,6 @@ public class UploadServlet extends HttpServlet {
             logger.debug(finalFileName);
             part.write(finalFileName);
             imgPathList.add(finalFileName);
-
-
         }
 
         if(imgPathList.isEmpty())
@@ -89,8 +85,14 @@ public class UploadServlet extends HttpServlet {
         logger.debug("提交成功");
         boolean b = FORM_DAO.setPhotoId(primaryKey,formId);
         logger.trace("{}",b);
-        // System.out.println(b);
-        //TODO:应该可以了
+
+        if(request.getAttribute("talk")!=null)
+        {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ans",true);
+            request.setAttribute("result",jsonObject);
+            super.doPost(request,response);
+        }
 
 
     }

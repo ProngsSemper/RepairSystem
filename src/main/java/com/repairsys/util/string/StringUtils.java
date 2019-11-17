@@ -2,6 +2,8 @@ package com.repairsys.util.string;
 
 import com.repairsys.util.md5.Md5Util;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Author lyr
  * @create 2019/9/24 19:13
@@ -61,6 +63,18 @@ public final class StringUtils {
 
     public static boolean getMsg(String msg) {
         return msg != null && msg.length() >= 1;
+    }
+
+
+    public static String getBasePath(HttpServletRequest request) {
+        return format(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/","\\","/");
+
+
+    }
+
+    public static String format(String raw,String l,String r)
+    {
+        return raw.replace(l,r);
     }
 
 }
