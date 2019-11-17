@@ -6,6 +6,7 @@ import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -14,11 +15,13 @@ import java.util.List;
  */
 public class MsgDao extends BaseDao<Message> {
 
+
     private static final MsgDao DAO = new MsgDao();
     public static MsgDao getInstance()
     {
         return DAO;
     }
+
 
     protected MsgDao() {
         super(Message.class);
@@ -190,6 +193,17 @@ public class MsgDao extends BaseDao<Message> {
         }
 
         return cnt;
+    }
+
+
+
+    private static final String REMOVE_ADMIN_MSG = "delete FROM adminmsg where flag <>0 and  time <= date_sub(CURDATE(),interval 30 day)";
+    private static final String REMOVE_STU_MSG = "delete FROM studentmsg where flag <>0 and  time <= date_sub(CURDATE(),interval 30 day)";
+    public void removeMsg()
+    {
+
+        super.deleteOne(JdbcUtil.getConnection(),REMOVE_ADMIN_MSG);
+        super.deleteOne(JdbcUtil.getConnection(),REMOVE_STU_MSG);
     }
 
 

@@ -8,6 +8,7 @@ $("body").delegate(".stuSend","click",function(){
     if(recent_img_path!=null)
     {
         $("#msg1").find("img").remove();
+        $("msg1").find("div").remove();
         postData();
         recent_img_path = null;
 
@@ -28,10 +29,32 @@ document.onkeydown = function(event){        //在全局中绑定按下事件
     switch(keyCode){
 
         case 13:
+        {
+            if($("#msg1").html()=="")
+            {
+                return;
+            }
+            else if(recent_img_path!=null)
+            {
+                $("#msg1").find("img").remove();
+                $("msg1").find("div").remove();
+                postData();
+                recent_img_path = null;
+                down();
 
-            sendMsg();
+            }else{
+                // alert(123);
+                sendMsg();
+
+            }
+
 
             break;
+        }
+
+        case 27:{
+            window.location.href ="index.do?a="+new Date();
+        }
 
     }
 
@@ -274,14 +297,18 @@ contant.onscroll=function(){
         $(".contant").prepend('<a href="javascript:;" class="history">获取历史消息记录</a>');
         page++;
     }
-}
+};
 var input = document.getElementById("inputphoto");
 // 当用户上传时触发事件
+// var raw = null;
 input.onchange = function () {
+    // raw = $(input).clone();
     readFile(this);
 };
+
 //处理图片并添加都dom中的函数
 var readFile = function (obj) {
+
     // 获取input里面的文件组
     var fileList = obj.files;
     //对文件组进行遍历，可以到控制台打印出fileList去看看
@@ -295,6 +322,8 @@ var readFile = function (obj) {
             img.src = recent_img_path;
             $(".seatArea").append(img);
         }
+
     }
+    lock = false;
 };
 

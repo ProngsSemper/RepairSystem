@@ -4,6 +4,7 @@ package com.repairsys.listener;
  * @create 2019/10/17 13:33
  */
 
+import com.repairsys.chat.dao.MsgDao;
 import com.repairsys.chat.util.ServerHandler;
 import com.repairsys.chat.util.TaskUtil;
 import com.repairsys.dao.impl.agenda.WorkerScheule;
@@ -70,6 +71,7 @@ public class ServerListener implements ServletContextListener,
             }
         };
         pool.execute(r);
+        pool.submit(()-> MsgDao.getInstance().removeMsg());
         // pool.shutdown();
 
         //开启聊天线程池

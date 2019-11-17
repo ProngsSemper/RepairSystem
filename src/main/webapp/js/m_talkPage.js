@@ -3,7 +3,7 @@ var ws = null;
 var sender = null;
 var onlineList = null;
 var isAdmin = false;
-var wsCanOpen = true;
+// var wsCanOpen = true;
 var userName = null;
 var unread_count=0;
 var recent_img_path = null;
@@ -59,6 +59,7 @@ function createWebSocket() {
             ws = new WebSocket(url);
             if(++connectCount>20)
             {
+                ws.close();
                 window.location.href="index.do?a="+new Date();
             }
 
@@ -70,12 +71,7 @@ function createWebSocket() {
 
         initEventHandle();
     } catch (e) {
-        if(connectCount>20)
-        {
-            wsCanOpen=false;
-            window.location.href="index.do?a="+new Date();
-            return;
-        }
+        ++connectCount;
         reconnect(url);
         console.log(e);
     }
@@ -155,7 +151,7 @@ function initEventHandle() {
             }
             case type.page:{
 
-                // alert(obj);
+
                 let list = obj.messageList;
                 $(".contant").find(".history").remove();
                 // data=obj.messageList;
@@ -255,7 +251,7 @@ function initEventHandle() {
     ws.onerror = function () {
 
         reconnect();
-        wsCanOpen = false;
+        // wsCanOpen = false;
         console.log("连接出现错误，尝试重新连接");
     };
 
@@ -270,14 +266,14 @@ window.onbeforeunload = function () {
 };
 
 function reconnect() {
-    if(!wsCanOpen) return;//服务器检测到身份异常，需要用户重新登录
+    // if(!wsCanOpen) return;//服务器检测到身份异常，需要用户重新登录
     if(lockReconnect)return;
     lockReconnect = true;
     setTimeout(function () {
         fillWhite("聊天小助手："+" 检测到断线，正在重新连接...");
         createWebSocket();
         lockReconnect = false;
-    },4000);
+    },6000);
 }
 
 var heartCheck = {

@@ -27,7 +27,7 @@
                 </div>
                 <div class="send">
                         <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro" target="nm_iframe" multiple="multiple">
-                            <input type="file" name="photo" id="inputphoto" value="" onchange="previewFile()" multiple="multiple">
+                            <input type="file" name="photo" id="inputphoto" value=""  multiple="multiple">
                             <img src="img/lo-photo.png" alt="" class="photo">
                         </form>
                     <div name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  contenteditable="true" style="overflow: auto;"></div>
@@ -82,7 +82,7 @@
                 addLastImg(recent_img_path);
                 recent_img_path = null;
 
-                $("#inputphoto").val(' ');
+                // $("#inputphoto").val(' ');
 
 
             },

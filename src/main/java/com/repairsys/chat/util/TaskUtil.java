@@ -5,6 +5,7 @@ import com.repairsys.chat.ChatServer;
 import com.repairsys.chat.domain.User;
 import com.repairsys.code.ChatEnum;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.concurrent.*;
 
@@ -20,6 +21,9 @@ public final class TaskUtil {
     private static final ExecutorService executorService = new ThreadPoolExecutor(3,3,0L, TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(),NAMED_THREAD_FACTORY);
 
     private static final TaskUtil UTIL = new TaskUtil();
+    private LocalDate curDay = LocalDate.now();
+
+
     private TaskUtil(){}
     public static TaskUtil getInstance(){return UTIL;}
 
@@ -79,6 +83,10 @@ public final class TaskUtil {
         executorService.submit(new ConsumerTask(jsonObject));
     }
 
+    public void removeMessage()
+    {
+
+    }
 
 
 }
