@@ -7,7 +7,7 @@ $("body").delegate(".stuSend", "click", function () {
     // alert(123);
     if (recent_img_path != null) {
         $("#msg1").find("img").remove();
-        $("msg1").find("div").remove();
+        $("#msg1").find("div").remove();
         postData();
         recent_img_path = null;
 
@@ -16,45 +16,18 @@ $("body").delegate(".stuSend", "click", function () {
         sendMsg();
 
     }
+    down();
 
 });
 
-document.onkeydown = function (event) {        //在全局中绑定按下事件
-
-    var e = event || window.e;
-
-    var keyCode = e.keyCode || e.which;
-
-    switch (keyCode) {
-
-        case 13: {
-            if ($("#msg1").html() == "") {
-                return;
-            } else if (recent_img_path != null) {
-                $("#msg1").find("img").remove();
-                $("#msg1").find("div").remove();
-                postData();
-                recent_img_path = null;
-                down();
-
-            } else {
-                // alert(123);
-                sendMsg();
-
-            }
-
-
-            break;
+$(document).keyup(
+    function (event) {
+        if(event.keyCode==13)
+        {
+            $("#btn").trigger("click");
         }
-
-        case 27: {
-            window.location.href = "index.do?a=" + new Date();
-        }
-
     }
-
-};
-
+);
 
 function launch() {
     $(".contant").append('<div class="line"><div class="bg-green own">' + html_encode(html_decode(sectArea.value)) + '</div></div>');
@@ -288,9 +261,11 @@ contant.onscroll = function () {
 var input = document.getElementById("inputphoto");
 // 当用户上传时触发事件
 // var raw = null;
+var click = false;
 input.onchange = function () {
     // raw = $(input).clone();
     readFile(this);
+    document.getElementById("msg1").focus();
 };
 
 //处理图片并添加都dom中的函数
@@ -307,6 +282,9 @@ var readFile = function (obj) {
             let img = document.createElement('img');
             recent_img_path = this.result;
             img.src = recent_img_path;
+            $(".seatArea").children().remove();
+            $(".seatArea").find("br").remove();
+            $(".seatArea").empty();
             $(".seatArea").append(img);
         }
 
