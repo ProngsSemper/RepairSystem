@@ -26,6 +26,10 @@ $(document).keyup(
         {
             $("#btn").trigger("click");
         }
+        else if(event.keyCode== 27)
+        {
+            window.location.href = "index.do?d="+new Date();
+        }
     }
 );
 
