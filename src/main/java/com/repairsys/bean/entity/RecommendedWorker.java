@@ -36,6 +36,15 @@ public class RecommendedWorker{
     private String wName;
     private String wType;
     private String wTel;
+    private int wKey;
+
+    public int getwKey() {
+        return wKey;
+    }
+
+    public void setwKey(int wKey) {
+        this.wKey = wKey;
+    }
 
     public int getT9() {
         return t9;

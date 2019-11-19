@@ -26,6 +26,10 @@ $(document).keyup(
         {
             $("#btn").trigger("click");
         }
+        else if(event.keyCode== 27)
+        {
+            window.location.href = "index.do?d="+new Date();
+        }
     }
 );
 
@@ -261,7 +265,7 @@ contant.onscroll = function () {
 var input = document.getElementById("inputphoto");
 // 当用户上传时触发事件
 // var raw = null;
-var click = false;
+// var click = false;
 input.onchange = function () {
     // raw = $(input).clone();
     readFile(this);
@@ -289,6 +293,6 @@ var readFile = function (obj) {
         }
 
     }
-    lock = false;
+
 };
 
