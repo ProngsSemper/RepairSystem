@@ -16,7 +16,7 @@ $(document).ready(function () {
     var str = " 星期" + b[week];
     var str1 = year + '年' + month + '月' + day + '日';
     data.innerText = str1 + str;
-
+    // getMsg(1);
 });
 //监听返回按钮
 var bigBox = document.getElementsByClassName("bigBox")[0];
@@ -69,65 +69,69 @@ function getMsg(pageCount) {
         async: false,
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 10,
+            "limit": 15,
         }),
         success: function (msg) {
-            pageCount = parseInt(pageCount);
+            pageCount=parseInt(pageCount);
             var page = $(".page");
             $(".tableBox").html("");
             $(".page").html("");
             var data = msg.data;
             if ($(".page").children().length == 0) {
-                if (msg.totalPage <= 8) {
+                if(msg.totalPage<=8){
                     for (var i = 1; i <= msg.totalPage; i++) {
                         page.append('<span class="page-number">' + i + '</span>');
                         if (i == 1) {
                             $(".page-number").eq(0).addClass("cur");
                         }
                     }
-                } else {
-                    if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
-                        for (var i = 1; i <= 3; i++) {
+                }
+                else{
+                    if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                        for(var i=1;i<=3;i++){
                             page.append('<span class="page-number">' + i + '</span>');
                         }
-                        if (pageCount == 3) {
+                        if(pageCount==3){
                             page.append('<span class="page-number">4</span>')
                         }
                         page.append('<span>...</span>');
-                        for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
+                        for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                             page.append('<span class="page-number">' + i + '</span>');
                         }
                         $(".page-number").eq(0).addClass("cur");
-                    } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
+                    }
+                    else if(pageCount>3 && pageCount<msg.totalPage-2){
 
-                        if (pageCount != msg.totalPage - 3) {
+                        if(pageCount!=msg.totalPage-3){
                             page.append('<span class="page-number">1</span><span>...</span>');
-                            for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
+                            for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                        } else {
-                            for (var i = 1; i <= 3; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                            page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                         }
+                        else{
+                            for(var i=1;i<=3;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                            page.append('<span>...</span>');
+                            for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                page.append('<span class="page-number">' + i + '</span>');
+                            }
+                        }
+
 
 
                     }
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="contant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="checkDiv"></div><div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="contant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
                 $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="checkbox"><input type="checkbox" name="finish" class="check"></div>')
+                $(".grid-content").eq(i+1).append('<div class="checkDiv"><input type="checkbox" name="finish" class="check"></div>')
                 $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
@@ -309,11 +313,11 @@ function searchStuName(pageCount) {
         data: JSON.stringify({
             "stuName": stuName.value,
             "page": parseInt(pageCount),
-            "limit": 10,
+            "limit": 15,
         }),
         success: function (msg) {
             if (msg.code == 200) {
-                pageCount = parseInt(pageCount);
+                pageCount=parseInt(pageCount);
 
                 // console.log(msg);
                 // alert(msg.size);
@@ -323,52 +327,56 @@ function searchStuName(pageCount) {
                 var data = msg.data;
                 // console.log(data);
                 if ($(".page").children().length == 0) {
-                    if (msg.totalPage <= 8) {
+                    if(msg.totalPage<=8){
                         for (var i = 1; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                             if (i == 1) {
                                 $(".page-number").eq(0).addClass("cur");
                             }
                         }
-                    } else {
-                        if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
-                            for (var i = 1; i <= 3; i++) {
+                    }
+                    else{
+                        if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                            for(var i=1;i<=3;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
-                            if (pageCount == 3) {
+                            if(pageCount==3){
                                 page.append('<span class="page-number">4</span>')
                             }
                             page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             $(".page-number").eq(0).addClass("cur");
-                        } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
-
-                            if (pageCount != msg.totalPage - 3) {
+                        }
+                        else if(pageCount>3 && pageCount<msg.totalPage-2){
+    
+                            if(pageCount!=msg.totalPage-3){
                                 page.append('<span class="page-number">1</span><span>...</span>');
-                                for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
+                                for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                                 page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                            } else {
-                                for (var i = 1; i <= 3; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                                page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
+                                for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                             }
-
-
+                            else{
+                                for(var i=1;i<=3;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                                page.append('<span>...</span>');
+                                for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                            }
+    
+    
+    
                         }
                     }
                 }
-
+    
 
                 $(".tableBox").append('<div class="grid-content bg-purple-dark">' +
                     '<div class="formId">报修单号</div>' +
@@ -447,7 +455,7 @@ $("body").delegate('.iconSearch', 'click', function () {
     }
 });
 //监听点击页码操作
-number = 1;
+number=1;
 $("body").delegate(".page>span", "click", function () {
     number = $(this).html();
     if (searchFlag == 0) {
@@ -469,12 +477,12 @@ $("body").delegate(".page>span", "click", function () {
     }
     // $(this).addClass("cur");
     // $(this).siblings().removeClass("cur");
-    var pageNum = document.getElementsByClassName("page-number");
-    for (var i = 0; i < pageNum.length; i++) {
-        pageNum[i].className = "page-number";
+    var pageNum=document.getElementsByClassName("page-number");
+    for(var i=0;i<pageNum.length;i++){
+        pageNum[i].className="page-number";
     }
-    for (var i = 0; i < pageNum.length; i++) {
-        if ($(".page-number").eq(i).html() == number) {
+    for(var i=0;i<pageNum.length;i++){
+        if($(".page-number").eq(i).html()==number){
             $(".page-number").eq(i).addClass("cur")
         }
     }
@@ -486,7 +494,7 @@ $("body").delegate(".history-cha", "click", function () {
     historyNotice.style.display = "none";
 });
 //监听评价点击
-$("body").delegate(".percentage", "click", function () {
+$("body").delegate(".lookComment", "click", function () {
     historyNotice.style.display = "block";
 });
 //获得工人好评率
@@ -523,21 +531,21 @@ $.ajax({
     }
 })
 //获得工人完成的数据
-
+// getWorkerFinishOrder(1);
 
 function getWorkerFinishOrder(pageCount) {
     $.ajax({
         type: "POST",
         dataType: "json",
-        async:false,
         url: "/worker/complete/form",
+        async:false,
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 10,
+            "limit": 15,
         }),
         success: function (msg) {
             if (msg.code == 200) {
-                pageCount = parseInt(pageCount);
+                pageCount=parseInt(pageCount);
                 var data = msg.data;
                 // alert(msg.size);
                 var page = $(".page");
@@ -546,52 +554,56 @@ function getWorkerFinishOrder(pageCount) {
                 var data = msg.data;
                 console.log(data);
                 if ($(".page").children().length == 0) {
-                    if (msg.totalPage <= 8) {
+                    if(msg.totalPage<=8){
                         for (var i = 1; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                             if (i == 1) {
                                 $(".page-number").eq(0).addClass("cur");
                             }
                         }
-                    } else {
-                        if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
-                            for (var i = 1; i <= 3; i++) {
+                    }
+                    else{
+                        if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                            for(var i=1;i<=3;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
-                            if (pageCount == 3) {
+                            if(pageCount==3){
                                 page.append('<span class="page-number">4</span>')
                             }
                             page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             $(".page-number").eq(0).addClass("cur");
-                        } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
-
-                            if (pageCount != msg.totalPage - 3) {
+                        }
+                        else if(pageCount>3 && pageCount<msg.totalPage-2){
+    
+                            if(pageCount!=msg.totalPage-3){
                                 page.append('<span class="page-number">1</span><span>...</span>');
-                                for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
+                                for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                                 page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                            } else {
-                                for (var i = 1; i <= 3; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                                page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
+                                for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                             }
-
-
+                            else{
+                                for(var i=1;i<=3;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                                page.append('<span>...</span>');
+                                for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                            }
+    
+    
+    
                         }
                     }
                 }
-
+    
                 $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
                     '<div class="formId">报修单号</div>' +
                     '<div class="formNumber">学号</div>' +
@@ -630,11 +642,11 @@ function searchFinishstuName(stuName, pageCount) {
         url: "/worker/complete/stuName",
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 10,
+            "limit": 15,
             "stuName": stuName
         }),
         success: function (msg) {
-            pageCount = parseInt(pageCount);
+            pageCount=parseInt(pageCount);
             if (msg.code == 200) {
                 var data = msg.data;
                 // alert(msg.size);
@@ -644,52 +656,56 @@ function searchFinishstuName(stuName, pageCount) {
                 var data = msg.data;
                 console.log(data);
                 if ($(".page").children().length == 0) {
-                    if (msg.totalPage <= 8) {
+                    if(msg.totalPage<=8){
                         for (var i = 1; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                             if (i == 1) {
                                 $(".page-number").eq(0).addClass("cur");
                             }
                         }
-                    } else {
-                        if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
-                            for (var i = 1; i <= 3; i++) {
+                    }
+                    else{
+                        if(pageCount<=3 || pageCount>=msg.totalPage-2){
+                            for(var i=1;i<=3;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
-                            if (pageCount == 3) {
+                            if(pageCount==3){
                                 page.append('<span class="page-number">4</span>')
                             }
                             page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
+                            for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                             $(".page-number").eq(0).addClass("cur");
-                        } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
-
-                            if (pageCount != msg.totalPage - 3) {
+                        }
+                        else if(pageCount>3 && pageCount<msg.totalPage-2){
+    
+                            if(pageCount!=msg.totalPage-3){
                                 page.append('<span class="page-number">1</span><span>...</span>');
-                                for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
+                                for(var i=parseInt(pageCount)-1;i<=parseInt(pageCount)+1;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                                 page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                            } else {
-                                for (var i = 1; i <= 3; i++) {
-                                    page.append('<span class="page-number">' + i + '</span>');
-                                }
-                                page.append('<span>...</span>');
-                                for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
+                                for(var i=msg.totalPage-2;i<=msg.totalPage;i++){
                                     page.append('<span class="page-number">' + i + '</span>');
                                 }
                             }
-
-
+                            else{
+                                for(var i=1;i<=3;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                                page.append('<span>...</span>');
+                                for(var i=msg.totalPage-3;i<=msg.totalPage;i++){
+                                    page.append('<span class="page-number">' + i + '</span>');
+                                }
+                            }
+    
+    
+    
                         }
                     }
                 }
-
+    
 
                 $(".finishtableBox").append('<div class="finishgrid-content bg-purple-dark">' +
                     '<div class="formId">报修单号</div>' +
@@ -827,16 +843,15 @@ $("body").delegate(".bye", "click", function () {
     cancellation();
     window.location.href = "/login.html";
 })
-
 //批量操作
-function Batch_processing(arr) {
+function Batch_processing(arr){
     $.ajax({
         type: "post",
         url: "/worker/multi/queryCode",
-        data: JSON.stringify(arr),
-        async: false,
+        data:JSON.stringify(arr),
+        async:false,
         success: function (msg) {
-            if (msg.code == 201) {
+            if(msg.code==201){
                 alert("批量确认完成");
             }
         },
@@ -845,39 +860,38 @@ function Batch_processing(arr) {
         }
     })
 }
-
 //监听全选按钮
-$(".selectAll").on('click', function () {
-    $("input[name='finish']").prop("checked", this.checked);
-});
+$(".selectAll").on('click',function() {  
+    $("input[name='finish']").prop("checked", this.checked);  
+});  
 //监听批量处理按钮
-var allInput = document.getElementsByClassName("check");
-$("body").delegate(".selectFinish", "click", function () {
+var allInput=document.getElementsByClassName("check");
+$("body").delegate(".selectFinish","click",function(){
     // var arr=[
     //     {"stuMail":"798237844@qq.com","queryCode":2,"formId":146,"appointDate":"2019-11-08","appointment":"16"},
     //     {"stuMail":"798237844@qq.com","queryCode":2,"formId":149,"appointDate":"2019-11-08","appointment":"9"}
     // ];
-    var arr = [];
-    for (var i = 0; i < allInput.length; i++) {
-        if (allInput[i].checked) {
-            var formId = $(".grid-content").eq(i + 1).attr("formId");
-            var stuMail = $(".grid-content").eq(i + 1).attr("stuMail");
-            var appointDate = $(".grid-content").eq(i + 1).attr("appointDate");
-            var appointment = $(".grid-content").eq(i + 1).attr("appointment");
-            var obj = {
-                "stuMail": stuMail,
-                "queryCode": 2,
-                "formId": formId,
-                "appointDate": appointDate,
-                "appointment": appointment
+    var arr=[];
+    for(var i=0;i<allInput.length;i++){
+        if(allInput[i].checked){
+            var formId=$(".grid-content").eq(i+1).attr("formId");
+            var stuMail=$(".grid-content").eq(i+1).attr("stuMail");
+            var appointDate=$(".grid-content").eq(i+1).attr("appointDate");
+            var appointment=$(".grid-content").eq(i+1).attr("appointment");
+            var obj={
+                "stuMail":stuMail,
+                "queryCode":2,
+                "formId":formId,
+                "appointDate":appointDate,
+                "appointment":appointment
             };
             arr.push(obj);
         }
 
     }
     console.log(arr);
-    var judge = confirm("确认批量处理报修单");
-    if (judge) {
+    var judge=confirm("确认批量处理报修单");
+    if(judge){
         Batch_processing(arr);
         getMsg(number);
     }

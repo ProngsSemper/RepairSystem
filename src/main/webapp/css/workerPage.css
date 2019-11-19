@@ -4,6 +4,9 @@
     text-decoration: none;
     list-style: none;
 }
+html{
+    background: #fcf9f5;
+}
 .main{
     display: flex;
     height: auto;
@@ -12,22 +15,32 @@
 }
 .leftNav{
     width: 200px;
-    height: 875px;
+    height: 1010px;
     background: #8e0b02;
 }
-.leftNav img{
+.protrait{
     display: block;
-    margin: 20px auto;
-    width: 100px;
+    margin: 20px auto 0;
+    width: 150px;
+
+}
+.leftNav .navImg{
+    display: inline-block;
+    margin: 20px;
+    width: 72px;
+    vertical-align: middle;
     cursor: pointer;
 }
 .split{
-    height: 20px;
+    /* height: 20px; */
+    position: relative;
     background: #8e0b02;
 }
 .order-tit{
-    display: block;
-    margin-top: -10px;
+    display: inline-block;
+    /* margin-top: -10px; */
+    font-size: 18px;
+    vertical-align: middle;
     color: #fff;
     text-align: center;
 }
@@ -136,29 +149,30 @@ option{
     outline-color: #8e0b02;
 }
 .bg-purple-dark {
-    color: #ffff;
-    background: #7f92ac;
+    color: #333;
+    /* background: #7f92ac; */
 }
 .bg-purple {
-    background: #d3dce6;
+    /* background: #d3dce6; */
 
 }
 .bg-purple-light {
-    background: #e5e9f2;
+    /* background: #e5e9f2; */
 }
 .grid-content {
-    border-radius: 4px;
+    /* border-radius: 4px; */ 
+    border-bottom: 1px solid #888;
     min-height: 36px;
     display: flex;
-    width: 900px;
+    width: 980px;
     margin: 0 auto;
 }
 .finishgrid-content {
-    border-radius: 4px;
     min-height: 36px;
     display: flex;
     width: 900px;
     margin: 0 auto;
+    border-bottom: 1px solid;
 }
 .row-bg {
     padding: 10px 0;
@@ -168,7 +182,7 @@ option{
     text-align: center;;
     /* background: #fff; */
     justify-content:center;
-    width: 370px;
+    width: 450px;
     flex-wrap:nowrap;
     line-height: 36px;
     display: -webkit-box;
@@ -228,6 +242,7 @@ option{
     width: 530px;
 }
 .tableBox{
+    border: 1px solid #333;
     margin: 50px auto 0;
     width: 1000px;
 }
@@ -250,9 +265,9 @@ option{
     background: #8e0b02;
 }
 .grid-content:hover{
-    width: 1000px;
+    /* width: 1000px; */
     margin: 0 auto;
-    transform: .6s;
+    /* transform: .6s; */
 }
 .operatrContant{
     height: auto;
@@ -267,9 +282,13 @@ option{
     vertical-align: middle;
 }
 .orderInside{
-    margin: 0 auto;
+    margin: 0px auto 20px;
     width: 600px;
-    background: #fff;
+    height: 800px;
+    /* background: #fff; */
+    background-image: url(../img/board.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 .ordertit{
     margin: 10px 0 ;
@@ -285,22 +304,23 @@ option{
 } 
 .orderInformation{
     position: relative;
+    top: 116px;
     border-radius: 20px;
     height: 550px;
-    background: #eee;
+    /* background: #eee; */
 }
 .orderInsideBox{
     position: relative;
     top: 25px;
     margin: 0px auto;
-    width: 400px;
+    width: 500px;
     height: 500px;
     overflow: auto;
     /* background: #000; */
 }
 .orderInsideBox p{
-    margin: 10px 0 0 0 ;
-    max-width: 400px;
+    margin: 10px 0 0 18px;
+    max-width: 450px;
 }
 .orderInsideBox img{
     margin: 20px;
@@ -310,7 +330,7 @@ option{
 .footButton{
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 145px 0 0px 0;
 }
 .Button{
     position: relative;
@@ -318,7 +338,7 @@ option{
     border-radius: 10px;
     width: 150px;
     height: 40px;
-    background: #f99b3f;
+    background: #a43b33;
     margin: 0 10px;
     cursor: pointer;
 }
@@ -328,6 +348,7 @@ button:focus{
     /* border-radius: 10px; */
 }
 .Button span{
+    color: #fff;
     margin-left: 20px;
 }
 .iconfinfish{
@@ -350,12 +371,12 @@ button:focus{
 }
 .finish{
     /* width: 800px; */
-    height: 430px;
+    height: auto;
     /* background: #000; */
 }
 .order{
     position: relative;
-    height: 430px;
+    height: auto;
 }
 .returntable{
     display: none;
@@ -377,25 +398,21 @@ button:focus{
     cursor: pointer;
 }
 .firstComment{
-    display: inline-block;
-    width: 150px;
-    height: 100px;
-    right: 166px;
-    position: absolute;
-    /* background: #000; */
+    margin-top: 20px;
 }
 .comment-tit{
-    display: block;
+    display: inline-block;
     /* padding: 10px; */
-    margin: 5px;
-    color: #333;
+    margin: 5px 0 0 43px;
+    color: #fff;
     font-size: 20px;
 }
 .percentage{
     text-align: center;
-    font-size: 40px;
-    color: #ff0000;
+    font-size: 23px;
+    color: #fff;
     cursor: pointer;
+    display: inline-block;
 }
 .historyNotice{
     position: absolute;
@@ -481,9 +498,7 @@ button:focus{
 .finishtableBox{
     margin: 50px auto 0;
 }
-#first:hover{
-    width: 900px;
-}
+
 .batchBox{
     width: 900px;
     margin: 0 auto;
@@ -495,4 +510,20 @@ button:focus{
 .selectFinish{
     height: 25px;
     margin: 0 0 0 5px;
+}
+.goodEvaluation{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    left: 8px;
+    top: 2px;
+    background-image: url(../img/good.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.lookComment{
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 18px;
 }
