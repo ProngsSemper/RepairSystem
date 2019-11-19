@@ -57,7 +57,7 @@ function createWebSocket() {
     try {
         if ('WebSocket' in window) {
             ws = new WebSocket(url);
-            if(++connectCount>20)
+            if(connectCount>20)
             {
                 ws.close();
                 window.location.href="index.do?a="+new Date();

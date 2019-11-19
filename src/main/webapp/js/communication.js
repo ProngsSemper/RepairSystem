@@ -265,7 +265,7 @@ contant.onscroll = function () {
 var input = document.getElementById("inputphoto");
 // 当用户上传时触发事件
 // var raw = null;
-var click = false;
+// var click = false;
 input.onchange = function () {
     // raw = $(input).clone();
     readFile(this);
@@ -293,6 +293,6 @@ var readFile = function (obj) {
         }
 
     }
-    lock = false;
+
 };
 
