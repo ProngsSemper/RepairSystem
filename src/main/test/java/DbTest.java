@@ -39,7 +39,7 @@ public class DbTest {
         List<RecommendedWorker> list = WorkerScheule.getInstance().recommendByAppointmemntPlusPlus(new Date(System.currentTimeMillis())
         ,9,"木工","北"
         );
-        list.forEach(System.out::println);
+        list.forEach(i-> System.out.println(i.getwKey()));
 
 
     }

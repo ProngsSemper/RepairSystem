@@ -355,7 +355,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         return carryZero;
     }
 
-    private static final String RECOMMENDSQL_WORKER = "select DISTINCT  w.wType,w.wName,w.wMail,w.wTel,FLAG,( t9+t10+t11+t14+t15+t16+t17+t18) as total,(select count(*) from form where appointDate=? and left(room,1) =? and wkey = w.wkey) locationCount  from workers w \n" +
+    private static final String RECOMMENDSQL_WORKER = "select DISTINCT w.wkey, w.wType,w.wName,w.wMail,w.wTel,FLAG,( t9+t10+t11+t14+t15+t16+t17+t18) as total,(select count(*) from form where appointDate=? and left(room,1) =? and wkey = w.wkey) locationCount  from workers w \n" +
             "left JOIN wtime wt on w.wKey = wt.wKey \n" +
             "left join form on form.wKey = w.wKey\n" +
             "\t\t\n" +
