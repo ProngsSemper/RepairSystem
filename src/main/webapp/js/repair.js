@@ -922,7 +922,7 @@ function searchFinishStudName(stuName, pageCount) {
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                    '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
                     $(".grid-content").eq(i + 1).addClass("bg-purple");
                 } else {
@@ -953,52 +953,7 @@ function searchFinishFormId(formId) {
             var page = $(".page");
             $(".tableBox").html("");
             var data = msg.data;
-            if ($(".page").children().length == 0) {
-                if (msg.totalPage <= 8) {
-                    for (var i = 1; i <= msg.totalPage; i++) {
-                        page.append('<span class="page-number">' + i + '</span>');
-                        if (i == 1) {
-                            $(".page-number").eq(0).addClass("cur");
-                        }
-                    }
-                } else {
-                    if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
-                        for (var i = 1; i <= 3; i++) {
-                            page.append('<span class="page-number">' + i + '</span>');
-                        }
-                        if (pageCount == 3) {
-                            page.append('<span class="page-number">4</span>')
-                        }
-                        page.append('<span>...</span>');
-                        for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                            page.append('<span class="page-number">' + i + '</span>');
-                        }
-                        $(".page-number").eq(0).addClass("cur");
-                    } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
 
-                        if (pageCount != msg.totalPage - 3) {
-                            page.append('<span class="page-number">1</span><span>...</span>');
-                            for (var i = parseInt(pageCount) - 1; i <= parseInt(pageCount) + 1; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                            page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                        } else {
-                            for (var i = 1; i <= 3; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                            page.append('<span>...</span>');
-                            for (var i = msg.totalPage - 3; i <= msg.totalPage; i++) {
-                                page.append('<span class="page-number">' + i + '</span>');
-                            }
-                        }
-
-
-                    }
-                }
-            }
 
             $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             // for (var i = 0; i < msg.size; i++) {
@@ -1007,7 +962,7 @@ function searchFinishFormId(formId) {
                 '<div class="formNumber">' + data[0].stuId + '</div>' +
                 '<div class="adress">' + data[0].room + '</div>' +
                 '<div class="listcontant">' + data[0].formMsg + '</div>' +
-                '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                '<div class="operate">已处理</div>')
             // if (i % 2 == 0) {
             $(".grid-content").eq(1).addClass("bg-purple");
             // } else {
@@ -1094,7 +1049,7 @@ function searchFinishwName(wName, pageCount) {
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                    '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
                     $(".grid-content").eq(i + 1).addClass("bg-purple");
                 } else {
@@ -1180,7 +1135,7 @@ function searchFinishwType(wType, pageCount) {
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                    '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
                     $(".grid-content").eq(i + 1).addClass("bg-purple");
                 } else {
@@ -1367,7 +1322,7 @@ function searchFinishSouthOrNorth(location, pageCount) {
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
-                    '<div class="operate"><a href="javascript:;" class="deal">完成</a></div>')
+                    '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
                     $(".grid-content").eq(i + 1).addClass("bg-purple");
                 } else {
