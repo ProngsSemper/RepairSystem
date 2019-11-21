@@ -4,6 +4,9 @@
     list-style: none;
     text-decoration: none;
 }
+html{
+    background: #fcf9f5;
+}
 .bg{
     display: flex;
     justify-content: center;
@@ -16,12 +19,16 @@
     width: 1260px;
     height: 100%;
     /* background: #000; */
+    background-image: url(../img/left.png),url(../img/right.png);
+    background-position: 28px 62px,935px 57px;
+    background-size: 25%;
+    background-repeat: no-repeat;
 }
 .noticeInside{
     position: relative;
     margin: 80px auto 0;
-    width: 800px;
-    height: 400px;
+    width: 500px;
+    height: 430px;
     background: #8e0b02;
 }
 .notice-tit{
@@ -36,7 +43,7 @@
 .textArea{
     display: block;
     margin: 10px auto;
-    width: 645px;
+    width: 415px;
     height: 288px;
     resize: none;
     font-size: 22px;
@@ -67,4 +74,11 @@
     background-image: url(../img/icon-fanhui.png);
     background-size: contain;
     cursor: pointer;
+}
+.notice-tit img{
+    display: block;
+    position: relative;
+    width: 80px;
+    margin: 0px auto;
+    top: 8px;
 }
