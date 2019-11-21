@@ -1,20 +1,23 @@
-*{
+* {
     padding: 0;
     margin: 0;
     text-decoration: none;
     list-style: none;
     font-family: arial;
 }
-body{
+
+body {
     margin: 0 auto;
 }
-.head{
+
+.head {
     position: relative;
     width: 1519px;
     height: 95px;
     margin: 0 auto;
 }
-.head .logo{
+
+.head .logo {
     position: absolute;
     width: 300px;
     top: 15px;
@@ -22,34 +25,39 @@ body{
     z-index: 1;
     /* margin: 20px 0 0 20px; */
 }
-.head .name{
+
+.head .name {
     position: absolute;
     top: 27px;
     left: 560px;
     width: 200px;
     z-index: 1;
 }
-.nav{
+
+.nav {
     /* position: relative; */
     /* float: left; */
 
     background: #8e0b02;
 
 }
-.navLi{
+
+.navLi {
     width: 1260px;
     height: 50px;
-    text-align:center;
+    text-align: center;
     margin: 0 auto;
 }
-.navLi ul{
+
+.navLi ul {
     width: 100%;
     height: 50px;
     /* margin: 0 0 0 177px;
     overflow: hidden; */
     text-align: center;
 }
-.navLi .index{
+
+.navLi .index {
     display: inline-block;
     /* float: left; */
     /* padding: 0 100px; */
@@ -61,7 +69,7 @@ body{
     cursor: pointer;
 }
 
-.contant{
+.contant {
     margin: 40px auto 0px;
     width: 1260px;
     height: auto;
@@ -69,7 +77,8 @@ body{
     /* overflow: auto;
     background-image: url(../img/bg-gonggao.png); */
 }
-.contant .notice{
+
+.contant .notice {
     border-radius: 5px;
     float: left;
     position: relative;
@@ -83,7 +92,8 @@ body{
     background-size: 60%;
     background-position: right bottom;
 }
-.contant .onlinerepair{
+
+.contant .onlinerepair {
     position: relative;
     float: left;
     border-radius: 5px;
@@ -97,7 +107,8 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.process{
+
+.process {
     float: left;
     border-radius: 5px;
 
@@ -109,11 +120,13 @@ body{
     text-align: center;
     background-size: 40%;
 }
-.process img{
+
+.process img {
     margin-top: 40px;
     height: 270px;
 }
-.tit{
+
+.tit {
     margin-top: 25px;
     text-align: center;
     color: #fff;
@@ -121,7 +134,8 @@ body{
     font-weight: normal;
     line-height: 40px;
 }
-.contant-tit{
+
+.contant-tit {
     margin: 5px 7px 0;
     color: #fff;
     /* text-indent: 2em; */
@@ -129,17 +143,19 @@ body{
     line-height: 40px;
     padding: 0 10px;
 }
-.inside-box{
+
+.inside-box {
     float: left;
     /* background: yellow; */
     /* margin: 25px auto 0 ; */
-    margin: 55px 0 0 55px ;
+    margin: 55px 0 0 55px;
     border: 1px solid #eee;
     width: 500px;
     height: 350px;
     background: #fff;
 }
-.icontie{
+
+.icontie {
     position: absolute;
     width: 80px;
     height: 80px;
@@ -149,7 +165,8 @@ body{
     background-repeat: no-repeat;
     background-size: contain;
 }
-.pen{
+
+.pen {
     position: absolute;
     bottom: 12px;
     right: 229px;
@@ -159,36 +176,42 @@ body{
     background-repeat: no-repeat;
     background-size: contain;
 }
-.online-tit{
+
+.online-tit {
     color: #333;
 }
-.changeNotice{
+
+.changeNotice {
     padding: 0 45px;
     font-size: 20px;
 }
-.worker{
+
+.worker {
     position: absolute;
     height: 93px;
     right: 331px;
     bottom: 0px;
     bottom: -7px;
 }
-.toolCase{
+
+.toolCase {
     position: absolute;
     height: 105px;
     right: 417px;
     bottom: -7px;
 }
-.date{
+
+.date {
     float: left;
     display: block;
     position: absolute;
-    bottom: 20px;
-    right: 25px;;
+    bottom: 60px;
+    right: 266px;
     font-size: 18px;
     color: #333;
 }
-.imformation{
+
+.imformation {
     margin: 0 auto;
     /* border: 1px solid #888; */
     border-radius: 5px;
@@ -196,36 +219,41 @@ body{
     width: 900px;
     background: #fff;
 }
-.hide{
+
+.hide {
     display: none;;
 }
 
-.top-tit{
+.top-tit {
     width: 100%;
     margin-top: 10px;;
     height: 80px;
     /* background: #000; */
 
 }
-.repair-tit{
+
+.repair-tit {
     float: right;
     margin: 0px 20px 0px 0;
     width: 200px;
     height: 80px;
     /* background: #fff; */
 }
-.chinaName{
+
+.chinaName {
     color: #f99b3f;
     font-size: 25px;
     font-weight: bold;
     text-align: center;
 }
-.englishName{
+
+.englishName {
     font-size: 18px;;
     text-align: center;
     line-height: 25px;;
 }
-.insideContant{
+
+.insideContant {
     float: left;
     position: relative;
     margin: 100px auto 0;
@@ -233,7 +261,8 @@ body{
     width: 900px;
     height: 350px;
 }
-.repairName{
+
+.repairName {
     display: block;
     border: 1px solid #373737;
     margin: 0 auto;
@@ -244,13 +273,15 @@ body{
     text-align: center;
     line-height: 30px;
 }
-.form{
+
+.form {
     margin: 40px auto;
     width: 500px;
     height: 280px;
     /* background: #000; */
 }
-.form .repair-information{
+
+.form .repair-information {
     /* display: block; */
     /* margin: 0 auto; */
     width: 250px;
@@ -258,56 +289,68 @@ body{
     font-size: 18px;
     text-indent: 4px;
 }
-.form .inputEmail{
+
+.form .inputEmail {
     width: 150px;
 }
-#email{
+
+#email {
     position: relative;
     height: 29.5px;
     top: -1.5px;
     margin-left: -5px;
 }
-.form .spanStyle{
+
+.form .spanStyle {
     display: inline-block;
     margin-right: 25px;
     width: 100px;
     text-align: right;
 }
-.formBlock{
+
+.formBlock {
     position: relative;
     margin-top: 15px;;
 }
-.formBlock>select{
+
+.formBlock > select {
     margin: 0 8px 0 -2px;
     height: 26px;
 }
-.formBlock>select>option{
+
+.formBlock > select > option {
     margin: 0 8px 0 -2px;
     height: 25px;
 }
-.dormitoryNumber{
+
+.dormitoryNumber {
     width: 100px;
     height: 24px;
     text-indent: 1em;
 }
-.pos{
+
+.pos {
     margin-top: -40px;;
 }
-.radios{
-    margin:0 10px 0 8px;
+
+.radios {
+    margin: 0 10px 0 8px;
 }
-.form .appoint{
+
+.form .appoint {
     width: 150px;
     height: 20px;;
     font-size: 14px;
 }
-.textareaStyle{
+
+.textareaStyle {
     font-size: 18px;;
     vertical-align: top;
     resize: none;
     text-indent: 4px;
 }
-.handIn{
+
+.handIn {
     display: block;
     margin: 0 auto;
     border: none;
@@ -318,7 +361,8 @@ body{
     line-height: 35px;
     background: #a33a32;
 }
-.iconHandin{
+
+.iconHandin {
     position: absolute;
     top: 8px;
     left: 215px;
@@ -328,17 +372,20 @@ body{
     background-size: contain;
     background-repeat: no-repeat;;
 }
-.handin-tit{
+
+.handin-tit {
     display: inline-block;
     margin-left: 24px;
     /* font-weight: bold; */
     font-size: 16px;
     color: #fff;
 }
-.handIn:focus{
+
+.handIn:focus {
     outline: none;
 }
-.findOrder{
+
+.findOrder {
     position: relative;
     margin: 0 auto;
     border: 1px solid #888;
@@ -347,7 +394,8 @@ body{
     /* height: 1000px; */
     /* background: #000; */
 }
-.iconClip{
+
+.iconClip {
     position: absolute;
     top: -13px;
     right: 80px;
@@ -357,10 +405,12 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.overChange{
+
+.overChange {
     overflow: initial;
 }
-.iconLabel{
+
+.iconLabel {
     width: 150px;
     height: 50px;
     margin: 10px 0 0 -83px;
@@ -368,34 +418,40 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.curLabel{
+
+.curLabel {
     width: 200px;
     height: 70px;
 }
-.iconLabel:hover{
+
+.iconLabel:hover {
     margin-left: -70px;
     /*transform: all .5s;*/
 }
-.label-tit{
+
+.label-tit {
     margin-left: 10px;
     text-align: center;
     font-size: 18px;
     color: #fff;
     line-height: 50px;
 }
-.cur-tit{
+
+.cur-tit {
     font-size: 24px;
     line-height: 70px;
     margin-left: 20px;
 }
-.orderContant{
+
+.orderContant {
     margin: 0 auto;
     /* border: 1px solid #eee; */
     width: 800px;
     height: 800px;
     margin-top: -113px;
 }
-.order{
+
+.order {
     position: relative;
     margin: 40px auto;
     width: 700px;
@@ -403,7 +459,8 @@ body{
     border: 1px solid #eee;
     box-shadow: 6px 4px 6px 0px #888888;
 }
-.finishorder{
+
+.finishorder {
     position: relative;
     margin: 40px auto;
     width: 700px;
@@ -411,8 +468,8 @@ body{
     border: 1px solid #eee;
     box-shadow: 6px 4px 6px 0px #888888;
 }
-.yellowLabel
-{
+
+.yellowLabel {
     position: absolute;
     top: -1px;
     /* right: 80px; */
@@ -423,7 +480,8 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.order .state-tit{
+
+.order .state-tit {
     position: absolute;
     left: 40px;
     top: 6px;
@@ -436,7 +494,8 @@ body{
     text-align: center;
 
 }
-.finishorder .finishstate-tit{
+
+.finishorder .finishstate-tit {
     position: absolute;
     left: 40px;
     top: 6px;
@@ -449,31 +508,36 @@ body{
     text-align: center;
 
 }
-.order .orderInformation{
+
+.order .orderInformation {
     width: 400px;
     height: 130px;
     margin: 25px auto;
     /* border: 1px solid #8e0b02; */
 }
-.finishorder .finishorderInformation{
+
+.finishorder .finishorderInformation {
     width: 400px;
     height: 130px;
     margin: 25px auto;
     /* border: 1px solid #8e0b02; */
 }
-.orderInformation .orderInside{
+
+.orderInformation .orderInside {
     float: left;
-    width:250px;
+    width: 250px;
     height: 130px;
     /* background: #000; */
 }
-.finishorderInformation .finishorderInside{
+
+.finishorderInformation .finishorderInside {
     float: left;
-    width:250px;
+    width: 250px;
     height: 130px;
     /* background: #000; */
 }
-.orderInformation .orderImg{
+
+.orderInformation .orderImg {
     display: inline-block;
     width: 150px;
     height: 120px;
@@ -481,7 +545,8 @@ body{
     background-size: contain;
     background-repeat: no-repeat;;
 }
-.finishorderInformation .finishorderImg{
+
+.finishorderInformation .finishorderImg {
     display: inline-block;
     width: 150px;
     height: 120px;
@@ -489,36 +554,38 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.order-tit
-{
+
+.order-tit {
     margin: 5px;
     font-weight: bold;
     font-size: 16px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp:1;
+    -webkit-line-clamp: 1;
     overflow: hidden;
 }
-.finishorder-tit
-{
+
+.finishorder-tit {
     margin: 5px;
     font-weight: bold;
     font-size: 16px;
 }
-.orderImg img{
+
+.orderImg img {
     display: block;
     margin: 2px auto;
     width: 150px;
     height: 120px;
 }
-.finishorderImg img{
+
+.finishorderImg img {
     display: block;
     margin: 2px auto;
     width: 150px;
     height: 120px;
 }
-.finish
-{
+
+.finish {
     position: absolute;
     bottom: 10px;
     right: 30px;
@@ -529,8 +596,8 @@ body{
     background: #fff;
     cursor: pointer;
 }
-.comment
-{
+
+.comment {
     position: absolute;
     bottom: 10px;
     right: 30px;
@@ -541,10 +608,12 @@ body{
     background: #fff;
     cursor: pointer;
 }
-.comment:focus{
+
+.comment:focus {
     outline: none;
 }
-.again{
+
+.again {
     position: absolute;
     bottom: 10px;
     right: 110px;
@@ -555,7 +624,8 @@ body{
     background: #fff;
     cursor: pointer;
 }
-.page{
+
+.page {
     float: right;
     width: 250px;
     height: 30px;
@@ -565,11 +635,13 @@ body{
     right: 70px;
     bottom: 70px;
 }
-.page>.cur{
+
+.page > .cur {
     color: #fff;
     background: #8e0b02;
 }
-.page-number{
+
+.page-number {
     display: inline-block;
     margin: 5px 5px;
     padding: 0 5px;
@@ -580,7 +652,8 @@ body{
     color: #000;
     cursor: pointer;
 }
-.againDiv{
+
+.againDiv {
     /* float: left; */
     position: absolute;
     width: 100%;
@@ -588,7 +661,8 @@ body{
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
-.againTime{
+
+.againTime {
     position: relative;
     /* top: 50%; */
     /* margin-top: -300px; */
@@ -597,7 +671,8 @@ body{
     height: 300px;
     background: #ffffffd9;
 }
-.again-tit{
+
+.again-tit {
     display: block;
     position: absolute;
     top: 20px;
@@ -606,18 +681,21 @@ body{
     font-weight: bold;
     color: #333;
 }
-.againSelectTime{
+
+.againSelectTime {
     position: absolute;
     display: inline-block;
     top: 100px;
     left: 20px;
     margin: 0 auto;
 }
-.againSelectTime select{
+
+.againSelectTime select {
     width: 100px;
     height: 40px;
 }
-.againInsure{
+
+.againInsure {
     position: absolute;
     bottom: 20px;
     border: none;
@@ -633,10 +711,12 @@ body{
     font-size: 18px;
     cursor: pointer;
 }
-.againInsure:focus{
+
+.againInsure:focus {
     outline: none;
 }
-.icon-cha{
+
+.icon-cha {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -646,7 +726,8 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-.finishOrderContant{
+
+.finishOrderContant {
     margin: 0 auto;
     margin-top: -113px;
     /* border: 1px solid #eee; */
@@ -654,14 +735,16 @@ body{
     height: 800px;
     /* background: #000; */
 }
-.evaluate{
+
+.evaluate {
     position: absolute;
     width: 100%;
     height: 1113px;
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
-.evaluateBox{
+
+.evaluateBox {
     position: relative;
     /* top: 50%; */
     /* margin-top: -300px; */
@@ -670,7 +753,8 @@ body{
     height: 370px;
     background: #ffffffd9;
 }
-.evaluateBox-tit{
+
+.evaluateBox-tit {
     display: block;
     position: absolute;
     top: 20px;
@@ -678,49 +762,59 @@ body{
     font-size: 22px;
     font-weight: bold;
 }
-.flowerEvaluate{
+
+.flowerEvaluate {
     position: relative;
     top: 56px;
     margin: 0 auto;
     width: 322px;
     height: 30px;
 }
-.iconattitude{
+
+.iconattitude {
     position: absolute;
     width: 30px;
     height: 30px;
     background-size: contain;
     background-repeat: no-repeat;
 }
-.icon-good{
+
+.icon-good {
     background-image: url(../img/good.png);
 }
-.icon-middle{
+
+.icon-middle {
     background-image: url(../img/middle.png);
 }
-.icon-bad{
+
+.icon-bad {
     background-image: url(../img/bad.png);
 }
-.attitudeRadio>span{
+
+.attitudeRadio > span {
     line-height: 30px;
     margin-left: 35px;
 }
-.attitudeRadio{
+
+.attitudeRadio {
     display: inline-block;
     margin-left: 20px;
 }
-.commentArea{
+
+.commentArea {
     font-size: 18px;;
     vertical-align: top;
     resize: none;
 }
-.textEvaluate{
+
+.textEvaluate {
     top: 75px;
     width: 300px;
     position: relative;
     margin: 0 auto;
 }
-.evaluateSure{
+
+.evaluateSure {
     position: absolute;
     bottom: 15px;
     border: none;
@@ -736,7 +830,8 @@ body{
     font-size: 18px;
     cursor: pointer;
 }
-.icon-chaa{
+
+.icon-chaa {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -746,7 +841,8 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-.bye{
+
+.bye {
     position: absolute;
     top: 8px;
     right: 10px;
@@ -756,7 +852,8 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-#inputphoto{
+
+#inputphoto {
     position: absolute;
     bottom: 0px;
     /* right: 90px; */
@@ -767,7 +864,8 @@ body{
     z-index: 3;
     cursor: pointer;
 }
-.photo{
+
+.photo {
     width: 50px;
     height: 50px;
     position: absolute;
@@ -775,10 +873,11 @@ body{
     right: 300px;
     cursor: pointer;
 }
-.history{
+
+.history {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 191px;
+    top: 26px;
     width: 40px;
     height: 40px;
     background-repeat: no-repeat;
@@ -786,14 +885,16 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-.historyNotice{
+
+.historyNotice {
     position: absolute;
     width: 100%;
     height: 1113px;
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
-.historyBox{
+
+.historyBox {
     position: relative;
     /* top: 50%; */
     /* margin-top: -300px; */
@@ -802,7 +903,8 @@ body{
     height: 570px;
     background: #ffffffd9;
 }
-.history-cha{
+
+.history-cha {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -812,7 +914,8 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-.history-tit{
+
+.history-tit {
     display: block;
     /* position: absolute;
     top: 20px; */
@@ -822,25 +925,29 @@ body{
     font-weight: bold;
     color: #333;
 }
-.historyContant{
+
+.historyContant {
     margin: 0 auto 20px;
     width: 700px;
     height: 420px;
     /* background: #000; */
     overflow: auto;
 }
-.history-page{
+
+.history-page {
     float: right;
     margin-right: 100px;
 }
-.history-Number{
+
+.history-Number {
     background: seagreen;
     color: #fff;
     padding: 0px 5px;
     font-size: 20px;
     margin: 5px;
 }
-.boardMsg{
+
+.boardMsg {
     display: inline-block;
     width: 420px;
     padding: 0 10px;
@@ -848,7 +955,8 @@ body{
     line-height: 30px;
     min-height: 30px;
 }
-.his-date{
+
+.his-date {
     display: inline-block;
     width: 170px;
     text-align: center;
@@ -856,12 +964,14 @@ body{
     min-height: 30px;
     /* height: 300px; */
 }
-.historyInside{
+
+.historyInside {
     /* background: #eee; */
     border-bottom: 1px solid #888;
     margin: 10px 0;
 }
-.saveImg{
+
+.saveImg {
     position: absolute;
     width: 200px;
     height: 50px;
@@ -871,12 +981,14 @@ body{
     right: 90px;
     overflow: hidden;
 }
-.saveImg img{
+
+.saveImg img {
     height: 50px;
     width: 60px;
     margin-left: 5px;
 }
-.progressBat{
+
+.progressBat {
     position: absolute;
     bottom: 5px;
     left: 145px;
@@ -885,71 +997,85 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.progressFirst{
+
+.progressFirst {
     background-image: url(../img/jindu1.png);
 }
-.progressSecond{
+
+.progressSecond {
     background-image: url(../img/jindu2.png);
 }
-.progressThird{
+
+.progressThird {
     background-image: url(../img/jindu3.png);
 }
-.progressWrong{
+
+.progressWrong {
     width: 200px;
     background-image: url(../img/yichang.png);
 }
+
 .mynav {
-    width:800px;
-    margin:50px auto;
-    display:inline-block;
+    width: 800px;
+    margin: 50px auto;
+    display: inline-block;
 }
+
 .item {
-    width:200px;
-    height:50px;
-    float:left;
-    perspective:4000px;
-    -webkit-perspective:4000px;
-    margin-right:8px;
+    width: 200px;
+    height: 50px;
+    float: left;
+    perspective: 4000px;
+    -webkit-perspective: 4000px;
+    margin-right: 8px;
 }
+
 .item a {
-    text-decoration:none;
-    display:block;
-    height:50px;
-    transform-style:preserve-3d;
-    -webkit-transform-style:preserve-3d;
-    transition:all 1s;
-    -webkit-transition:all 1s;
+    text-decoration: none;
+    display: block;
+    height: 50px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    transition: all 1s;
+    -webkit-transition: all 1s;
 }
+
 .item a:hover {
-    transform:rotateX(90deg);
+    transform: rotateX(90deg);
     /*-webkit-rotateX:(90deg);*/
 }
+
 .item a p {
-    text-align:center;
-    line-height:50px;
-    height:50px;
+    text-align: center;
+    line-height: 50px;
+    height: 50px;
     /* font-family:"微软雅黑"; */
-    color:white;
-    font-size:20px;
-    margin:0px;
-    border-radius:3px;
+    color: white;
+    font-size: 20px;
+    margin: 0px;
+    border-radius: 3px;
 }
+
 .item a p:first-child {
-    background-color:#8e0b02;
-    transform:translateZ(25px);
+    background-color: #8e0b02;
+    transform: translateZ(25px);
 }
+
 .item a p:last-child {
-    background-color:#ffffffd9;
-    transform:rotateX(-90deg) translateZ(-25px);
-    -webkit-transform:rotateX(-90deg) translateZ(-25px);
+    background-color: #ffffffd9;
+    transform: rotateX(-90deg) translateZ(-25px);
+    -webkit-transform: rotateX(-90deg) translateZ(-25px);
 }
-.finish:focus{
+
+.finish:focus {
     outline: none;
 }
-.again:focus{
+
+.again:focus {
     outline: none;
 }
-.judgeWrong{
+
+.judgeWrong {
     display: none;
     position: absolute;
     width: 20px;
@@ -959,10 +1085,12 @@ body{
     background-image: url(../img/judgeWrong.png);
     background-size: contain;
 }
-.formbg{
+
+.formbg {
     background-image: url(../img/background.png);
 }
-.iconLight{
+
+.iconLight {
     position: absolute;
     top: -8px;
     width: 30px;
@@ -971,10 +1099,12 @@ body{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.light{
+
+.light {
     position: relative;
 }
-.tips{
+
+.tips {
     display: none;
     background: #eee;
     position: absolute;
@@ -986,20 +1116,24 @@ body{
     top: -176px;
     left: -166px;
 }
-.tips>p{
+
+.tips > p {
     text-indent: 2em;
 }
-.light:hover .tips{
+
+.light:hover .tips {
     display: block;
 }
-.orderDetail{
+
+.orderDetail {
     position: absolute;
     width: 100%;
     height: 1113px;
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
-.orderDetailBox{
+
+.orderDetailBox {
     position: relative;
     /* top: 50%; */
     /* margin-top: -300px; */
@@ -1008,7 +1142,8 @@ body{
     height: 670px;
     background: #ffffffd9;
 }
-.orderDetail-cha{
+
+.orderDetail-cha {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -1018,7 +1153,8 @@ body{
     background-size: contain;
     cursor: pointer;
 }
-.orderDetail-tit{
+
+.orderDetail-tit {
     display: block;
     /* position: absolute;
     top: 20px; */
@@ -1028,18 +1164,21 @@ body{
     font-weight: bold;
     color: #333;
 }
-.orderDetailContant{
+
+.orderDetailContant {
     margin: 0 auto 20px;
     width: 700px;
     height: 580px;
     /* background: #000; */
     overflow: auto;
 }
-.form-tit{
+
+.form-tit {
     margin: 10px 0 0 40px;
     font-size: 18px;
 }
-.orderDetailContant img{
+
+.orderDetailContant img {
     margin: 0 10px 0 0;
     width: 300px;
 }

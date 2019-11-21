@@ -252,7 +252,7 @@ function gerRepairOrder(pageCount) {
             }
         },
         error: function (xhr) {
-            alert(xhr.status);
+            alert(xhr.status + "333");
         }
     })
 }
@@ -273,7 +273,7 @@ function insureFinish(formId) {
             }
         },
         error: function (xhr) {
-            alert(xhr.status);
+            alert(xhr.status + "222");
         }
     })
 }
@@ -347,6 +347,7 @@ $("body").delegate(".againInsure", "click", function () {
     againRepair(formId, appointDate, appointment);
     againDiv.style.display = "none";
     gerRepairOrder(page);
+    return false;
 })
 
 //一键再修方法
@@ -367,7 +368,7 @@ function againRepair(formId, appointDate, appointment) {
             }
         },
         error: function (xhr) {
-            alert(xhr.status);
+            alert(xhr.status + "111");
         }
     })
 }
@@ -708,10 +709,10 @@ for (var i = 0; i < finishButton.length; i++) {
     finishButton[i].onclick = throttle(insureFinish, 5000, 1);
 }
 //给进度查询中的一键再修中的确认按钮添加节流
-var againButton = document.getElementsByClassName("againInsure");
-for (var i = 0; i < againButton.length; i++) {
-    againButton[i].onclick = throttle(againRepair, 5000, 1);
-}
+// var againButton = document.getElementsByClassName("againInsure");
+// for (var i = 0; i < againButton.length; i++) {
+//     againButton[i].onclick = throttle(againRepair, 5000, 1);
+// }
 //监听报修详情里的叉
 var orderDetail = document.getElementsByClassName("orderDetail")[0];
 $("body").delegate(".orderDetail-cha", "click", function () {
@@ -723,6 +724,10 @@ $("body").delegate(".orderInformation", "click", function () {
     // alert($(this).attr("formId"));
     getFormDetail($(this).attr("formId"), ".orderInformation");
     orderDetail.style.display = "block";
+    orderDetail.scrollIntoView({
+        block: "start",
+        behavior: 'smooth'//平滑的移过去
+    });
 });
 //监听点击已完成详情信息
 $("body").delegate(".finishorderInformation", "click", function () {
@@ -731,6 +736,7 @@ $("body").delegate(".finishorderInformation", "click", function () {
     getFormDetail($(this).attr("formId"));
     orderDetail.style.display = "block";
     orderDetail.scrollIntoView({
+        block: "start",
         behavior: 'smooth'//平滑的移过去
     });
 });
