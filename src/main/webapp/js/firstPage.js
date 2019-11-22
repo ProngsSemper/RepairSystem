@@ -161,6 +161,7 @@ function gerRepairOrder(pageCount) {
         type: "POST",
         url: "/student/incomplete/history/form",
         dataType: "json",
+        async:false,
         data: JSON.stringify({
             "page": parseInt(pageCount),
             "limit": 3,
@@ -168,7 +169,7 @@ function gerRepairOrder(pageCount) {
         success: function (msg) {
             pageCount = parseInt(pageCount);
             var page = $(".page");
-            // $(".page").html("");
+            $(".page").html("");
             console.log(msg)
             $(".orderContant").html("");
             var data = msg.data;
@@ -180,7 +181,6 @@ function gerRepairOrder(pageCount) {
                             $(".page-number").eq(0).addClass("cur");
                         }
                     }
-                    $(".page-number").eq(0).addClass("cur");
                 } else {
                     if (pageCount <= 3 || pageCount >= msg.totalPage - 2) {
                         for (var i = 1; i <= 3; i++) {
@@ -193,6 +193,7 @@ function gerRepairOrder(pageCount) {
                         for (var i = msg.totalPage - 2; i <= msg.totalPage; i++) {
                             page.append('<span class="page-number">' + i + '</span>');
                         }
+                        $(".page-number").eq(0).addClass("cur");
                     } else if (pageCount > 3 && pageCount < msg.totalPage - 2) {
 
                         if (pageCount != msg.totalPage - 3) {
@@ -213,7 +214,7 @@ function gerRepairOrder(pageCount) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                         }
-
+                        $(".page-number").eq(0).addClass("cur");
 
                     }
                 }
@@ -291,7 +292,7 @@ $("body").delegate(".finish", "click", function () {
     return false;
 });
 //监听点击页码
-$("body").delegate(".page>span", "click", function () {
+$("body").delegate(".page-number", "click", function () {
 
     page = $(this).html();
     // $(".page").html("")
@@ -460,7 +461,7 @@ function gerfinishOrder(pageCount) {
                                 page.append('<span class="page-number">' + i + '</span>');
                             }
                         }
-
+                        $(".page-number").eq(0).addClass("cur");
 
                     }
                 }

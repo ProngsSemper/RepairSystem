@@ -640,6 +640,7 @@ function searchFinishstuName(stuName, pageCount) {
         type: "POST",
         dataType: "json",
         url: "/worker/complete/stuName",
+        async:false,
         data: JSON.stringify({
             "page": pageCount,
             "limit": 15,
