@@ -32,11 +32,15 @@ body {
     width: 1440px;
     height: 65px;
     overflow: hidden;
+    background-image: url(../img/big.png),url(../img/front.png);
+    background-size: 6%;
+    background-repeat: no-repeat;
+    background-position: 600px,925px;
 }
 
 .nav .icon {
     width: 60px;
-    margin: 5px 10px 0 40px;
+    margin: 5px 10px 0 30px;
     vertical-align: middle;
 }
 
@@ -44,7 +48,8 @@ body {
     display: inline-block;
     margin-top: 5px;
     font-size: 30px;
-    font-weight: bold;
+    margin-right: 10px;
+    font-weight: 400;
     vertical-align: middle;
 }
 
@@ -58,8 +63,8 @@ body {
 
 .nav .date {
     float: left;
-    background: #fff;
-    font-weight: bold;
+    /* background: #fff; */
+    /* font-weight: bold; */
     font-size: 16px;
     line-height: 80px;
 }
@@ -100,10 +105,10 @@ body {
     width: 250px;
     height: 625px;
     background: #8e0b02;
-    background-image: url(../img/å›¾å±‚\ 9.png);
+    background-image: url(../img/pattern.png);
     background-position: left bottom;
     background-repeat: no-repeat;
-    background-size: 80%;
+    background-size: 60%;
 }
 
 .secondNav ul .list {
@@ -133,7 +138,7 @@ body {
 .contant {
     position: relative;
     float: left;
-    width: 1190px;
+    width: 1250px;
     height: 625px;
     /* background: #eeeeee; */
 }
@@ -141,7 +146,7 @@ body {
 .contant .search {
     width: 100%;
     height: 140px;
-    background: #eeeeee;
+    background: #fcf9f5;
 }
 
 .contant .search .insert {
@@ -187,7 +192,7 @@ body {
     margin-top: 20px;
     /* width: 1010px; */
     height: 60px;
-    background: #fff;
+    /* background: #fff; */
 }
 
 .classify {
@@ -294,7 +299,7 @@ body {
     right: 118px;
     bottom: 20px;
     float: right;
-    width: 200px;
+    width: 300px;
     height: 30px;
 }
 
@@ -569,31 +574,32 @@ select {
 }
 
 .bg-purple-dark {
-    background: #99a9bf;
+    background: #8e0b02;
+    color: #fff;
 }
 
 .bg-purple {
-    background: #d3dce6;
+    background: #f8eae9;
 
 }
 
 .bg-purple-light {
-    background: #e5e9f2;
+    background: #fcf6f6;
 }
 
 .grid-content {
     border-radius: 4px;
     height: 36px;
     display: flex;
-    width: 800px;
+    width: 1000px;
     margin: 0 auto;
 }
 
 .listcontant {
-    text-align: center;;
+    text-align: center;
     /* background: #fff; */
     justify-content: center;
-    width: 300px;
+    width: 400px;
     flex-wrap: nowrap;
     line-height: 36px;
     display: -webkit-box;
@@ -633,8 +639,8 @@ select {
 }
 
 .adress {
-    width: 150px;
-    text-align: center;;
+    width: 200px;
+    text-align: center;
     /* background: #fff; */
     justify-content: center;
     /* width: 200px; */
@@ -648,8 +654,10 @@ select {
     top: 15px;
     width: 100px;
     height: 50px;
+    padding: 10px;
+    background-position: center;
     background-image: url(../img/excel.png);
-    background-size: contain;
+    background-size: 89%;
     background-repeat: no-repeat;
     cursor: pointer;
 }
@@ -658,7 +666,7 @@ select {
     display: none;
     position: absolute;
     right: 140px;
-    top: 60px;
+    top: 70px;
     border-radius: 10px;
     width: 200px;
     /* height: 200px; */
@@ -694,7 +702,7 @@ select {
     position: absolute;
     display: inline-block;
     top: 26px;
-    margin-left: 35px;
+    margin-left: 64px;
 }
 
 .inposition {
@@ -722,4 +730,13 @@ select {
 
 .secondsquare {
     top: 500px
+}
+.iconBird{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 586px;
+    background-image: url(../img/niao-.png);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
