@@ -26,9 +26,8 @@ public class IndexHandler extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adminToken = CookieUtil.getCookie("adminToken", request);
-        String workerToken = null;
+        String workerToken;
         workerToken = CookieUtil.getCookie("wToken", request);
-        System.out.println(adminToken);
 
         request.setAttribute("pass", "1");
         if (adminToken != null) {

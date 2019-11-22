@@ -560,6 +560,15 @@ $("body").delegate(".evaluateSure", "click", function () {
     stuEvaluation(evaluation, wKey, massage, formId);
     evaluate.style.display = "none";
     gerfinishOrder(page);
+    var pageNum = document.getElementsByClassName("page-number");
+    for (var i = 0; i < pageNum.length; i++) {
+        pageNum[i].className = "page-number";
+    }
+    for (var i = 0; i < pageNum.length; i++) {
+        if ($(".page-number").eq(i).html() == page) {
+            $(".page-number").eq(i).addClass("cur")
+        }
+    }
     // $(this).html("")
 })
 $("body").delegate(".bye", "click", function () {
