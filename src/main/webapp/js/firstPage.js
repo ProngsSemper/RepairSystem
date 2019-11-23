@@ -286,16 +286,7 @@ $("body").delegate(".finish", "click", function () {
     var judge = confirm("是否确认已完成");
     if (judge) {
         insureFinish(formId);
-        gerRepairOrder(page);
-        var pageNum = document.getElementsByClassName("page-number");
-        for (var i = 0; i < pageNum.length; i++) {
-            pageNum[i].className = "page-number";
-        }
-        for (var i = 0; i < pageNum.length; i++) {
-            if ($(".page-number").eq(i).html() == page) {
-                $(".page-number").eq(i).addClass("cur")
-            }
-        }
+        gerRepairOrder(1);
     }
     // alert(formId);
     return false;
@@ -357,6 +348,15 @@ $("body").delegate(".againInsure", "click", function () {
     againRepair(formId, appointDate, appointment);
     againDiv.style.display = "none";
     gerRepairOrder(page);
+    var pageNum = document.getElementsByClassName("page-number");
+    for (var i = 0; i < pageNum.length; i++) {
+        pageNum[i].className = "page-number";
+    }
+    for (var i = 0; i < pageNum.length; i++) {
+        if ($(".page-number").eq(i).html() == page) {
+            $(".page-number").eq(i).addClass("cur")
+        }
+    }
     return false;
 })
 
@@ -567,6 +567,10 @@ $("body").delegate(".icon-chaa", "click", function () {
 $("body").delegate(".evaluateSure", "click", function () {
     massage = commentArea.value;
     stuEvaluation(evaluation, wKey, massage, formId);
+    commentArea.value="";
+    for (var i = 0; i < evaluateRadio.length; i++) {
+        $(".evaluateRadio").eq(i).attr("checked",false);
+    }
     evaluate.style.display = "none";
     gerfinishOrder(page);
     var pageNum = document.getElementsByClassName("page-number");

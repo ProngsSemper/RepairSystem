@@ -10,24 +10,24 @@ html{
 .main{
     display: flex;
     height: auto;
-    width: 1519px;
+    width: 1535px;
     margin: 0 auto;
 }
 .leftNav{
-    width: 200px;
-    height: 1010px;
+    width: 250px;
+    border-radius: 5px;
+    height: 720px;
     background: #8e0b02;
 }
 .protrait{
     display: block;
     margin: 20px auto 0;
-    width: 150px;
-
+    width: 120px;
 }
 .leftNav .navImg{
     display: inline-block;
-    margin: 20px;
-    width: 72px;
+    margin: 28px 20px 20px 40px;
+    width: 60px;
     vertical-align: middle;
     cursor: pointer;
 }
@@ -38,7 +38,7 @@ html{
 }
 .order-tit{
     display: inline-block;
-    /* margin-top: -10px; */
+    margin-top: 16px;
     font-size: 18px;
     vertical-align: middle;
     color: #fff;
@@ -49,6 +49,10 @@ html{
     flex-wrap: nowrap;
     width: 1320px;
     overflow: hidden;
+    background-image: url(../img/logoworker.png);
+    background-size: 57%;
+    background-repeat: no-repeat;
+    background-position: 187px;
 }
 .box{
     flex-wrap: nowrap;
@@ -59,6 +63,7 @@ html{
     width: 1320px;
 }
 .leftBox{
+    /* float: right; */
     display: inline-block;
     position: relative;
     margin-left: 100px;
@@ -85,7 +90,7 @@ html{
     margin-left: 40px;
     height: 70px;
     line-height: 70px;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 .rightBox{
     margin-right: 139px;
@@ -104,7 +109,7 @@ html{
     left: -10px;
 }
 .search{
-    background: #eee;
+    /* background: #fcf9f5; */
     height: 100px;
 }
 
@@ -132,12 +137,12 @@ option{
     border: none;
     height: 40px;
     width: 80px;
-    background-image: url(../img/fangdajing.png);
-    background-size: contain;
+    background-image: url(../img/iconWrith.png);
+    background-size: 41%;
     background-repeat: no-repeat;
-    background-position: 20px 0;
+    background-position: 23px 2px;
     border-color: transparent;
-    background-color: rgba(128, 128, 128, .5);
+    background-color: #8e0b02;
     color: inherit;
     cursor: pointer;
 }
@@ -160,11 +165,11 @@ option{
     /* background: #e5e9f2; */
 }
 .grid-content {
-    /* border-radius: 4px; */ 
+    /* border-radius: 4px; */
     border-bottom: 1px solid #888;
     min-height: 36px;
     display: flex;
-    width: 980px;
+    width: 1078px;
     margin: 0 auto;
 }
 .finishgrid-content {
@@ -243,8 +248,9 @@ option{
 }
 .tableBox{
     border: 1px solid #333;
-    margin: 50px auto 0;
-    width: 1000px;
+    border-bottom: none;
+    margin: 20px auto 0;
+    width: 1078px;
 }
 .page{
     display: flex;
@@ -271,23 +277,17 @@ option{
 }
 .operatrContant{
     height: auto;
+    position: relative;
     /* background: #f20; */
 }
-.returnLast{
-    height: 70px;
-    background: #eee;
-}
-.returnLast img{
-    height: 70px;
-    vertical-align: middle;
-}
+
 .orderInside{
-    margin: 0px auto 20px;
+    margin: 0px auto 0px;
     width: 600px;
-    height: 800px;
+    height: 650px;
     /* background: #fff; */
     background-image: url(../img/board.png);
-    background-size: 100%;
+    background-size: 90%;
     background-repeat: no-repeat;
 }
 .ordertit{
@@ -297,14 +297,14 @@ option{
 .ordertit img{
     width: 50px;
     vertical-align: middle;
-} 
+}
 .ordertit span{
     margin: 0 0 0 5px;
     color: #f99b3f;
-} 
+}
 .orderInformation{
     position: relative;
-    top: 116px;
+    top: 10px;
     border-radius: 20px;
     height: 550px;
     /* background: #eee; */
@@ -313,7 +313,7 @@ option{
     position: relative;
     top: 25px;
     margin: 0px auto;
-    width: 500px;
+    width: 425px;
     height: 500px;
     overflow: auto;
     /* background: #000; */
@@ -330,7 +330,8 @@ option{
 .footButton{
     display: flex;
     justify-content: center;
-    margin: 145px 0 0px 0;
+    width: 550px;
+    /* margin: 145px 0 0px 0; */
 }
 .Button{
     position: relative;
@@ -370,6 +371,8 @@ button:focus{
     background-size: contain;
 }
 .finish{
+    position: relative;
+    top: -50px;
     /* width: 800px; */
     height: auto;
     /* background: #000; */
@@ -383,8 +386,9 @@ button:focus{
     position: absolute;
     width: 50px;
     height: 50px;
-    left: 135px;
-    background-image: url(../img/fanhui.png);
+    top: 39px;
+    left: 45px;
+    background-image: url(../img/pointReturn.png);
     background-size: contain;
 }
 .bye{
@@ -399,6 +403,7 @@ button:focus{
 }
 .firstComment{
     margin-top: 20px;
+    margin-left: 20px;
 }
 .comment-tit{
     display: inline-block;
@@ -411,13 +416,13 @@ button:focus{
     text-align: center;
     font-size: 23px;
     color: #fff;
-    cursor: pointer;
+    /*cursor: pointer;*/
     display: inline-block;
 }
 .historyNotice{
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 1010px;
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
@@ -500,7 +505,7 @@ button:focus{
 }
 
 .batchBox{
-    width: 900px;
+    width: 1092px;
     margin: 0 auto;
 }
 .selectAll{
@@ -515,7 +520,7 @@ button:focus{
     position: absolute;
     width: 30px;
     height: 30px;
-    left: 8px;
+    left: 25px;
     top: 2px;
     background-image: url(../img/good.png);
     background-size: contain;
@@ -526,4 +531,19 @@ button:focus{
     margin-top: 10px;
     text-align: center;
     font-size: 18px;
+    color: #6b9bdc;
+}
+.returnLast{
+    position: absolute;
+    width: 100px;
+    top: -14px;
+    left: 62px;
+    height: 100px;
+    background-image: url(../img/fanhui.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.switchBox{
+    cursor: pointer;
 }

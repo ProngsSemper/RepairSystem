@@ -28,13 +28,14 @@ html{
     position: relative;
     margin: 80px auto 0;
     width: 500px;
+    border-radius: 5px;
     height: 430px;
     background: #8e0b02;
 }
 .notice-tit{
     /* position: relative; */
     /* top: 10px; */
-    margin: 10px;
+    margin: 4px 0 37px 0;
     text-align: center;
     color: #fff;
     font-size: 22px;
@@ -69,16 +70,17 @@ html{
 .return{
     position: absolute;
     top: 20px;
+    left: -49px;
     width: 100px;
     height: 100px;
-    background-image: url(../img/icon-fanhui.png);
+    background-image: url(../img/fanhui.png);
     background-size: contain;
     cursor: pointer;
 }
 .notice-tit img{
     display: block;
     position: relative;
-    width: 80px;
+    width: 200px;
     margin: 0px auto;
-    top: 8px;
+    top: 19px;
 }

@@ -11,14 +11,14 @@ html {
 
 body {
     /* width: 1334px; */
-    margin: 0 auto;
+    /* margin: 0 auto; */
 }
 
 .marginBox {
     margin: 0 auto;
-    width: 1500px;
+    width: 1533px;
     /* height: auto; */
-    /* overflow: auto; */
+    overflow: auto;
 }
 
 .topbg {
@@ -96,14 +96,15 @@ body {
 
 .box {
     margin: 10px 0 0 0;
-    width: 1440px;
-    /* overflow: hidden; */
+    width: 1500px;
+    overflow: hidden;
 }
 
 .secondNav {
     float: left;
     width: 250px;
     height: 625px;
+    border-radius: 5px;
     background: #8e0b02;
     background-image: url(../img/pattern.png);
     background-position: left bottom;
@@ -240,7 +241,7 @@ body {
 .item {
     position: relative;
     margin: 0 auto;
-    width: 1010px;
+    width: 1155px;
     height: 450px;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -257,14 +258,14 @@ body {
 
 .del {
     font-size: 16px;
-    margin: 0 8px;
+    margin: 0 15px;
     text-decoration: underline;
     color: #8e0b02;
 }
 
 .deal {
     font-size: 16px;
-    margin: 0 8px;
+    margin: 0 25px 0 10px;
     text-decoration: underline;
     color: #00a1d6;
 }
@@ -359,18 +360,18 @@ body {
 
 .repairContant .information {
     margin: 25px auto;
-    width: 400px;
+    width: 500px;
     height: 500px;
     overflow: auto;
     /* background: #000; */
 }
 
 .repairContant .information p {
-    margin: 15px 0 15px 20px;
+    margin: 15px 0 15px 80px;
 }
 
 .information img {
-    margin-left: 20px;
+    margin-left: 80px;
     vertical-align: top;
     width: 300px;
 }
@@ -566,21 +567,21 @@ select {
     border-radius: 4px;
     height: 36px;
     display: flex;
-    width: 1000px;
+    width: 1150px;
     margin: 0 auto;
 }
 .finishgrid-content {
     border-radius: 4px;
     height: 36px;
     display: flex;
-    width: 1000px;
+    width: 1150px;
     margin: 0 auto;
 }
 .listcontant {
     text-align: center;
     /* background: #fff; */
     justify-content: center;
-    width: 400px;
+    width: 500px;
     flex-wrap: nowrap;
     line-height: 36px;
     display: -webkit-box;
@@ -610,15 +611,14 @@ select {
 }
 
 .operate {
-    width: 100px;
-    text-align: center;;
+    width: 160px;
+    text-align: center;
     /* background: #fff; */
     justify-content: center;
     /* width: 200px; */
     flex-wrap: nowrap;
     line-height: 36px;
 }
-
 .adress {
     width: 200px;
     text-align: center;
@@ -673,11 +673,12 @@ select {
 .returntable {
     display: none;
     position: absolute;
-    left: -55px;
-    width: 50px;
-    height: 50px;
-    background-image: url(../img/fanhui.png);
+    left: -43px;
+    width: 40px;
+    height: 40px;
+    background-image: url(../img/pointReturn.png);
     background-size: contain;
+    cursor: pointer;
 }
 
 .positionBox {
@@ -708,6 +709,7 @@ select {
     height: 20px;
     border: 1px solid #888;
     border-radius: 10px;
+    background: #fcf9f5;
 }
 
 .secondsquare {
@@ -717,7 +719,8 @@ select {
     position: absolute;
     width: 100px;
     height: 100px;
-    left: 586px;
+    left: 693px;
+    top: 48px;
     background-image: url(../img/niao-.png);
     background-repeat: no-repeat;
     background-size: contain;

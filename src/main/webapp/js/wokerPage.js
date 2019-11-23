@@ -39,7 +39,7 @@ $("body").delegate('.deal', 'click', function () {
 });
 //监听左侧导航栏点击
 searchFlag = 0;
-var navImg = document.getElementsByClassName("navImg");
+var navImg = document.getElementsByClassName("switchBox");
 var finish = document.getElementsByClassName("finish")[0];
 navImg[0].onclick = function () {
     bigBox.style.display = "block";
@@ -69,7 +69,7 @@ function getMsg(pageCount) {
         async: false,
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 15,
+            "limit": 10,
         }),
         success: function (msg) {
             pageCount=parseInt(pageCount);
@@ -313,7 +313,7 @@ function searchStuName(pageCount) {
         data: JSON.stringify({
             "stuName": stuName.value,
             "page": parseInt(pageCount),
-            "limit": 15,
+            "limit": 10,
         }),
         success: function (msg) {
             if (msg.code == 200) {
@@ -541,7 +541,7 @@ function getWorkerFinishOrder(pageCount) {
         async:false,
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 15,
+            "limit": 10,
         }),
         success: function (msg) {
             if (msg.code == 200) {
@@ -643,7 +643,7 @@ function searchFinishstuName(stuName, pageCount) {
         async:false,
         data: JSON.stringify({
             "page": pageCount,
-            "limit": 15,
+            "limit": 10,
             "stuName": stuName
         }),
         success: function (msg) {

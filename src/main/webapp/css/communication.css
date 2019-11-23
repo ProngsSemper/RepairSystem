@@ -40,7 +40,7 @@ html{
     /* background: #fff; */
 }
 .contant{
-    border: 1px solid;
+    border: 1px solid #888;
     position: relative;
     width: 600px;
     height: 350px;
@@ -52,7 +52,7 @@ html{
     position: relative;
     width: 600px;
     height: 150px;
-    border: 1px solid;
+    border: 1px solid #888;
     background: #fff;
     border-top: none;
     border-radius: 0 0 5px 5px;
@@ -93,22 +93,21 @@ html{
     margin: 10px 0;
 }
 .bg-green{
-   
-background: #7fff00;
+
+    background: #9eea6a;
 }
 .bg-white{
 
-background: #eee;
+    background: #eee;
 }
 .other{
     float: left;
     overflow: auto;
     border-radius: 5px;
     padding: 10px;
-    margin: 10px 0;
     max-width: 300px;
     height: auto;
-    margin: 10px 0;
+    margin: 10px;
 }
 .line{
     float: left;
@@ -154,6 +153,7 @@ background: #eee;
     display: block;
     text-align: center;
     font-size: 14px;
+    color:#6b9bdc;
 }
 .loadding{
     /* display: none; */
@@ -162,7 +162,7 @@ background: #eee;
 }
 .windows{
     position: absolute;
-    left: 100px;
+    left: 72px;
     top: 50px;
     width: 315px;
     height: 193px;
@@ -172,7 +172,7 @@ background: #eee;
 }
 .plant{
     position: absolute;
-    left: 254px;
+    left: 245px;
     top: 162px;
     width: 100px;
     height: 193px;
@@ -207,14 +207,14 @@ background: #eee;
     width: 30px;
     height: 30px;
     position: absolute;
-    bottom: 116px;
-    right: 37px;
+    bottom: 110px;
+    right: 10px;
     cursor: pointer;
 }
 #inputphoto{
     position: absolute;
-    bottom: 103px;
-    right: 33px;
+    bottom: 97px;
+    right: 5px;
     opacity: 0;
     /* left: 140px; */
     width: 40px;
