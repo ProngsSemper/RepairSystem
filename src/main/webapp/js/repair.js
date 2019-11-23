@@ -31,7 +31,7 @@ $(document).ready(function () {
     var dealOrder = document.getElementsByClassName("dealOrder")[0];
     var visited = false;
     pageFlag = 0;
-    $("body").delegate(".col>.deal", "click", function () {
+    $("body").delegate(".deal", "click", function () {
         formId = $(this).parent().parent().attr("formid");
 
         contant.style.display = "none";
@@ -99,12 +99,10 @@ function getMsg(pageCount) {
             pageCount = parseInt(pageCount);
             // alert(msg.size);
             var page = $(".page");
-            var table = $(".repairItem");
             $(".page").html("");
-            $(".repairItem").html("");
+            $(".repairBox").html("");
             var data = msg.data;
             // console.log(data);
-            var b = $('.page').children().length == 0;
 
             if ($(".page").children().length == 0) {
                 if (msg.totalPage <= 8) {
@@ -152,30 +150,22 @@ function getMsg(pageCount) {
                     }
                 }
             }
-
-            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
-            // alert(2);
+            $(".repairBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-
-                var line = data[i];
-
-
-                var row = $('<tr class="row"></tr>');
-                var table = $(".repairItem");
-
-                var colNumber = $('<td class="col">' + data[i].stuId + '</td>');
-                var colAdress = $('<td class="col">' + line.room + '</td>');
-
-                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
-
-                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
-
-                //有bug,需要检查
-                table.append(row);
-
-                row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(i + 1).attr("formId", line.formId);
+                $(".repairBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
             }
+            
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -470,20 +460,20 @@ function getFinfishMsg(pageCount) {
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                $(".tableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
                     '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
                 } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
                 }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -563,9 +553,9 @@ function searchSouthOrNorth(location, pageCount) {
             pageCount = parseInt(pageCount);
             // alert(msg.size);
             var page = $(".page");
-            var table = $(".repairItem");
+            var table = $(".repairBox");
             $(".page").html("");
-            $(".repairItem").html("");
+            $(".repairBox").html("");
             var data = msg.data;
             // console.log(data);
             if ($(".page").children().length == 0) {
@@ -614,28 +604,20 @@ function searchSouthOrNorth(location, pageCount) {
                     }
                 }
             }
-            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
-            // alert(2);
+            $(".repairBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-
-                var line = data[i];
-
-
-                var row = $('<tr class="row"></tr>');
-                var table = $(".repairItem");
-
-                var colNumber = $('<td class="col">' + data[i].stuId + '</td>');
-                var colAdress = $('<td class="col">' + line.room + '</td>');
-
-                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
-
-                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
-
-                //有bug,需要检查
-                table.append(row);
-
-                row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(i + 1).attr("formId", line.formId);
+                $(".repairBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -709,9 +691,9 @@ function searchUnfinishId(formId) {
         success: function (msg) {
             // alert(msg.size);
             var page = $(".page");
-            var table = $(".repairItem");
+            var table = $(".repairBox");
             $(".page").html("");
-            $(".repairItem").html("");
+            $(".repairBox").html("");
             var data = msg.data;
             // console.log(data);
             var b = $('.page').children().length == 0;
@@ -723,27 +705,20 @@ function searchUnfinishId(formId) {
                 }
             }
 
-            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
-            // alert(2);
-            if (msg.code == 200) {
-                var line = data[0];
-
-
-                var row = $('<tr class="row"></tr>');
-                var table = $(".repairItem");
-
-                var colNumber = $('<td class="col">' + data[0].stuId + '</td>');
-                var colAdress = $('<td class="col">' + line.room + '</td>');
-
-                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
-
-                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
-
-                //有bug,需要检查
-                table.append(row);
-
-                row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(1).attr("formId", line.formId);
+            $(".repairBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            if (msg.code==200) {
+                $(".repairBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
+                    '<div class="formNumber">' + data[0].stuId + '</div>' +
+                    '<div class="adress">' + data[0].room + '</div>' +
+                    '<div class="listcontant">' + data[0].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></div>')
+                // if (i % 2 == 0) {
+                    $(".grid-content").eq(1).addClass("bg-purple");
+                // } else {
+                //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                // }
+                $(".grid-content").eq(1).attr("formid", data[0].formId);
             }
         },
         error: function (xhr) {
@@ -768,9 +743,9 @@ function searchUnfinishStuName(stuName, pageCount) {
             pageCount = parseInt(pageCount);
             // alert(msg.size);
             var page = $(".page");
-            var table = $(".repairItem");
+            var table = $(".repairBox");
             $(".page").html("");
-            $(".repairItem").html("");
+            $(".repairBox").html("");
             var data = msg.data;
             // console.log(data);
             if ($(".page").children().length == 0) {
@@ -820,28 +795,20 @@ function searchUnfinishStuName(stuName, pageCount) {
                 }
             }
 
-            $(".repairItem").append('<tr class="row "><td class="col">学号</td><td class="col">地址</td><td class="col">内容</td><td class="col">操作</td></tr>')
-            // alert(2);
+            $(".repairBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-
-                var line = data[i];
-
-
-                var row = $('<tr class="row"></tr>');
-                var table = $(".repairItem");
-
-                var colNumber = $('<td class="col">' + data[i].stuId + '</td>');
-                var colAdress = $('<td class="col">' + line.room + '</td>');
-
-                var colContant = $('<td class="col special">' + line.formMsg + '</td>');
-
-                var colOperate = $('<td class="col"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></td>')
-
-                //有bug,需要检查
-                table.append(row);
-
-                row.append(colNumber, colAdress, colContant, colOperate);
-                $(".row").eq(i + 1).attr("formId", line.formId);
+                $(".repairBox").append('<div class="grid-content"></div>');
+                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                    '<div class="formNumber">' + data[i].stuId + '</div>' +
+                    '<div class="adress">' + data[i].room + '</div>' +
+                    '<div class="listcontant">' + data[i].formMsg + '</div>' +
+                    '<div class="operate"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></div>')
+                if (i % 2 == 0) {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                } else {
+                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                }
+                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -915,20 +882,20 @@ function searchFinishStudName(stuName, pageCount) {
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                $(".tableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
                     '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
                 } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
                 }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -955,20 +922,20 @@ function searchFinishFormId(formId) {
             var data = msg.data;
 
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
             // for (var i = 0; i < msg.size; i++) {
-            $(".tableBox").append('<div class="grid-content"></div>');
-            $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
+            $(".tableBox").append('<div class="finishgrid-content"></div>');
+            $(".finishgrid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
                 '<div class="formNumber">' + data[0].stuId + '</div>' +
                 '<div class="adress">' + data[0].room + '</div>' +
                 '<div class="listcontant">' + data[0].formMsg + '</div>' +
                 '<div class="operate">已处理</div>')
             // if (i % 2 == 0) {
-            $(".grid-content").eq(1).addClass("bg-purple");
+            $(".finishgrid-content").eq(1).addClass("bg-purple");
             // } else {
             //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
             // }
-            $(".grid-content").eq(1).attr("formid", data[0].formId);
+            $(".finishgrid-content").eq(1).attr("formid", data[0].formId);
             // }
         },
         error: function (xhr) {
@@ -1042,20 +1009,20 @@ function searchFinishwName(wName, pageCount) {
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                $(".tableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
                     '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
                 } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
                 }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -1128,20 +1095,20 @@ function searchFinishwType(wType, pageCount) {
                     }
                 }
             }
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                $(".tableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
                     '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
                 } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
                 }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {
@@ -1315,20 +1282,20 @@ function searchFinishSouthOrNorth(location, pageCount) {
                 }
             }
 
-            $(".tableBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
+            $(".tableBox").append('<div class="finishgrid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">状态</div>' + '</div>');
             for (var i = 0; i < msg.size; i++) {
-                $(".tableBox").append('<div class="grid-content"></div>');
-                $(".grid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
+                $(".tableBox").append('<div class="finishgrid-content"></div>');
+                $(".finishgrid-content").eq(i + 1).append('<div class="formId">' + data[i].formId + '</div>' +
                     '<div class="formNumber">' + data[i].stuId + '</div>' +
                     '<div class="adress">' + data[i].room + '</div>' +
                     '<div class="listcontant">' + data[i].formMsg + '</div>' +
                     '<div class="operate">已处理</div>')
                 if (i % 2 == 0) {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple");
                 } else {
-                    $(".grid-content").eq(i + 1).addClass("bg-purple-light");
+                    $(".finishgrid-content").eq(i + 1).addClass("bg-purple-light");
                 }
-                $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
+                $(".finishgrid-content").eq(i + 1).attr("formid", data[i].formId);
             }
         },
         error: function (xhr) {

@@ -252,45 +252,20 @@ body {
     border-collapse: collapse;
     text-align: center;
     margin: 0px auto;
-    border: 1px #888898 solid;
+    /* border: 1px #888898 solid; */
 }
 
-.tableItem {
-    position: relative;
-    top: 50px;
-    width: 900px;
-    height: 400px;
-    margin: 0px auto;
-    /* background: #000; */
-}
-
-.tableItem .col {
-    width: 150px;
-}
-
-.tableItem .special {
-    width: 350px;
-}
-
-.tableItem .row {
-    height: 30px;
-}
-
-.tableItem .rowbg {
-    background: #eeeeee;
-}
-
-.col a {
-    font-size: 14px;
-    margin: 0 10px;
+.del {
+    font-size: 16px;
+    margin: 0 8px;
     text-decoration: underline;
-}
-
-.col .del {
     color: #8e0b02;
 }
 
-.col .deal {
+.deal {
+    font-size: 16px;
+    margin: 0 8px;
+    text-decoration: underline;
     color: #00a1d6;
 }
 
@@ -299,7 +274,7 @@ body {
     right: 118px;
     bottom: 20px;
     float: right;
-    width: 300px;
+    /*width: 300px;*/
     height: 30px;
 }
 
@@ -336,7 +311,7 @@ body {
     float: left;
     width: 595px;
     border-radius: 5px;
-    margin: 0 35px 0 19px;
+    margin: 0 15px 0 19px;
     border: 1px solid #888;
     height: auto;
     /* background: #000; */
@@ -594,7 +569,13 @@ select {
     width: 1000px;
     margin: 0 auto;
 }
-
+.finishgrid-content {
+    border-radius: 4px;
+    height: 36px;
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+}
 .listcontant {
     text-align: center;
     /* background: #fff; */
@@ -692,6 +673,7 @@ select {
 .returntable {
     display: none;
     position: absolute;
+    left: -55px;
     width: 50px;
     height: 50px;
     background-image: url(../img/fanhui.png);
@@ -721,7 +703,7 @@ select {
 .moveSquare {
     position: absolute;
     top: 100px;
-    left: 603px;
+    left: 594px;
     width: 55px;
     height: 20px;
     border: 1px solid #888;
