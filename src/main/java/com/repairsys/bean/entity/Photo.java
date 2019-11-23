@@ -27,38 +27,30 @@ public class Photo {
         this.arr = arr;
     }
 
-
-
-
     public void setPhotoPath1(String photoPath1) {
-        if(photoPath1==null)
-        {
+        if (photoPath1 == null) {
             return;
         }
         ++size;
-        this.photoPath1 = photoPath1.replaceAll("\\\\","/");
+        this.photoPath1 = photoPath1.replaceAll("\\\\", "/");
     }
-
-
 
     public void setPhotoPath2(String photoPath2) {
-        if(photoPath2==null)
-        {
+        if (photoPath2 == null) {
             return;
         }
         ++size;
-        this.photoPath2 = photoPath2.replaceAll("\\\\","/");;
+        this.photoPath2 = photoPath2.replaceAll("\\\\", "/");
+        ;
     }
 
-
-
     public void setPhotoPath3(String photoPath3) {
-        if(photoPath3==null)
-        {
+        if (photoPath3 == null) {
             return;
         }
         ++size;
-        this.photoPath3 = photoPath3.replaceAll("\\\\","/");;
+        this.photoPath3 = photoPath3.replaceAll("\\\\", "/");
+        ;
     }
 
     public int getPhotoId() {
@@ -69,26 +61,19 @@ public class Photo {
         this.photoId = photoId;
     }
 
-    public void setPath(String basePath)
-    {
+    public void setPath(String basePath) {
 
-        if(photoPath1!=null)
-        {
-            this.photoPath1 = basePath+photoPath1.substring(photoPath1.indexOf("upload"),photoPath1.length()).replaceAll("\\\\","/");
+        if (photoPath1 != null) {
+            this.photoPath1 = basePath + photoPath1.substring(photoPath1.indexOf("upload"), photoPath1.length()).replaceAll("\\\\", "/");
         }
-        if(photoPath2!=null)
-        {
-            this.photoPath2 = basePath+photoPath2.substring(photoPath2.indexOf("upload"),photoPath2.length()).replaceAll("\\\\","/");
+        if (photoPath2 != null) {
+            this.photoPath2 = basePath + photoPath2.substring(photoPath2.indexOf("upload"), photoPath2.length()).replaceAll("\\\\", "/");
         }
-        if(photoPath3!=null)
-        {
-            this.photoPath3 = basePath+photoPath3.substring(photoPath3.indexOf("upload"),photoPath3.length()).replaceAll("\\\\","/");
+        if (photoPath3 != null) {
+            this.photoPath3 = basePath + photoPath3.substring(photoPath3.indexOf("upload"), photoPath3.length()).replaceAll("\\\\", "/");
         }
 
     }
-
-
-
 
     @Override
     public String toString() {

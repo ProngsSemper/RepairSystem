@@ -6,5 +6,4 @@ package com.repairsys.chat.util;
  */
 public final class DbUtil {
 
-
 }

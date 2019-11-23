@@ -65,16 +65,13 @@ public final class StringUtils {
         return msg != null && msg.length() >= 1;
     }
 
-
     public static String getBasePath(HttpServletRequest request) {
-        return format(request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/","\\","/");
-
+        return format(request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/", "\\", "/");
 
     }
 
-    public static String format(String raw,String l,String r)
-    {
-        return raw.replace(l,r);
+    public static String format(String raw, String l, String r) {
+        return raw.replace(l, r);
     }
 
 }

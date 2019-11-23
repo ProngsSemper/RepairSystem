@@ -312,8 +312,6 @@ public class FormDaoImpl extends AbstractPageDao<Form> implements FormDao {
         return this.apply(form.getStuId(), form.getQueryCode(), form.getFormMsg(), form.getFormDate(), form.getStuMail(), form.getPhotoId());
     }
 
-    //TODO:后端同学请注意，这个东西一定要读懂才去调用
-
     /**
      * 管理员可能要删除维修完成后，时间过久了的表单记录，根据表单的 id号进行删除
      * 删除oldform 表，将oldform 表中超过30天的数据 视为废弃数据，删除

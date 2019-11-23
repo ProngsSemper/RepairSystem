@@ -165,7 +165,7 @@ function getMsg(pageCount) {
                 }
                 $(".grid-content").eq(i + 1).attr("formid", data[i].formId);
             }
-            
+
         },
         error: function (xhr) {
             alert(xhr.status);
@@ -274,21 +274,21 @@ $("body").delegate('input[name="worke"]', 'click', function () {
 })
 //监听安排工人按钮
 // $("body").delegate('.arrangeWroker', 'click', function () {
-    // arrangeWorker(formId, workeNumber);
-    var isClick = true;
-    $(".arrangeWroker").on("click",function(){
-        if(isClick) {
-            isClick = false;
-            //事件
-            // throttle(arrangeWorker(formId, workeNumber),5000,2);
-            arrangeWorker(formId, workeNumber)
-            // console.log($(this).attr("data-val"));
-            //定时器
-            setTimeout(function() {
-                isClick = true;
-            }, 3000);//一秒内不能重复点击
-        }
-    });
+// arrangeWorker(formId, workeNumber);
+var isClick = true;
+$(".arrangeWroker").on("click", function () {
+    if (isClick) {
+        isClick = false;
+        //事件
+        // throttle(arrangeWorker(formId, workeNumber),5000,2);
+        arrangeWorker(formId, workeNumber)
+        // console.log($(this).attr("data-val"));
+        //定时器
+        setTimeout(function () {
+            isClick = true;
+        }, 3000);//一秒内不能重复点击
+    }
+});
 
 // });
 
@@ -393,6 +393,7 @@ navlist[0].onclick = function () {
     $("#queryType").html("");
     $("#queryType").append('<option value="3">报修单id</option>');
     $("#queryType").append('<option value="4">学生姓名</option>');
+    $(".returntable").css("display", "none");
     getMsg(1);
 }
 navlist[1].onclick = function () {
@@ -407,6 +408,7 @@ navlist[1].onclick = function () {
     $("#queryType").append('<option value="2">工种类型</option>');
     $("#queryType").append('<option value="3">报修单id</option>');
     $("#queryType").append('<option value="4">学生姓名</option>');
+    $(".returntable").css("display", "none");
     getFinfishMsg(1);
 }
 
@@ -536,13 +538,18 @@ $("body").delegate(".Bigadress>a", "click", function () {
     if (searchAdress == "北苑" || searchAdress == "南苑") {
         if (item[0].style.display == "block") {
             // $(".page").html("");
+            pageFlag = 6;
+            $(".returntable").css("display", "none");
             searchSouthOrNorth(searchAdress, 1)
         } else {
             // $(".page").html("");
+            pageFlag = 7;
+            $(".returntable").css("display", "none");
             searchFinishSouthOrNorth(searchAdress, 1);
         }
 
     } else {
+        pageFlag = 0;
         if (item[0].style.display == "block") {
             getMsg(1);
         } else {
@@ -722,7 +729,7 @@ function searchUnfinishId(formId) {
             }
 
             $(".repairBox").append('<div class="grid-content bg-purple-dark">' + '<div class="formId">报修单号</div>' + '<div class="formNumber">学号</div>' + '<div class="adress">地址</div>' + '<div class="listcontant">内容</div>' + '<div class="operate">操作</div>' + '</div>');
-            if (msg.code==200) {
+            if (msg.code == 200) {
                 $(".repairBox").append('<div class="grid-content"></div>');
                 $(".grid-content").eq(1).append('<div class="formId">' + data[0].formId + '</div>' +
                     '<div class="formNumber">' + data[0].stuId + '</div>' +
@@ -730,7 +737,7 @@ function searchUnfinishId(formId) {
                     '<div class="listcontant">' + data[0].formMsg + '</div>' +
                     '<div class="operate"><a href="javascript:;" class="deal">处理</a><a href="javascript:;" class="del">删除</a></div>')
                 // if (i % 2 == 0) {
-                    $(".grid-content").eq(1).addClass("bg-purple");
+                $(".grid-content").eq(1).addClass("bg-purple");
                 // } else {
                 //     $(".grid-content").eq(i + 1).addClass("bg-purple-light");
                 // }

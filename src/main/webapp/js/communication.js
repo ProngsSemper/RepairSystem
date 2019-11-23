@@ -22,13 +22,10 @@ $("body").delegate(".stuSend", "click", function () {
 
 $(document).keyup(
     function (event) {
-        if(event.keyCode==13)
-        {
+        if (event.keyCode == 13) {
             $("#btn").trigger("click");
-        }
-        else if(event.keyCode== 27)
-        {
-            window.location.href = "index.do?d="+new Date();
+        } else if (event.keyCode == 27) {
+            window.location.href = "index.do?d=" + new Date();
         }
     }
 );

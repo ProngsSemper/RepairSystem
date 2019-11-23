@@ -3,58 +3,48 @@ package com.repairsys.code;
 /**
  * @Author lyr
  * @create 2019/11/3 1:44
- *
+ * <p>
  * 要实现更加强大的在线聊天功能的话，就需要使用类型枚举了
  * 后期完善
- *
  */
-public  enum  ChatEnum {
+public enum ChatEnum {
 
     /**
      * 普通的聊天信息
      */
-    TALK(200,"聊天消息"),
-
+    TALK(200, "聊天消息"),
 
     /**
      * 对方下线了
      */
-    OFFLINE(409,"对方已经下线"),
-
+    OFFLINE(409, "对方已经下线"),
 
     /**
      * 新的学生连接，需要给管理员通知，更新聊天列表
-     *
      */
-    UPDATE_LIST(202,"更新聊天列表"),
-
+    UPDATE_LIST(202, "更新聊天列表"),
 
     /**
      * 服务器出现未知异常
-     *
      */
-    ERROR_INFO(508,"出现异常"),
+    ERROR_INFO(508, "出现异常"),
 
     // /**
     //  * 心跳检测，判断是否连接成功
     //  */
     // PING(0,"普通的心跳测试"),
 
-    SELF_INFO(207,"发送个人信息给前端页面"),
+    SELF_INFO(207, "发送个人信息给前端页面"),
 
-    //todo: 待定...
+    OTHER(-1, "未知的事务"),
 
-    OTHER(-1,"未知的事务"),
+    GET_PAGE(0, "获取分页查询信息"),
 
-    GET_PAGE(0,"获取分页查询信息"),
+    COUNT_INFO_UNREAD(2, "获取未读取的的历史消息的总数"),
 
-    COUNT_INFO_UNREAD(2,"获取未读取的的历史消息的总数"),
+    IMG_TASK(3, "图片消息"),
 
-    IMG_TASK(3,"图片消息"),
-
-    COUNT_PAGE(1,"返回页码数");
-
-
+    COUNT_PAGE(1, "返回页码数");
 
     /**
      * 状态码   code
@@ -89,18 +79,13 @@ public  enum  ChatEnum {
         return String.valueOf(this.code);
     }
 
-    public static ChatEnum getByCode(Integer code)
-    {
-        for(ChatEnum v:values())
-        {
-            if(v.code==code)
-            {
+    public static ChatEnum getByCode(Integer code) {
+        for (ChatEnum v : values()) {
+            if (v.code == code) {
                 return v;
             }
         }
         return ChatEnum.OTHER;
     }
-
-
 
 }

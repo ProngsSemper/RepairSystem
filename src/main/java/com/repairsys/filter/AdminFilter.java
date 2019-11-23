@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -23,14 +22,12 @@ public class AdminFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest request = (HttpServletRequest)req;
+        HttpServletRequest request = (HttpServletRequest) req;
 
-
-        boolean b = request.getSession().getAttribute("adminId")==null;
+        boolean b = request.getSession().getAttribute("adminId") == null;
         logger.error(request.getRequestURI());
 
-        if(!b)
-        {
+        if (!b) {
             resp.setContentType("application/json");
             chain.doFilter(req, resp);
         }

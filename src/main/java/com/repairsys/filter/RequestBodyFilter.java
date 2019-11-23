@@ -34,10 +34,9 @@ public class RequestBodyFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
 
-        if(t.length()<=1)
-        {
+        if (t.length() <= 1) {
             logger.warn(t);
-            req.getRequestDispatcher("index.do").forward(request,resp);
+            req.getRequestDispatcher("index.do").forward(request, resp);
             resp.setContentType("text/html;charset=utf-8");
             // chain.doFilter(request,resp);
             return;

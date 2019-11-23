@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @create 2019/10/24 0:09
  */
 public interface FileDao<T> {
-    //TODO:还没搞定
+
     /**
      * 获取photo 表中的最大主键的下一位
      */
@@ -36,9 +36,9 @@ public interface FileDao<T> {
      */
     int addOne(LinkedList<String> paths);
 
-
     /**
      * 获取上传的图片路径
+     *
      * @param formId 工具学生的表单获取图片路径
      * @return
      */

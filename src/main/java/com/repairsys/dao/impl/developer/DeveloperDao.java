@@ -5,8 +5,6 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.string.StringUtils;
 
-import java.sql.Connection;
-
 /**
  * 开发者账号，项目发布时删除接口
  *

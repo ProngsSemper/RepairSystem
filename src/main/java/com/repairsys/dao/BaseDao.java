@@ -1,6 +1,5 @@
 package com.repairsys.dao;
 
-import com.repairsys.util.db.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -59,9 +58,8 @@ public abstract class BaseDao<T> {
         } catch (SQLException e) {
 
             e.printStackTrace();
-        }finally {
-            if(con!=null)
-            {
+        } finally {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -89,9 +87,8 @@ public abstract class BaseDao<T> {
             res = queryRunner.query(con, sql, beanListHandler, args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            if(con!=null)
-            {
+        } finally {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -126,15 +123,14 @@ public abstract class BaseDao<T> {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }finally {
+        } finally {
             try {
                 con.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            if(con!=null)
-            {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -145,7 +141,6 @@ public abstract class BaseDao<T> {
         return res;
 
     }
-
 
     /**
      * 删除一条为 T类型的数据，并回馈结果
@@ -168,14 +163,13 @@ public abstract class BaseDao<T> {
                 ex.printStackTrace();
             }
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 con.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            if(con!=null)
-            {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -207,15 +201,14 @@ public abstract class BaseDao<T> {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
-        }finally {
+        } finally {
             try {
                 con.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            if(con!=null)
-            {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
@@ -242,9 +235,8 @@ public abstract class BaseDao<T> {
             return (int) count;
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            if(con!=null)
-            {
+        } finally {
+            if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {

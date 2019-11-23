@@ -5,7 +5,6 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.EvaluationDao;
 import com.repairsys.util.db.JdbcUtil;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**

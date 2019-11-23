@@ -1,13 +1,10 @@
 package com.repairsys.bean.entity;
 
-import java.util.Comparator;
-
 /**
  * @Author lyr
  * @create 2019/11/16 14:03
  */
-public class RecommendedWorker{
-
+public class RecommendedWorker {
 
     @Override
     public String toString() {
@@ -29,7 +26,7 @@ public class RecommendedWorker{
                 '}';
     }
 
-    private int t9,t10,t11,t14,t15,t16,t17,t18;
+    private int t9, t10, t11, t14, t15, t16, t17, t18;
     private int total;
     private int locationCount;
     private String wMail;
@@ -126,98 +123,88 @@ public class RecommendedWorker{
         this.locationCount = locationCount;
     }
 
-    
     public String getwMail() {
         return wMail;
     }
 
-    
     public void setwMail(String wMail) {
         this.wMail = wMail;
     }
 
-    
     public String getwName() {
         return wName;
     }
 
-    
     public void setwName(String wName) {
         this.wName = wName;
     }
 
-    
     public String getwType() {
         return wType;
     }
 
-    
     public void setwType(String wType) {
         this.wType = wType;
     }
 
-    
     public String getwTel() {
         return wTel;
     }
 
-    
     public void setwTel(String wTel) {
         this.wTel = wTel;
     }
 
-    public int getTime(int hour)
-    {
+    public int getTime(int hour) {
         int ans = 0;
-        if(hour<=14)
-        {
-            switch (hour)
-            {
-                case 9:{
+        if (hour <= 14) {
+            switch (hour) {
+                case 9: {
                     ans = t9;
                     break;
                 }
-                case 10:
-                {
+                case 10: {
                     ans = t10;
                     break;
                 }
-                case 11:{
+                case 11: {
                     ans = t11;
                     break;
                 }
-                case 14:{
+                case 14: {
                     ans = t14;
                     break;
                 }
-                default:{
+                default: {
 
                 }
             }
-        }else{
+        } else {
 
-            switch (hour)
-            {
-                case 15:{
-                    ans = t15;break;
+            switch (hour) {
+                case 15: {
+                    ans = t15;
+                    break;
                 }
-                case 16:{
-                    ans = t16;break;
+                case 16: {
+                    ans = t16;
+                    break;
                 }
-                case 17:{
-                    ans = t17;break;
+                case 17: {
+                    ans = t17;
+                    break;
                 }
-                case 18:{
-                    ans = t18;break;
+                case 18: {
+                    ans = t18;
+                    break;
                 }
-                default:{}
+                default: {
+                }
             }
-
 
         }
 
         return ans;
     }
-
 
 }

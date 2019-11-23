@@ -94,10 +94,10 @@ public final class PrintUtil {
         boolean b = zipFile.exists();
         if (!b) {
             try {
-                logger.debug("尝试创建文件夹{}",zipFile.getAbsolutePath());
+                logger.debug("尝试创建文件夹{}", zipFile.getAbsolutePath());
                 zipFile.createNewFile();
             } catch (IOException e) {
-                logger.error("创建文件夹失败{}",zipFile.getAbsolutePath());
+                logger.error("创建文件夹失败{}", zipFile.getAbsolutePath());
                 e.printStackTrace();
             }
         }

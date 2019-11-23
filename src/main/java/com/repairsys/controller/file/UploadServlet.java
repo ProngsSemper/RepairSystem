@@ -30,75 +30,66 @@ public class UploadServlet extends HttpServlet {
     private static final FormListDaoImpl FORM_DAO = FormListDaoImpl.getInstance();
 
     private static final Logger logger = LoggerFactory.getLogger(UploadServlet.class);
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int tmp = (Integer)request.getSession().getAttribute("formId");
+        int tmp = (Integer) request.getSession().getAttribute("formId");
 
-        String formId = tmp+"";
+        String formId = tmp + "";
         logger.debug("正在提交图片信息");
         request.setCharacterEncoding("utf-8");
 
         String path = request.getServletContext().getRealPath("/upload/img/");
         File f = new File(path);
-        if(!f.exists())
-        {
+        if (!f.exists()) {
             f.mkdir();
         }
         Collection<Part> parts = request.getParts();
         LinkedList<String> imgPathList = new LinkedList<>();
-        int count=0;
-        for(Part part: parts)
-        {
+        int count = 0;
+        for (Part part : parts) {
 
-
-            if(!part.getContentType().startsWith("image"))
-            {
+            if (!part.getContentType().startsWith("image")) {
 
                 logger.debug("不是图片类型");
                 continue;
             }
-            if(count>3)
-            {
+            if (count > 3) {
                 break;
             }
             ++count;
             String name = part.getSubmittedFileName();
 
-
-            String fileName = path+"\\"+ UUID.randomUUID().toString();
-            String finalFileName = fileName+name;
+            String fileName = path + "\\" + UUID.randomUUID().toString();
+            String finalFileName = fileName + name;
 
             logger.debug(finalFileName);
             part.write(finalFileName);
             imgPathList.add(finalFileName);
         }
 
-        if(imgPathList.isEmpty())
-        {
+        if (imgPathList.isEmpty()) {
             return;
         }
         int primaryKey = FILE_DAO.addOne(imgPathList);
 
-
-        logger.debug("key: {}",primaryKey);
+        logger.debug("key: {}", primaryKey);
         logger.debug("提交成功");
-        boolean b = FORM_DAO.setPhotoId(primaryKey,formId);
-        logger.trace("{}",b);
+        boolean b = FORM_DAO.setPhotoId(primaryKey, formId);
+        logger.trace("{}", b);
 
-        if(request.getAttribute("talk")!=null)
-        {
+        if (request.getAttribute("talk") != null) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("ans",true);
-            request.setAttribute("result",jsonObject);
-            super.doPost(request,response);
+            jsonObject.put("ans", true);
+            request.setAttribute("result", jsonObject);
+            super.doPost(request, response);
         }
-
 
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }

@@ -13,7 +13,6 @@ public class Developer implements Serializable {
     private String password;
     private String stuName;
 
-
     public String getStuName() {
         return stuName;
     }

@@ -33,7 +33,6 @@
         </init-param>
 
 
-
     </filter>
     <filter>
         <filter-name>WorkerFilter</filter-name>
@@ -49,7 +48,6 @@
         </init-param>
 
 
-
     </filter>
 
     <filter>
@@ -63,13 +61,12 @@
     </filter>
 
 
-
-<!--第一步-->
+    <!--第一步-->
     <filter-mapping>
         <filter-name>EncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-<!--    第二步-->
+    <!--    第二步-->
     <filter-mapping>
         <filter-name>RequestBodyFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -77,18 +74,18 @@
 
     </filter-mapping>
 
-<!-- 第三步 -->
+    <!-- 第三步 -->
     <filter-mapping>
         <filter-name>SignFilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-<!-- 第4步 -->
+    <!-- 第4步 -->
     <filter-mapping>
         <filter-name>WorkerFilter</filter-name>
         <url-pattern>/worker/*</url-pattern>
     </filter-mapping>
 
-<!-- 第5步 -->
+    <!-- 第5步 -->
 
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
@@ -96,17 +93,13 @@
     </filter-mapping>
 
 
-<!-- 第6步 -->
+    <!-- 第6步 -->
 
 
     <filter-mapping>
         <filter-name>StuFilter</filter-name>
         <url-pattern>/student/*</url-pattern>
     </filter-mapping>
-
-
-
-
 
 
     <welcome-file-list>

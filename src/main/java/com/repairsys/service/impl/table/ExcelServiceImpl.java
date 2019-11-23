@@ -85,7 +85,7 @@ public final class ExcelServiceImpl implements ExcelService {
                         t.getStuId(),
                         t.getStuPhone(),
                         t.getStuMail(),
-                        t.getAppointDate().substring(0,11)+" "+t.getAppointment()+"点"
+                        t.getAppointDate().substring(0, 11) + " " + t.getAppointment() + "点"
                         // t.getAppointment()
 
                 );
@@ -110,7 +110,7 @@ public final class ExcelServiceImpl implements ExcelService {
         if (this.path == null) {
             synchronized (this) {
                 if (this.path == null) {
-                    //TODO: 需要注意，在 servlet里面传参
+                    //需要注意，在 servlet里面传参
                     this.path = result.getDesc();
                     File file = new File(this.path);
                     if (!file.exists()) {
@@ -123,8 +123,7 @@ public final class ExcelServiceImpl implements ExcelService {
         //注意，下面的代码，请不要调换上下位置，不然就是一堆bug
         exportOneByOne(result);
         Excel e = (Excel) result;
-        if(e.getPaths()==null||e.getPaths().size()<=0)
-        {
+        if (e.getPaths() == null || e.getPaths().size() <= 0) {
             return e;
         }
         exportTable(result);
@@ -210,7 +209,7 @@ public final class ExcelServiceImpl implements ExcelService {
                         t.getStuId(),
                         t.getStuPhone(),
                         t.getStuMail(),
-                        t.getAppointDate().substring(0,11)+" "+t.getAppointment()+"点"
+                        t.getAppointDate().substring(0, 11) + " " + t.getAppointment() + "点"
                         // t.getAppointment()
 
                 );

@@ -10,7 +10,6 @@ import com.repairsys.util.easy.EasyTool;
 import com.repairsys.util.mail.MailUtil;
 import com.repairsys.util.md5.Md5Util;
 import com.repairsys.util.string.PhoneNumberUtil;
-import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,8 +18,6 @@ import java.net.URLDecoder;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author lyr, Prongs
@@ -30,50 +27,42 @@ import java.util.regex.Pattern;
 
 public class Print {
     @Test
-    public void ppp()
-    {
-        System.out.println(Math.ceil(21.0/5));
+    public void ppp() {
+        System.out.println(Math.ceil(21.0 / 5));
 
     }
 
-
     @Test
-    public void phone(){
+    public void phone() {
         System.out.println(PhoneNumberUtil.isMobile("110"));
     }
 
     @Test
-    public void decode()
-    {
+    public void decode() {
         String str = URLDecoder.decode("%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F%2F%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%88%90%E5%8A%9F%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE");
         System.out.println(str);
     }
 
     @Test
-    public void print11()
-    {
+    public void print11() {
         String tmp = "index.do";
         int i = tmp.lastIndexOf(".");
-        System.out.println(tmp.substring(i,tmp.length()));
+        System.out.println(tmp.substring(i, tmp.length()));
     }
-
 
     @Test
     public void getP() throws IOException {
 
-        String file_Path = new File(AdminLoginServlet.class.getResource("/").getPath()).getParent()+"\\WEB-INFO\\badWords.txt";
+        String file_Path = new File(AdminLoginServlet.class.getResource("/").getPath()).getParent() + "\\WEB-INFO\\badWords.txt";
         System.out.println(file_Path);
 
     }
-
-
-
 
     @Test
     public void printSome() {
         Calendar c = Calendar.getInstance();
         System.out.println(c.getTime());
-        System.out.println("更新数据库时间："+c.get(Calendar.YEAR)+"-"+(1+c.get(Calendar.MONTH))+"-"+c.get(Calendar.DATE)+" " +c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":" +c.get(Calendar.SECOND));
+        System.out.println("更新数据库时间：" + c.get(Calendar.YEAR) + "-" + (1 + c.get(Calendar.MONTH)) + "-" + c.get(Calendar.DATE) + " " + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND));
 
     }
 
@@ -158,14 +147,13 @@ public class Print {
     }
 
     @Test
-    public void printUUID()
-    {
-        String y =  UUID.randomUUID().toString();
+    public void printUUID() {
+        String y = UUID.randomUUID().toString();
         System.out.println(y);
     }
+
     @Test
-    public void printPerson()
-    {
+    public void printPerson() {
         com.repairsys.chat.domain.Admin admin = new com.repairsys.chat.domain.Admin();
         // admin.append("123");
         // admin.append("12222");
@@ -177,8 +165,7 @@ public class Print {
     }
 
     @Test
-    public void debug()
-    {
-        EasyTool.debug(10,1,2,3);
+    public void debug() {
+        EasyTool.debug(10, 1, 2, 3);
     }
 }

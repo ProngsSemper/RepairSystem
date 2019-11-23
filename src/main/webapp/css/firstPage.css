@@ -1182,6 +1182,7 @@ body {
     margin: 0 10px 0 0;
     width: 300px;
 }
-.evaluateSure:focus{
+
+.evaluateSure:focus {
     outline: none;
 }

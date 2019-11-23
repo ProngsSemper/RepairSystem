@@ -5,7 +5,6 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.util.db.JdbcUtil;
 
 import java.util.List;
-import java.util.jar.JarEntry;
 
 /**
  * @Author lyr
@@ -15,14 +14,15 @@ public class RecommendWorkerDaoImpl extends BaseDao<RecommendedWorker> {
     protected RecommendWorkerDaoImpl() {
         super(RecommendedWorker.class);
     }
-    public static RecommendWorkerDaoImpl getInstance(){return DAO;}
+
+    public static RecommendWorkerDaoImpl getInstance() {
+        return DAO;
+    }
 
     private static final RecommendWorkerDaoImpl DAO = new RecommendWorkerDaoImpl();
 
-
-    public List<RecommendedWorker> getList(String sql,Object... args)
-    {
-        return super.selectList(JdbcUtil.getConnection(),sql,args)
-        ;
+    public List<RecommendedWorker> getList(String sql, Object... args) {
+        return super.selectList(JdbcUtil.getConnection(), sql, args)
+                ;
     }
 }

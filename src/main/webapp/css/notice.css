@@ -1,30 +1,34 @@
-*{
+* {
     padding: 0;
     margin: 0;
     list-style: none;
     text-decoration: none;
 }
-html{
+
+html {
     background: #fcf9f5;
 }
-.bg{
+
+.bg {
     display: flex;
     justify-content: center;
     width: 100%;
     height: 100%;
 }
-.noticeBox{
+
+.noticeBox {
     position: relative;
     margin: 10px auto 0;
     width: 1260px;
     height: 100%;
     /* background: #000; */
-    background-image: url(../img/left.png),url(../img/right.png);
-    background-position: 28px 62px,935px 57px;
+    background-image: url(../img/left.png), url(../img/right.png);
+    background-position: 28px 62px, 935px 57px;
     background-size: 25%;
     background-repeat: no-repeat;
 }
-.noticeInside{
+
+.noticeInside {
     position: relative;
     margin: 130px auto 0;
     width: 500px;
@@ -36,7 +40,8 @@ html{
     background-position: bottom;
     background-image: url(../img/print.png);
 }
-.notice-tit{
+
+.notice-tit {
     /* position: relative; */
     /* top: 10px; */
     margin: 4px 0 37px 0;
@@ -45,7 +50,8 @@ html{
     font-size: 22px;
     line-height: 30px;
 }
-.textArea{
+
+.textArea {
     position: absolute;
     display: block;
     top: -48px;
@@ -58,9 +64,10 @@ html{
     padding: 10px;
     /* position: absolute; */
 }
-.sure{
+
+.sure {
     display: block;
-    margin: 10px auto ;
+    margin: 10px auto;
     border: none;
     border-radius: 10px;;
     width: 150px;
@@ -72,10 +79,12 @@ html{
     text-align: center;
     cursor: pointer;
 }
-.sure:focus{
+
+.sure:focus {
     outline: none;
 }
-.return{
+
+.return {
     position: absolute;
     top: 20px;
     left: -49px;
@@ -85,7 +94,8 @@ html{
     background-size: contain;
     cursor: pointer;
 }
-.notice-tit img{
+
+.notice-tit img {
     display: block;
     position: relative;
     width: 200px;

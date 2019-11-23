@@ -48,7 +48,6 @@ public class GetByPageServlet extends BaseServlet {
         logger.debug("{}", page);
 
         result.setTargetPage(page);
-        //TODO: 还有代码没写完，暂时脑补一下
         int flag = 200;
         if (result.getCode() == flag) {
             logger.debug("查询成功{}", result);

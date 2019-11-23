@@ -11,72 +11,71 @@
 
 </head>
 <body onbeforeunload="closeWebSocket()">
-    <div class="communicated">
-        <i class="return" id="back"></i>
-        
-        <div class="bigBox">
-                <i class="logo"></i>
-                <i class="book"></i>
-                <i class="plant"></i>
-                <i class="windows"></i>
-            <div class="connent">
-                <div class="contant" id="window-talk">
-                    
-                        <a href="javascript:;" class="history">获取离线消息记录</a> 
+<div class="communicated">
+    <i class="return" id="back"></i>
 
-                </div>
-                <div class="send">
-                        <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro" target="nm_iframe" multiple="multiple">
-                            <input type="file" name="photo" id="inputphoto" value=""  multiple="multiple">
-                            <img src="img/lo-photo.png" alt="" class="photo">
-                        </form>
-                    <div name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容"  contenteditable="true" style="overflow: auto;"></div>
-                    <button class="stuSend" id="btn">发送</button>
-                    <aside id="data-list"  >
-                        <input type="text" list = "list" placeholder="请输入聊天对象" id="receiver-name">
-                        <datalist name="" id="list">
+    <div class="bigBox">
+        <i class="logo"></i>
+        <i class="book"></i>
+        <i class="plant"></i>
+        <i class="windows"></i>
+        <div class="connent">
+            <div class="contant" id="window-talk">
 
-                            <option>-</option>
+                <a href="javascript:;" class="history">获取离线消息记录</a>
 
-                        </datalist>
-                    </aside>
-                </div>
+            </div>
+            <div class="send">
+                <form action="/upload/img" method="post" enctype="multipart/form-data" name="photo" id="selectPro"
+                      target="nm_iframe" multiple="multiple">
+                    <input type="file" name="photo" id="inputphoto" value="" multiple="multiple">
+                    <img src="img/lo-photo.png" alt="" class="photo">
+                </form>
+                <div name="sent" id="msg1" class="seatArea" placeholder="请输入发送内容" contenteditable="true"
+                     style="overflow: auto;"></div>
+                <button class="stuSend" id="btn">发送</button>
+                <aside id="data-list">
+                    <input type="text" list="list" placeholder="请输入聊天对象" id="receiver-name">
+                    <datalist name="" id="list">
+
+                        <option>-</option>
+
+                    </datalist>
+                </aside>
             </div>
         </div>
-
-
-
     </div>
+
+
+</div>
 <!--    <button id="get-page">-->
 
 <!--    </button>-->
-    <script src="js/communication.js"></script>
-    <!-- <script src="js/m_talkPage.js"></script> -->
-
+<script src="js/communication.js"></script>
+<!-- <script src="js/m_talkPage.js"></script> -->
 
 
 <br><br><br><br><br><br><br><br>
 <script type="text/javascript">
     function postData() {
         let formData = new FormData(document.getElementById("selectPro"));
-        formData.append("isAdmin",isAdmin);
+        formData.append("isAdmin", isAdmin);
         let target = $('#receiver-name').val();
-        if(target==null||target===""||target.length<2)
-        {
+        if (target == null || target === "" || target.length < 2) {
             alert("请输入接收人的名字");
             return;
         }
-        formData.append("sender",sender);
-        formData.append("target",target);
+        formData.append("sender", sender);
+        formData.append("target", target);
         // alert(formData);
         $.ajax({
-            url:'/upload/talk/img', /*接口域名地址*/
-            type:'post',
-            async:false,
+            url: '/upload/talk/img', /*接口域名地址*/
+            type: 'post',
+            async: false,
             data: formData,
             contentType: false,
             processData: false,
-            success:function(res) {
+            success: function (res) {
                 console.log("发送成功");
                 // alert("发送成功");
                 addLastImg(recent_img_path);
@@ -86,7 +85,7 @@
 
 
             },
-            error:function (res) {
+            error: function (res) {
                 alert("发送失败");
                 recent_img_path = null;
             }
@@ -108,7 +107,6 @@
 <!--</form>-->
 
 
-
 </body>
 
 <script>
@@ -119,11 +117,6 @@
     )
 
 </script>
-
-
-
-
-
 
 
 </html>

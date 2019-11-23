@@ -17,13 +17,13 @@ import java.io.IOException;
 public class StudentLogOutServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CookieUtil.cleanCookie("stuId","",response);
-        CookieUtil.cleanCookie("stuName","",response);
+        CookieUtil.cleanCookie("stuId", "", response);
+        CookieUtil.cleanCookie("stuName", "", response);
         request.getSession().removeAttribute("stuId");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+        doPost(request, response);
     }
 }

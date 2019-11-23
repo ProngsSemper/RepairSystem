@@ -1,27 +1,31 @@
-*{
+* {
     padding: 0;
     margin: 0;
     list-style: none;
     text-decoration: none;
 }
-html{
+
+html {
     background: #eee5e5;
 }
-.communicated{
+
+.communicated {
     width: 100%;
     height: 100%;
 }
-.bigBox{
+
+.bigBox {
     position: relative;
     margin: 0 auto;
     width: 1260px;
     height: auto;
-    background-image: url(../img/peo-left.png),url(../img/peo.png);
+    background-image: url(../img/peo-left.png), url(../img/peo.png);
     background-size: 15%;
-    background-position: 142px 246px,931px 227px;
-    background-repeat: no-repeat,no-repeat;
+    background-position: 142px 246px, 931px 227px;
+    background-repeat: no-repeat, no-repeat;
 }
-.return{
+
+.return {
     position: absolute;
     top: 0px;
     left: 20px;
@@ -31,7 +35,8 @@ html{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.connent{
+
+.connent {
     /* border: 1px solid #000; */
     margin: 50px auto;
     width: 600px;
@@ -39,7 +44,8 @@ html{
     border-radius: 10px;
     /* background: #fff; */
 }
-.contant{
+
+.contant {
     border: 1px solid #888;
     position: relative;
     width: 600px;
@@ -48,7 +54,8 @@ html{
     border-radius: 10px 10px 0 0;
     background: #fff;
 }
-.send{
+
+.send {
     position: relative;
     width: 600px;
     height: 150px;
@@ -57,7 +64,8 @@ html{
     border-top: none;
     border-radius: 0 0 5px 5px;
 }
-.seatArea{
+
+.seatArea {
     margin: 0px;
     width: 579px;
     border: none;
@@ -66,7 +74,8 @@ html{
     font-size: 18px;
     padding: 10px;
 }
-.stuSend{
+
+.stuSend {
     position: absolute;
     right: 10px;
     bottom: 6px;
@@ -78,10 +87,12 @@ html{
     color: #333;
     cursor: pointer;
 }
-.stuSend:focus{
+
+.stuSend:focus {
     outline: none;
 }
-.own{
+
+.own {
     float: right;
     overflow: auto;
     border-radius: 5px;
@@ -92,15 +103,18 @@ html{
     height: auto;
     margin: 10px 0;
 }
-.bg-green{
+
+.bg-green {
 
     background: #9eea6a;
 }
-.bg-white{
+
+.bg-white {
 
     background: #eee;
 }
-.other{
+
+.other {
     float: left;
     overflow: auto;
     border-radius: 5px;
@@ -109,18 +123,22 @@ html{
     height: auto;
     margin: 10px;
 }
-.line{
+
+.line {
     float: left;
     width: 580px;
 }
-.seatArea:focus{
+
+.seatArea:focus {
     outline: none;
     border: none;
 }
-.stuSend:hover{
+
+.stuSend:hover {
     color: #fff;
     background: #8e0b02;
 }
+
 #data-list {
 
     position: absolute;
@@ -131,36 +149,40 @@ html{
     width: 116px;
     height: 30px;
     text-align: center;
-    color:
-            #333;
+    color: #333;
     cursor: pointer;
     border: 1px black;
     display: block;
 
 
 }
-#data-list>*{
+
+#data-list > * {
     width: 98px;
     height: 21px;
 }
-#get-page{
+
+#get-page {
     width: 300px;
     height: 100px;
     display: block;
     margin: auto;
 }
-.history{
+
+.history {
     display: block;
     text-align: center;
     font-size: 14px;
-    color:#6b9bdc;
+    color: #6b9bdc;
 }
-.loadding{
+
+.loadding {
     /* display: none; */
     margin: 0 auto;
     width: 20px;
 }
-.windows{
+
+.windows {
     position: absolute;
     left: 72px;
     top: 50px;
@@ -170,7 +192,8 @@ html{
     background-repeat: no-repeat;
     background-size: 70%;
 }
-.plant{
+
+.plant {
     position: absolute;
     left: 245px;
     top: 162px;
@@ -181,7 +204,8 @@ html{
     background-size: 35%;
     z-index: 2;
 }
-.book{
+
+.book {
     position: absolute;
     /* left: 254px; */
     right: 0;
@@ -192,7 +216,8 @@ html{
     background-repeat: no-repeat;
     background-size: contain;
 }
-.logo{
+
+.logo {
     position: absolute;
     /* left: 254px; */
     right: 0;
@@ -203,7 +228,8 @@ html{
     background-repeat: no-repeat;
     background-size: contain;
 }
-.photo{
+
+.photo {
     width: 30px;
     height: 30px;
     position: absolute;
@@ -211,7 +237,8 @@ html{
     right: 10px;
     cursor: pointer;
 }
-#inputphoto{
+
+#inputphoto {
     position: absolute;
     bottom: 97px;
     right: 5px;
@@ -222,15 +249,18 @@ html{
     z-index: 3;
     cursor: pointer;
 }
-.seatArea:empty:before{
-    content: attr(placeholder);   /* element attribute*/
+
+.seatArea:empty:before {
+    content: attr(placeholder); /* element attribute*/
     /*content: 'this is content';*/
     color: #888;
 }
+
 /*焦点时内容为空*/
-.seatArea:focus:before{
-    content:none;
+.seatArea:focus:before {
+    content: none;
 }
-.seatArea img{
+
+.seatArea img {
     height: 100px;
 }

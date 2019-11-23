@@ -4,9 +4,7 @@ import com.repairsys.bean.entity.Board;
 import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.BoardDao;
 import com.repairsys.util.db.JdbcUtil;
-import com.repairsys.util.easy.EasyTool;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**

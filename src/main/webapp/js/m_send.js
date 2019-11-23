@@ -17,49 +17,45 @@ $(document).ready(function () {
 
 
         alert(type);
-        if(type==1)
-        {
+        if (type == 1) {
             //工人名字
             url = "/admin/wName";
             wName = textObj.val();
             carry = {
-                "wName":wName,
-                "page":page,
-                "limit":limit
+                "wName": wName,
+                "page": page,
+                "limit": limit
             };
 
-        }else if(type==2)
-        {
+        } else if (type == 2) {
             //工种类型
             url = "/admin/type/form";
             wType = textObj.val();
-            carry={
-                "wType":wType,
-                "page":page,
-                "limit":limit
+            carry = {
+                "wType": wType,
+                "page": page,
+                "limit": limit
             }
 
-        }else if(type==3)
-        {
+        } else if (type == 3) {
             //报修单id
             url = "/admin/formId";
             formId = textObj.val();
-            carry={
-                "formId":formId,
-                "page":page,
-                "limit":limit
+            carry = {
+                "formId": formId,
+                "page": page,
+                "limit": limit
             }
 
 
-        }else if(type==4)
-        {
+        } else if (type == 4) {
             //学生名字
             url = "/admin/stuName";
             stuName = textObj.val();
-            carry={
-                "stuName":stuName,
-                "page":page,
-                "limit":limit
+            carry = {
+                "stuName": stuName,
+                "page": page,
+                "limit": limit
             }
         }
 
@@ -108,10 +104,10 @@ $(document).ready(function () {
                     table.append(row);
 
                     row.append(colNumber, colAdress, colContant, colOperate);
-                    $(".row").eq(i+1).attr("formId", line.formId);
+                    $(".row").eq(i + 1).attr("formId", line.formId);
                 }
             },
-            error:function (xhr) {
+            error: function (xhr) {
                 alert("服务器出了点异常")
             }
 
@@ -120,8 +116,6 @@ $(document).ready(function () {
 
 
     });
-
-
 
 
 });

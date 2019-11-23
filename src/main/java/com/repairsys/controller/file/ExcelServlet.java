@@ -51,27 +51,24 @@ public class ExcelServlet extends BaseServlet {
 
         ExcelServiceImpl service = ExcelServiceImpl.getInstance();
         service.exportAll(excel);
-        if(excel.getPaths()!=null&&excel.getPaths().size()>0)
-        {
+        if (excel.getPaths() != null && excel.getPaths().size() > 0) {
             service.exportZipFile(request.getServletContext().getRealPath("/upload/zip/").replaceAll("\\\\", "/") + TimeUtil.getCurTime() + ".zip",
                     TimeUtil.getCurTime(),
                     excel
             );
 
-
         }
 
         excel.setResult(ResultEnum.QUERY_SUCCESSFULLY);
         request.setAttribute("result", excel);
-        synchronized (this)
-        {
+        synchronized (this) {
             this.result = excel;
             this.time = tmp;
             this.cnt = excel.getPaths().size();
         }
         excel.setData(this.cnt);
 
-        //TODO:顺便打印 压缩包，并把压缩包路径也返回
+        //顺便打印 压缩包，并把压缩包路径也返回
 
         super.doPost(request, response);
     }

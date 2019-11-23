@@ -16,8 +16,8 @@ public final class PhoneNumberUtil {
         Matcher m;
         boolean b = false;
         // 验证手机号
-        String s2="^[1](([3|5|8][\\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\\d]{8}$";
-        if(StringUtils.isNotBlank(str)){
+        String s2 = "^[1](([3|5|8][\\d])|([4][5,6,7,8,9])|([6][5,6])|([7][3,4,5,6,7,8])|([9][8,9]))[\\d]{8}$";
+        if (StringUtils.isNotBlank(str)) {
             p = Pattern.compile(s2);
             m = p.matcher(str);
             b = m.matches();

@@ -109,7 +109,6 @@ $("body").delegate(".handin-tit", "click", function () {
             }),
             success: function (msg) {
                 if (msg.code == 201) {
-                    //todo: 快看这里
                     onloadFile();
                     alert("报修单提交成功");
                     location.reload();
@@ -161,7 +160,7 @@ function gerRepairOrder(pageCount) {
         type: "POST",
         url: "/student/incomplete/history/form",
         dataType: "json",
-        async:false,
+        async: false,
         data: JSON.stringify({
             "page": parseInt(pageCount),
             "limit": 3,
@@ -567,9 +566,9 @@ $("body").delegate(".icon-chaa", "click", function () {
 $("body").delegate(".evaluateSure", "click", function () {
     massage = commentArea.value;
     stuEvaluation(evaluation, wKey, massage, formId);
-    commentArea.value="";
+    commentArea.value = "";
     for (var i = 0; i < evaluateRadio.length; i++) {
-        $(".evaluateRadio").eq(i).attr("checked",false);
+        $(".evaluateRadio").eq(i).attr("checked", false);
     }
     evaluate.style.display = "none";
     gerfinishOrder(page);

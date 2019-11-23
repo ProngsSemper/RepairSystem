@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.repairsys.bean.vo.Result;
 import com.repairsys.code.ResultEnum;
 import com.repairsys.controller.BaseServlet;
-import com.repairsys.dao.DaoFactory;
 import com.repairsys.service.ServiceFactory;
 import com.repairsys.service.impl.student.StudentServiceImpl;
 import com.repairsys.util.textfilter.SensitiveWordFilter;

@@ -71,7 +71,7 @@ public class ServerListener implements ServletContextListener,
             }
         };
         pool.execute(r);
-        pool.submit(()-> MsgDao.getInstance().removeMsg());
+        pool.submit(() -> MsgDao.getInstance().removeMsg());
         // pool.shutdown();
 
         //开启聊天线程池

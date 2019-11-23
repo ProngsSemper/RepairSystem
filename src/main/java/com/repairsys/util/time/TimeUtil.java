@@ -1,12 +1,8 @@
 package com.repairsys.util.time;
 
-import org.junit.Test;
-
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @Author lyr
@@ -15,12 +11,11 @@ import java.util.Date;
 public final class TimeUtil {
 
     /**
-     * @see TimeUtil
      * @return 返回当前天数
      * replaced by <code>
-     *     TimeUtil.getNowDate
+     * TimeUtil.getNowDate
      * </code>
-     *
+     * @see TimeUtil
      */
     @Deprecated
     public static String getCurTime() {
@@ -48,14 +43,9 @@ public final class TimeUtil {
 
     }
 
-    public static String getNowDate()
-    {
+    public static String getNowDate() {
         LocalDate nowDay = LocalDate.now();
         return nowDay.toString();
     }
-
-
-
-
 
 }

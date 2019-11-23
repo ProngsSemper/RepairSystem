@@ -42,8 +42,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
     private static final String SELECT_MIN_AND_MAX_DAY = "select min(`curtime`) from wtime union select max(`curtime`) from wtime";
 
-    //TODO:未完成
-
     /**
      * 清理表中的垃圾并更新
      *
@@ -263,12 +261,11 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
 
         String tSql = "select wKey from wTime where curTime = '" + appointDate.toString() + "' ORDER BY t" + hour;
         logger.debug(tSql);
-        //TODO:有修改和优化过sql语句，如果运行出错，可以检查一下这条命令
+        //有修改和优化过sql语句，如果运行出错，可以检查一下这条命令
 
         String recommendSql = "select DISTINCT w.* from workers w left JOIN wtime wt on w.wKey = wt.wKey where wt.curTime = '" + appointDate.toString() + "' and w.wType ='" + wType + "' order by wt.t" + hour;
         logger.debug(recommendSql);
         List<Worker> list = WorkerDaoImpl.getInstance().getList(recommendSql);
-        // System.out.println(list);
         if (list == null || list.isEmpty() || list.get(0) == null) {
             logger.debug("处理异常");
             return new LinkedList<>();
@@ -381,8 +378,7 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
      * @param location 根据工人的地点排序
      * @return
      */
-    //TODO:未完成
-    //FIXME: 需要根据工人的地点排序
+
     public List<RecommendedWorker> recommendByAppointmemntPlusPlus(Date appointDate, int hour, String wType, String location) {
         boolean b = hour >= 9 && hour <= 11 || hour >= 14 && hour <= 18;
         if (!b) {
@@ -407,7 +403,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
         return Stream.concat(first, second).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    //TODO:还需要调用，请注意
     /**
      * curday 从0 加到7，创建一个星期的记录
      */
@@ -438,7 +433,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
             if (!diffSet.isEmpty()) {
                 logger.error("正在更新工人表单");
                 // System.out.println("--dd--");
-                //TODO: 还没完成
                 for (int i : diffSet) {
                     for (int j = 0; j <= 6; ++j) {
                         updateAndInsert(i, j);
@@ -485,8 +479,6 @@ public class WorkerScheule extends TableDaoImpl implements Sortable {
     private void updateAndInsert(int key, int day) {
         super.updateOne(JdbcUtil.getConnection(), INSERT_NEW_WORKER_TABLE, key, day);
     }
-
-    //todo:要写注释
 
     public void updateWtime(String day, String hour, int key) {
         String sql = "update wtime set t" + hour + " = t" + hour + "-1 where wkey = ? AND curTime = '" + day + "'";

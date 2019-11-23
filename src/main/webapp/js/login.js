@@ -65,20 +65,20 @@ $(document).ready(function () {
     //     //给登录按钮添加节流
     //     throttle(submitted,3000,1)
     // })
-    var load=document.getElementById("login");
-    load.onclick=throttle(submitted,3000,1);
+    var load = document.getElementById("login");
+    load.onclick = throttle(submitted, 3000, 1);
+
     function submitted() {
 
         //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
         var radio = $("input[name='identity']:checked").val();
         var vcode = $('#myCode').val();
         var flag;
-        var judge=remmber.checked;
-        if(judge){
-            flag=1;
-        }
-        else{
-            flag=0;
+        var judge = remmber.checked;
+        if (judge) {
+            flag = 1;
+        } else {
+            flag = 0;
         }
         // document.write(_LoadingHtml);
         // window.setTimeout(load,3000);
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 "password": $('#password').val(),
                 'radio': radio,
                 'vcode': vcode,
-                'flag':parseInt(flag)
+                'flag': parseInt(flag)
             }),
             success: function (data, status, jqXHR) {
                 // var rel = JSON.parse(msg);
@@ -113,10 +113,10 @@ $(document).ready(function () {
                     } else if (identity == 'worker') {
                         window.setTimeout("window.location.href='/workerPage.html'", 1000);
                     }
-                } else if(rel.code==403) {
+                } else if (rel.code == 403) {
                     alert("验证码错误");
                     refreshCode();
-                }else{
+                } else {
                     alert("用户名或密码错误");
                     refreshCode();
                 }
@@ -127,6 +127,6 @@ $(document).ready(function () {
 
         });
     }
-        
+
 });
 

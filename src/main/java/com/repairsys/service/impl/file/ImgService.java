@@ -15,28 +15,21 @@ public final class ImgService {
     private ImgService() {
     }
 
-    public static ImgService getInstance()
-    {
+    public static ImgService getInstance() {
         return imgService;
     }
 
+    public Result<Photo> getPath(String formId) {
+        Photo tmp = null;
 
-    public Result<Photo> getPath(String formId)
-    {
-        Photo tmp=null;
-
-         tmp = FileDaoImpl.getInstance().getImgPath(formId);
+        tmp = FileDaoImpl.getInstance().getImgPath(formId);
 
         Result temp = new Result();
 
         temp.setData(tmp);
         temp.setResult(ResultEnum.QUERY_SUCCESSFULLY);
 
-
         return temp;
     }
-
-
-
 
 }

@@ -3,7 +3,6 @@ package com.repairsys.dao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -14,7 +13,6 @@ import java.util.List;
  */
 public abstract class AbstractPageDao<T> extends BaseDao<T> {
     private static final String SELECT_PAGE = "select * from ? limit ?,?";
-    
 
     protected AbstractPageDao(Class<T> clazz) {
         super(clazz);

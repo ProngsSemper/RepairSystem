@@ -74,8 +74,7 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
 
     @Override
     public int addOne(LinkedList<String> paths) {
-        if(paths.isEmpty())
-        {
+        if (paths.isEmpty()) {
             return -1;
         }
         String[] pathList = new String[3];
@@ -98,24 +97,19 @@ public class FileDaoImpl extends BaseDao<Photo> implements FileDao<Photo> {
 
     }
 
-
     private static final String GET_PATH = "SELECT DISTINCT * FROM photo p  RIGHT JOIN (select * from form union select * from oldform ) as f on f.photoId=p.photoId WHERE f.formId = ?";
     private static final String GET_OLD_PATH = "select distinct photoPath1,photoPath2,photoPath3 from photo p right join oldform f on p.photoId = f.photoId where f.formId= ?";
 
-
     @Override
-    public Photo getImgPath(String formId)
-    {
+    public Photo getImgPath(String formId) {
 
-        Photo tmp = super.selectOne(JdbcUtil.getConnection(),GET_PATH,formId);
+        Photo tmp = super.selectOne(JdbcUtil.getConnection(), GET_PATH, formId);
 
         return tmp;
     }
 
-
-    public Photo getOldImgPath(String formId)
-    {
-        Photo tmp = super.selectOne(JdbcUtil.getConnection(),GET_OLD_PATH,formId);
+    public Photo getOldImgPath(String formId) {
+        Photo tmp = super.selectOne(JdbcUtil.getConnection(), GET_OLD_PATH, formId);
         return tmp;
 
     }

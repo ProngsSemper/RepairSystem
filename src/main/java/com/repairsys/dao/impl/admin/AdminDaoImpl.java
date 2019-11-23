@@ -102,7 +102,6 @@ public class AdminDaoImpl extends BaseDao<Admin> implements AdminDao, PageDao<Ad
         return super.selectOne(JdbcUtil.getConnection(), GET_TOKEN, id);
     }
 
-    //todo: 要看看
     public Admin existsToken(String token) {
         String sql = "select * from administrators where `adminToken` = ?";
         System.out.println(sql);

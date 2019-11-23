@@ -23,9 +23,8 @@ public class SignFilter implements Filter {
 
         HttpServletRequest request = (HttpServletRequest) req;
         String t = request.getRequestURI();
-        if(t.length()<=1)
-        {
-            chain.doFilter(request,resp);
+        if (t.length() <= 1) {
+            chain.doFilter(request, resp);
             return;
         }
         HttpServletResponse response = (HttpServletResponse) resp;

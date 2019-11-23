@@ -32,10 +32,10 @@ body {
     width: 1440px;
     height: 65px;
     overflow: hidden;
-    background-image: url(../img/big.png),url(../img/front.png);
+    background-image: url(../img/big.png), url(../img/front.png);
     background-size: 6%;
     background-repeat: no-repeat;
-    background-position: 600px,925px;
+    background-position: 600px, 925px;
 }
 
 .nav .icon {
@@ -570,6 +570,7 @@ select {
     width: 1150px;
     margin: 0 auto;
 }
+
 .finishgrid-content {
     border-radius: 4px;
     height: 36px;
@@ -577,6 +578,7 @@ select {
     width: 1150px;
     margin: 0 auto;
 }
+
 .listcontant {
     text-align: center;
     /* background: #fff; */
@@ -619,6 +621,7 @@ select {
     flex-wrap: nowrap;
     line-height: 36px;
 }
+
 .adress {
     width: 200px;
     text-align: center;
@@ -715,7 +718,8 @@ select {
 .secondsquare {
     top: 500px
 }
-.iconBird{
+
+.iconBird {
     position: absolute;
     width: 100px;
     height: 100px;

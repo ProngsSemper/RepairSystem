@@ -10,7 +10,6 @@ import com.repairsys.dao.impl.developer.DeveloperDao;
 import com.repairsys.dao.impl.file.FileDaoImpl;
 import com.repairsys.dao.impl.form.FormDaoImpl;
 import com.repairsys.dao.impl.form.FormListDaoImpl;
-import com.repairsys.dao.impl.worker.RecommendWorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerDaoImpl;
 import com.repairsys.dao.impl.worker.WorkerListDaoImpl;
 import com.repairsys.service.FormService;
@@ -35,84 +34,69 @@ import java.util.List;
 public class DbTest {
 
     @Test
-    public void getter(){
+    public void getter() {
         List<RecommendedWorker> list = WorkerScheule.getInstance().recommendByAppointmemntPlusPlus(new Date(System.currentTimeMillis())
-        ,9,"木工","北"
+                , 9, "木工", "北"
         );
-        list.forEach(i-> System.out.println(i.getwKey()));
-
+        list.forEach(i -> System.out.println(i.getwKey()));
 
     }
 
     //注册管理员用户
     @Test
-    public void register()
-    {
-        AdminDaoImpl.getInstance().registerPlus("lyr","lyr","lyr","1957476540@qq.com");
-        AdminDaoImpl.getInstance().registerPlus("LYR","LYR","LYR","1957476540@qq.com");
-        AdminDaoImpl.getInstance().registerPlus("123","123","123","1957476540@qq.com");
+    public void register() {
+        AdminDaoImpl.getInstance().registerPlus("lyr", "lyr", "lyr", "1957476540@qq.com");
+        AdminDaoImpl.getInstance().registerPlus("LYR", "LYR", "LYR", "1957476540@qq.com");
+        AdminDaoImpl.getInstance().registerPlus("123", "123", "123", "1957476540@qq.com");
 
     }
 
     @Test
-    public void printf()
-    {
+    public void printf() {
         String str = "[\n" +
                 " {\"stuMail\":\"798237844@qq.com\",\"queryCode\":2,\"formId\":146,\"day\":\"06\",\"hour\":\"16\"},\n" +
                 " {\"stuMail\":\"915147193@qq.com\",\"queryCode\":2,\"formId\":149,\"day\":\"05\",\"hour\":\"09\"}\n" +
                 "]";
         System.out.println(str);
-        List<Form> list = JSONObject.parseArray(str,Form.class);
+        List<Form> list = JSONObject.parseArray(str, Form.class);
         System.out.println(list);
-        for(Form i:list)
-        {
+        for (Form i : list) {
             //queryRunner 批处理
         }
 
     }
 
     @Test
-    public void printPath()
-    {
+    public void printPath() {
         String p = "http://localhost:80/";
         String p2 = "F:\\算法\\我的团队项目\\p1\\target\\RepairSystem\\upload\\img\\\\c9c7951d-8e9a-4e71-9ac4-507128d487df无标题.png";
-        String y = p+p2.substring(p2.indexOf("upload"),p2.length());
+        String y = p + p2.substring(p2.indexOf("upload"), p2.length());
         System.out.println(y);
 
     }
 
-
     @Test
-    public void  getpath()
-    {
-        Object t =  FileDaoImpl.getInstance().getImgPath("81");
+    public void getpath() {
+        Object t = FileDaoImpl.getInstance().getImgPath("81");
         System.out.println(t);
     }
 
-
     @Test
     public void getQuery() throws SQLException {
-
-
-
 
         QueryRunner r = new QueryRunner();
         int row = r.update(JdbcUtil.getConnection(),
                 "insert into tes(`name`,`password`,`day`) values('dddtd','dd',CURDATE());");
 
-        System.out.printf("行数:"+row);
+        System.out.printf("行数:" + row);
 
     }
 
     @Test
-    public void updateI()
-    {
-        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(),9,"1");
-        System.out.println(TimeUtil.getTime(1,2));
+    public void updateI() {
+        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(), 9, "1");
+        System.out.println(TimeUtil.getTime(1, 2));
     }
-
-
-
 
     @Test
     public void addForm() {
@@ -180,7 +164,7 @@ public class DbTest {
         // Developer developer = DeveloperDao.getInstance().login("lyr", "");
         // System.out.println(developer);
 
-        DeveloperDao.getInstance().register("181549422","huxi9138" );
+        DeveloperDao.getInstance().register("181549422", "huxi9138");
         System.out.println();
 
     }
@@ -198,45 +182,35 @@ public class DbTest {
     }
 
     @Test
-    public void workerForm(){
+    public void workerForm() {
         Worker worker = WorkerDaoImpl.getInstance().getWorkerKeyById("4566");
         List list = FormListDaoImpl.getInstance().queryAllFormIdByWorkerKey(worker.getwKey(), 1, 5);
         System.out.println(list);
     }
 
-
-
     //-------------------------------
 
-
-
     @Test
-    public void recommend()
-    {
-        WorkerScheule.getInstance().recommendByAppointmemntPlus(new Date(System.currentTimeMillis()),9,"木工");
+    public void recommend() {
+        WorkerScheule.getInstance().recommendByAppointmemntPlus(new Date(System.currentTimeMillis()), 9, "木工");
     }
 
-
     @Test
-    public void test33()
-    {
+    public void test33() {
         // List<ExcelTable> list = WorkerTableImpl.getInstance().getTable();
         // System.out.println(list);
         ExcelServiceImpl.getInstance().exportOneByOne(new Result());
     }
 
     @Test
-    public void printTime()
-    {
-        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(),9,"1");
+    public void printTime() {
+        WorkerScheule.getInstance().setTime(TimeUtil.getCurTime(), 9, "1");
 
     }
 
-
     @Test
-    public void printTest()
-    {
-    //    upload
+    public void printTest() {
+        //    upload
         FileDaoImpl dao = FileDaoImpl.getInstance();
         LinkedList<String> list = new LinkedList();
         list.add("123");
@@ -247,17 +221,9 @@ public class DbTest {
     }
 
     @Test
-    public void print()
-    {
+    public void print() {
         Calendar c = Calendar.getInstance();
         System.out.println(c.getTime().getDay());
     }
-
-
-
-
-
-
-
 
 }

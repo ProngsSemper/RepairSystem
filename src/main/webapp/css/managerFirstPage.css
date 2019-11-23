@@ -1,60 +1,71 @@
-*{
+* {
     margin: 0;
     padding: 0;
     text-decoration: none;
     list-style: none;
 }
-body{
+
+body {
     background: #f3edea;
 }
-.tit{
+
+.tit {
     height: 80px;
     width: 980px;
     margin: 0 auto;
 }
-.logo{
+
+.logo {
     position: relative;
     /* top: -20px; */
     margin: 20px 0 0 10px;
     height: 60px;
 }
-.name{
+
+.name {
     position: relative;
     top: -15px;
     margin-top: 30px;
     margin-left: 10px;
     width: 200px;
 }
-.contant{
+
+.contant {
     margin: 80px auto 150px;
     overflow: hidden;
 }
-.insideBox{
+
+.insideBox {
     margin: 0 auto;
     width: 980px;
 }
-.category{
+
+.category {
     float: left;
     margin: 0 61px;
     border: 2px #ffffff solid;
     width: 200px;
     height: 250px;
 }
-.category .icon{
+
+.category .icon {
     display: block;
     margin: 5px auto;
     width: 150px;
     cursor: pointer;
 }
-.category .change{
+
+.category .change {
     margin: 7px auto;
 }
-.studentleave{
+
+.studentleave {
     display: block;
-    margin: 30px auto 35px ;
+    margin: 30px auto 35px;
     width: 100px;
 }
-.category .inside-tit{
+
+.category .inside-tit {
     margin: 10px auto 0;
 
     font-size: 30px;
@@ -62,14 +73,16 @@ body{
     text-align: center;
 
 }
-.footer{
+
+.footer {
     position: relative;
     height: 150px;
     width: 100%;
     margin: 0 auto 0;
     background: #fff;
 }
-.footer .circle{
+
+.footer .circle {
     position: absolute;
     top: -50px;
     left: 50%;
@@ -79,12 +92,14 @@ body{
     width: 100px;
     height: 100px;
 }
-.footer .circle img{
+
+.footer .circle img {
     display: block;
-    margin:0px auto 0;
+    margin: 0px auto 0;
     width: 100px;
 }
-.footer .titName{
+
+.footer .titName {
     position: absolute;
     top: 60px;
     left: 50%;

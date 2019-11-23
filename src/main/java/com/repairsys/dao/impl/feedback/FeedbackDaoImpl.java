@@ -5,8 +5,6 @@ import com.repairsys.dao.BaseDao;
 import com.repairsys.dao.FeedbackDao;
 import com.repairsys.util.db.JdbcUtil;
 
-import java.sql.Connection;
-
 /**
  * @author Prongs
  * @date 2019/10/30 10:57
@@ -31,6 +29,6 @@ public class FeedbackDaoImpl extends BaseDao<Feedback> implements FeedbackDao {
 
     @Override
     public void createFeedback(String stuId, String stuName, String stuPhone, String msg) {
-        addOne(JdbcUtil.getConnection(),CREATE_FEEDBACK,stuId,stuName,stuPhone,msg);
+        addOne(JdbcUtil.getConnection(), CREATE_FEEDBACK, stuId, stuName, stuPhone, msg);
     }
 }

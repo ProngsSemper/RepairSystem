@@ -1,42 +1,49 @@
-*{
+* {
     padding: 0;
     margin: 0;
     text-decoration: none;
     list-style: none;
 }
-html{
+
+html {
     background: #fcf9f5;
 }
-.main{
+
+.main {
     display: flex;
     height: auto;
     width: 1535px;
     margin: 0 auto;
 }
-.leftNav{
+
+.leftNav {
     width: 250px;
     border-radius: 5px;
     height: 720px;
     background: #8e0b02;
 }
-.protrait{
+
+.protrait {
     display: block;
     margin: 20px auto 0;
     width: 120px;
 }
-.leftNav .navImg{
+
+.leftNav .navImg {
     display: inline-block;
     margin: 28px 20px 20px 40px;
     width: 60px;
     vertical-align: middle;
     cursor: pointer;
 }
-.split{
+
+.split {
     /* height: 20px; */
     position: relative;
     background: #8e0b02;
 }
-.order-tit{
+
+.order-tit {
     display: inline-block;
     margin-top: 16px;
     font-size: 18px;
@@ -44,7 +51,8 @@ html{
     color: #fff;
     text-align: center;
 }
-.rightTit{
+
+.rightTit {
     position: relative;
     flex-wrap: nowrap;
     width: 1320px;
@@ -54,7 +62,8 @@ html{
     background-repeat: no-repeat;
     background-position: 187px;
 }
-.box{
+
+.box {
     flex-wrap: nowrap;
     display: flex;
     justify-content: space-between;
@@ -62,7 +71,8 @@ html{
     overflow: hidden;
     width: 1320px;
 }
-.leftBox{
+
+.leftBox {
     /* float: right; */
     display: inline-block;
     position: relative;
@@ -71,7 +81,8 @@ html{
     flex-wrap: nowrap;
     /* background: #000; */
 }
-.iconHi{
+
+.iconHi {
     position: absolute;
     top: 22px;
     left: -35px;
@@ -80,27 +91,32 @@ html{
     background-image: url(../img/hi.png);
     background-size: contain;
 }
-.left-tit{
+
+.left-tit {
     display: inline-block;
     height: 70px;
     line-height: 70px;
 }
-.dateTime{
+
+.dateTime {
     display: inline-block;
     margin-left: 40px;
     height: 70px;
     line-height: 70px;
     /* font-weight: bold; */
 }
-.rightBox{
+
+.rightBox {
     margin-right: 139px;
 
 }
-.rightBox img{
+
+.rightBox img {
     align-items: center;
     height: 70px;
 }
-.title{
+
+.title {
     display: inline-block;
     font-size: 25px;
     line-height: 70px;
@@ -108,21 +124,24 @@ html{
     top: -20px;
     left: -10px;
 }
-.search{
+
+.search {
     /* background: #fcf9f5; */
     height: 100px;
 }
 
-select{
+select {
     width: 130px;
     height: 40px;
     font-size: 18px;
     color: inherit;
 }
-option{
+
+option {
     height: 40px;
 }
-.searchInput{
+
+.searchInput {
     position: relative;
     top: -1px;
     left: -5px;
@@ -130,7 +149,8 @@ option{
     height: 36px;
     font-size: 18px;
 }
-.iconSearch{
+
+.iconSearch {
     position: relative;
     top: 13px;
     left: -10px;
@@ -146,24 +166,30 @@ option{
     color: inherit;
     cursor: pointer;
 }
-.searchBox button:focus{
-    outline:none;
+
+.searchBox button:focus {
+    outline: none;
     border: none;
 }
-.searchBox input:focus{
+
+.searchBox input:focus {
     outline-color: #8e0b02;
 }
+
 .bg-purple-dark {
     color: #333;
     /* background: #7f92ac; */
 }
+
 .bg-purple {
     /* background: #d3dce6; */
 
 }
+
 .bg-purple-light {
     /* background: #e5e9f2; */
 }
+
 .grid-content {
     /* border-radius: 4px; */
     border-bottom: 1px solid #888;
@@ -172,6 +198,7 @@ option{
     width: 1078px;
     margin: 0 auto;
 }
+
 .finishgrid-content {
     min-height: 36px;
     display: flex;
@@ -179,85 +206,97 @@ option{
     margin: 0 auto;
     border-bottom: 1px solid;
 }
+
 .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
 }
-.contant{
+
+.contant {
     text-align: center;;
     /* background: #fff; */
-    justify-content:center;
+    justify-content: center;
     width: 450px;
-    flex-wrap:nowrap;
+    flex-wrap: nowrap;
     line-height: 36px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 1;
     overflow: hidden;
 }
-.checkDiv{
+
+.checkDiv {
     width: 30px;
 }
-.check{
+
+.check {
     width: 30px;
     height: 20px;
     margin: 8px;
 }
-.formId{
+
+.formId {
     width: 100px;
     text-align: center;;
     /* background: #fff; */
-    justify-content:center;
+    justify-content: center;
     /* width: 200px; */
-    flex-wrap:nowrap;
+    flex-wrap: nowrap;
     line-height: 36px;
 }
-.formNumber{
+
+.formNumber {
     width: 150px;
     text-align: center;;
     /* background: #fff; */
-    justify-content:center;
+    justify-content: center;
     /* width: 200px; */
-    flex-wrap:nowrap;
+    flex-wrap: nowrap;
     line-height: 36px;
 }
-.operate{
+
+.operate {
     width: 100px;
     text-align: center;;
     /* background: #fff; */
-    justify-content:center;
+    justify-content: center;
     /* width: 200px; */
-    flex-wrap:nowrap;
+    flex-wrap: nowrap;
     line-height: 36px;
 }
-.adress{
+
+.adress {
     width: 150px;
     text-align: center;;
     /* background: #fff; */
-    justify-content:center;
+    justify-content: center;
     /* width: 200px; */
-    flex-wrap:nowrap;
+    flex-wrap: nowrap;
     line-height: 36px;
 }
-.searchBox{
+
+.searchBox {
     position: relative;
     display: inline-block;
     top: 20px;
     left: 100px;
     width: 530px;
 }
-.tableBox{
+
+.tableBox {
     border: 1px solid #333;
     border-bottom: none;
     margin: 20px auto 0;
     width: 1078px;
 }
-.page{
+
+.page {
     display: flex;
     justify-content: flex-end;
     width: 1000px;
 }
-.page-number{
+
+.page-number {
     display: inline-block;
     padding: 0 5px;
     border: 1px solid #373737;
@@ -266,22 +305,25 @@ option{
     color: #000;
     cursor: pointer;
 }
-.page>.cur{
+
+.page > .cur {
     color: #fff;
     background: #8e0b02;
 }
-.grid-content:hover{
+
+.grid-content:hover {
     /* width: 1000px; */
     margin: 0 auto;
     /* transform: .6s; */
 }
-.operatrContant{
+
+.operatrContant {
     height: auto;
     position: relative;
     /* background: #f20; */
 }
 
-.orderInside{
+.orderInside {
     margin: 0px auto 0px;
     width: 600px;
     height: 650px;
@@ -290,26 +332,31 @@ option{
     background-size: 90%;
     background-repeat: no-repeat;
 }
-.ordertit{
-    margin: 10px 0 ;
+
+.ordertit {
+    margin: 10px 0;
     background: #fff;
 }
-.ordertit img{
+
+.ordertit img {
     width: 50px;
     vertical-align: middle;
 }
-.ordertit span{
+
+.ordertit span {
     margin: 0 0 0 5px;
     color: #f99b3f;
 }
-.orderInformation{
+
+.orderInformation {
     position: relative;
     top: 10px;
     border-radius: 20px;
     height: 550px;
     /* background: #eee; */
 }
-.orderInsideBox{
+
+.orderInsideBox {
     position: relative;
     top: 25px;
     margin: 0px auto;
@@ -318,22 +365,26 @@ option{
     overflow: auto;
     /* background: #000; */
 }
-.orderInsideBox p{
+
+.orderInsideBox p {
     margin: 10px 0 0 18px;
     max-width: 450px;
 }
-.orderInsideBox img{
+
+.orderInsideBox img {
     margin: 20px;
     width: 300px;
     vertical-align: top;
 }
-.footButton{
+
+.footButton {
     display: flex;
     justify-content: center;
     width: 550px;
     /* margin: 145px 0 0px 0; */
 }
-.Button{
+
+.Button {
     position: relative;
     border: none;
     border-radius: 10px;
@@ -343,16 +394,19 @@ option{
     margin: 0 10px;
     cursor: pointer;
 }
-button:focus{
+
+button:focus {
     outline: none;
     /* outline-color: #8e0b02;; */
     /* border-radius: 10px; */
 }
-.Button span{
+
+.Button span {
     color: #fff;
     margin-left: 20px;
 }
-.iconfinfish{
+
+.iconfinfish {
     position: absolute;
     left: 25px;
     top: 4px;
@@ -362,7 +416,8 @@ button:focus{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.iconWrong{
+
+.iconWrong {
     position: absolute;
     left: 23px;
     top: 3px;
@@ -372,18 +427,21 @@ button:focus{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.finish{
+
+.finish {
     position: relative;
     top: -50px;
     /* width: 800px; */
     height: auto;
     /* background: #000; */
 }
-.order{
+
+.order {
     position: relative;
     height: auto;
 }
-.returntable{
+
+.returntable {
     display: none;
     position: absolute;
     width: 50px;
@@ -393,7 +451,8 @@ button:focus{
     background-image: url(../img/pointReturn.png);
     background-size: contain;
 }
-.bye{
+
+.bye {
     position: absolute;
     top: 20px;
     right: 10px;
@@ -403,32 +462,37 @@ button:focus{
     background-size: contain;
     cursor: pointer;
 }
-.firstComment{
+
+.firstComment {
     margin-top: 20px;
     margin-left: 20px;
 }
-.comment-tit{
+
+.comment-tit {
     display: inline-block;
     /* padding: 10px; */
     margin: 5px 0 0 43px;
     color: #fff;
     font-size: 20px;
 }
-.percentage{
+
+.percentage {
     text-align: center;
     font-size: 23px;
     color: #fff;
     /*cursor: pointer;*/
     display: inline-block;
 }
-.historyNotice{
+
+.historyNotice {
     position: absolute;
     width: 100%;
     height: 1010px;
     background: rgba(0, 0, 0, 0.54);
     z-index: 10;
 }
-.historyBox{
+
+.historyBox {
     position: relative;
     /* top: 50%; */
     /* margin-top: -300px; */
@@ -437,7 +501,8 @@ button:focus{
     height: 570px;
     background: #ffffffd9;
 }
-.history-cha{
+
+.history-cha {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -447,7 +512,8 @@ button:focus{
     background-size: contain;
     cursor: pointer;
 }
-.history-tit{
+
+.history-tit {
     display: block;
     /* position: absolute;
     top: 20px; */
@@ -457,7 +523,8 @@ button:focus{
     font-weight: bold;
     color: #333;
 }
-.historyContant{
+
+.historyContant {
     margin: 0 auto 20px;
     width: 700px;
     height: 420px;
@@ -469,18 +536,21 @@ button:focus{
     background-repeat: no-repeat;
     background-size: contain;
 }
-.history-page{
+
+.history-page {
     float: right;
     margin-right: 100px;
 }
-.history-Number{
+
+.history-Number {
     background: seagreen;
     color: #fff;
     padding: 0px 5px;
     font-size: 20px;
     margin: 5px;
 }
-.boardMsg{
+
+.boardMsg {
     display: inline-block;
     width: 680px;
     padding: 0 10px;
@@ -489,7 +559,8 @@ button:focus{
     min-height: 30px;
     color: #333;
 }
-.his-date{
+
+.his-date {
     display: inline-block;
     width: 170px;
     text-align: center;
@@ -497,28 +568,33 @@ button:focus{
     min-height: 30px;
     /* height: 300px; */
 }
-.historyInside{
+
+.historyInside {
     /* background: #eee; */
     border-bottom: 1px solid #888;
     margin: 10px 0;
 }
-.finishtableBox{
+
+.finishtableBox {
     margin: 50px auto 0;
 }
 
-.batchBox{
+.batchBox {
     width: 1092px;
     margin: 0 auto;
 }
-.selectAll{
+
+.selectAll {
     width: 30px;
     height: 15px;
 }
-.selectFinish{
+
+.selectFinish {
     height: 25px;
     margin: 0 0 0 5px;
 }
-.goodEvaluation{
+
+.goodEvaluation {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -528,14 +604,16 @@ button:focus{
     background-size: contain;
     background-repeat: no-repeat;
 }
-.lookComment{
+
+.lookComment {
     display: block;
     margin-top: 10px;
     text-align: center;
     font-size: 18px;
     color: #6b9bdc;
 }
-.returnLast{
+
+.returnLast {
     position: absolute;
     width: 100px;
     top: -14px;
@@ -546,6 +624,7 @@ button:focus{
     background-repeat: no-repeat;
     cursor: pointer;
 }
-.switchBox{
+
+.switchBox {
     cursor: pointer;
 }

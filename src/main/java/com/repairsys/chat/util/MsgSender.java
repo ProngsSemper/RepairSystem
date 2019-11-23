@@ -36,26 +36,21 @@ public final class MsgSender {
 
     // public static JSONObject.
 
-
     /**
-     *
      * jsonObject 包装类
-     *
-     * */
+     */
     public static class MessagePack {
         JSONObject jsonObject = new JSONObject();
 
         public MessagePack() {
         }
 
-
         public MessagePack add(String k, Object v) {
             jsonObject.put(k, v);
             return this;
         }
 
-        public JSONObject getJsonObject()
-        {
+        public JSONObject getJsonObject() {
             return this.jsonObject;
         }
 
@@ -70,10 +65,9 @@ public final class MsgSender {
         }
     }
 
-
     /**
      * @param phoneMap 搜索的 哈希表
-     * @param jsonMsg 发来的 json字符串
+     * @param jsonMsg  发来的 json字符串
      */
     public static void broadCast(Map<String, User> phoneMap, String jsonMsg) {
         if (phoneMap.isEmpty()) {
@@ -87,7 +81,5 @@ public final class MsgSender {
         });
 
     }
-
-
 
 }
