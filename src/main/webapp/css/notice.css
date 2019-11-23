@@ -15,7 +15,7 @@ html{
 }
 .noticeBox{
     position: relative;
-    margin: 0 auto;
+    margin: 10px auto 0;
     width: 1260px;
     height: 100%;
     /* background: #000; */
@@ -26,11 +26,15 @@ html{
 }
 .noticeInside{
     position: relative;
-    margin: 80px auto 0;
+    margin: 130px auto 0;
     width: 500px;
     border-radius: 5px;
     height: 430px;
-    background: #8e0b02;
+    /* background: #8e0b02; */
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-image: url(../img/print.png);
 }
 .notice-tit{
     /* position: relative; */
@@ -42,13 +46,17 @@ html{
     line-height: 30px;
 }
 .textArea{
+    position: absolute;
     display: block;
-    margin: 10px auto;
-    width: 415px;
+    top: -48px;
+    left: 84px;
+    /* margin: 10px auto 0; */
+    width: 311px;
     height: 288px;
     resize: none;
     font-size: 22px;
     padding: 10px;
+    /* position: absolute; */
 }
 .sure{
     display: block;
