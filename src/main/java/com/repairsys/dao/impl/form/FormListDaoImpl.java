@@ -6,7 +6,6 @@ import com.repairsys.dao.PageDao;
 import com.repairsys.util.db.JdbcUtil;
 import com.repairsys.util.easy.EasyTool;
 
-
 import java.util.List;
 
 /**
@@ -315,8 +314,8 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
     }
 
     public int getAllAdminCompleteCountByLocation(String location) {
-        String rex= "where room like '%" + location + "%' AND queryCode <> 0";
-        return super.getCount(JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where",rex));
+        String rex = "where room like '%" + location + "%' AND queryCode <> 0";
+        return super.getCount(JdbcUtil.getConnection(), COUNT_SQL.replaceAll("where", rex));
     }
 
     public int getAllCountByStudentId(String studentId) {
@@ -353,7 +352,7 @@ public final class FormListDaoImpl extends FormDaoImpl implements PageDao<List<F
         int[] ans = EasyTool.getLimitNumber(page, size);
         String sql = ADMIN_INCOMPLETE_FORM;
         if (!(super.selectList(JdbcUtil.getConnection(), QUERY_LEVEL).isEmpty())) {
-            String rex = "ORDER BY LEVEL limit";
+            String rex = "ORDER BY LEVEL,formDate limit";
             sql = sql.replaceAll("limit", rex);
         }
         return super.selectList(JdbcUtil.getConnection(), sql, ans[0], ans[1]);
