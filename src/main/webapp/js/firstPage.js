@@ -287,6 +287,15 @@ $("body").delegate(".finish", "click", function () {
     if (judge) {
         insureFinish(formId);
         gerRepairOrder(page);
+        var pageNum = document.getElementsByClassName("page-number");
+        for (var i = 0; i < pageNum.length; i++) {
+            pageNum[i].className = "page-number";
+        }
+        for (var i = 0; i < pageNum.length; i++) {
+            if ($(".page-number").eq(i).html() == page) {
+                $(".page-number").eq(i).addClass("cur")
+            }
+        }
     }
     // alert(formId);
     return false;
@@ -714,10 +723,10 @@ function IsEmail(str) {
 }
 
 //给进度查询中的确认完成按钮添加节流
-var finishButton = document.getElementsByClassName("finish");
-for (var i = 0; i < finishButton.length; i++) {
-    finishButton[i].onclick = throttle(insureFinish, 5000, 1);
-}
+// var finishButton = document.getElementsByClassName("finish");
+// for (var i = 0; i < finishButton.length; i++) {
+//     finishButton[i].onclick = throttle(insureFinish, 5000, 1);
+// }
 //给进度查询中的一键再修中的确认按钮添加节流
 // var againButton = document.getElementsByClassName("againInsure");
 // for (var i = 0; i < againButton.length; i++) {
