@@ -255,21 +255,29 @@ function getFormDetail(formId) {
 
 //监听点击完成按钮
 $("body").delegate('.finishButton', 'click', function () {
+    var judge=confirm("是否确认完成");
     var stuMailBox = document.getElementsByClassName("orderInsideBox")[0];
     var stuMail = stuMailBox.getElementsByTagName("p")[3].innerText.split("：")[1];
     var appointDate = stuMailBox.getElementsByTagName("p")[6].innerText.split("：")[1].split(" ")[0];
     var appointment = stuMailBox.getElementsByTagName("p")[6].innerText.split("：")[1].split(" ")[1].split("点")[0];
-    finishButton(formId, stuMail, appointDate, appointment);
-    getMsg(1);
+    if(judge){
+        finishButton(formId, stuMail, appointDate, appointment);
+        getMsg(1);
+
+    }
 });
 //监听异常按钮
 $("body").delegate('.wrongButton', 'click', function () {
+    var judge=confirm("是否确认异常");
     var stuMailBox = document.getElementsByClassName("orderInsideBox")[0];
     var stuMail = stuMailBox.getElementsByTagName("p")[3].innerText.split("：")[1];
     var appointDate = stuMailBox.getElementsByTagName("p")[6].innerText.split("：")[1].split(" ")[0];
     var appointment = stuMailBox.getElementsByTagName("p")[6].innerText.split("：")[1].split(" ")[1].split("点")[0];
-    wrongButton(formId, stuMail, appointDate, appointment);
-    getMsg(1);
+    if(judge){
+        wrongButton(formId, stuMail, appointDate, appointment);
+        getMsg(1);
+    }
+
 });
 
 function searchFormId(formId) {

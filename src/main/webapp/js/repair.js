@@ -273,9 +273,25 @@ $("body").delegate('input[name="worke"]', 'click', function () {
     // alert(workeNumber);
 })
 //监听安排工人按钮
-$("body").delegate('.arrangeWroker', 'click', function () {
-    arrangeWorker(formId, workeNumber);
-});
+// $("body").delegate('.arrangeWroker', 'click', function () {
+    // arrangeWorker(formId, workeNumber);
+    var isClick = true;
+    $(".arrangeWroker").on("click",function(){
+        if(isClick) {
+            isClick = false;
+            //事件
+            // throttle(arrangeWorker(formId, workeNumber),5000,2);
+            arrangeWorker(formId, workeNumber)
+            // console.log($(this).attr("data-val"));
+            //定时器
+            setTimeout(function() {
+                isClick = true;
+            }, 3000);//一秒内不能重复点击
+        }
+    });
+
+// });
+
 var dealOrder = document.getElementsByClassName("dealOrder")[0];
 var success = document.getElementsByClassName("success")[0];
 var successback = document.getElementsByClassName("successback")[0];

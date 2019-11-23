@@ -360,6 +360,7 @@ button:focus{
     height: 30px;
     background-image: url(../img/weixiu.png);
     background-size: contain;
+    background-repeat: no-repeat;
 }
 .iconWrong{
     position: absolute;
@@ -369,6 +370,7 @@ button:focus{
     height: 30px;
     background-image: url(../img/gaojingxinxi.png);
     background-size: contain;
+    background-repeat: no-repeat;
 }
 .finish{
     position: relative;

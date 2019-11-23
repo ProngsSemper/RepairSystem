@@ -60,77 +60,73 @@ function load() {
 }
 
 $(document).ready(function () {
-    $('#login').click(
-        function () {
+    // $('#login').click()
+    // $("body").delegate("#login","click",function(){
+    //     //给登录按钮添加节流
+    //     throttle(submitted,3000,1)
+    // })
+    var load=document.getElementById("login");
+    load.onclick=throttle(submitted,3000,1);
+    function submitted() {
 
-            //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
-            var radio = $("input[name='identity']:checked").val();
-            var vcode = $('#myCode').val();
-            var flag;
-            var judge=remmber.checked;
-            if(judge){
-                flag=1;
-            }
-            else{
-                flag=0;
-            }
-            // document.write(_LoadingHtml);
-            // window.setTimeout(load,3000);
+        //lyr添加的,不要改变位置，放到最上面的是加载时刻获得的，需要点击的时候更新和获取值
+        var radio = $("input[name='identity']:checked").val();
+        var vcode = $('#myCode').val();
+        var flag;
+        var judge=remmber.checked;
+        if(judge){
+            flag=1;
+        }
+        else{
+            flag=0;
+        }
+        // document.write(_LoadingHtml);
+        // window.setTimeout(load,3000);
 
-            $.ajax({
-                type: "POST",
-                url: "/user/login",
-                dataType: "json",
-                async: false,
-                data: JSON.stringify({
-                    // "id": Name.value,
-                    // "password": Password.value,
-                    "id": $('#id').val(),
-                    "password": $('#password').val(),
-                    'radio': radio,
-                    'vcode': vcode,
-                    'flag':parseInt(flag)
-                }),
-                success: function (data, status, jqXHR) {
-                    // var rel = JSON.parse(msg);
-                    var rel = data;
+        $.ajax({
+            type: "POST",
+            url: "/user/login",
+            dataType: "json",
+            async: false,
+            data: JSON.stringify({
+                // "id": Name.value,
+                // "password": Password.value,
+                "id": $('#id').val(),
+                "password": $('#password').val(),
+                'radio': radio,
+                'vcode': vcode,
+                'flag':parseInt(flag)
+            }),
+            success: function (data, status, jqXHR) {
+                // var rel = JSON.parse(msg);
+                var rel = data;
 
-                    if (rel.code === 200) {
+                if (rel.code === 200) {
 
-                        refreshCode();
-                        var identity = jqXHR.getResponseHeader('identity');
-                        cartoon.style.display = "block";
-                        if (identity == 'student') {
-                            window.setTimeout("window.location.href='/firstPage.html'", 1000);
-                        } else if (identity == 'admin') {
-                            window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
-                        } else if (identity == 'worker') {
-                            window.setTimeout("window.location.href='/workerPage.html'", 1000);
-                        }
-                    } else if(rel.code==403) {
-                        alert("验证码错误");
-                        refreshCode();
-                    }else{
-                        alert("用户名或密码错误");
-                        refreshCode();
+                    refreshCode();
+                    var identity = jqXHR.getResponseHeader('identity');
+                    cartoon.style.display = "block";
+                    if (identity == 'student') {
+                        window.setTimeout("window.location.href='/firstPage.html'", 1000);
+                    } else if (identity == 'admin') {
+                        window.setTimeout("window.location.href='/managerFirstPage.html'", 500);
+                    } else if (identity == 'worker') {
+                        window.setTimeout("window.location.href='/workerPage.html'", 1000);
                     }
-                },
-                error: function (xhr) {
-                    alert(xhr.status + "error");
+                } else if(rel.code==403) {
+                    alert("验证码错误");
+                    refreshCode();
+                }else{
+                    alert("用户名或密码错误");
+                    refreshCode();
                 }
+            },
+            error: function (xhr) {
+                alert(xhr.status + "error");
+            }
 
-            });
-        })
+        });
+    }
+        
 });
-
-
-
-
-
-
-
-
-
-
-
 
