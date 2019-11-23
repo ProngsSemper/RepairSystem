@@ -163,8 +163,8 @@ public final class MailUtil {
         //Subject: 邮件主题
         message.setSubject("维修进度", "UTF-8");
         //Content: 邮件正文（可以使用html标签）
-        message.setContent("本次维修因缺少材料或其他问题请同学耐心等待维修师傅下次上门维修，" +
-                "或直接与维修师傅联系，师傅电话：" + tel, "text/html;charset=UTF-8");
+        message.setContent("本次维修因缺少材料或其他原因请同学耐心等待维修师傅下次上门维修，" +
+                "维修师傅联系电话：" + tel + "，或进入报修系统申请一键再修。", "text/html;charset=UTF-8");
         //设置发件时间
         message.setSentDate(new Date());
         //保存设置
