@@ -419,6 +419,10 @@ var returntable = document.getElementsByClassName("returntable");
 $("body").delegate('.iconSearch', 'click', function () {
     if (bigBox.style.display == "block") {
         // alert("按钮已点击");
+        if (formIdInput.value == "") {
+            alert("请输入内容");
+            return;
+        }
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
@@ -439,6 +443,10 @@ $("body").delegate('.iconSearch', 'click', function () {
         }
 
     } else {
+        if (formIdInput.value == "") {
+            alert("请输入内容");
+            return;
+        }
         if (searchContant.value == "报修单号") {
             // alert("按报修单号搜索");
             // alert(formIdInput.value);
@@ -457,6 +465,7 @@ $("body").delegate('.iconSearch', 'click', function () {
         } else {
             alert("请选择搜索范围");
         }
+
     }
 });
 //监听点击页码操作
